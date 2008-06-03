@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gr.sch.ira.minoas.model;
+package gr.sch.ira.minoas.model.core;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,12 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 
 /**
- * @author slavikos
+ * 
+ * @author 
  *
  */
 @Entity
 @Table(schema="dbo", name = "YPHRESIA")
-public class Unit {
+public class OrganizationUnit {
 	@Id
 	@Column(name="KY")
 	private Long id;

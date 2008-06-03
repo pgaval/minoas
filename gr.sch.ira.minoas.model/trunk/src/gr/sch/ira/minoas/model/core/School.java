@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gr.sch.ira.minoas.model;
+package gr.sch.ira.minoas.model.core;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -12,6 +12,7 @@ import static javax.persistence.FetchType.LAZY;
 import javax.persistence.JoinColumn;
 
 /**
+ * A class representing a school registered in the system. Each school 
  * @author slavikos
  *
  */
@@ -28,9 +29,9 @@ public class School {
 	@Column(name="KOD_SXOLEIOY")
 	private Long ministryCode;
 	
-	@OneToOne(fetch=LAZY, targetEntity = gr.sch.ira.minoas.model.Unit.class)
+	@OneToOne(fetch=LAZY, targetEntity = gr.sch.ira.minoas.model.core.OrganizationUnit.class)
 	@JoinColumn(name="KY", referencedColumnName = "KY")
-	private Unit unit;
+	private OrganizationUnit unit;
 	/**
 	 * @return the id
 	 */
@@ -82,13 +83,13 @@ public class School {
 	/**
 	 * @return the unit
 	 */
-	public Unit getUnit() {
+	public OrganizationUnit getUnit() {
 		return unit;
 	}
 	/**
 	 * @param unit the unit to set
 	 */
-	public void setUnit(Unit unit) {
+	public void setUnit(OrganizationUnit unit) {
 		this.unit = unit;
 	}
 }
