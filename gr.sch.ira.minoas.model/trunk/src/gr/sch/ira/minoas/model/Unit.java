@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gr.dide.ira.entities;
+package gr.sch.ira.minoas.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

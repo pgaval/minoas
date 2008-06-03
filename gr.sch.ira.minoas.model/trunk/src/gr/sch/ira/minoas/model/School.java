@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gr.dide.ira.entities;
+package gr.sch.ira.minoas.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -28,7 +28,7 @@ public class School {
 	@Column(name="KOD_SXOLEIOY")
 	private Long ministryCode;
 	
-	@OneToOne(fetch=LAZY, targetEntity = gr.dide.ira.entities.Unit.class)
+	@OneToOne(fetch=LAZY, targetEntity = gr.sch.ira.minoas.model.Unit.class)
 	@JoinColumn(name="KY", referencedColumnName = "KY")
 	private Unit unit;
 	/**
