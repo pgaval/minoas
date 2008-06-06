@@ -15,11 +15,11 @@ import gr.sch.ira.minoas.model.core.Specialization;
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  *
  */
-public class Voids {
+public class TeachingRequirement {
 	/**
 	 * Teaching hours required to fill the void/
 	 */
-	private Long teachingHours;
+	private Long hours;
 	/**
 	 * The specialisation of the void.
 	 */
@@ -34,21 +34,16 @@ public class Voids {
 	 */
 	private Date insertedOn;
 	/**
-	 * The name of the realm created and inserted 
-	 * the void in the system.
-	 */
-	private String createdBy;
-	/**
 	 * @return the teachingHours
 	 */
-	public Long getTeachingHours() {
-		return teachingHours;
+	public Long getHours() {
+		return hours;
 	}
 	/**
 	 * @param teachingHours the teachingHours to set
 	 */
-	public void setTeachingHours(Long teachingHours) {
-		this.teachingHours = teachingHours;
+	public void setHours(Long teachingHours) {
+		this.hours = teachingHours;
 	}
 	/**
 	 * @return the specialisation
@@ -85,17 +80,5 @@ public class Voids {
 	 */
 	public void setInsertedOn(Date insertedOn) {
 		this.insertedOn = insertedOn;
-	}
-	/**
-	 * @return the createdBy
-	 */
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	/**
-	 * @param createdBy the createdBy to set
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
 	}
 }
