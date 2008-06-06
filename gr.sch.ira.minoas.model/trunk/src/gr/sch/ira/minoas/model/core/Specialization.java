@@ -3,6 +3,8 @@
  */
 package gr.sch.ira.minoas.model.core;
 
+import gr.sch.ira.minoas.model.BaseModel;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
@@ -15,7 +17,9 @@ import javax.persistence.Column;
  */
 @Entity
 @Table(schema="dbo", name = "EIDIK")
-public class Specialization {
+public class Specialization extends BaseModel {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@Column(name="EID")

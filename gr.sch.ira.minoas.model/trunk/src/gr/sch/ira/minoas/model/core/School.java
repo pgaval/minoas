@@ -3,6 +3,8 @@
  */
 package gr.sch.ira.minoas.model.core;
 
+import gr.sch.ira.minoas.model.BaseModel;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
@@ -18,7 +20,10 @@ import javax.persistence.JoinColumn;
  */
 @Entity
 @Table(schema="dbo", name = "SXOLEIA")
-public class School {
+public class School extends BaseModel {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@Column(name="KVDSX")
 	private Long id;

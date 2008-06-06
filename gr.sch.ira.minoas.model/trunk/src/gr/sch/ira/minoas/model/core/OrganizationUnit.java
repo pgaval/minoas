@@ -3,6 +3,10 @@
  */
 package gr.sch.ira.minoas.model.core;
 
+import java.util.Collection;
+
+import gr.sch.ira.minoas.model.BaseModel;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
@@ -15,7 +19,10 @@ import javax.persistence.Column;
  */
 @Entity
 @Table(schema="dbo", name = "YPHRESIA")
-public class OrganizationUnit {
+public class OrganizationUnit extends BaseModel {
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@Column(name="KY")
 	private Long id;
@@ -25,6 +32,9 @@ public class OrganizationUnit {
 	private String director;
 	@Column(name="ANAPL")
 	private String secondDirector;
+	
+	private Collection<School> schools;
+	
 	/**
 	 * @return the id
 	 */
@@ -72,5 +82,17 @@ public class OrganizationUnit {
 	 */
 	public void setSecondDirector(String secondDirector) {
 		this.secondDirector = secondDirector;
+	}
+	/**
+	 * @return the schools
+	 */
+	public Collection<School> getSchools() {
+		return schools;
+	}
+	/**
+	 * @param schools the schools to set
+	 */
+	public void setSchools(Collection<School> schools) {
+		this.schools = schools;
 	}
 }

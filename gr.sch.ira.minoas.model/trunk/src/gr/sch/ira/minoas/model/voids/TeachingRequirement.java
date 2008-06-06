@@ -5,17 +5,20 @@ package gr.sch.ira.minoas.model.voids;
 
 import java.util.Date;
 
+import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.Specialization;
 
 /**
- * A class representing a void (expressed in teaching hours) in a concrete
- * school. 
- *  
+ * A class representing teaching hour(s) requirement in a concrete school.
+ *   
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  *
  */
-public class TeachingRequirement {
+public class TeachingRequirement extends BaseModel {
+	
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Teaching hours required to fill the void/
 	 */
@@ -69,16 +72,6 @@ public class TeachingRequirement {
 	public void setSchool(School school) {
 		this.school = school;
 	}
-	/**
-	 * @return the insertedOn
-	 */
-	public Date getInsertedOn() {
-		return insertedOn;
-	}
-	/**
-	 * @param insertedOn the insertedOn to set
-	 */
-	public void setInsertedOn(Date insertedOn) {
-		this.insertedOn = insertedOn;
-	}
+	
+	
 }
