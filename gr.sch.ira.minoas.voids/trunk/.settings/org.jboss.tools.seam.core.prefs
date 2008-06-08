@@ -1,0 +1,17 @@
+#Sun Jun 08 15:21:08 EEST 2008
+action.package=gr.sch.ira.minoas.voids.session
+action.sources=/gr.sch.ira.minoas.voids-ejb/ejbModule
+eclipse.preferences.version=1
+model.package=gr.sch.ira.minoas.voids.entity
+model.sources=/gr.sch.ira.minoas.voids-ejb/ejbModule
+seam.ear.project=gr.sch.ira.minoas.voids-ear
+seam.ejb.project=gr.sch.ira.minoas.voids-ejb
+seam.project.connection.profile=minoas-hsql
+seam.project.deployment.type=ear
+seam.project.settings.version=1.1
+seam.project.web.root.folder=/gr.sch.ira.minoas.voids/WebContent
+seam.runtime.name=jboss-seam-2.0.2.SP1
+seam.test.creating=true
+seam.test.project=gr.sch.ira.minoas.voids-test
+test.package=gr.sch.ira.minoas.voids.test
+test.sources=/gr.sch.ira.minoas.voids-test/test-src
