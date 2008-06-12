@@ -1,0 +1,105 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:messages globalOnly="true" styleClass="message" />
+
+		<rich:panel>
+			<f:facet name="header">Αναζήτηση Σχολικής Μονάδας</f:facet>
+			<s:div>
+			<h:outputText/>
+			Χρησιμοποιήστε την παρακάτω φόρμα για να αναζητήσετε την σχολική μονάδα της οποίας θέλετε να διαχειριστείτε τα κενά. 
+			</s:div>
+			<h:form id="schoolSearchForm">
+				<fieldset>
+				<h:outputLabel value="Τίτλος Σχολείου : ">
+					
+				</h:outputLabel>
+				<h:inputText value="#{schoolSearch.searchString}" id="searchString"
+					style="width: 165px;">
+					<a:support event="onkeyup"
+						actionListener="#{schoolSearch.performQuery}"
+						reRender="searchResults" />
+				</h:inputText> 
+				<a:status>
+					<f:facet name="start">
+						<h:graphicImage value="/img/spinner.gif" />
+					</f:facet>
+				</a:status> 
+				<div class="actionButtons">
+            	<h:commandButton id="schoolSearch" value="Αναζήτηση!"
+					action="#{schoolSearch.schoolSearch}" />
+				</div>
+					<br/>
+					<h:outputLabel for="pageSize">Αριθμός Αποτελεσμάτων</h:outputLabel>
+					<h:selectOneMenu value="#{schoolSearch.pageSize}" id="pageSize">
+					<f:selectItem itemLabel="5" itemValue="5" />
+					<f:selectItem itemLabel="10" itemValue="10" />
+					<f:selectItem itemLabel="20" itemValue="20" />
+				
+				
+				</h:selectOneMenu>
+					
+				</fieldset>
+				
+			</h:form>
+
+			<a:outputPanel id="searchResults">
+				<div class="section">
+					<h:outputText value="Δεν βρέθηκαν Σχολεία !"
+					rendered="#{schools != null and schools.rowCount==0}" /> 
+					<rich:dataTable id="schools" value="#{schools}" var="school"
+					rendered="#{schools.rowCount>0}"
+					onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="Κωδικός" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="Τίτλος Μονάδας" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="Περιοχή" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+
+					<rich:column>
+						<h:outputText value="#{school.ministryCode}" />
+					</rich:column>
+
+					<rich:column>
+						<s:link id="viewSchoolVoids" value="#{school.title}" action="#{schoolVoidSearch.schoolVoidSearch(school)}" view="/schoolVoidSearch.seam"/>
+					</rich:column>
+
+					<rich:column>
+						<h:outputText value="#{school.regionCode}' ΗΡΑΚΛΕΙΟΥ" />
+					</rich:column>
+
+					
+				</rich:dataTable>
+					
+					
+      <br/>
+      <s:link value="Περισσότερα Αποτελεσμάτα ..."
+					action="#{schoolSearch.nextPage}"
+					rendered="#{schoolSearch.nextPageAvailable}" />
+		</div>
+			</a:outputPanel>
+
+		</rich:panel>
+
+	</ui:define>
+
+</ui:composition>
+

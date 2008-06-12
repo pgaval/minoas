@@ -1,0 +1,77 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a="http://richfaces.org/a4j"
+                template="layout/template.xhtml">
+                       
+<ui:define name="content">
+
+    <h:messages globalOnly="true" styleClass="message"/>
+		<rich:panel>
+		<f:facet name="header">Διαχείριση Σχολικής Μονάδας</f:facet>
+			<h:form id="schoolVoidSearchForm">
+			
+			<a:outputPanel rendered="#{voids.rowCount==0}">
+				<p>
+					Η σχολική μονάδα παρουσιάζει καταχωρημένα κενά ....
+				</p>
+			</a:outputPanel>
+			<a:outputPanel rendered="#{voids.rowCount!=0}">
+				<rich:datascroller align="left" for="voidList" maxPages="20"
+					page="#{schoolVoidSearch.page}" reRender="sc2"
+					id="sc1" />
+				<rich:spacer height="30" />
+				<rich:dataTable id="voidList" var="void" value="#{voids}"
+					onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" rendered="#{voids.rowCount!=0}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="Ειδικότητα" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="Λεκτικό Ειδικότητας" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="Ώρες Συνολικά" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="Λεπτομέριες" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+
+					<rich:column>
+						<h:outputText value="#{void.specialisation.id}" />
+					</rich:column>
+
+					<rich:column>
+						<h:outputText value="#{void.specialisation.title}" />
+					</rich:column>
+
+					<rich:column>
+						<h:outputText value="#{void.hours}" />
+					</rich:column>
+
+					<rich:column>
+						<h:outputText value="Καταχωρήθη στις #{void.insertedOn}" />
+					</rich:column>
+
+				</rich:dataTable>
+				<rich:spacer height="30" />
+				<rich:datascroller align="left" for="voidList" maxPages="20"
+					page="#{schoolVoidSearch.page}" id="sc2" reRender="sc1" />
+				</a:outputPanel>
+			</h:form>
+
+		</rich:panel>
+
+	</ui:define>
+
+</ui:composition>
+
