@@ -5,7 +5,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:rich="http://richfaces.org/rich"
+                xmlns:rich="http://richfaces.org/rich" 
                 xmlns:a="http://richfaces.org/a4j"
                 template="layout/template.xhtml">
                        
@@ -40,9 +40,6 @@
 							<rich:column>
 								<h:outputText value="Ώρες Συνολικά" />
 							</rich:column>
-							<rich:column>
-								<h:outputText value="Λεπτομέριες" />
-							</rich:column>
 						</rich:columnGroup>
 					</f:facet>
 
@@ -57,20 +54,14 @@
 					<rich:column>
 						<h:outputText value="#{void.hours}" />
 					</rich:column>
-
-					<rich:column>
-						<h:outputText value="Καταχωρήθη στις #{void.insertedOn}" />
-					</rich:column>
-
+					
 				</rich:dataTable>
 				<rich:spacer height="30" />
 				<rich:datascroller align="left" for="voidList" maxPages="20"
 					page="#{schoolVoidSearch.page}" id="sc2" reRender="sc1" />
 				</a:outputPanel>
 			</h:form>
-
 		</rich:panel>
-
 	</ui:define>
 
 </ui:composition>
