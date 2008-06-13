@@ -9,6 +9,7 @@ import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 public @Stateless
 class CoreSearchingBean implements CoreSearching {

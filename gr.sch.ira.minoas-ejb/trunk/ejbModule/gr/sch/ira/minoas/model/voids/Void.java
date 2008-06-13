@@ -4,15 +4,18 @@
 package gr.sch.ira.minoas.model.voids;
 
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.FetchType.EAGER;
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.Specialization;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -20,6 +23,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.OneToMany;
+import static javax.persistence.CascadeType.REMOVE;
 
 /**
  * A class representing teaching hour(s) requirement in a concrete school.
@@ -49,27 +54,23 @@ public class Void extends BaseModel {
 	/**
 	 * The specialisation of the void.
 	 */
-	@ManyToOne(optional=true, fetch = LAZY)
+	@ManyToOne(optional=true, fetch = EAGER)
 	@JoinColumn(name="specialisation_id")
 	private Specialization specialisation;
+	
 	/**
 	 * The school where the void exists.
 	 */
-	@ManyToOne(optional=false, fetch = LAZY)
+	@ManyToOne(optional=false, fetch = EAGER)
 	@JoinColumn(name="school_id")
 	private School school;
-	/**
-	 * A date representing when this very void has been 
-	 * inserted to the system.
-	 */
-	@Basic
-	@Column(updatable=false, name = "inserted")
-	private Date insertedOn;
 	
 	@Basic
 	@Column(name="teaching_hours", nullable=true)
 	private Long teachingHours;
 	
+	@OneToMany(cascade=REMOVE, fetch = FetchType.EAGER, mappedBy = "fillingVoid")
+	private Collection<TeachingResource> teachingResources;
 	/**
 	 * @return the teachingHours
 	 */
@@ -118,18 +119,7 @@ public class Void extends BaseModel {
 	public void setId(String id) {
 		this.id = id;
 	}
-	/**
-	 * @return the insertedOn
-	 */
-	public Date getInsertedOn() {
-		return insertedOn;
-	}
-	/**
-	 * @param insertedOn the insertedOn to set
-	 */
-	public void setInsertedOn(Date insertedOn) {
-		this.insertedOn = insertedOn;
-	}
+	
 	/**
 	 * @return the teachingHours
 	 */

@@ -12,4 +12,5 @@ public interface ISearchBean {
 	public int getPage();
 	public void setPage(int page);
 	public void remove();
+	public void performQuery();
 }

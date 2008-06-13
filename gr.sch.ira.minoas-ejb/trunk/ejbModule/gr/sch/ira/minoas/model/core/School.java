@@ -38,6 +38,8 @@ public class School extends BaseModel {
 	@OneToMany(mappedBy="school")
 	private Collection<Void> voids;
 	
+	@OneToMany(mappedBy="school")
+	private Collection<Teacher> teachers;
 	//OneToOne(fetch=LAZY, targetEntity = gr.sch.ira.minoas.model.core.OrganizationUnit.class)
 	//@JoinColumn(name="KY", referencedColumnName = "KY")
 	//private OrganizationUnit unit;
@@ -112,5 +114,17 @@ public class School extends BaseModel {
 	 */
 	public void setVoids(Collection<Void> voids) {
 		this.voids = voids;
+	}
+	/**
+	 * @return the teachers
+	 */
+	public Collection<Teacher> getTeachers() {
+		return teachers;
+	}
+	/**
+	 * @param teachers the teachers to set
+	 */
+	public void setTeachers(Collection<Teacher> teachers) {
+		this.teachers = teachers;
 	}
 }
