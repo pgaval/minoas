@@ -1,9 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
-
-<suite name="SchoolSearch Tests" verbose="2" parallel="false">
-   <test name="SchoolSearch Test">
-     <classes>
-       <class name="gr.sch.ira.minoas.voids.test.SchoolSearchTest"/>       
-     </classes>
-   </test>	
-</suite>
