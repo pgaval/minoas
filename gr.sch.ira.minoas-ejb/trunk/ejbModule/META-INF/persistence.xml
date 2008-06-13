@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Persistence deployment descriptor for dev profile -->
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" 
+             version="1.0">
+             
+   <persistence-unit name="gr.sch.ira.minoas.voids">
+      <provider>org.hibernate.ejb.HibernatePersistence</provider>
+      <jta-data-source>java:/gr.sch.ira.minoas.voidsDatasource</jta-data-source>
+      <class>
+      gr.sch.ira.minoas.model.core.OrganizationUnit</class>
+      <class>
+      gr.sch.ira.minoas.model.core.School</class>
+      <class>
+      gr.sch.ira.minoas.model.core.Specialization</class>
+      <class>
+      gr.sch.ira.minoas.model.voids.Void</class>
+      <properties>
+         <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+         <property name="hibernate.hbm2ddl.auto" value="update"/>
+         <property name="hibernate.show_sql" value="true"/>
+         <property name="hibernate.format_sql" value="true"/>
+         <property name="jboss.entity.manager.factory.jndi.name" value="java:/gr.sch.ira.minoas.voidsEntityManagerFactory"/>
+      </properties>
+   </persistence-unit>
+    
+</persistence>
