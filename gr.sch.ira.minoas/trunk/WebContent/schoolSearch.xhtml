@@ -8,7 +8,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a="http://richfaces.org/a4j" template="layout/template.xhtml">
 
-	<ui:define name="content">
+	<ui:define name="body">
 
 		<h:messages globalOnly="true" styleClass="message" />
 
@@ -65,8 +65,8 @@
 
 						<rich:column>
 							<s:link id="viewSchoolVoids" value="#{school.title}"
-								action="#{schoolVoidSearch.schoolVoidSearch(school)}"
-								view="/schoolVoidSearch.seam" />
+								action="#{schoolVoidManagement.selectSchool(school)}"
+								view="/schoolVoidManagement.xhtml" />
 						</rich:column>
 
 						<rich:column>
@@ -74,7 +74,7 @@
 						</rich:column>
 
 						<f:facet name="footer">
-							<rich:datascroller align="left" for="schoolList" maxPages="20"
+					"/schoolVoidManagement.seam"gn="left" for="schoolList" maxPages="20"
 								page="#{schoolSearch.page}" id="sc1" />
 						</f:facet>
 

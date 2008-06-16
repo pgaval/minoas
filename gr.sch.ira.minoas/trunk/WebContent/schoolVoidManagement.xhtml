@@ -9,23 +9,49 @@
                 xmlns:a="http://richfaces.org/a4j"
                 template="layout/template.xhtml">
                        
-<ui:define name="content">
+<ui:define name="body">
 
-    <h:messages globalOnly="true" styleClass="message"/>
+	<div class="section">
+		<span class="error">
+			<h:messages globalOnly="true" styleClass="message"/>
+		</span>
+		
+		
+	</div>
+   
 		<rich:panel>
 		<f:facet name="header">Διαχείριση Σχολικής Μονάδας</f:facet>
+			<div class="section">
+			<h:form id="insertVoid">
+			<h:outputLabel value="Ειδικότητα" />
+				<h:inputText value="#{teachingVoid.specialisation}"
+					id="voidSpecialization">
+					<rich:suggestionbox height="" width="" for="voidSpecialization"
+						suggestionAction="#{coreSearching.searchSpecialization}"
+						var="result" fetchValue="="#{result.id}">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{result.id}"></h:outputText>
+							</f:facet>
+
+						</h:column>
+						<h:column>
+							<h:outputText value="#{result.title}" />
+						</h:column>
+
+					</rich:suggestionbox>
+				</h:inputText>
+
+			</h:form>
+		</div>
 			<h:form id="schoolVoidSearchForm">
 			
 			<a:outputPanel rendered="#{voids.rowCount==0}">
 				<p>
-					Η σχολική μονάδα παρουσιάζει καταχωρημένα κενά ....
+					Η σχολική μονάδα δεν παρουσιάζει καταχωρημένα κενά ....
 				</p>
 			</a:outputPanel>
 			<a:outputPanel rendered="#{voids.rowCount!=0}">
-				<rich:datascroller align="left" for="voidList" maxPages="20"
-					page="#{schoolVoidSearch.page}" reRender="sc2"
-					id="sc1" />
-				<rich:spacer height="30" />
 				<rich:dataTable id="voidList" var="void" value="#{voids}"
 					onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
 					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" rendered="#{voids.rowCount!=0}">
@@ -72,7 +98,7 @@
 					
 
 				</rich:dataTable>
-				<rich:spacer height="30" />
+				
 				<rich:datascroller align="left" for="voidList" maxPages="20"
 					page="#{schoolVoidSearch.page}" id="sc2" reRender="sc1" />
 				</a:outputPanel>

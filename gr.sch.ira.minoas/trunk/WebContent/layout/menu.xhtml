@@ -15,6 +15,6 @@
         <h:outputText value="Welcome, #{identity.username}!" rendered="#{identity.loggedIn}"/>
         <s:link view="/login.xhtml" value="Είσοδος" rendered="#{not identity.loggedIn}"/>
         <s:link view="/schoolSearch.xhtml" value="Διαχείριση Κενών" rendered="#{identity.loggedIn}"/>
-        <s:link view="/home.xhtml" action="#{identity.logout}" value="gff Έξοδος" rendered="#{identity.loggedIn}"/>
+        <s:link view="/home.xhtml" action="#{identity.logout}" value="Έξοδος" rendered="#{identity.loggedIn}"/>
     </rich:toolBarGroup>
 </rich:toolBar>

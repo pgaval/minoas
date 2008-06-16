@@ -181,35 +181,35 @@ input[type="submit"], input[type="button"] {
 	color: #362F2D;
 }
 */
-/* Content
+/* body
 ----------------------------------------------- */
-#content .section {
+#body .section {
 	float: left;
 	width: 518px;
 	padding: 15px 15px 0 15px;
 }
-#content .section h1 {
+#body .section h1 {
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	line-height: normal;
 	font-weight: normal;
 	font-size: large;
 }
-#content .section p {
+#body .section p {
 	line-height: 150%;
 	padding: 10px 0;
 	font-size: small;
 }
-#content table {
+#body table {
 	width: 100%;
 	border: 1px solid #D2C9C4;
 	border-collapse: collapse;
 }
-#content table caption {
+#body table caption {
 	padding-bottom: 6px;
 	text-align: left;
 	font-weight: bold;
 }
-#content table thead th {
+#body table thead th {
 	border-left: 1px solid #D2C9C4;
 	background: #fff url(../img/th.bg.gif) 0 100% repeat-x;	
 	border-bottom: 1px solid #D2C9C4;
@@ -217,26 +217,26 @@ input[type="submit"], input[type="button"] {
 	text-align: left;
 	font-size: small;
 }
-#content table tbody td {
+#body table tbody td {
 	border-left: 1px solid #E4DBD5;
 	padding: 4px;
 	border-bottom: 1px solid #D2C9C4;
 	font-size: small;
 }
-#content dt {
+#body dt {
 	font-weight: bold;
 	float: left;
 	width: 33%;
 }
-#content dd {
+#body dd {
 	padding-left: 10px;
 	float: left;
 	width: 66%;
 }
-#content table.radio {
+#body table.radio {
 	border: 0px;
 }
-#content table.radio tbody tr td {
+#body table.radio tbody tr td {
 	border: 0px;
 	border-left: 0px;
 	border-bottom: 0px;
@@ -269,6 +269,6 @@ input[type="submit"], input[type="button"] {
 #pgHome #sidebar {
 	margin-top: 207px;
 }
-#pgHome #content {
+#pgHome #body {
 	margin-top: 183px;
 }
