@@ -16,7 +16,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(schema="dbo", name = "YPHRESIA")
+@Table(name = "YPHRESIA")
 public class OrganizationUnit extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;

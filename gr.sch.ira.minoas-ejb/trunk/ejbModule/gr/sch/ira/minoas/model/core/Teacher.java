@@ -16,7 +16,7 @@ import javax.persistence.JoinColumn;
  *
  */
 @Entity
-@Table(schema="dbo", name = "basiko")
+@Table(name = "basiko")
 public class Teacher {
 	@Column(name="AFM", nullable=true)
 	private String AFM;

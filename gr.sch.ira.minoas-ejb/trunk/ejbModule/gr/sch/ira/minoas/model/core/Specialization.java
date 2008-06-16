@@ -16,7 +16,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(schema="dbo", name = "EIDIK")
+@Table(name = "EIDIK")
 public class Specialization extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;

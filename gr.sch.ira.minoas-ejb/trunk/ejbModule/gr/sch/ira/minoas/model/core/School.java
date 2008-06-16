@@ -4,7 +4,7 @@
 package gr.sch.ira.minoas.model.core;
 
 import gr.sch.ira.minoas.model.BaseModel;
-import gr.sch.ira.minoas.model.voids.Void;
+import gr.sch.ira.minoas.model.voids.TeachingVoid;
 
 import java.util.Collection;
 
@@ -20,7 +20,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(schema="dbo", name = "SXOLEIA")
+@Table(name = "SXOLEIA")
 public class School extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class School extends BaseModel {
 	private String ministryCode;
 	
 	@OneToMany(mappedBy="school")
-	private Collection<Void> voids;
+	private Collection<TeachingVoid> voids;
 	
 	@OneToMany(mappedBy="school")
 	private Collection<Teacher> teachers;
@@ -106,13 +106,13 @@ public class School extends BaseModel {
 	/**
 	 * @return the voids
 	 */
-	public Collection<Void> getVoids() {
+	public Collection<TeachingVoid> getVoids() {
 		return voids;
 	}
 	/**
 	 * @param voids the voids to set
 	 */
-	public void setVoids(Collection<Void> voids) {
+	public void setVoids(Collection<TeachingVoid> voids) {
 		this.voids = voids;
 	}
 	/**

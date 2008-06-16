@@ -2,7 +2,7 @@ package gr.sch.ira.minoas.session;
 
 import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.core.School;
-import gr.sch.ira.minoas.model.voids.Void;
+import gr.sch.ira.minoas.model.voids.TeachingVoid;
 
 import java.util.Collection;
 
@@ -14,9 +14,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.security.Restrict;
@@ -26,9 +29,9 @@ import org.jboss.seam.log.Log;
 @Stateful
 @Scope(ScopeType.SESSION)
 @Restrict("#{identity.loggedIn}")
-@Name("schoolVoidSearch")
-public class SchoolVoidSearchBean extends BaseSearchBean implements
-		SchoolVoidSearch {
+@Name("schoolVoidManagement")
+public class SchoolVoidManagementBean extends BaseSearchBean implements
+		SchoolVoidManagement {
 
 	@Logger
 	private Log log;
@@ -42,10 +45,16 @@ public class SchoolVoidSearchBean extends BaseSearchBean implements
 	@PersistenceContext(type=PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
+	@In(required=false)
+	@Out
 	private School school;
 	
+	@In(required=false)
+	@Out(required=false)
+	private TeachingVoid teachingVoid;
+	
 	@DataModel
-	private Collection<Void> voids;
+	private Collection<TeachingVoid> voids;
 
 	public void schoolVoidSearch(School school) {
 		// implement your business logic here
@@ -58,6 +67,7 @@ public class SchoolVoidSearchBean extends BaseSearchBean implements
 	}
 
 	@Remove
+	@Destroy
 	public void remove() {
 
 	}
@@ -66,7 +76,7 @@ public class SchoolVoidSearchBean extends BaseSearchBean implements
 	 * @see gr.sch.ira.minoas.voids.session.ISearchBean#performQuery()
 	 */
 	public void performQuery() {
-		Collection<Void>result = coreSearching.searchVoids(getSchool(), null, 0);
+		Collection<TeachingVoid>result = coreSearching.searchVoids(getSchool(), null, 0);
 		this.voids = result;
 	}
 
@@ -83,6 +93,13 @@ public class SchoolVoidSearchBean extends BaseSearchBean implements
 	 */
 	public void setSchool(School school) {
 		this.school = school;
+	}
+
+	@Begin(join=true)
+	public void selectSchool(School selectedSchool) {
+		setSchool(em.merge(selectedSchool));
+		Collection<TeachingVoid>result = coreSearching.searchVoids(getSchool(), null, 0);
+		this.voids = result;
 	}
 
 }

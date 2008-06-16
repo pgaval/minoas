@@ -28,14 +28,14 @@ import javax.persistence.JoinColumn;
  *
  */
 @Entity
-@Table(schema="dbo", name = "minoas_teaching_resource")
+@Table(name = "minoas_teaching_resource")
 public class TeachingResource {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
 	@JoinColumn(name="void_id", referencedColumnName = "id")
-	private Void fillingVoid;
+	private TeachingVoid fillingVoid;
 	
 	@Id
 	@GeneratedValue(generator="system-uuid")
@@ -60,7 +60,7 @@ public class TeachingResource {
 	/**
 	 * @return the fillingVoid
 	 */
-	public Void getFillingVoid() {
+	public TeachingVoid getFillingVoid() {
 		return fillingVoid;
 	}
 
@@ -88,7 +88,7 @@ public class TeachingResource {
 	/**
 	 * @param fillingVoid the fillingVoid to set
 	 */
-	public void setFillingVoid(Void fillingVoid) {
+	public void setFillingVoid(TeachingVoid fillingVoid) {
 		this.fillingVoid = fillingVoid;
 	}
 

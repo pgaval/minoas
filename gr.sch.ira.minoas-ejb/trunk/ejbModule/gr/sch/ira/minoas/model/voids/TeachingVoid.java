@@ -33,8 +33,8 @@ import static javax.persistence.CascadeType.REMOVE;
  *
  */
 @Entity
-@Table(schema="dbo", name = "minoas_void")
-public class Void extends BaseModel {
+@Table(name = "minoas_void")
+public class TeachingVoid extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;
 	

@@ -2,7 +2,7 @@ package gr.sch.ira.minoas.core.session;
 
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.Specialization;
-import gr.sch.ira.minoas.model.voids.Void;
+import gr.sch.ira.minoas.model.voids.TeachingVoid;
 
 import java.util.Collection;
 
@@ -11,6 +11,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
+@Name("coreSearching")
+@Scope(ScopeType.EVENT)
 public @Stateless
 class CoreSearchingBean implements CoreSearching {
 	@PersistenceContext
@@ -20,18 +25,18 @@ class CoreSearchingBean implements CoreSearching {
 	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchVoids(gr.sch.ira.minoas.model.core.School,
 	 *      gr.sch.ira.minoas.model.core.Specialization, int)
 	 */
-	public Collection<Void> searchVoids(School school,
+	public Collection<TeachingVoid> searchVoids(School school,
 			Specialization specialization, int minHours) {
 		return em
 				.createQuery(
-						"SELECT v from Void v WHERE v.school = :school ORDER BY (v.specialisation.id)")
+						"SELECT v from TeachingVoid v WHERE v.school = :school ORDER BY (v.specialisation.id)")
 				.setParameter("school", school).getResultList();
 	}
 
 	/**
 	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchVoids(gr.sch.ira.minoas.model.core.School)
 	 */
-	public Collection<Void> searchVoids(School school) {
+	public Collection<TeachingVoid> searchVoids(School school) {
 		return school.getVoids();
 	}
 
@@ -53,6 +58,17 @@ class CoreSearchingBean implements CoreSearching {
 				.createQuery(
 						"SELECT s from School s WHERE lower(s.title) LIKE :search_pattern")
 				.setParameter("search_pattern", school_search_pattern).getResultList();
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchSpecialization(java.lang.String)
+	 */
+	public Collection<Specialization> searchSpecialization(
+			String specialization_search_pattern) {
+		return em
+		.createQuery(
+				"SELECT s from Specialization s WHERE lower(s.id) LIKE :search_pattern")
+		.setParameter("search_pattern", specialization_search_pattern).getResultList();
 	}
 
 }

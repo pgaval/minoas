@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
@@ -60,6 +61,7 @@ public class SchoolSearchBean extends BaseSearchBean implements SchoolSearch {
 	}
 
 	@Remove
+	@Destroy
 	public void remove() {
 		schools = null;
 	}

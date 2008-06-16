@@ -7,7 +7,7 @@
              
    <persistence-unit name="gr.sch.ira.minoas.voids">
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
-      <jta-data-source>java:/gr.sch.ira.minoas.voidsDatasource</jta-data-source>
+      <jta-data-source>java:/gr.sch.ira.minoasDatasource</jta-data-source>
       <class>
       gr.sch.ira.minoas.model.core.OrganizationUnit</class>
       <class>
@@ -19,13 +19,13 @@
       <class>
       gr.sch.ira.minoas.model.voids.TeachingResource</class>
       <class>
-      gr.sch.ira.minoas.model.voids.Void</class>
+      gr.sch.ira.minoas.model.voids.TeachingVoid</class>
       <properties>
-         <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
          <property name="hibernate.hbm2ddl.auto" value="update"/>
          <property name="hibernate.show_sql" value="true"/>
          <property name="hibernate.format_sql" value="true"/>
-         <property name="jboss.entity.manager.factory.jndi.name" value="java:/gr.sch.ira.minoas.voidsEntityManagerFactory"/>
+         <property name="jboss.entity.manager.factory.jndi.name" value="java:/gr.sch.ira.minoasEntityManagerFactory"/>
       </properties>
    </persistence-unit>
     
