@@ -9,7 +9,7 @@
 	<module>
 		<web>
 			<web-uri>gr.sch.ira.minoas.war</web-uri>
-			<context-root>/gr.sch.ira.minoas</context-root>
+			<context-root>/minoas</context-root>
 		</web>
 	</module>
 
