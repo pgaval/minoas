@@ -23,6 +23,4 @@ public interface CoreSearching {
 	public Collection<School> searchShools(String school_search_pattern);
 	
 	public Collection<School> searchShools(String school_search_pattern, String regionCode);
-	
-	public Collection<Specialization> suggestSpecialization(Object specialization_search_pattern);
 }

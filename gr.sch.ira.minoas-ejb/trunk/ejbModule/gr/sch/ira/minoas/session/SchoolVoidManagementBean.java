@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContextType;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Destroy;
+import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
@@ -32,6 +33,16 @@ import org.jboss.seam.log.Log;
 @Name("schoolVoidManagement")
 public class SchoolVoidManagementBean extends BaseSearchBean implements
 		SchoolVoidManagement {
+
+	/**
+	 * @see gr.sch.ira.minoas.session.SchoolVoidManagement#createTeachingVoid()
+	 */
+	@End
+	public void createTeachingVoid() {
+		log.debug("lalalala");
+		em.persist(teachingVoid);
+	}
+
 
 	@Logger
 	private Log log;
@@ -55,6 +66,8 @@ public class SchoolVoidManagementBean extends BaseSearchBean implements
 	
 	@DataModel
 	private Collection<TeachingVoid> voids;
+	
+	
 
 	public void schoolVoidSearch(School school) {
 		// implement your business logic here
@@ -95,11 +108,16 @@ public class SchoolVoidManagementBean extends BaseSearchBean implements
 		this.school = school;
 	}
 
+	
 	@Begin(join=true)
 	public void selectSchool(School selectedSchool) {
 		setSchool(em.merge(selectedSchool));
 		Collection<TeachingVoid>result = coreSearching.searchVoids(getSchool(), null, 0);
 		this.voids = result;
+		this.teachingVoid = new TeachingVoid();
+		teachingVoid.setRequiredHours(new Long(0));
+		teachingVoid.setSchool(getSchool());
+		teachingVoid.setSpecialisation(null);
 	}
 
 }

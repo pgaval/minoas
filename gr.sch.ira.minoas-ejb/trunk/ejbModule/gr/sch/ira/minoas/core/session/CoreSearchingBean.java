@@ -15,8 +15,9 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 @Name("coreSearching")
-@Scope(ScopeType.EVENT)
-public @Stateless
+@Scope(ScopeType.STATELESS)
+@Stateless
+public 
 class CoreSearchingBean implements CoreSearching {
 	@PersistenceContext
 	private EntityManager em;
@@ -60,15 +61,6 @@ class CoreSearchingBean implements CoreSearching {
 				.setParameter("search_pattern", school_search_pattern).getResultList();
 	}
 
-	/**
-	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchSpecialization(java.lang.String)
-	 */
-	public Collection<Specialization> suggestSpecialization(
-			Object specialization_search_pattern) {
-		return em
-		.createQuery(
-				"SELECT s from Specialization s WHERE lower(s.id) LIKE lower(:search_pattern + '%')")
-		.setParameter("search_pattern", specialization_search_pattern).getResultList();
-	}
+	
 
 }
