@@ -21,29 +21,14 @@
    
 		<rich:panel>
 		<f:facet name="header">Διαχείριση Σχολικής Μονάδας</f:facet>
-			<div class="section">
-			<h:form id="insertVoid">
-			<h:outputLabel value="Ειδικότητα" />
-				<h:inputText value="#{schoolSearch.searchString}"
-					id="voidSpecialization">
-					<rich:suggestionbox height="100" width="200" border="1" for="voidSpecialization"
-						suggestionAction="#{coreSearching.suggestSpecialization}"
-						var="result" fetchValue="#{result.id}" nothingLabel="Eidikothta ???">
-						<h:column>
-							<f:facet name="header">
-								<h:outputText value="#{result.id}"></h:outputText>
-							</f:facet>
-
-						</h:column>
-						<h:column>
-							<h:outputText value="#{result.title}" />
-						</h:column>
-
-					</rich:suggestionbox>
-				</h:inputText>
-
-			</h:form>
-		</div>
+			<rich:simpleTogglePanel switchType="client" opened="false" label="Εισαγωγή Νέου Κενού ...">
+				<ui:include src="/voidManagement.xhtml" />
+				
+			</rich:simpleTogglePanel>
+			<rich:panel>
+				<f:facet name="header">
+        			Κενά Σχολικής Μονάδας ...
+        		</f:facet>
 			<h:form id="schoolVoidSearchForm">
 			
 			<a:outputPanel rendered="#{voids.rowCount==0}">
@@ -103,7 +88,7 @@
 					page="#{schoolVoidSearch.page}" id="sc2" reRender="sc1" />
 				</a:outputPanel>
 			</h:form>
-
+			</rich:panel>
 		</rich:panel>
 
 	</ui:define>
