@@ -63,11 +63,11 @@ class CoreSearchingBean implements CoreSearching {
 	/**
 	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchSpecialization(java.lang.String)
 	 */
-	public Collection<Specialization> searchSpecialization(
-			String specialization_search_pattern) {
+	public Collection<Specialization> suggestSpecialization(
+			Object specialization_search_pattern) {
 		return em
 		.createQuery(
-				"SELECT s from Specialization s WHERE lower(s.id) LIKE :search_pattern")
+				"SELECT s from Specialization s WHERE lower(s.id) LIKE lower(:search_pattern + '%')")
 		.setParameter("search_pattern", specialization_search_pattern).getResultList();
 	}
 
