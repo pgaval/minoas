@@ -3,10 +3,9 @@
  */
 package gr.sch.ira.minoas.model.voids;
 
+import static javax.persistence.EnumType.STRING;
 import gr.sch.ira.minoas.model.TeacherType;
 import gr.sch.ira.minoas.model.core.Teacher;
-
-import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,14 +13,11 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
-import static javax.persistence.EnumType.STRING;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>

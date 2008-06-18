@@ -14,6 +14,5 @@ public interface SchoolVoidManagement extends ISearchBean {
 	
 	public void remove();
 	
-	public void createTeachingVoid();
-    //add additional interface methods here
+
 }

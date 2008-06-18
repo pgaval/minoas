@@ -9,7 +9,6 @@ import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
@@ -59,6 +58,13 @@ class CoreSearchingBean implements CoreSearching {
 				.createQuery(
 						"SELECT s from School s WHERE lower(s.title) LIKE :search_pattern")
 				.setParameter("search_pattern", school_search_pattern).getResultList();
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.core.session.CoreSearching#getSpecialization(java.lang.String)
+	 */
+	public Specialization getSpecialization(String id) {
+		return em.find(Specialization.class, id);
 	}
 
 	

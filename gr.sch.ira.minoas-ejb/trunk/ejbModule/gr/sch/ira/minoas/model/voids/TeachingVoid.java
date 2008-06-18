@@ -3,14 +3,13 @@
  */
 package gr.sch.ira.minoas.model.voids;
 
-import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.EAGER;
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.Specialization;
 
 import java.util.Collection;
-import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -20,11 +19,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import javax.persistence.OneToMany;
-import static javax.persistence.CascadeType.REMOVE;
 
 /**
  * A class representing teaching hour(s) requirement in a concrete school.
@@ -131,6 +129,18 @@ public class TeachingVoid extends BaseModel {
 	 */
 	public void setTeachingHours(Long teachingHours) {
 		this.teachingHours = teachingHours;
+	}
+	/**
+	 * @return the teachingResources
+	 */
+	public Collection<TeachingResource> getTeachingResources() {
+		return teachingResources;
+	}
+	/**
+	 * @param teachingResources the teachingResources to set
+	 */
+	public void setTeachingResources(Collection<TeachingResource> teachingResources) {
+		this.teachingResources = teachingResources;
 	}
 	
 	

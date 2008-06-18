@@ -1,5 +1,9 @@
 package gr.sch.ira.minoas.session;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
+import gr.sch.ira.minoas.model.TeacherType;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.model.voids.TeachingVoid;
@@ -10,13 +14,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
+import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.Destroy;
+import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
-import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.faces.FacesMessages;
@@ -32,18 +37,17 @@ public class VoidManagementBean implements VoidManagement {
 	@Begin
 	public void selectSchool(School selectedSchool) {
 		school = em.merge(selectedSchool);
-		log.info("******* heeellooooooooooooooooooo *********");
+		
 	}
 
 	@Logger
 	private Log log;
 	
-	@In(required=true) @Out
+	@In(required=true)
 	private School school;
 	
-	@DataModel
-	@Out
 	private TeachingVoid teachingVoid;
+	
 	
 	@In
 	private FacesMessages facesMessages;
@@ -75,15 +79,22 @@ public class VoidManagementBean implements VoidManagement {
 	 * @see gr.sch.ira.minoas.session.VoidManagement#addTeachingResource()
 	 */
 	public void addTeachingResource() {
-		// TODO Auto-generated method stub
-		
+		TeachingResource resource = new TeachingResource();
+		resource.setTeacherType(TeacherType.PERMANENT);
+		resource.setTeachingHours(Long.valueOf(0));
+		if(getTeachingVoid().getTeachingResources()==null)
+			getTeachingVoid().setTeachingResources(new LinkedList<TeachingResource>());
+		getTeachingVoid().getTeachingResources().add(resource);
 	}
 
 	/**
 	 * @see gr.sch.ira.minoas.session.VoidManagement#removeTeachingResource(gr.sch.ira.minoas.model.voids.TeachingResource)
 	 */
 	public void removeTeachingResource(TeachingResource teachingResource) {
-		// TODO Auto-generated method stub
+		Collection<TeachingResource> resources = getTeachingVoid().getTeachingResources();
+		if(resources!=null) {
+			resources.remove(teachingResource);
+		}
 		
 	}
 
@@ -101,11 +112,13 @@ public class VoidManagementBean implements VoidManagement {
 		return this.teachingVoid;
 	}
 	
-	@Factory
+	@Factory(value="teachingVoid",  scope=ScopeType.CONVERSATION)
 	public TeachingVoid createTeachingVoid() {
 		teachingVoid = new TeachingVoid();
 		teachingVoid.setSchool(school);
+		teachingVoid.setRequiredHours(Long.valueOf(0));
 		setTeachingVoid(teachingVoid);
+		log.info("created teaching void in context");
 		return getTeachingVoid();
 	}
 	

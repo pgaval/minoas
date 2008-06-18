@@ -34,40 +34,24 @@ import org.jboss.seam.log.Log;
 public class SchoolVoidManagementBean extends BaseSearchBean implements
 		SchoolVoidManagement {
 
-	/**
-	 * @see gr.sch.ira.minoas.session.SchoolVoidManagement#createTeachingVoid()
-	 */
-	@End
-	public void createTeachingVoid() {
-		log.debug("lalalala");
-		em.persist(teachingVoid);
-	}
-
-
 	@Logger
 	private Log log;
-	
+
 	@EJB
 	private CoreSearching coreSearching;
-	
+
 	@In
 	FacesMessages facesMessages;
 
-	@PersistenceContext(type=PersistenceContextType.EXTENDED)
+	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
-	@In(required=false)
+	@In(required = false)
 	@Out
 	private School school;
-	
-	@In(required=false)
-	@Out(required=false)
-	private TeachingVoid teachingVoid;
-	
+
 	@DataModel
 	private Collection<TeachingVoid> voids;
-	
-	
 
 	public void schoolVoidSearch(School school) {
 		// implement your business logic here
@@ -89,7 +73,8 @@ public class SchoolVoidManagementBean extends BaseSearchBean implements
 	 * @see gr.sch.ira.minoas.voids.session.ISearchBean#performQuery()
 	 */
 	public void performQuery() {
-		Collection<TeachingVoid>result = coreSearching.searchVoids(getSchool(), null, 0);
+		Collection<TeachingVoid> result = coreSearching.searchVoids(
+				getSchool(), null, 0);
 		this.voids = result;
 	}
 
@@ -108,16 +93,12 @@ public class SchoolVoidManagementBean extends BaseSearchBean implements
 		this.school = school;
 	}
 
-	
-	@Begin(join=true)
+	@Begin(join = true)
 	public void selectSchool(School selectedSchool) {
 		setSchool(em.merge(selectedSchool));
-		Collection<TeachingVoid>result = coreSearching.searchVoids(getSchool(), null, 0);
+		Collection<TeachingVoid> result = coreSearching.searchVoids(
+				getSchool(), null, 0);
 		this.voids = result;
-		this.teachingVoid = new TeachingVoid();
-		teachingVoid.setRequiredHours(new Long(0));
-		teachingVoid.setSchool(getSchool());
-		teachingVoid.setSpecialisation(null);
 	}
 
 }

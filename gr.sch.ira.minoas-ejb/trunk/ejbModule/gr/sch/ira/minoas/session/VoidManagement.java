@@ -15,7 +15,6 @@ public interface VoidManagement {
 	public String end();
 	public void destroy();
 	public void selectSchool(School selectedSchool);
-	public void createVoid();
 	public void addTeachingResource();
 	public void removeTeachingResource(TeachingResource teachingResource);
 	public void setTeachingVoid(TeachingVoid teachingVoid);
