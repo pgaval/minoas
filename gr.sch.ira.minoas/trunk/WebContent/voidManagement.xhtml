@@ -6,33 +6,68 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:rich="http://richfaces.org/rich">
-	<h:form id="insertVoid">
-		<h:outputLabel value="Ειδικότητα" />
-		<h:inputText value="#{voidManagement.teachingVoid.specialisation}"
-			id="voidSpecialization" />
-		<rich:suggestionbox height="150" width="250" border="1" tokens=",["
-			rules="none" for="voidSpecialization"
-			suggestionAction="#{specializationFinder.suggestSpecialization}"
-			var="result" fetchValue="#{result.id}"
-			nothingLabel="Ανύπαρκτη Ειδικότητα">
-			<h:column>
-				<h:outputText value="#{result.id}" />
-			</h:column>
-			<h:column>
-				<h:outputText value="#{result.title}" />
-			</h:column>
-		</rich:suggestionbox>
-		<h:outputLabel value="Διδακτικές Ώρες :" />
-		<h:inputText id="teachingHours" value="#{voidManagement.teachingVoid.requiredHours}"/>
-		<rich:dataTable 
-                    onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-                    cellpadding="0" cellspacing="0" 
-                    width="700" border="0" var="record" value="#{report.expReport.records}">
-                    
-       </rich:dataTable>
-		<h:commandButton id="createTeachingVoid" value="Καταχώρηση ..."
-			action="#{schoolVoidManagement.createTeachingVoid}" />
-	</h:form>
+	xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j">
+	<a4j:outputPanel id="voidView">
+		<h:form id="insertVoid">
+			<h:outputLabel value="Ειδικότητα" />
+			<h:inputText value="#{teachingVoid.specialisation}"
+				id="voidSpecialization" required="true">
+				<f:converter converterId="specializationConverter" />
+			</h:inputText>
+			<rich:suggestionbox height="150" width="250" border="1" tokens=",["
+				rules="none" for="voidSpecialization"
+				suggestionAction="#{specializationFinder.suggestSpecialization}"
+				var="result" fetchValue="#{result.id}"
+				nothingLabel="Ανύπαρκτη Ειδικότητα">
+				<h:column>
+					<h:outputText value="#{result.id}" />
+				</h:column>
+				<h:column>
+					<h:outputText value="#{result.title}" />
+				</h:column>
+			</rich:suggestionbox>
+			<h:outputLabel value="Διδακτικές Ώρες :" />
+			<h:inputText id="teachingHours" value="#{teachingVoid.requiredHours}" />
+			<rich:dataTable onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				cellpadding="0" cellspacing="0"
+				rendered="#{teachingVoid.teachingResources != null and teachingVoid.teachingResources.size > 0}"
+				width="700" border="0" var="teachingResource"
+				value="#{teachingVoid.teachingResources}">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="Καλυπτόμενες Ώρες" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Τύπος Προσωπικού" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Ενέργεια" />
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+
+				<rich:column>
+					<h:outputText value="#{teachingResource.teachingHours}" />
+				</rich:column>
+
+				<rich:column>
+					<h:outputText value="#{teachingResource.teacherType}" />
+				</rich:column>
+				
+				<rich:column>
+					<a4j:commandLink value="Διαγραφή" action="#{voidManagement.removeTeachingResource(teachingResource)}" reRender="voidView"/>
+				</rich:column>
+				
+
+			</rich:dataTable>
+			<a4j:commandButton id="addTeachingResource"
+				value="Προσθήκη Κάλυψης  ..." reRender="voidView"
+				action="#{voidManagement.addTeachingResource}" />
+			<h:commandButton id="createTeachingVoid" value="Καταχώρηση ..."
+				action="#{schoolVoidManagement.createTeachingVoid}" />
+		</h:form>
+	</a4j:outputPanel>
 </ui:composition>
