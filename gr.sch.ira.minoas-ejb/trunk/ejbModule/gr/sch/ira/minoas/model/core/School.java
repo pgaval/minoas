@@ -20,7 +20,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "SXOLEIA")
+@Table(schema="dbo", name="SXOLEIA")
 public class School extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;
@@ -40,9 +40,7 @@ public class School extends BaseModel {
 	
 	@OneToMany(mappedBy="school")
 	private Collection<Teacher> teachers;
-	//OneToOne(fetch=LAZY, targetEntity = gr.sch.ira.minoas.model.core.OrganizationUnit.class)
-	//@JoinColumn(name="KY", referencedColumnName = "KY")
-	//private OrganizationUnit unit;
+	
 	/**
 	 * @return the id
 	 */

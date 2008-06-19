@@ -1,12 +1,13 @@
 package gr.sch.ira.minoas.session;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
+import gr.sch.ira.minoas.core.EventConstants;
 import gr.sch.ira.minoas.model.TeacherType;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.model.voids.TeachingVoid;
+
+import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
@@ -22,8 +23,7 @@ import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
-import org.jboss.seam.annotations.datamodel.DataModel;
+import org.jboss.seam.annotations.RaiseEvent;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
@@ -43,15 +43,17 @@ public class VoidManagementBean implements VoidManagement {
 	@Logger
 	private Log log;
 	
-	@In(required=true)
+	@In(required=false)
 	private School school;
 	
 	private TeachingVoid teachingVoid;
 	
 	
+	
 	@In
 	private FacesMessages facesMessages;
 
+	@Begin(pageflow="createTeachingVoid")
 	public String begin() {
 		// TODO Auto-generated method stub
 		return null;
@@ -71,10 +73,20 @@ public class VoidManagementBean implements VoidManagement {
 	}
 
 	@End
+	@RaiseEvent(EventConstants.EVENT_TEACHING_VOID_MODIFIED)
 	public String end() {
-		log.info("trying to store void of specialization :0 for school :1 with totally :2 teaching hours requirment.", getTeachingVoid().getSpecialisation(), getTeachingVoid().getSchool(), getTeachingVoid().getRequiredHours());
-		return null;
+		log.info("trying to store void of specialization #0 for school #1 with totally #2 teaching hours requirment.", getTeachingVoid().getSpecialisation(), getTeachingVoid().getSchool(), getTeachingVoid().getRequiredHours());
+		TeachingVoid t_void = getTeachingVoid();
+		long t_hours = t_void.getTeachingHours().longValue();
+		for (TeachingResource r : t_void.getTeachingResources()) {
+			t_hours = r.getTeachingHours().longValue();
+		}
+		t_void.setTeachingHours(Long.valueOf(t_hours));
+		em.persist(t_void); 
+		return "success";
 	}
+	
+	
 
 	/**
 	 * @see gr.sch.ira.minoas.session.VoidManagement#addTeachingResource()
@@ -118,6 +130,7 @@ public class VoidManagementBean implements VoidManagement {
 		teachingVoid = new TeachingVoid();
 		teachingVoid.setSchool(school);
 		teachingVoid.setRequiredHours(Long.valueOf(0));
+		teachingVoid.setTeachingHours(Long.valueOf(0));
 		setTeachingVoid(teachingVoid);
 		log.info("created teaching void in context");
 		return getTeachingVoid();

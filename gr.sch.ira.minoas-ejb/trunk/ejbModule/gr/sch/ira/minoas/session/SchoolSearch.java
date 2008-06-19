@@ -3,7 +3,7 @@ package gr.sch.ira.minoas.session;
 import javax.ejb.Local;
 
 @Local
-public interface SchoolSearch extends ISearchBean {
+public interface SchoolSearch  {
 
 	// seam-gen method
 	public void schoolSearch();

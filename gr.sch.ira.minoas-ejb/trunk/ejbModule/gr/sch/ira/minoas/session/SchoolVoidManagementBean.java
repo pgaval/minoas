@@ -16,7 +16,6 @@ import javax.persistence.PersistenceContextType;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Destroy;
-import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
@@ -31,8 +30,7 @@ import org.jboss.seam.log.Log;
 @Scope(ScopeType.SESSION)
 @Restrict("#{identity.loggedIn}")
 @Name("schoolVoidManagement")
-public class SchoolVoidManagementBean extends BaseSearchBean implements
-		SchoolVoidManagement {
+public class SchoolVoidManagementBean implements SchoolVoidManagement {
 
 	@Logger
 	private Log log;
@@ -53,15 +51,6 @@ public class SchoolVoidManagementBean extends BaseSearchBean implements
 	@DataModel
 	private Collection<TeachingVoid> voids;
 
-	public void schoolVoidSearch(School school) {
-		// implement your business logic here
-		log
-				.info("schoolVoidSearch.schoolVoidSearch(school) action called with school :"
-						+ school);
-		facesMessages.add("schoolVoidSearch");
-		setSchool(school);
-		performQuery();
-	}
 
 	@Remove
 	@Destroy
@@ -69,15 +58,7 @@ public class SchoolVoidManagementBean extends BaseSearchBean implements
 
 	}
 
-	/**
-	 * @see gr.sch.ira.minoas.voids.session.ISearchBean#performQuery()
-	 */
-	public void performQuery() {
-		Collection<TeachingVoid> result = coreSearching.searchVoids(
-				getSchool(), null, 0);
-		this.voids = result;
-	}
-
+	
 	/**
 	 * @return the school
 	 */

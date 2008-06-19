@@ -27,7 +27,7 @@ import org.jboss.seam.log.Log;
 @Name("schoolSearch")
 @Scope(ScopeType.SESSION)
 @Restrict("#{identity.loggedIn}")
-public class SchoolSearchBean extends BaseSearchBean implements SchoolSearch {
+public class SchoolSearchBean implements SchoolSearch {
 
 	@Logger
 	private Log log;
@@ -47,18 +47,12 @@ public class SchoolSearchBean extends BaseSearchBean implements SchoolSearch {
 	private String searchString;
 
 	public void schoolSearch() {
-		// implement your business logic here
-		log.info("schoolSearch.schoolSearch() action called");
+		this.schools = coreSearching.searchShools(getSearchPattern());
 	}
 
 	
 
-	/**
-	 * @see gr.sch.ira.minoas.session.ISearchBean#performQuery()
-	 */
-	public void performQuery() {
-		this.schools = coreSearching.searchShools(getSearchPattern());
-	}
+	
 
 	@Remove
 	@Destroy

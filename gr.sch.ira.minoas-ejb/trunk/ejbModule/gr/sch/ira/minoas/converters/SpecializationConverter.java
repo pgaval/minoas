@@ -8,11 +8,9 @@ import gr.sch.ira.minoas.model.core.Specialization;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.faces.Converter;
 import org.jboss.seam.framework.EntityController;
-import org.jboss.seam.log.Log;
 
 
 /**
