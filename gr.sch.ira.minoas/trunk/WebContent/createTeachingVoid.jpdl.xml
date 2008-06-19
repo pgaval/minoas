@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pageflow-definition
+  name="createTeachingVoid">
+
+	<start-page name="start" view-id="/createTeachingVoid.xhtml"></start-page>
+	<decision name="schoolSelected" expression="#{true}">
+        <transition name="true" to="enterVoidDetails" />
+        <transition name="false" to="selectSchool" />
+    </decision>
+    <page name="selectSchool" view-id="/schoolSearch.xhtml"></page>
+</pageflow-definition>

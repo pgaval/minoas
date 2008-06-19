@@ -6,16 +6,16 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:rich="http://richfaces.org/rich"
-                template="layout/template.xhtml">
+                template="layout/template.xhtml"
+                xmlns:a4j="http://richfaces.org/a4j">
 
 <ui:define name="content">
 
     <h:messages globalOnly="true" styleClass="message"/>
     
-    <rich:panel>
-    <f:facet name="header">Welcome!</f:facet>
-    
-    </rich:panel>
+    <a4j:outputPanel id="schoolList">
+    	<ui:include src="/schoolList.xhtml" />
+    </a4j:outputPanel>
     
 </ui:define> 
 </ui:composition>

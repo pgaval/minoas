@@ -6,6 +6,10 @@
        no-conversation-view-id="/home.xhtml"
        login-view-id="/login.xhtml">
 
+    <page view-id="/create.xhtml">
+        <begin-conversation join="true" pageflow="createTeachingVoid"/>
+    </page>
+    
     <page view-id="*">
         <navigation>
             <rule if-outcome="home">

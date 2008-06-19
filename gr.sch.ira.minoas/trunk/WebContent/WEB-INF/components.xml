@@ -45,11 +45,12 @@
    <mail:mail-session host="localhost" port="2525" username="test" password="test" />
         
    <!-- For use with jBPM pageflow or process management -->
-   <!--  
+   
    <bpm:jbpm>
-      <bpm:process-definitions></bpm:process-definitions>
-      <bpm:pageflow-definitions></bpm:pageflow-definitions>
+       <bpm:pageflow-definitions>
+           <value>createTeachingVoid.jpdl.xml</value>
+       </bpm:pageflow-definitions>
    </bpm:jbpm>
-   -->
-      
+
+
 </components>

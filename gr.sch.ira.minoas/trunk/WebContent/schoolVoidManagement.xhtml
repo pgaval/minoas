@@ -73,20 +73,24 @@
 					</rich:column>
 
 					<rich:column>
-						<h:outputText value="#{void.teachingHours}" />
+						<h:outputText value="#{void.teachingHours}" rendered="#{void.teachingHours gt void.requiredHours}" style="COLOR: #0000ff;"/>
+						<h:outputText value="0" rendered="#{void.teachingHours eq void.requiredHours}" style="COLOR: #00ff00;"/>
 					</rich:column>
 					
 					<rich:column>
-						<h:outputText value="#{void.teachingHours}" />
+						<h:outputText value="#{void.teachingHours}" rendered="#{void.teachingHours lt void.requiredHours}" style="COLOR: #ff0000;"/>
+						<h:outputText value="0" rendered="#{void.teachingHours eq void.requiredHours}" style="COLOR: #00ff00;"/>
 					</rich:column>
-					
-					
-
-				</rich:dataTable>
-				
-				<rich:datascroller align="left" for="voidList" maxPages="20"
-					page="#{schoolVoidSearch.page}" id="sc2" reRender="sc1" />
+					<f:facet name="footer">
+					<rich:datascroller align="left" for="voidList" maxPages="20"
+					page="#{schoolVoidSearch.page}" id="sc2" />
+					</f:facet>
+					</rich:dataTable>
 				</a:outputPanel>
+
+				
+				
+				
 			</h:form>
 			</rich:panel>
 		</rich:panel>
