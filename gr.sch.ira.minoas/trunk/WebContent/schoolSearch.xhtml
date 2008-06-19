@@ -25,15 +25,15 @@
 					<a:support event="onkeyup"
 						actionListener="#{schoolSearch.performQuery}"
 						reRender="searchResults" />
-				</h:inputText> <a:status>
+				</h:inputText> 
+				<a:status>
 					<f:facet name="start">
 						<h:graphicImage value="/img/spinner.gif" />
 					</f:facet>
 				</a:status>
-				<div class="actionButtons"><h:commandButton id="schoolSearch"
-					value="Αναζήτηση!" action="#{schoolSearch.schoolSearch}" />
-				</div>
-
+				<a:commandButton id="schoolSearch"
+					value="Αναζήτηση!" action="#{schoolSearch.schoolSearch}"  />
+				
 				</fieldset>
 
 
@@ -74,8 +74,9 @@
 						</rich:column>
 
 						<f:facet name="footer">
-					"/schoolVoidManagement.seam"gn="left" for="schoolList" maxPages="20"
-								page="#{schoolSearch.page}" id="sc1" />
+
+							<rich:datascroller align="left" for="schoolList" maxPages="20"
+								page="#{schoolVoidSearch.page}" id="sc1" />
 						</f:facet>
 
 					</rich:dataTable>

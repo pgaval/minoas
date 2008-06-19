@@ -8,6 +8,18 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
     xmlns:a4j="http://richfaces.org/a4j">
+    <s:div>
+    	<p>
+    		Για να εισάγετε ένα νέο διδακτικό κενό στην επιλεγμένη σχολική μονάδα, συμπληρώστε πρώτα 
+    		την ειδικότητα που αφορά το κενό και κατόπιν το σύνολο των διδακτικών ωρών που απαιτούνται 
+    		σε ειδανικές συνθήκες να καλύψουν το συγκεκριμένο κενό.
+    	</p>
+    	<rich:spacer width="1" height="15" title="Here is a spacer..."/>
+    	<p>
+    		Στην συνέχεια και αν οι καταστάσεις το επιτρέπουν, εισάγετε την κατανομή του κενού σε 
+    		διδασκόμενες ώρες και αυτό κατα τύπο.
+    	</p>
+    </s:div>
 	<a4j:outputPanel id="voidView">
 		<h:form id="insertVoid">
 			<h:outputLabel value="Ειδικότητα" />
@@ -29,6 +41,9 @@
 			</rich:suggestionbox>
 			<h:outputLabel value="Διδακτικές Ώρες :" />
 			<h:inputText id="teachingHours" value="#{teachingVoid.requiredHours}" />
+			<a4j:commandButton id="addTeachingResource"
+				value="Προσθήκη Κάλυψης  ..." reRender="voidView"
+				action="#{voidManagement.addTeachingResource}" />
 			<rich:dataTable onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 				cellpadding="0" cellspacing="0"
@@ -50,11 +65,15 @@
 				</f:facet>
 
 				<rich:column>
-					<h:outputText value="#{teachingResource.teachingHours}" />
+					<h:inputText id="teachingHours" value="#{teachingResource.teachingHours}" />
 				</rich:column>
 
 				<rich:column>
-					<h:outputText value="#{teachingResource.teacherType}" />
+					<h:selectOneMenu id="teachingType" value="#{teachingResource.teacherType}">
+						<s:enumItem enumValue="PERMANENT" label="Μόνιμος" />
+						<s:enumItem enumValue="REPLACEMENT" label="Αναπληρωτής" />
+						<s:enumItem enumValue="HOURLYBASED" label="Ωρομίσθιος" />
+					</h:selectOneMenu>
 				</rich:column>
 				
 				<rich:column>
@@ -63,11 +82,11 @@
 				
 
 			</rich:dataTable>
-			<a4j:commandButton id="addTeachingResource"
-				value="Προσθήκη Κάλυψης  ..." reRender="voidView"
-				action="#{voidManagement.addTeachingResource}" />
-			<h:commandButton id="createTeachingVoid" value="Καταχώρηση ..."
-				action="#{schoolVoidManagement.createTeachingVoid}" />
+			
+			<h:commandButton id="createTeachingVoid" value="Αποθήκευση Κενού"
+				action="#{voidManagement.end}" />
+			<h:commandButton id="createTeachingVoid" value="Ακύρωση Κενού"
+				action="#{voidManagement.cancel}" />
 		</h:form>
 	</a4j:outputPanel>
 </ui:composition>
