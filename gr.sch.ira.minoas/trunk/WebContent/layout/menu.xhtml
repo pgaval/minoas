@@ -31,7 +31,7 @@
 				rendered="#{not identity.loggedIn}" />
 			<s:link view="/schoolSearch.xhtml" value="Διαχείριση Κενών"
 				rendered="#{identity.loggedIn}" />
-				<s:link action="#{voidManagement.begin}" value="Δημιουργεία Κενών"
+				<s:link action="#{createTeachingVoid.begin}" value="Δημιουργεία Κενών"
 				rendered="#{identity.loggedIn}" />
 			<s:link view="/home.xhtml" action="#{identity.logout}" value="Έξοδος"
 				rendered="#{identity.loggedIn}" />
