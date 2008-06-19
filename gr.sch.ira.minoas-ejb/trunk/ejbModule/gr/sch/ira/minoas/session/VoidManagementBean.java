@@ -57,6 +57,7 @@ public class VoidManagementBean implements VoidManagement {
 		return null;
 	}
 
+	@End
 	public String cancel() {
 		// TODO Auto-generated method stub
 		return null;
@@ -71,7 +72,7 @@ public class VoidManagementBean implements VoidManagement {
 
 	@End
 	public String end() {
-		// TODO Auto-generated method stub
+		log.info("trying to store void of specialization :0 for school :1 with totally :2 teaching hours requirment.", getTeachingVoid().getSpecialisation(), getTeachingVoid().getSchool(), getTeachingVoid().getRequiredHours());
 		return null;
 	}
 
