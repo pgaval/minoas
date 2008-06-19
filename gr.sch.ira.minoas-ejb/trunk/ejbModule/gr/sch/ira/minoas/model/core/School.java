@@ -20,7 +20,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(schema="dbo", name="SXOLEIA")
+@Table(name="SXOLEIA")
 public class School extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;
