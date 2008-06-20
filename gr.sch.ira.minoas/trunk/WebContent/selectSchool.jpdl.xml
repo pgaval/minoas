@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pageflow-definition name="selectSchool">
+
+  <start-state name="start">
+    <transition to="selectSchool" />
+  </start-state>
+
+  
+    
+  <page name="selectSchool" view-id="/schoolSearch.xhtml">
+    <redirect />
+  </page>
+  
+  
+  
+</pageflow-definition>

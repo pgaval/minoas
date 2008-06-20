@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pageflow-definition name="manageSchoolVoids">
+
+  <start-state name="start">
+    <transition to="has school ?" />
+  </start-state>
+
+  <decision name="has school ?" expression="#{schoolVoidManagement.hasSchool()}">
+    <transition name="true" to="manageSchoolVoids" />
+      <action expression="#{manageSchoolVoids.search(school)}" />
+    <transition name="false" to="selectSchool">
+      <action expression="#{schoolSearch.schoolSearch()}" />
+    </transition>
+  </decision>
+    
+  <page name="selectSchool" view-id="/schoolSearch.xhtml">
+    <redirect />
+    <transition name="next" to="manageSchoolVoids">
+      <action expression="#{schoolVoidManagement.search(school)}" />
+    </transition>
+  </page>
+  
+  <page name="manageSchoolVoids" view-id="/manageSchoolVoids.xhtml">
+    <redirect />
+    
+  </page>
+  
+  
+</pageflow-definition>

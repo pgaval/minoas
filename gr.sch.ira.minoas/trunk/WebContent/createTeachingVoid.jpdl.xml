@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<pageflow-definition
-  name="createTeachingVoid">
+<pageflow-definition name="createTeachingVoid">
 
-	<start-state name="start">
-		
-	</start-state>
-	<start-page name="start" view-id="/createTeachingVoid.xhtml">
-		<redirect/>
-		<transition name="evaluateSchoolNeeded" to="schoolSelected" />
-	</start-page>
-	
-	<decision name="schoolSelected" expression="#{true}">
-        <transition name="true" to="enterVoidDetails" />
-        <transition name="false" to="selectSchool" />
-    </decision>
-    <page name="selectSchool" view-id="/schoolSearch.xhtml"></page>
-	
+  <start-state name="start">
+    <transition to="has school ?" />
+  </start-state>
+
+  <decision name="has school ?" expression="#{createTeachingVoid.hasSchool()}">
+    <transition name="true" to="createTeachingVoid" />
+    <transition name="false" to="selectSchool">
+      <action expression="#{schoolSearch.schoolSearch()}" />
+    </transition>
+  </decision>
+    
+  <page name="selectSchool" view-id="/schoolSearch.xhtml">
+    <redirect />
+    <transition name="next" to="createTeachingVoid">
+      <action expression="#{createTeachingVoid.setSchool(school)}" />
+    </transition>
+  </page>
+  
+  <page name="createTeachingVoid" view-id="/createTeachingVoid.xhtml">
+    <redirect />
+    <transition name="addTeachingResource" to="createTeachingVoid">
+      <action expression="#{createTeachingVoid.addTeachingResource()}" />
+    </transition>
+    <transition name="removeTeachingResource" to="createTeachingVoid">
+      <action expression="#{createTeachingVoid.removeTeachingResource(teachingResource)}" />
+    </transition>
+    <transition name="save" to="manageSchoolVoids">
+      <action expression="#{createTeachingVoid.end}" />
+    </transition>
+    <transition name="cancel" to="createTeachingVoid">
+      <action expression="#{createTeachingVoid.cancel}" />
+    </transition>
+  </page>
+  
+ <page name="manageSchoolVoids" view-id="/manageSchoolVoids.xhtml">
+    <redirect />
+  </page>
+
 </pageflow-definition>
