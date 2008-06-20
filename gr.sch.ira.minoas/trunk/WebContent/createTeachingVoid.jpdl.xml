@@ -30,13 +30,18 @@
     </transition>
     <transition name="save" to="manageSchoolVoids">
       <action expression="#{createTeachingVoid.end}" />
+      <action expression="#{manageSchoolVoids.search(school)}" />
     </transition>
-    <transition name="cancel" to="createTeachingVoid">
+    <transition name="cancel" to="selectSchool">
       <action expression="#{createTeachingVoid.cancel}" />
     </transition>
   </page>
   
  <page name="manageSchoolVoids" view-id="/manageSchoolVoids.xhtml">
+    <redirect />
+  </page>
+  
+  <page name="home" view-id="/home.xhtml">
     <redirect />
   </page>
 

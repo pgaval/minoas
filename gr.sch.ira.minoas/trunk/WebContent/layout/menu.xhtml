@@ -12,14 +12,13 @@
 		Επιλεγμένη Σχολική Μονάδα :<h:outputLabel value="#{school.title}" /> ::
 		<rich:dropDownMenu value="Σχολική Μονάδα">
 			<rich:menuItem value="Αναζήτηση ..." />
-			<rich:menuItem submitMode="ajax" value="Προβολή Σχολικών Μονάδων" action="#{schoolSearch.begin}"  />
-			<rich:menuItem submitMode="ajax" value="Επιλογη Σχολικής Μονάδας" action="#{schoolSearch.begin}"  />
+			<rich:menuItem value="Επιλογη Σχολικής Μονάδας" action="#{schoolSearch.begin}"  />
 			<rich:menuSeparator />
 			<rich:menuItem value="Διαχείριση ..." />
 		</rich:dropDownMenu>
 		<rich:dropDownMenu value="Διδακτικά Κενά">
 			<rich:menuItem value="Εισαγωγή Νέου Κενού" action="#{createTeachingVoid.begin()}"/>
-			<rich:menuItem value="Διαχείριση Κενών Μονάδας" action="#{schoolVoidManagement.begin()}" />
+			<rich:menuItem value="Διαχείριση Κενών Μονάδας" action="#{manageSchoolVoids.begin()}" />
 		</rich:dropDownMenu>
 		</rich:toolBarGroup>
 		<rich:toolBarGroup>
@@ -31,10 +30,6 @@
 				rendered="#{identity.loggedIn}" />
 			<s:link view="/login.xhtml" value="Είσοδος"
 				rendered="#{not identity.loggedIn}" />
-			<s:link view="/schoolSearch.xhtml" value="Διαχείριση Κενών"
-				rendered="#{identity.loggedIn}" />
-				<s:link action="#{createTeachingVoid.begin}" value="Δημιουργεία Κενών"
-				rendered="#{identity.loggedIn}" />
 			<s:link view="/home.xhtml" action="#{identity.logout}" value="Έξοδος"
 				rendered="#{identity.loggedIn}" />
 		</rich:toolBarGroup>
