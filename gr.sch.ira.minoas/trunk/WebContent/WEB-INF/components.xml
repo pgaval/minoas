@@ -49,6 +49,8 @@
    <bpm:jbpm>
        <bpm:pageflow-definitions>
            <value>createTeachingVoid.jpdl.xml</value>
+           <value>manageSchoolVoids.jpdl.xml</value>
+           <value>selectSchool.jpdl.xml</value>
        </bpm:pageflow-definitions>
    </bpm:jbpm>
 

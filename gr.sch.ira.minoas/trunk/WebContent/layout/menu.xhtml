@@ -8,21 +8,23 @@
 	xmlns:s="http://jboss.com/products/seam/taglib">
 	<a4j:form>
 	<rich:toolBar >
-		Επιλεγμένη Σχολική Μονάδα :<h:outputLabel value="lalalal" />
+		<rich:toolBarGroup location="left" rendered="#{identity.loggedIn}">
+		Επιλεγμένη Σχολική Μονάδα :<h:outputLabel value="#{school.title}" /> ::
 		<rich:dropDownMenu value="Σχολική Μονάδα">
 			<rich:menuItem value="Αναζήτηση ..." />
-			<rich:menuItem submitMode="ajax" value="Προβολή Σχολικών Μονάδων" action="#{schoolSearch.schoolSearch}"  reRender="schoolList" />
+			<rich:menuItem submitMode="ajax" value="Προβολή Σχολικών Μονάδων" action="#{schoolSearch.begin}"  />
+			<rich:menuItem submitMode="ajax" value="Επιλογη Σχολικής Μονάδας" action="#{schoolSearch.begin}"  />
 			<rich:menuSeparator />
 			<rich:menuItem value="Διαχείριση ..." />
 		</rich:dropDownMenu>
-		<rich:dropDownMenu value="Κενά">
-			<rich:menuItem value="Εισαγωγή Κενού" />
-			<rich:menuItem value="Προβολή Κενών" />
+		<rich:dropDownMenu value="Διδακτικά Κενά">
+			<rich:menuItem value="Εισαγωγή Νέου Κενού" action="#{createTeachingVoid.begin()}"/>
+			<rich:menuItem value="Διαχείριση Κενών Μονάδας" action="#{schoolVoidManagement.begin()}" />
 		</rich:dropDownMenu>
+		</rich:toolBarGroup>
 		<rich:toolBarGroup>
 			<h:outputText value="#{projectName}:" />
 			<s:link view="/home.xhtml" value="Κεντρική Σελίδα" />
-
 		</rich:toolBarGroup>
 		<rich:toolBarGroup location="right">
 			<h:outputText value="Welcome, #{identity.username}!"
