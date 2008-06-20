@@ -30,7 +30,17 @@ import org.jboss.seam.log.Log;
 @Scope(ScopeType.SESSION)
 @Restrict("#{identity.loggedIn}")
 @Name("schoolVoidManagement")
-public class SchoolVoidManagementBean implements SchoolVoidManagement {
+public class SchoolVoidManagementBean extends BaseSchoolAware implements SchoolVoidManagement {
+
+	@Begin(pageflow = "manageSchoolVoids")
+	public void begin() {
+		log.info("conversation has begun");
+		// TODO Auto-generated method stub
+
+	}
+	
+	public void end() {
+	}
 
 	@Logger
 	private Log log;
@@ -44,10 +54,7 @@ public class SchoolVoidManagementBean implements SchoolVoidManagement {
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
-	@In(required = false)
-	@Out
-	private School school;
-
+	
 	@DataModel
 	private Collection<TeachingVoid> voids;
 
@@ -58,24 +65,7 @@ public class SchoolVoidManagementBean implements SchoolVoidManagement {
 
 	}
 
-	
-	/**
-	 * @return the school
-	 */
-	public School getSchool() {
-		return school;
-	}
-
-	/**
-	 * @param school
-	 *            the school to set
-	 */
-	public void setSchool(School school) {
-		this.school = school;
-	}
-
-	@Begin(join = true)
-	public void selectSchool(School selectedSchool) {
+	public void search(School selectedSchool) {
 		setSchool(em.merge(selectedSchool));
 		Collection<TeachingVoid> result = coreSearching.searchVoids(
 				getSchool(), null, 0);

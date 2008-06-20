@@ -1,12 +1,15 @@
 package gr.sch.ira.minoas.session;
 
+import gr.sch.ira.minoas.model.core.School;
+
 import javax.ejb.Local;
 
 @Local
-public interface SchoolSearch  {
+public interface SchoolSearch  extends SchoolAware {
 
 	// seam-gen method
 	public void schoolSearch();
+	
 
 	
 
@@ -26,5 +29,11 @@ public interface SchoolSearch  {
 	
 	
 	public String getSearchPattern();
+	
+	public void selectSchool(School school);
+	
+	public void begin();
+	
+	public void end();
 
 }
