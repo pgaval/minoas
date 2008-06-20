@@ -41,12 +41,14 @@ public class SchoolSearchBean extends BaseSchoolAware implements SchoolSearch {
 	@PersistenceContext
 	private EntityManager em;
 	
-	@Begin(pageflow="selectSchool")
+	@Begin(nested=true, pageflow="selectSchool")
 	public void begin() {
+		log.info("conversation has just started");
 	}
 
 	@End
 	public void end() {
+		log.info("conversation has ended");
 	}
 
 	@DataModel

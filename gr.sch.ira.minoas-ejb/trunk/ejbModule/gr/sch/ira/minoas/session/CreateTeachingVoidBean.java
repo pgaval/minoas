@@ -1,5 +1,6 @@
 package gr.sch.ira.minoas.session;
 
+import gr.sch.ira.minoas.core.EventConstants;
 import gr.sch.ira.minoas.model.TeacherType;
 import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.model.voids.TeachingVoid;
@@ -22,14 +23,17 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
+import org.jboss.seam.annotations.RaiseEvent;
 import org.jboss.seam.annotations.security.Restrict;
+import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 @Stateful
 @Name("createTeachingVoid")
 @Restrict("#{identity.loggedIn}")
-public class CreateTeachingVoidBean extends BaseSchoolAware implements CreateTeachingVoid {
+public class CreateTeachingVoidBean extends BaseSchoolAware implements
+		CreateTeachingVoid {
 
 	@Logger
 	private Log log;
@@ -38,8 +42,8 @@ public class CreateTeachingVoidBean extends BaseSchoolAware implements CreateTea
 	FacesMessages facesMessages;
 
 	private TeachingVoid teachingVoid;
-	
-	@PersistenceContext(type=PersistenceContextType.EXTENDED)
+
+	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
 	@Factory(value = "teachingVoid", scope = ScopeType.CONVERSATION)
@@ -53,7 +57,7 @@ public class CreateTeachingVoidBean extends BaseSchoolAware implements CreateTea
 		return getTeachingVoid();
 	}
 
-	@Begin(nested = true, pageflow = "createTeachingVoid")
+	@Begin(nested=true, pageflow = "createTeachingVoid")
 	public void begin() {
 		log.info("conversation has begun");
 		// TODO Auto-generated method stub
@@ -74,24 +78,22 @@ public class CreateTeachingVoidBean extends BaseSchoolAware implements CreateTea
 	}
 
 	@End
+	@RaiseEvent(EventConstants.EVENT_TEACHING_VOID_ADDED)
 	public void end() {
 		log
 				.info(
 						"trying to save new teaching void in school '#0' of specialization '#1' with total required hours equal to '#2'",
-						getSchool().getTitle(), getTeachingVoid().getSpecialisation().getId(), getTeachingVoid()
+						getSchool().getTitle(), getTeachingVoid()
+								.getSpecialisation().getId(), getTeachingVoid()
 								.getRequiredHours());
-		long total_teaching_hours = 0;
-		for (TeachingResource resource : getTeachingVoid().getTeachingResources()) {
-			total_teaching_hours = +resource.getTeachingHours().longValue();
-		}
+		em.persist(getTeachingVoid());
 		log
 				.info(
-						"teaching void in school '#0' of specialization '#1' has totally '#2' teaching hours registered out of '#3' required.",
-						getSchool().getTitle(), getTeachingVoid().getSpecialisation().getId(), new Long(
-								total_teaching_hours), getTeachingVoid().getRequiredHours());
-		em.persist(getTeachingVoid());
-		log.info("teaching void in school '#0' of specialization '#1' with total required hours equal to '#2' has been saved succesfully.",getSchool().getTitle(), getTeachingVoid().getSpecialisation().getId(), getTeachingVoid()
-				.getRequiredHours());
+						"teaching void in school '#0' of specialization '#1' with total required hours equal to '#2' has been saved succesfully.",
+						getSchool().getTitle(), getTeachingVoid()
+								.getSpecialisation().getId(), getTeachingVoid()
+								.getRequiredHours());
+
 	}
 
 	public void addTeachingResource() {
@@ -99,12 +101,14 @@ public class CreateTeachingVoidBean extends BaseSchoolAware implements CreateTea
 		resource.setTeacherType(TeacherType.PERMANENT);
 		resource.setTeachingHours(Long.valueOf(0));
 		if (getTeachingVoid().getTeachingResources() == null)
-			getTeachingVoid().setTeachingResources(new LinkedList<TeachingResource>());
+			getTeachingVoid().setTeachingResources(
+					new LinkedList<TeachingResource>());
 		getTeachingVoid().getTeachingResources().add(resource);
 	}
 
 	public void removeTeachingResource(TeachingResource teachingResource) {
-		Collection<TeachingResource> resources = getTeachingVoid().getTeachingResources();
+		Collection<TeachingResource> resources = getTeachingVoid()
+				.getTeachingResources();
 		if (resources != null) {
 			resources.remove(teachingResource);
 		}

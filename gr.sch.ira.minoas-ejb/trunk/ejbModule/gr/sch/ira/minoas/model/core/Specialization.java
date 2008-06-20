@@ -61,5 +61,9 @@ public class Specialization extends BaseModel {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	public String toString() {
+		return getId();
+	}
 
 }

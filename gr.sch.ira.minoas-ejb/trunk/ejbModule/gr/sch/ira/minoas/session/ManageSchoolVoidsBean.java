@@ -29,14 +29,12 @@ import org.jboss.seam.log.Log;
 @Stateful
 @Scope(ScopeType.SESSION)
 @Restrict("#{identity.loggedIn}")
-@Name("schoolVoidManagement")
-public class SchoolVoidManagementBean extends BaseSchoolAware implements SchoolVoidManagement {
+@Name("manageSchoolVoids")
+public class ManageSchoolVoidsBean extends BaseSchoolAware implements ManageSchoolVoids {
 
-	@Begin(pageflow = "manageSchoolVoids")
+	@Begin(nested=true, pageflow = "manageSchoolVoids")
 	public void begin() {
 		log.info("conversation has begun");
-		// TODO Auto-generated method stub
-
 	}
 	
 	public void end() {
@@ -67,8 +65,10 @@ public class SchoolVoidManagementBean extends BaseSchoolAware implements SchoolV
 
 	public void search(School selectedSchool) {
 		setSchool(em.merge(selectedSchool));
+		log.info("searching for school's '#0' voids.", getSchool());
 		Collection<TeachingVoid> result = coreSearching.searchVoids(
 				getSchool(), null, 0);
+		log.info("found totally '#0' voids for school '#1'", result.size(), getSchool());
 		this.voids = result;
 	}
 

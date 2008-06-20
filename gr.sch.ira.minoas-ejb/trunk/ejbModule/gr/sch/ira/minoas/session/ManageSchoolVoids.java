@@ -5,7 +5,7 @@ import gr.sch.ira.minoas.model.core.School;
 import javax.ejb.Local;
 
 @Local
-public interface SchoolVoidManagement extends SchoolAware {  
+public interface ManageSchoolVoids extends SchoolAware {  
     
 	public void search(School selectedSchool);
 	

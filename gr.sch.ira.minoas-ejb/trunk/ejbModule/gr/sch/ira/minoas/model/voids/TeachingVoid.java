@@ -143,5 +143,9 @@ public class TeachingVoid extends BaseModel {
 		this.teachingResources = teachingResources;
 	}
 	
+	public String toString() {
+		return "(" + getSpecialisation() +","+getRequiredHours()+")";
+	}
+	
 	
 }
