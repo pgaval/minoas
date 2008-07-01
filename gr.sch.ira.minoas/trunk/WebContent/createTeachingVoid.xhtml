@@ -9,7 +9,7 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
 
 	<ui:define name="body">
-
+		<ui:include src="/school/selectedSchoolFragment.xhtml" />
 		<rich:panel>
 			<f:facet name="header">Προσθήκη Διδακτικού Κενού</f:facet>
 			<s:div>
@@ -51,7 +51,7 @@
 							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
 							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 							cellpadding="0" cellspacing="0"
-							rendered="#{teachingVoid.teachingResources != null and teachingVoid.teachingResources.size > 0}"
+							rendered="#{teachingResources != null and teachingResources.size > 0}"
 							width="700" border="0" var="teachingResource"
 							value="#{teachingVoid.teachingResources}">
 							<f:facet name="header">

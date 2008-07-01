@@ -32,8 +32,11 @@
       <action expression="#{createTeachingVoid.end}" />
       <action expression="#{manageSchoolVoids.search(school)}" />
     </transition>
-    <transition name="cancel" to="selectSchool">
+    <transition name="cancel" to="home">
       <action expression="#{createTeachingVoid.cancel}" />
+    </transition>
+    <transition name="selectSchool" to="selectSchool">
+      <action expression="#{schoolSearch.schoolSearch()}" />
     </transition>
   </page>
   
