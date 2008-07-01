@@ -29,7 +29,8 @@ public class VoidUpdaterListener extends EntityController {
 	public void foo() {
 		log.info("received teaching void (#0) added event for school #1. ",
 				teachingVoid, teachingVoid.getSchool());
-		teachingVoid = getEntityManager().merge(teachingVoid);
+		teachingVoid = getEntityManager().contains(teachingVoid) ? teachingVoid
+				: getEntityManager().merge(teachingVoid);
 		if (teachingVoid.getTeachingResources() != null) {
 			long required_hours = teachingVoid.getRequiredHours().longValue();
 			long teaching_hours = 0L;
@@ -45,9 +46,9 @@ public class VoidUpdaterListener extends EntityController {
 							teachingVoid, teachingVoid.getTeachingHours(), Long
 									.valueOf(diff));
 			teachingVoid.setTeachingHours(Long.valueOf(diff));
-			getEntityManager().persist(teachingVoid);
 			log.info("teaching void #0 has been updated", teachingVoid);
 		}
+		getEntityManager().flush();
 	}
 
 }
