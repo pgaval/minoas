@@ -19,13 +19,28 @@
     <transition name="next" to="manageSchoolVoids">
       <action expression="#{manageSchoolVoids.search(school)}" />
     </transition>
-  </page>
+  </page>   
   
   <page name="manageSchoolVoids" view-id="/manageSchoolVoids.xhtml">
     <redirect />
-    <transition name="selectSchool" to="selectSchool" />
+    <transition name="cancel" to="home">
+      <action expression="#{manageSchoolVoids.cancel}" />
+    </transition>
+    <transition name="selectSchool" to="selectSchool">
+      <action expression="#{schoolSearch.schoolSearch()}" />
+    </transition>
+    <transition name="selectVoid" to="manageVoid">
+      <action expression="#{manageVoid.setTeachingVoid(void)}" />
+    </transition>
   </page>
   
+  <page name="home" view-id="/home.xhtml">
+    <redirect />
+  </page>
+  
+  <page name="manageVoid" view-id="/manageVoid.xhtml">
+    <redirect />
+  </page>
   
   
 </pageflow-definition>

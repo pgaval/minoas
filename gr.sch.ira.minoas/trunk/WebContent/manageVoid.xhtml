@@ -6,6 +6,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a="http://richfaces.org/a4j" template="layout/template.xhtml">
-	
+	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+	<ui:define name="body">
+		<rich:panel>
+			<h:form>
+				Ειδικότητα : <h:outputLabel value="#{teachingVoid.specialisation}" converterId="specializationConverter" />
+				Απαιτούμενες Διδακτικές Ώρες (Συνολικά)
+			
+			<h:inputText id="teachingHours" value="#{teachingVoid.requiredHours}" />
+				
+			</h:form>
+		</rich:panel>
+
+	</ui:define>
+</ui:composition>
 	

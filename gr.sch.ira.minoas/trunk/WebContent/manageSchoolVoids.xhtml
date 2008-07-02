@@ -15,10 +15,8 @@
 		<span class="error">
 			<h:messages globalOnly="true" styleClass="message"/>
 		</span>
-		
-		
 	</div>
-   
+   <ui:include src="/school/selectedSchoolFragment.xhtml" />
 		<rich:panel>
 		<f:facet name="header">Διαχείριση Σχολικής Μονάδας</f:facet>
 			<rich:panel>
@@ -29,7 +27,7 @@
 			
 			<a:outputPanel rendered="#{voids.rowCount==0}">
 				<p>
-					Η σχολική μονάδα δεν παρουσιάζει καταχωρημένα κενά .... <h:commandLink action="selectSchool" value="Επιλέξτε άλλη Σχόλικη Μονάδα" /> 
+					Η σχολική μονάδα δεν παρουσιάζει καταχωρημένα κενά .... 
 				</p>
 			</a:outputPanel>
 			<a:outputPanel rendered="#{voids.rowCount!=0}">
@@ -48,10 +46,7 @@
 								<h:outputText value="Απαιτούμενες Ώρες" />
 							</rich:column>
 							<rich:column>
-								<h:outputText value="Πλεόνασμα Ωρών" />
-							</rich:column>
-							<rich:column>
-								<h:outputText value="Έλλειμα Ωρών" />
+								<h:outputText value="Πλεόνασμα/Έλλειμα Ωρών" />
 							</rich:column>
 						</rich:columnGroup>
 					</f:facet>
@@ -61,7 +56,7 @@
 					</rich:column>
 
 					<rich:column>
-						<h:outputText value="#{void.specialisation.title}" />
+						<h:commandLink action="selectVoid" value="#{void.specialisation.title}" />
 					</rich:column>
 
 					<rich:column>
@@ -73,10 +68,6 @@
 						<h:outputText value="0" rendered="#{void.teachingHours eq void.requiredHours}" style="COLOR: #00ff00;"/>
 					</rich:column>
 					
-					<rich:column>
-						<h:outputText value="#{void.teachingHours}" rendered="#{void.teachingHours lt void.requiredHours}" style="COLOR: #ff0000;"/>
-						<h:outputText value="0" rendered="#{void.teachingHours eq void.requiredHours}" style="COLOR: #00ff00;"/>
-					</rich:column>
 					<f:facet name="footer">
 					<rich:datascroller align="left" for="voidList" maxPages="20"
 					page="#{schoolVoidSearch.page}" id="sc2" />
