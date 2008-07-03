@@ -1,10 +1,10 @@
 package gr.sch.ira.minoas.session.school.voids;
 
+import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.model.voids.TeachingVoid;
 import gr.sch.ira.minoas.session.school.SchoolAware;
 
 import javax.ejb.Local;
-import javax.ejb.Remote;
 
 @Local
 public interface ManageVoid extends SchoolAware {
@@ -17,4 +17,9 @@ public interface ManageVoid extends SchoolAware {
 	public void begin();
 
 	public void end();
+	
+	public void cancel();
+	
+	  public void addTeachingResource();
+		public void removeTeachingResource(TeachingResource teachingResource);
 }

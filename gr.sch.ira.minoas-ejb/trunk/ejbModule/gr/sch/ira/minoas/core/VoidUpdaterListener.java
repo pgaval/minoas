@@ -48,7 +48,6 @@ public class VoidUpdaterListener extends EntityController {
 			teachingVoid.setTeachingHours(Long.valueOf(diff));
 			log.info("teaching void #0 has been updated", teachingVoid);
 		}
-		getEntityManager().flush();
 	}
 
 }

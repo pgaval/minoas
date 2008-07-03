@@ -8,7 +8,6 @@ import gr.sch.ira.minoas.session.school.BaseSchoolAware;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
@@ -22,14 +21,10 @@ import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.RaiseEvent;
 import org.jboss.seam.annotations.security.Restrict;
-import org.jboss.seam.core.Events;
 import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
 
 @Stateful
 @Name("createTeachingVoid")
@@ -42,7 +37,6 @@ public class CreateTeachingVoidBean extends BaseSchoolAware implements
 
 	private TeachingVoid teachingVoid;
 
-	
 	private Collection<TeachingResource> teachingResources;
 
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
@@ -90,24 +84,27 @@ public class CreateTeachingVoidBean extends BaseSchoolAware implements
 	@RaiseEvent(EventConstants.EVENT_TEACHING_VOID_ADDED)
 	public void end() {
 		info(
-						"trying to save new teaching void in school '#0' of specialization '#1' with total required hours equal to '#2'",
-						getSchool().getTitle(), getTeachingVoid()
-								.getSpecialisation().getId(), getTeachingVoid()
-								.getRequiredHours());
+				"trying to save new teaching void in school '#0' of specialization '#1' with total required hours equal to '#2'",
+				getSchool().getTitle(), getTeachingVoid().getSpecialisation()
+						.getId(), getTeachingVoid().getRequiredHours());
 		em.persist(getTeachingVoid());
-		if (getTeachingVoid().getTeachingResources() != null) {
-			em.persist(getTeachingVoid().getTeachingResources());
+
+		if (teachingResources != null && teachingResources.size() > 0) {
+			for (TeachingResource resource : teachingResources) {
+				em.persist(resource);
+			}
 		}
+		em.flush();
 		info(
-						"teaching void in school '#0' of specialization '#1' with total required hours equal to '#2' has been saved succesfully.",
-						getSchool().getTitle(), getTeachingVoid()
-								.getSpecialisation().getId(), getTeachingVoid()
-								.getRequiredHours());
+				"teaching void in school '#0' of specialization '#1' with total required hours equal to '#2' has been saved succesfully.",
+				getSchool().getTitle(), getTeachingVoid().getSpecialisation()
+						.getId(), getTeachingVoid().getRequiredHours());
 
 	}
 
 	public void addTeachingResource() {
 		TeachingResource resource = new TeachingResource();
+		resource.setFillingVoid(getTeachingVoid());
 		resource.setTeacherType(TeacherType.PERMANENT);
 		resource.setTeachingHours(Long.valueOf(0));
 		resource.setFillingVoid(getTeachingVoid());
@@ -136,9 +133,11 @@ public class CreateTeachingVoidBean extends BaseSchoolAware implements
 	}
 
 	/**
-	 * @param teachingResources the teachingResources to set
+	 * @param teachingResources
+	 *            the teachingResources to set
 	 */
-	public void setTeachingResources(Collection<TeachingResource> teachingResources) {
+	public void setTeachingResources(
+			Collection<TeachingResource> teachingResources) {
 		this.teachingResources = teachingResources;
 	}
 
