@@ -42,7 +42,7 @@ public class CreateTeachingVoidBean extends BaseSchoolAware implements
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
-	@Factory(value = "teachingVoid", scope = ScopeType.CONVERSATION)
+	@Factory(value = "teachingVoid2", scope = ScopeType.CONVERSATION)
 	public TeachingVoid createTeachingVoid() {
 		teachingVoid = new TeachingVoid();
 		teachingVoid.setSchool(getSchool());
@@ -53,7 +53,7 @@ public class CreateTeachingVoidBean extends BaseSchoolAware implements
 		return getTeachingVoid();
 	}
 
-	@Factory(value = "teachingResources", scope = ScopeType.CONVERSATION)
+	@Factory(value = "teachingResources2", scope = ScopeType.CONVERSATION)
 	public Collection<TeachingResource> createTeachingResources() {
 		info("created teaching resources in context");
 		setTeachingResources(new ArrayList<TeachingResource>());

@@ -1,5 +1,7 @@
 package gr.sch.ira.minoas.session.school.voids;
 
+import java.util.Collection;
+
 import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.model.voids.TeachingVoid;
 import gr.sch.ira.minoas.session.school.SchoolAware;
@@ -22,4 +24,8 @@ public interface ManageVoid extends SchoolAware {
 	
 	  public void addTeachingResource();
 		public void removeTeachingResource(TeachingResource teachingResource);
+		public TeachingVoid createTeachingVoid();
+		public Collection<TeachingResource> createTeachingResources();
+		
+		public void beginCreateTeachingVoid();
 }
