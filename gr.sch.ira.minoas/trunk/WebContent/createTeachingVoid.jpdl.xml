@@ -6,7 +6,7 @@
     <transition to="has school ?" />
   </start-state>
 
-  <decision name="has school ?" expression="#{createTeachingVoid.hasSchool()}">
+  <decision name="has school ?" expression="#{manageVoid.hasSchool()}">
     <transition name="true" to="createTeachingVoid" />
     <transition name="false" to="selectSchool">
       <action expression="#{schoolSearch.schoolSearch()}" />
@@ -16,26 +16,26 @@
   <page name="selectSchool" view-id="/schoolSearch.xhtml">
     <redirect />
     <transition name="next" to="createTeachingVoid">
-      <action expression="#{createTeachingVoid.setSchool(school)}" />
+      <action expression="#{manageVoid.setSchool(school)}" />
     </transition>
   </page>
   
   <page name="createTeachingVoid" view-id="/createTeachingVoid.xhtml">
     <redirect />
     <transition name="addTeachingResource" to="createTeachingVoid">
-      <action expression="#{createTeachingVoid.addTeachingResource()}" />
+      <action expression="#{manageVoid.addTeachingResource()}" />
     </transition>
     <transition name="removeTeachingResource" to="createTeachingVoid">
-      <action expression="#{createTeachingVoid.removeTeachingResource(teachingResource)}" />
+      <action expression="#{manageVoid.removeTeachingResource(teachingResource)}" />
     </transition>
-    <transition name="save" to="manageSchoolVoids">
-      <action expression="#{createTeachingVoid.end}" />
+    <transition name="saveCreatedTeachingVoid" to="manageSchoolVoids">
+      <action expression="#{manageVoid.end}" />
       <action expression="#{manageSchoolVoids.search(school)}" />
     </transition>
-    <transition name="cancel" to="home">
-      <action expression="#{createTeachingVoid.cancel}" />
+    <transition name="cancelCreatedTeachingVoid" to="home">
+      <action expression="#{manageVoid.cancel}" />
     </transition>
-    <transition name="selectSchool" to="selectSchool">
+    <transition name="changeSchool" to="selectSchool">
       <action expression="#{schoolSearch.schoolSearch()}" />
     </transition>
   </page>
