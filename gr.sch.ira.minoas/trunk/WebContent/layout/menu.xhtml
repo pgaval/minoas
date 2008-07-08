@@ -6,34 +6,39 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:s="http://jboss.com/products/seam/taglib">
-	<a4j:form>
-	<rich:toolBar >
-		<rich:toolBarGroup location="left" rendered="#{identity.loggedIn}">
-		<h:outputText value="Χρήστης : #{identity.username} "
-				rendered="#{identity.loggedIn}" />
-		<rich:menuSeparator />
-		<rich:dropDownMenu value="Σχολική Μονάδα">
-			<rich:menuItem value="Αναζήτηση ..." />
-			<rich:menuItem value="Επιλογη Σχολικής Μονάδας" action="#{schoolSearch.begin}"  />
-			<rich:menuSeparator />
-			<rich:menuItem value="Διαχείριση ..." />
-		</rich:dropDownMenu>
-		<rich:dropDownMenu value="Διδακτικά Κενά">
-			<rich:menuItem value="Εισαγωγή Νέου Κενού" action="#{manageVoid.beginCreateTeachingVoid()}"/>
-			<rich:menuItem value="Διαχείριση Κενών Μονάδας" action="#{manageSchoolVoids.begin()}" />
-		</rich:dropDownMenu>
-		</rich:toolBarGroup>
-		<rich:toolBarGroup>
-			<s:link view="/home.xhtml" value="Κεντρική Σελίδα" />
-		</rich:toolBarGroup>
-		<rich:toolBarGroup location="right">
-			<s:link view="/login.xhtml" value="Είσοδος"
-				rendered="#{not identity.loggedIn}" />
-			<s:link view="/home.xhtml" action="#{identity.logout}" value="Έξοδος"
-				rendered="#{identity.loggedIn}" />
-		</rich:toolBarGroup>
-	</rich:toolBar>
-	</a4j:form>
+	
+		<a4j:form>
+			<rich:toolBar>
+				<rich:toolBarGroup location="left" rendered="#{identity.loggedIn}">
+					<h:outputText value="Χρήστης : #{identity.username} "
+						rendered="#{identity.loggedIn}" />
+					<rich:menuSeparator />
+					<rich:dropDownMenu value="Σχολική Μονάδα">
+						<rich:menuItem value="Αναζήτηση ..." />
+						<rich:menuItem value="Επιλογη Σχολικής Μονάδας"
+							action="#{schoolSearch.begin}" />
+						<rich:menuSeparator />
+						<rich:menuItem value="Διαχείριση ..." />
+					</rich:dropDownMenu>
+					<rich:dropDownMenu value="Διδακτικά Κενά">
+						<rich:menuItem value="Εισαγωγή Νέου Κενού"
+							action="#{manageVoid.beginCreateTeachingVoid()}" />
+						<rich:menuItem value="Διαχείριση Κενών Μονάδας"
+							action="#{manageSchoolVoids.begin()}" />
+					</rich:dropDownMenu>
+				</rich:toolBarGroup>
+				<rich:toolBarGroup>
+					<s:link view="/home.xhtml" value="Κεντρική Σελίδα" />
+				</rich:toolBarGroup>
+				<rich:toolBarGroup location="right">
+					<s:link view="/login.xhtml" value="Είσοδος"
+						rendered="#{not identity.loggedIn}" />
+					<s:link view="/home.xhtml" action="#{identity.logout}"
+						value="Έξοδος" rendered="#{identity.loggedIn}" />
+				</rich:toolBarGroup>
+			</rich:toolBar>
+		</a4j:form>
+	
 </ui:composition>
 
 

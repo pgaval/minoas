@@ -20,7 +20,7 @@
     </transition>
   </page>
   
-  <page name="createTeachingVoid" view-id="/pages/void/createTeachingVoid.xhtml">
+  <page name="createTeachingVoid" view-id="/createTeachingVoid.xhtml">
     <redirect />
     <transition name="addTeachingResource" to="createTeachingVoid">
       <action expression="#{manageVoid.addTeachingResource()}" />
@@ -39,7 +39,7 @@
     </transition>
   </page>
   
- <page name="teachingVoidCreated" view-id="/pages/void/teachingVoidCreated.xhtml">
+ <page name="teachingVoidCreated" view-id="/teachingVoidCreated.xhtml">
     <redirect />
     <transition name="createTeachingVoid" to="createTeachingVoid">
       <action expression="#{manageVoid.beginCreateTeachingVoid()}" />

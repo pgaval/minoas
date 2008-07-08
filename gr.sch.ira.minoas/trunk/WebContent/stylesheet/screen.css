@@ -75,7 +75,8 @@ fieldset {
 	padding: 20px 10px 0 10px;
 	background: url(../img/sdb.bg.gif) 0 0 no-repeat;
 }
-#content {
+
+#body {
 	float: left;
 	width: 548px;
 	margin-top: 75px;
