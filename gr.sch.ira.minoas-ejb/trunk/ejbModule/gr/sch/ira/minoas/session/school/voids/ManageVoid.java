@@ -18,14 +18,15 @@ public interface ManageVoid extends SchoolAware {
 
 	public void begin();
 
-	public void end();
-	
 	public void cancel();
-	
-	  public void addTeachingResource();
-		public void removeTeachingResource(TeachingResource teachingResource);
-		public TeachingVoid createTeachingVoid();
-		public Collection<TeachingResource> createTeachingResources();
-		
-		public void beginCreateTeachingVoid();
+
+	public void addTeachingResource();
+
+	public void removeTeachingResource(TeachingResource teachingResource);
+
+	public TeachingVoid createTeachingVoid();
+
+	public void beginCreateTeachingVoid();
+
+	public void saveCreatedTeachingVoid();
 }

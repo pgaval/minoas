@@ -9,6 +9,9 @@
 	<a4j:form>
 	<rich:toolBar >
 		<rich:toolBarGroup location="left" rendered="#{identity.loggedIn}">
+		<h:outputText value="Χρήστης : #{identity.username} "
+				rendered="#{identity.loggedIn}" />
+		<rich:menuSeparator />
 		<rich:dropDownMenu value="Σχολική Μονάδα">
 			<rich:menuItem value="Αναζήτηση ..." />
 			<rich:menuItem value="Επιλογη Σχολικής Μονάδας" action="#{schoolSearch.begin}"  />
@@ -21,12 +24,9 @@
 		</rich:dropDownMenu>
 		</rich:toolBarGroup>
 		<rich:toolBarGroup>
-			<h:outputText value="#{projectName}:" />
 			<s:link view="/home.xhtml" value="Κεντρική Σελίδα" />
 		</rich:toolBarGroup>
 		<rich:toolBarGroup location="right">
-			<h:outputText value="Welcome, #{identity.username}!"
-				rendered="#{identity.loggedIn}" />
 			<s:link view="/login.xhtml" value="Είσοδος"
 				rendered="#{not identity.loggedIn}" />
 			<s:link view="/home.xhtml" action="#{identity.logout}" value="Έξοδος"

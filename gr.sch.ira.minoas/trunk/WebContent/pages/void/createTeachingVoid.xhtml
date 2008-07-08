@@ -6,10 +6,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+	xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
 
 	<ui:define name="body">
-		<h:form id="createTeachingVoidForm">
+		<h:form>
 			<rich:panel>
 				<f:facet name="header">Προσθήκη Διδακτικού Κενού</f:facet>
 				<ui:include src="/school/selectedSchoolFragment.xhtml" />
@@ -23,14 +23,15 @@
 					κατά τύπο προσωπικού.</p>
 				</rich:panel>
 				<rich:panel>
-					<ui:include src="/compositions/void/manageTeachingVoid.xhtml" />
+					<ui:include src="/components/void/manageTeachingVoid.xhtml">
+						<ui:param name="teachingVoid" value="#{teachingVoid}" />
+					</ui:include>
 					<h:panelGrid columns="2">
 						<h:commandButton action="saveCreatedTeachingVoid" value="Αποθήκευση" />
 						<h:commandButton action="cancelCreatedTeachingVoid" value="Ακύρωση" />
 					</h:panelGrid>
 				</rich:panel>
 			</rich:panel>
-
 		</h:form>
 	</ui:define>
 
