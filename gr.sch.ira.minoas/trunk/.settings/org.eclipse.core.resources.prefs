@@ -1,12 +1,9 @@
-#Tue Jul 08 17:16:32 EEST 2008
+#Wed Jul 09 11:58:09 EEST 2008
 eclipse.preferences.version=1
-encoding//WebContent/components/void/manageTeachingVoid.xhtml=UTF-8
 encoding//WebContent/createTeachingVoid.xhtml=UTF-8
 encoding//WebContent/layout/menu.xhtml=UTF-8
 encoding//WebContent/manageSchoolVoids.xhtml=UTF-8
-encoding//WebContent/manageVoid.xhtml=UTF-8
-encoding//WebContent/school/selectedSchoolFragment.xhtml=UTF-8
 encoding//WebContent/schoolSearch.xhtml=UTF-8
-encoding//WebContent/teachingVoidCreated.xhtml=UTF-8
 encoding//WebContent/voidManagement.xhtml=UTF-8
+encoding//src/manageTeachingVoid.xhtml=UTF-8
 encoding/<project>=UTF-8

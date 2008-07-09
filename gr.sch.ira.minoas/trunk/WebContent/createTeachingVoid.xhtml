@@ -9,30 +9,57 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
 
 	<ui:define name="body">
-		<h:form>
-			<rich:panel>
-				<f:facet name="header">Προσθήκη Διδακτικού Κενού</f:facet>
-				<ui:include src="/school/selectedSchoolFragment.xhtml" />
-				<rich:panel>
-					<p>Για να προσθέσετε ένα νέο διδακτικό κενό, πρέπει πρώτα να
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText
+					value="Εισαγωγή Νέου Κενού Σχολικής Μονάδας #{school.title} (#{school.regionCode} 'ΗΡΑΚΛΕΙΟΥ) " />
+			</f:facet>
+			<s:div rendered="${conversationStatus == 'CREATING_NEW_VOID'}">
+				<h:outputText
+					value="Για να προσθέσετε ένα νέο διδακτικό κενό, πρέπει πρώτα να
 					επιλέξετε την ειδικότητα που αφορά το κένο και το σύνολο το
-					διδακτικών ωρών που απαιτούνται για την πλήρωση του κενού αυτού.</p>
-					<rich:spacer width="1" height="15" title="Here is a spacer..." />
-					<p>Στην συνέχεια και αν είναι κάτι τέτοιο δυνατό, μπορείται να
+					διδακτικών ωρών που απαιτούνται για την πλήρωση του κενού αυτού." />
+				<br />
+				<rich:spacer width="1" height="10" title="Here is a spacer..." />
+				<br />
+				<h:outputText
+					value="Στην συνέχεια και αν είναι κάτι τέτοιο δυνατό, μπορείται να
 					προσδιορίσεται την τρέχουσα κατανομή του κενού σε διδασκόμενες ώρες
-					κατά τύπο προσωπικού.</p>
-				</rich:panel>
+					κατά τύπο προσωπικού." />
+				<br />
+
+				<ui:include src="/components/void/manageTeachingVoid.xhtml">
+					<ui:param name="teachingVoid" value="#{teachingVoid}" />
+				</ui:include>
+			</s:div>
+			<s:div rendered="${conversationStatus == 'NEW_VOID_SAVED'}">
 				<rich:panel>
-					<ui:include src="/components/void/manageTeachingVoid.xhtml">
-						<ui:param name="teachingVoid" value="#{teachingVoid}" />
-					</ui:include>
-					<h:panelGrid columns="2">
-						<h:commandButton action="saveCreatedTeachingVoid" value="Αποθήκευση" />
-						<h:commandButton action="cancelCreatedTeachingVoid" value="Ακύρωση" />
+					<f:facet name="header">Επιτυχής Εισαγωγή Διδακτικού Κενού...</f:facet>
+					<h:panelGrid columns="1">
+					<h:panelGroup>
+					<h:outputText value="Η εισαγωγή του διδακτικού κενού ειδικότητας " />
+					<h:outputLabel value="#{teachingVoid.specialisation.title}"
+						styleClass="name" />
+					<h:outputText value=" και συνολικού αριθμού διδακτικών ωρών " />
+					<h:outputLabel value="#{teachingVoid.requiredHours}" />
+					<h:outputText
+						value="ήταν επιτυχής. Επιλέξτε απο τις παρακάτω διαθέσιμες ενέργειες για να συνεχίσεται." />
+					<br />
+					<rich:spacer height="20" />
+					</h:panelGroup>
+					<h:panelGroup>
+							<s:link value="Δημιουργεία Επιπλέον Κενού"
+								action="createAnotherTeachingVoid" />
+							| <s:link value="Δημιουργεία Κενού σε άλλη Σχολική μονάδα"
+								action="changeSchool" />
+							| <s:link value="Διαχείρηση Κενών Σχολικής Μονάδας"
+								action="manageSchoolVoids" />
+						</h:panelGroup>
 					</h:panelGrid>
 				</rich:panel>
-			</rich:panel>
-		</h:form>
+			</s:div>
+		</rich:panel>
+
 	</ui:define>
 
 </ui:composition>

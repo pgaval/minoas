@@ -25,19 +25,30 @@
 	<div id="container">
 		<div id="sidebar" >
 			<ui:insert name="sidebar" />
-			<h:form >
-			<rich:panelMenu mode="server" rendered="#{identity.loggedIn}">
-				<rich:panelMenuGroup label="Διδακτικά Κενά ...." expanded="true">
-					<rich:panelMenuItem>
-						<s:link  value="Εισαγωγή Νέου Κενού" action="#{manageVoid.beginCreateTeachingVoid()}" />
-					</rich:panelMenuItem>
-					<rich:panelMenuItem>
-						<s:link value="Διαχείριση Κενών Μονάδας"
-						action="#{manageSchoolVoids.begin()}" />
-					</rich:panelMenuItem> 
-				</rich:panelMenuGroup>
-			</rich:panelMenu>
-		</h:form>
+			<a4j:form>
+	<rich:panelMenu mode="ajax" rendered="#{identity.loggedIn}">
+		<rich:panelMenuGroup label="Διδακτικά Κενά ...." expanded="true">
+			<rich:panelMenuItem>
+				<s:link value="Εισαγωγή Νέου Κενού"
+					action="#{manageVoid.beginCreateTeachingVoid()}" />
+			</rich:panelMenuItem>
+			<rich:panelMenuItem>
+				<s:link value="Διαχείριση Κενών Μονάδας"
+					action="#{manageSchoolVoids.begin()}" />
+			</rich:panelMenuItem>
+			<rich:panelMenuGroup label="Προβολή Ενεργών Κενών ...." expandMode="ajax">
+				<rich:panelMenuItem>
+				<s:link value="Εισαγωγή Νέου Κενού"
+					action="#{manageVoid.beginCreateTeachingVoid()}" />
+			</rich:panelMenuItem>
+			<rich:panelMenuItem>
+				<s:link value="Διαχείριση Κενών Μονάδας"
+					action="#{manageSchoolVoids.begin()}" />
+			</rich:panelMenuItem>
+			</rich:panelMenuGroup>
+		</rich:panelMenuGroup>
+	</rich:panelMenu>
+</a4j:form>
 		</div>
 		<div id="body">
 			<ui:insert name="body"/>

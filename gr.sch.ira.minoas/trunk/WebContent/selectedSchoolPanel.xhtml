@@ -10,15 +10,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-	<h:form>
-		<rich:toolBar>
-			<rich:toolBarGroup location="left">
-		Επιλεγμένη Σχολική Μονάδα : <h:outputLabel value="#{school.title}" />
-				<h:outputLabel value="(#{school.regionCode} 'ΗΡΑΚΛΕΙΟΥ)" />
-			</rich:toolBarGroup>
-			<rich:toolBarGroup location="right">
-				<s:link  value="Επιλογή Άλλης Μονάδας" action="changeSchool"/>
-			</rich:toolBarGroup>
-		</rich:toolBar>
-	</h:form>
+	<rich:panel>
+		<h:outputText value="Επιλεγμένη Σχολική Μονάδα : "/>
+		<h:outputText value="#{school.title} (#{school.regionCode} 'ΗΡΑΚΛΕΙΟΥ)"/>
+		<br />
+		[ <s:link value="Επιλογή Άλλης Μονάδας" action="changeSchool"/> ]
+	</rich:panel>
 </ui:component>

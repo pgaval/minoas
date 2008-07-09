@@ -6,83 +6,46 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a="http://richfaces.org/a4j" template="layout/template.xhtml">
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="layout/template.xhtml">
 
 	<ui:define name="body">
 
-		<h:messages globalOnly="true" styleClass="message" />
-
 		<rich:panel>
 			<f:facet name="header">Επιλογή Σχολικής Μονάδας</f:facet>
-			<s:div>
-				<p>
-				Πριν να συνεχίσεται, πρέπει να επιλέξετε σχολική μονάδα απο
-				τον παρακάτω πίνακα. 
-				</p>
-				<p>
-				Για την διευκόλυνση σας, μπορείτε να
-				φιλτράρεται την λίστα με τα διαθέσιμα φίλτρα.
-				</p>
-			</s:div>
-
+			<p>
+				<h:outputText
+					value="Πριν να συνεχίσεται, πρέπει να επιλέξετε σχολική μονάδα απο
+				τον παρακάτω πίνακα." />
+			</p>
+			<p>
+				<h:outputText value="Για την διευκόλυνση σας, μπορείτε να
+				φιλτράρεται την λίστα με τα διαθέσιμα φίλτρα." />
+			</p>	
 			<h:form id="schoolSearchForm">
-				<rich:panel>
-					<f:facet name="header">Φίλτρα Αναζήτησης Σχολικής Μονάδας</f:facet>
-				Τίτλος Σχολείου : <h:inputText
-					value="#{schoolSearch.searchString}" id="searchString"
-					style="width: 165px;">
-					<a:support event="onkeyup"
-						actionListener="#{schoolSearch.schoolSearch}"
-						reRender="searchResults" />
-				</h:inputText> 
-				<a:status>
-					<f:facet name="start">
+				<h:panelGrid columns="3">
+					<h:panelGroup>
+					<h:outputLabel value="Τίτλος Σχολείου : "  />
+					<h:inputText value="#{schoolSearch.searchString}" id="searchString"
+						style="width: 165px;">
+						<a4j:support event="onkeyup"
+							actionListener="#{schoolSearch.schoolSearch}"
+							reRender="schoolListResult" status="schoolSearchStatus"/>
+					</h:inputText>
+					</h:panelGroup>
+					<a4j:status id="schoolSearchStatus">
+						<f:facet name="start">
 						<h:graphicImage value="/img/spinner.gif" />
-					</f:facet>
-				</a:status>
-				
-				<a:outputPanel id="searchResults">
-					<rich:dataTable id="schoolList" value="#{schools}" var="school"
-						rendered="#{schools.rowCount>0}"  rows="10" border="1"
-						onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-						<f:facet name="header">
-							<rich:columnGroup>
-								<rich:column>
-									<h:outputText value="Κωδικός" />
-								</rich:column>
-								<rich:column>
-									<h:outputText value="Τίτλος Μονάδας" />
-								</rich:column>
-								<rich:column>
-									<h:outputText value="Περιοχή" />
-								</rich:column>
-							</rich:columnGroup>
 						</f:facet>
+					</a4j:status>
+					<a4j:commandButton value="Αναζήτηση" actionListener="#{schoolSearch.schoolSearch}"
+							reRender="schoolListResult" status="schoolSearchStatus"/>
+				</h:panelGrid>		
+				 <a4j:include id="schoolListResult" viewId="/schoolList.xhtml">
+				</a4j:include>
 
-						<rich:column>
-							<h:outputText value="#{school.ministryCode}" />
-						</rich:column>
 
-						<rich:column>
-							<s:link id="viewSchoolVoids" value="#{school.title}"
-								action="next"/>
-						</rich:column>
 
-						<rich:column>
-							<h:outputText value="#{school.regionCode}' ΗΡΑΚΛΕΙΟΥ" />
-						</rich:column>
-
-						<f:facet name="footer">
-
-							<rich:datascroller align="left" for="schoolList" maxPages="20"
-								 id="sc1" />
-						</f:facet>
-
-					</rich:dataTable>
-			</a:outputPanel>
-				</rich:panel>
-				<h:commandButton id="nextButton" value="Next" action="next" />
 			</h:form>
 
 		</rich:panel>
