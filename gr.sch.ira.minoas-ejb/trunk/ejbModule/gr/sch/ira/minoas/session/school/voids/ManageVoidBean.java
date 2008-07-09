@@ -22,6 +22,7 @@ import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.RaiseEvent;
 import org.jboss.seam.annotations.security.Restrict;
 
@@ -29,6 +30,11 @@ import org.jboss.seam.annotations.security.Restrict;
 @Restrict("#{identity.loggedIn}")
 @Name("manageVoid")
 public class ManageVoidBean extends BaseSchoolAware implements ManageVoid {
+
+	
+	
+	@Out(required=true, scope=ScopeType.CONVERSATION)
+	private ConversationStatus conversationStatus;
 
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
@@ -57,7 +63,12 @@ public class ManageVoidBean extends BaseSchoolAware implements ManageVoid {
 	@Begin(nested = true, pageflow = "createTeachingVoid")
 	public void beginCreateTeachingVoid() {
 		info("conversation has begun");
-
+		conversationStatus = ConversationStatus.CREATING_NEW_VOID;
+	}
+	
+	public void beginCreateAnotherTeachingVoid() {
+		conversationStatus = ConversationStatus.CREATING_NEW_VOID;
+		createTeachingVoid();
 	}
 
 	/**
@@ -81,7 +92,6 @@ public class ManageVoidBean extends BaseSchoolAware implements ManageVoid {
 		return teachingVoid;
 	}
 
-
 	/**
 	 * @see gr.sch.ira.minoas.session.school.voids.ManageVoid#getTeachingVoid()
 	 */
@@ -103,22 +113,24 @@ public class ManageVoidBean extends BaseSchoolAware implements ManageVoid {
 	 * @see gr.sch.ira.minoas.session.school.voids.ManageVoid#removeTeachingResource(gr.sch.ira.minoas.model.voids.TeachingResource)
 	 */
 	public void removeTeachingResource(TeachingResource teachingResource) {
-		Collection<TeachingResource> resources = teachingVoid.getTeachingResources();
+		Collection<TeachingResource> resources = teachingVoid
+				.getTeachingResources();
 		if (resources != null) {
 			resources.remove(teachingResource);
 		}
 	}
 
-	@End
 	@RaiseEvent(EventConstants.EVENT_TEACHING_VOID_ADDED)
 	public void saveCreatedTeachingVoid() {
-		info("trying to save newly created teaching void '#0'", getTeachingVoid());
+		info("trying to save newly created teaching void '#0'",
+				getTeachingVoid());
 		em.persist(getTeachingVoid());
 		/*
-		 * check if any of the teaching resource(s) has non possitive
-		 * teaching hours
+		 * check if any of the teaching resource(s) has non possitive teaching
+		 * hours
 		 */
-		for (Iterator<TeachingResource> it = getTeachingVoid().getTeachingResources().iterator(); it.hasNext();) {
+		for (Iterator<TeachingResource> it = getTeachingVoid()
+				.getTeachingResources().iterator(); it.hasNext();) {
 			TeachingResource resource = it.next();
 			if (!(resource.getTeachingHours().longValue() > 0)) {
 				it.remove();
@@ -127,7 +139,8 @@ public class ManageVoidBean extends BaseSchoolAware implements ManageVoid {
 		}
 		em.flush();
 		em.merge(getTeachingVoid());
-		
+		conversationStatus = ConversationStatus.NEW_VOID_SAVED;
+
 	}
 
 	/**
@@ -136,5 +149,7 @@ public class ManageVoidBean extends BaseSchoolAware implements ManageVoid {
 	public void setTeachingVoid(TeachingVoid teachingVoid) {
 		this.teachingVoid = teachingVoid;
 	}
+
+	
 
 }

@@ -28,14 +28,9 @@ import org.jboss.seam.faces.FacesMessages;
 public class ManageSchoolVoidsBean extends BaseSchoolAware implements
 		ManageSchoolVoids {
 
-	@Begin(nested = true, pageflow = "manageSchoolVoids")
-	public void begin() {
-		info("conversation has begun");
-	}
+	
 
-	public void end() {
-	}
-
+	
 	@EJB
 	private CoreSearching coreSearching;
 
@@ -62,6 +57,15 @@ public class ManageSchoolVoidsBean extends BaseSchoolAware implements
 		info("found totally '#0' voids for school '#1'", result.size(),
 				getSchool());
 		this.voids = result;
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.session.school.voids.ManageSchoolVoids#beginSchoolVoidManagement()
+	 */
+	@Begin(nested = true, pageflow = "manageSchoolVoids")
+	public void beginSchoolVoidManagement(School selectedSchool) {
+		
+		
 	}
 
 }

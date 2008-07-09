@@ -10,11 +10,11 @@ public interface ManageSchoolVoids extends SchoolAware {
     
 	public void search(School selectedSchool);
 	
+	public void beginSchoolVoidManagement(School selectedSchool);
+	
 	public void remove();
 	
-	public void begin();
 	
-	public void end();
 	
 
 }

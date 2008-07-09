@@ -10,6 +10,10 @@ import javax.ejb.Local;
 
 @Local
 public interface ManageVoid extends SchoolAware {
+	
+	enum ConversationStatus {
+		CREATING_NEW_VOID, UPDATING_EXISTING_VOID, NEW_VOID_SAVED, EXISTING_VOID_UPDATED
+	}
 	public void setTeachingVoid(TeachingVoid teachingVoid);
 
 	public TeachingVoid getTeachingVoid();
@@ -27,6 +31,10 @@ public interface ManageVoid extends SchoolAware {
 	public TeachingVoid createTeachingVoid();
 
 	public void beginCreateTeachingVoid();
+	
+	public void beginCreateAnotherTeachingVoid();
 
 	public void saveCreatedTeachingVoid();
+	
+	
 }

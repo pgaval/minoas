@@ -56,7 +56,7 @@ class CoreSearchingBean implements CoreSearching {
 	public Collection<School> searchShools(String school_search_pattern) {
 		return em
 				.createQuery(
-						"SELECT s from School s WHERE lower(s.title) LIKE :search_pattern")
+						"SELECT s from School s WHERE lower(s.title) LIKE :search_pattern AND s.ministryCode != '0000000'")
 				.setParameter("search_pattern", school_search_pattern).getResultList();
 	}
 
