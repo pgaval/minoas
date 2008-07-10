@@ -71,16 +71,16 @@ fieldset {
 #sidebar {
 	float: left;
 	width: 190px;
-	margin-top: 96px;
-	padding: 20px 10px 0 10px;
+	margin-top: 115px;
+	padding: 10px 10px 0 10px;
 	background: url(../img/sdb.bg.gif) 0 0 no-repeat;
 }
 
 #body {
 	float: left;
 	width: 548px;
-	margin-top: 75px;
-	padding-top: 5px;
+	margin-top: 115px;
+	padding-top: 10px;
 	background: #fff url(../img/cnt.bg.gif) 0 0 repeat-x;
 }
 #footer {
