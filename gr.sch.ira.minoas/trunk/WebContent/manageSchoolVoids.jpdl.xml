@@ -8,7 +8,7 @@
 
   <decision name="has school ?" expression="#{manageSchoolVoids.hasSchool()}">
     <transition name="true" to="manageSchoolVoids" />
-      <action expression="#{manageSchoolVoids.search(school)}" />
+      <action expression="#{manageSchoolVoids.searchTeachingVoids()}" />
     <transition name="false" to="selectSchool">
       <action expression="#{schoolSearch.schoolSearch()}" />
     </transition>
@@ -26,11 +26,11 @@
     <transition name="cancel" to="home">
       <action expression="#{manageSchoolVoids.cancel}" />
     </transition>
-    <transition name="selectSchool" to="selectSchool">
+    <transition name="changeSchool" to="selectSchool">
       <action expression="#{schoolSearch.schoolSearch()}" />
     </transition>
-    <transition name="selectVoid" to="manageVoid">
-      <action expression="#{manageVoid.setTeachingVoid(void)}" />
+    <transition name="selectVoid" to="updateVoid">
+      <action expression="#{manageVoid.beginUpdateExistingTeachingVoid(teachingVoid)}" />
     </transition>
   </page>
   
@@ -38,7 +38,7 @@
     <redirect />
   </page>
   
-  <page name="manageVoid" view-id="/manageVoid.xhtml">
+  <page name="updateVoid" view-id="/updateTeachingVoid.xhtml">
     <redirect />
   </page>
   
