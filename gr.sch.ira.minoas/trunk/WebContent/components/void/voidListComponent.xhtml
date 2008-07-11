@@ -1,0 +1,43 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+		<rich:dataTable var="teachingVoid" value="#{teachingVoids}">
+					<f:facet name="header">
+							<h:outputText value="Καταχωρημένα Διδακτικά Κενά Σχολικής Μονάδας" />
+						</f:facet>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Ειδικότητα" />
+							</f:facet>
+						<s:link value="#{teachingVoid.specialisation.id}" action="selectVoid">
+							<rich:toolTip followMouse="true" direction="auto"
+								horizontalOffset="5"
+								verticalOffset="5" layout="block">
+								<f:facet name="defaultContent">
+									<f:verbatim>#{teachingVoid.specialisation.title}</f:verbatim>
+								</f:facet>
+							</rich:toolTip>
+						</s:link>
+					</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Απαιτούμενες Ώρες" />
+							</f:facet>
+							<h:outputLabel value="#{teachingVoid.requiredHours}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="dflsjlsdkjflj" />
+							</f:facet>
+							<h:outputLabel value="#{teachingVoid.teachingHours}" />
+						</rich:column>
+				</rich:dataTable>
+	
+</ui:component>
