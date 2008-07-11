@@ -16,8 +16,8 @@
     
   <page name="selectSchool" view-id="/schoolSearch.xhtml">
     <redirect />
-    <transition name="next" to="manageSchoolVoids">
-      <action expression="#{manageSchoolVoids.search(school)}" />
+    <transition name="selectSchool" to="manageSchoolVoids">
+      <action expression="#{manageSchoolVoids.setSchool(school)}" />
     </transition>
   </page>   
   

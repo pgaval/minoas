@@ -11,75 +11,68 @@
                        
 <ui:define name="body">
 
-	<div class="section">
-		<span class="error">
-			<h:messages globalOnly="true" styleClass="message"/>
-		</span>
-	</div>
-   <ui:include src="/school/selectedSchoolFragment.xhtml" />
 		<rich:panel>
-		<f:facet name="header">Διαχείριση Σχολικής Μονάδας</f:facet>
-			<rich:panel>
-				<f:facet name="header">
-        			Κενά Σχολικής Μονάδας ...
-        		</f:facet>
-			<h:form id="schoolVoidSearchForm">
-			
-			<a:outputPanel rendered="#{voids.rowCount==0}">
-				<p>
-					Η σχολική μονάδα δεν παρουσιάζει καταχωρημένα κενά .... 
-				</p>
-			</a:outputPanel>
-			<a:outputPanel rendered="#{voids.rowCount!=0}">
-				<rich:dataTable id="voidList" var="void" value="#{voids}"
-					onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
-					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" rendered="#{voids.rowCount!=0}">
-					<f:facet name="header">
-						<rich:columnGroup>
+			<f:facet name="header">Διαχείριση Κενών Μονάδας</f:facet>
+				<h:form id="schoolVoidSearchForm">
+
+					<a:outputPanel rendered="#{voids.rowCount==0}">
+						<p>Η σχολική μονάδα δεν παρουσιάζει καταχωρημένα κενά ....</p>
+					</a:outputPanel>
+					<a:outputPanel rendered="#{voids.rowCount!=0}">
+						<rich:dataTable id="voidList" var="void" value="#{voids}"
+							onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
+							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							rendered="#{voids.rowCount!=0}">
+							<f:facet name="header">
+								<rich:columnGroup>
+									<rich:column>
+										<h:outputText value="Ειδικότητα" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Λεκτικό Ειδικότητας" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Απαιτούμενες Ώρες" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Πλεόνασμα/Έλλειμα Ωρών" />
+									</rich:column>
+								</rich:columnGroup>
+							</f:facet>
+
 							<rich:column>
-								<h:outputText value="Ειδικότητα" />
+								<h:outputText value="#{void.specialisation.id}" />
 							</rich:column>
+
 							<rich:column>
-								<h:outputText value="Λεκτικό Ειδικότητας" />
+								<h:commandLink action="selectVoid"
+									value="#{void.specialisation.title}" />
 							</rich:column>
+
 							<rich:column>
-								<h:outputText value="Απαιτούμενες Ώρες" />
+								<h:outputText value="#{void.requiredHours}" />
 							</rich:column>
+
 							<rich:column>
-								<h:outputText value="Πλεόνασμα/Έλλειμα Ωρών" />
+								<h:outputText value="#{void.teachingHours}"
+									rendered="#{void.teachingHours gt void.requiredHours}"
+									style="COLOR: #0000ff;" />
+								<h:outputText value="0"
+									rendered="#{void.teachingHours eq void.requiredHours}"
+									style="COLOR: #00ff00;" />
 							</rich:column>
-						</rich:columnGroup>
-					</f:facet>
 
-					<rich:column>
-						<h:outputText value="#{void.specialisation.id}" />
-					</rich:column>
+							<f:facet name="footer">
+								<rich:datascroller align="left" for="voidList" maxPages="20"
+									page="#{schoolVoidSearch.page}" id="sc2" />
+							</f:facet>
+						</rich:dataTable>
+					</a:outputPanel>
 
-					<rich:column>
-						<h:commandLink action="selectVoid" value="#{void.specialisation.title}" />
-					</rich:column>
 
-					<rich:column>
-						<h:outputText value="#{void.requiredHours}" />
-					</rich:column>
 
-					<rich:column>
-						<h:outputText value="#{void.teachingHours}" rendered="#{void.teachingHours gt void.requiredHours}" style="COLOR: #0000ff;"/>
-						<h:outputText value="0" rendered="#{void.teachingHours eq void.requiredHours}" style="COLOR: #00ff00;"/>
-					</rich:column>
-					
-					<f:facet name="footer">
-					<rich:datascroller align="left" for="voidList" maxPages="20"
-					page="#{schoolVoidSearch.page}" id="sc2" />
-					</f:facet>
-					</rich:dataTable>
-				</a:outputPanel>
 
-				
-				
-				
-			</h:form>
-			</rich:panel>
+				</h:form>
 		</rich:panel>
 
 	</ui:define>
