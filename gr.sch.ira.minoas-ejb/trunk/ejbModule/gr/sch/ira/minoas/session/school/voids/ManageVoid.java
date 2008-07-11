@@ -33,6 +33,8 @@ public interface ManageVoid extends SchoolAware {
 	public void beginCreateTeachingVoid();
 	
 	public void beginCreateAnotherTeachingVoid();
+	
+	public void beginUpdateExistingTeachingVoid(TeachingVoid teachingVoid);
 
 	public void saveCreatedTeachingVoid();
 	

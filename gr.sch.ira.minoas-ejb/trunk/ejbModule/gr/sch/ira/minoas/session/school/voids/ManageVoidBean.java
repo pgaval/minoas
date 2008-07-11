@@ -33,7 +33,7 @@ public class ManageVoidBean extends BaseSchoolAware implements ManageVoid {
 
 	
 	
-	@Out(required=true, scope=ScopeType.CONVERSATION)
+	@Out(required=false, scope=ScopeType.CONVERSATION)
 	private ConversationStatus conversationStatus;
 
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
@@ -69,6 +69,11 @@ public class ManageVoidBean extends BaseSchoolAware implements ManageVoid {
 	public void beginCreateAnotherTeachingVoid() {
 		conversationStatus = ConversationStatus.CREATING_NEW_VOID;
 		createTeachingVoid();
+	}
+	
+	public void beginUpdateExistingTeachingVoid(TeachingVoid teachingVoid) {
+		conversationStatus = ConversationStatus.UPDATING_EXISTING_VOID;
+		setTeachingVoid(em.merge(teachingVoid));
 	}
 
 	/**

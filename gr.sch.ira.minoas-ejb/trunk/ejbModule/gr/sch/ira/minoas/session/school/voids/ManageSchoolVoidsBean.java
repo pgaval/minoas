@@ -41,8 +41,7 @@ public class ManageSchoolVoidsBean extends BaseSchoolAware implements
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
-	@In(required=false, scope=ScopeType.CONVERSATION)
-	@Out(required=false, scope=ScopeType.CONVERSATION)
+	@DataModel
 	private Collection<TeachingVoid> teachingVoids;
 
 	@Remove
@@ -60,13 +59,13 @@ public class ManageSchoolVoidsBean extends BaseSchoolAware implements
 		info("starting school void management.");
 	}
 	
-	@Factory(value = "teachingVoids", scope = ScopeType.CONVERSATION)
-	public Collection<TeachingVoid> createTeachingVoids() {
+	public Collection<TeachingVoid> searchTeachingVoids() {
 		info("searching for school's '#0' teaching voids.", getSchool());
-		Collection<TeachingVoid> teachingvoids = coreSearching.searchVoids(getSchool());
+		School school = em.merge(getSchool());
+		Collection<TeachingVoid> teachingvoids = school.getVoids();
 		info("found totally #0 teaching void(s) registered with school '#1'", teachingvoids.size(), getSchool());
 		setTeachingVoids(teachingvoids);
-		return teachingVoids;
+		return getTeachingVoids();
 	}
 
 
