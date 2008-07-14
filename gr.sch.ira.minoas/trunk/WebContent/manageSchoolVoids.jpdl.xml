@@ -41,6 +41,10 @@
   
   <page name="updateVoid" view-id="/updateTeachingVoid.xhtml">
     <redirect />
+    <transition name="cancel" to="manageSchoolVoids">
+     <action expression="#{manageSchoolVoids.searchTeachingVoids()}" />
+    </transition>
+    
   </page>
   
   

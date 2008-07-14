@@ -6,7 +6,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:s="http://jboss.com/products/seam/taglib">
 
 <ui:composition template="/layout/template.xhtml">
 
@@ -14,9 +15,24 @@
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText
-					value="Ανανέωση / Τροποποίηση Υπαρκτού Διδακτικού Κενού Ειδικότητας #{teachingVoid.specialisation.id}" />
+					value="Ανανέωση / Τροποποίηση Υπαρκτής Διδακτικής Απαίτησης Ειδικότητας #{teachingVoid.specialisation.id}" />
 			</f:facet>
-			<ui:include src="/components/void/teachingVoidComponent.xhtml" />
+			<h:form>
+			<h:panelGrid columns="1">
+				<h:panelGroup>
+					<h:outputText value="Σλαβίκο, πρόσθεσε εδω μια περιγραφή ...."/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<ui:include src="/components/void/teachingVoidComponent.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup>
+					<s:button value="Αποθήκευση Αλλαγών" />
+						<s:button value="Προσθήκη Διδακτίκων Ωρών" />
+						<s:button value="Πλήρης Διαγραφή" />
+						<s:button value="Ακύρωση Αλλαγών" />
+				</h:panelGroup>
+			</h:panelGrid>
+			</h:form>
 		</rich:panel>
 
 	</ui:define>
