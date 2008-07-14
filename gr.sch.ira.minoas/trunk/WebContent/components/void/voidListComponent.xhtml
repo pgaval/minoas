@@ -1,5 +1,6 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                             
 <ui:component xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,36 +9,50 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 	
-		<rich:dataTable var="teachingVoid" value="#{teachingVoids}">
-					<f:facet name="header">
-							<h:outputText value="Καταχωρημένα Διδακτικά Κενά Σχολικής Μονάδας" />
-						</f:facet>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Ειδικότητα" />
-							</f:facet>
-						<s:link value="#{teachingVoid.specialisation.id}" action="selectVoid">
-							<rich:toolTip followMouse="true" direction="auto"
-								horizontalOffset="5"
-								verticalOffset="5" layout="block">
-								<f:facet name="defaultContent">
-									<f:verbatim>#{teachingVoid.specialisation.title}</f:verbatim>
-								</f:facet>
-							</rich:toolTip>
-						</s:link>
+		<h:form>
+			<rich:dataTable id="schoolTeachingVoidsList" var="teachingVoid"
+			value="#{teachingVoids}" rows="15">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column rowspan="2">
+						<h:outputText value="Ειδικότητα" />
 					</rich:column>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Απαιτούμενες Ώρες" />
-							</f:facet>
-							<h:outputLabel value="#{teachingVoid.requiredHours}" />
-						</rich:column>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="dflsjlsdkjflj" />
-							</f:facet>
-							<h:outputLabel value="#{teachingVoid.teachingHours}" />
-						</rich:column>
-				</rich:dataTable>
-	
+					<rich:column rowspan="2">
+						<h:outputText value="Απαιτούμενες Ώρες" />
+					</rich:column>
+					<rich:column rowspan="2">
+						<h:outputText value="Διδασκόμενες Ώρες" />
+					</rich:column>
+					<rich:column colspan="2">
+						<h:outputText value="Κατάσταση Κενού" />
+					</rich:column>
+					<rich:column breakBefore="true">
+						<h:outputText value="+" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="-" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<h:outputText value="${teachingVoid.specialisation.id}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="${teachingVoid.requiredHours}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="${teachingVoid.teachingHours}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="${teachingVoid.teachingHours}" />
+			</rich:column>
+			<rich:column>
+				<h:outputText value="${teachingVoid.teachingHours}" />
+			</rich:column>
+			<f:facet name="footer">
+				<rich:datascroller align="left" for="schoolTeachingVoidsList"
+					id="sc1" />
+			</f:facet>
+		</rich:dataTable>	
+	</h:form>
 </ui:component>
