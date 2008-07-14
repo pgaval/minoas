@@ -6,7 +6,7 @@
     <transition to="has school ?" />
   </start-state>
 
-  <decision name="has school ?" expression="#{manageSchoolVoids.hasSchool()}">
+ <decision name="has school ?" expression="#{school ne null}">
     <transition name="true" to="manageSchoolVoids" />
       <action expression="#{manageSchoolVoids.searchTeachingVoids()}" />
     <transition name="false" to="selectSchool">
@@ -17,7 +17,8 @@
   <page name="selectSchool" view-id="/schoolSearch.xhtml">
     <redirect />
     <transition name="selectSchool" to="manageSchoolVoids">
-      <action expression="#{manageSchoolVoids.setSchool(school)}" />
+      <action expression="#{schoolSearch.selectSchool(school)}" />
+      <action expression="#{manageSchoolVoids.searchTeachingVoids()}" />
     </transition>
   </page>   
   

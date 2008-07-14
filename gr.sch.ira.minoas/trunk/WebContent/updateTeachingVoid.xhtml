@@ -1,12 +1,14 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:s="http://jboss.com/products/seam/taglib"
+
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition template="/layout/template.xhtml">
 
 	<ui:define name="body">
 		<rich:panel>
@@ -14,10 +16,11 @@
 				<h:outputText
 					value="Ανανέωση / Τροποποίηση Υπαρκτού Διδακτικού Κενού Ειδικότητας #{teachingVoid.specialisation.id}" />
 			</f:facet>
-			<ui:include src="components/void/teachingVoidComponent.xhtml"/>
+			<ui:include src="/components/void/teachingVoidComponent.xhtml" />
 		</rich:panel>
 
 	</ui:define>
 
 </ui:composition>
 
+</html>

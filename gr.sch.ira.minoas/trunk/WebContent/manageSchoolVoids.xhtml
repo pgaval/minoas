@@ -13,21 +13,31 @@
 
 		<rich:panel>
 			<f:facet name="header">
-				<h:outputText
-					value="Διαχείριση Κενώ Σχολικής Μονάδας #{school.title} (#{school.regionCode} 'ΗΡΑΚΛΕΙΟΥ) " />
+				<h:outputFormat value="Διαχείριση Κενώ Σχολικής Μονάδας {0} ({1} 'ΗΡΑΚΛΕΙΟΥ)">
+					<f:param value="#{school.title}"/>
+					<f:param value="#{school.regionCode}"/>
+				</h:outputFormat>
 			</f:facet>
-			<s:div rendered="#{teachingVoids.size gt 0}">
+			<s:div rendered="#{teachingVoids.size eq 0}">
 				<h:outputText
-					value="Στην επιλεγμένη σχολική μονάδα, δεν υπάρχουν αυτή την στιγμή καταχωρημένα διδακτικά κενά. Παρακαλώ, επιλέξτε άλλη σχολική μονάδα." />
-				<br />
-				<s:link value="Επιλογή άλλης Σχολικής Μονάδας ..."
-					action="changeSchool" />
+					value="Στην επιλεγμένη σχολική μονάδα, δεν υπάρχουν αυτή την στιγμή καταχωρημένα διδακτικά κενά. Παρακαλώ, " />
+				<s:link action="changeSchool">
+					<h:outputText value="επιλέξτε άλλη σχολική μονάδα" />
+				</s:link>
 			</s:div>
 			<s:div rendered="#{teachingVoids.size gt 0}">
+				<h:panelGrid columns="1">
+					<h:outputText value="Στον παρακάτω πίνακα εμφανίζονται οι καταχωρυμένες απαιτήσεις σε διδακτικές ώρες ανα ειδικότητα στην επιλεγμένη σχολική μονάδα " />
+				<h:panelGroup>
+				<h:outputText value="Αν θέλετε, μπορείται να " />
+				<s:link action="changeSchool">
+				<h:outputText value="επιλέξεται άλλη σχολική μονάδα." />
+				</s:link>
+				</h:panelGroup>
 				<ui:include src="/components/void/voidListComponent.xhtml">
 					<ui:param name="teachingVoids" value="#{teachingVoids}" />
 				</ui:include>
-				
+				</h:panelGrid>
 			</s:div>
 		</rich:panel>
 
