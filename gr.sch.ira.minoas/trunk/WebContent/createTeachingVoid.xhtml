@@ -9,7 +9,7 @@
 	xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
 
 	<ui:define name="body">
-		<rich:panel>
+		<rich:panel bodyClass="post" headerClass="pagetitle">
 			<f:facet name="header">
 				<h:outputText
 					value="Εισαγωγή Νέου Κενού Σχολικής Μονάδας #{school.title} (#{school.regionCode} 'ΗΡΑΚΛΕΙΟΥ) " />
@@ -27,36 +27,44 @@
 					προσδιορίσεται την τρέχουσα κατανομή του κενού σε διδασκόμενες ώρες
 					κατά τύπο προσωπικού." />
 				<br />
-
+				<a4j:form>
+				<h:panelGrid columns="1">
 				<ui:include src="/components/void/teachingVoidComponent.xhtml">
-					<ui:param name="teachingVoid" value="#{teachingVoid}" />
+					
 				</ui:include>
+				<h:panelGroup>
+						<h:commandButton value="Αποθήκευση Αλλαγών" action="save"/>
+						<h:commandButton value="Προσθήκη Διδακτίκων Ωρών" action="addTeachingHours" />
+						<s:button value="Ακύρωση Αλλαγών" action="cancel" />
+				
+				</h:panelGroup>
+				</h:panelGrid>
+				</a4j:form>
 			</s:div>
 			<s:div rendered="${conversationStatus == 'NEW_VOID_SAVED'}">
-				<rich:panel>
-					<f:facet name="header">Επιτυχής Εισαγωγή Διδακτικού Κενού...</f:facet>
-					<h:panelGrid columns="1">
-					<h:panelGroup>
-					<h:outputText value="Η εισαγωγή του διδακτικού κενού ειδικότητας " />
-					<h:outputLabel value="#{teachingVoid.specialisation.title}"
-						styleClass="name" />
-					<h:outputText value=" και συνολικού αριθμού διδακτικών ωρών " />
-					<h:outputLabel value="#{teachingVoid.requiredHours}" />
+				<h:outputText value="Επιτυχής Εισαγωγή Διδακτικού Κενού..."
+					styleClass="title" />
+
+				<h:panelGrid columns="1">
+					<h:outputFormat
+						value="Η εισαγωγή του διδακτικού κενού ειδικότητας {0} και συνολικού αριθμού  {1} διδακτικών ωρών ήταν επιτυχής. ">
+						<f:param value="#{teachingVoid.specialisation.title}" />
+						<f:param value="#{teachingVoid.requiredHours}" />
+					</h:outputFormat>
+					<rich:spacer height="10" />
 					<h:outputText
-						value="ήταν επιτυχής. Επιλέξτε απο τις παρακάτω διαθέσιμες ενέργειες για να συνεχίσεται." />
-					<br />
-					<rich:spacer height="20" />
-					</h:panelGroup>
+						value="Επιλέξτε απο τις παρακάτω διαθέσιμες ενέργειες για να συνεχίσεται." />
 					<h:panelGroup>
-							<s:link value="Δημιουργεία Επιπλέον Κενού"
+						<h:form>
+							<h:commandButton value="Δημιουργεία Επιπλέον Κενού"
 								action="createAnotherTeachingVoid" />
-							| <s:link value="Δημιουργεία Κενού σε άλλη Σχολική μονάδα"
+							<h:commandButton value="Δημιουργεία Κενού σε άλλη Σχολική μονάδα"
 								action="changeSchool" />
-							| <s:link value="Διαχείρηση Κενών Σχολικής Μονάδας"
-								action="manageSchoolVoids" />
-						</h:panelGroup>
-					</h:panelGrid>
-				</rich:panel>
+							<h:commandButton value="Τέλος Διαχείρησης" action="cancel" />
+						</h:form>
+					</h:panelGroup>
+
+				</h:panelGrid>
 			</s:div>
 		</rich:panel>
 

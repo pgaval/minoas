@@ -42,9 +42,24 @@
   <page name="updateVoid" view-id="/updateTeachingVoid.xhtml">
     <redirect />
     <transition name="cancel" to="manageSchoolVoids">
-     <action expression="#{manageSchoolVoids.searchTeachingVoids()}" />
+      <action expression="#{manageSchoolVoids.searchTeachingVoids()}" />
     </transition>
-    
+    <transition name="delete" to="manageSchoolVoids">
+      <action
+        expression="#{manageVoid.removeExistingTeachingVoid()}" />
+      <action expression="#{manageSchoolVoids.searchTeachingVoids()}" />
+    </transition>
+    <transition name="save" to="manageSchoolVoids">
+      <action
+        expression="#{manageVoid.saveExistingTeachingVoid()}" />
+      <action expression="#{manageSchoolVoids.searchTeachingVoids()}" />
+    </transition>
+    <transition name="addTeachingHours" to="updateVoid">
+       <action expression="#{manageVoid.addTeachingResource()}" />
+    </transition>
+    <transition name="removeTeachingHours" to="updateVoid">
+      <action expression="#{manageVoid.removeTeachingResource(teachingResource)}" />
+    </transition>
   </page>
   
   

@@ -8,19 +8,18 @@
                 xmlns:rich="http://richfaces.org/rich"
                 template="layout/template.xhtml">
 
-<ui:define name="sidebar">
+<ui:define name="body">
     
     <h:messages styleClass="message"/>
     
     <h:form id="login">
     
-        <rich:panel>
+        <rich:panel headerClass="pagetitle" bodyClass="post">
             <f:facet name="header">Ταυτοποίηση Χρήστη</f:facet>
     
-            <p>Παρακαλώ εισάγετε τα στοιχεία σας ....</p>
-        
-        
-                <h:panelGrid columns="1" rowClasses="prop" columnClasses="name,value">
+    		<h:outputText styleClass="title" value="Παρακαλώ εισάγετε τα στοιχεία σας ...."/>
+            
+                <h:panelGrid  columns="1" rowClasses="prop" columnClasses="name,value">
                     <h:outputLabel for="username">Ονόμα Χρήστη</h:outputLabel>
                     <h:inputText id="username" 
                               value="#{identity.username}"/>
@@ -32,7 +31,7 @@
                                           value="#{identity.rememberMe}"/>
                 </h:panelGrid>
             
-            <p>
+            <p class="meta">
               <i>Σημείωση - </i> Κατά την διάρκεια ανάπτυξης της εφαρμογής μπορείτε να χρησιμοποιήσετε οποιονδήποτε συνδυασμό ονόματος και κωδικού χρήστη. 
             </p>
                 
@@ -43,6 +42,5 @@
         </div>
           
     </h:form>
-
  </ui:define> 
 </ui:composition>

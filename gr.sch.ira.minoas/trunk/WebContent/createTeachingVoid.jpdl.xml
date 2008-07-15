@@ -1,59 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<pageflow-definition name="createTeachingVoid">
+<pageflow-definition xmlns="http://jboss.com/products/seam/pageflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://jboss.com/products/seam/pageflow http://jboss.com/products/seam/pageflow-2.0.xsd"
+  name="createTeachingVoid">
 
   <start-state name="start">
     <transition to="has school ?" />
   </start-state>
 
-  <decision name="has school ?" expression="#{manageVoid.hasSchool()}">
+  <decision name="has school ?" expression="#{school ne null}">
     <transition name="true" to="createTeachingVoid" />
     <transition name="false" to="selectSchool">
       <action expression="#{schoolSearch.schoolSearch()}" />
     </transition>
   </decision>
-    
+
   <page name="selectSchool" view-id="/schoolSearch.xhtml">
     <redirect />
     <transition name="selectSchool" to="createTeachingVoid">
-      <action expression="#{manageVoid.setSchool(school)}" />
+      <action expression="#{schoolSearch.selectSchool(school)}" />
     </transition>
   </page>
-  
+
   <page name="createTeachingVoid" view-id="/createTeachingVoid.xhtml">
     <redirect />
-    <transition name="addTeachingResource" to="createTeachingVoid">
+    <transition name="addTeachingHours" to="createTeachingVoid">
       <action expression="#{manageVoid.addTeachingResource()}" />
     </transition>
     <transition name="removeTeachingResource" to="createTeachingVoid">
-      <action expression="#{manageVoid.removeTeachingResource(teachingResource)}" />
+      <action
+        expression="#{manageVoid.removeTeachingResource(teachingResource)}" />
     </transition>
-    <transition name="saveCreatedTeachingVoid" to="createTeachingVoid">
+    <transition name="save" to="createTeachingVoidResult">
       <action expression="#{manageVoid.saveCreatedTeachingVoid}" />
     </transition>
-    <transition name="cancelCreatedTeachingVoid" to="home">
+    <transition name="cancel" to="home">
       <action expression="#{manageVoid.cancel}" />
     </transition>
     <transition name="changeSchool" to="selectSchool">
       <action expression="#{schoolSearch.schoolSearch()}" />
     </transition>
+    
+    <transition name="manageSchoolVoids" to="manageSchoolVoids"></transition>
+  </page>
+  
+  <page name="createTeachingVoidResult" view-id="/createTeachingVoid.xhtml">
     <transition name="createAnotherTeachingVoid" to="createTeachingVoid">
       <action expression="#{manageVoid.beginCreateAnotherTeachingVoid()}" />
     </transition>
     <transition name="changeSchool" to="selectSchool">
-       <action expression="#{manageVoid.beginCreateTeachingVoid()}" />
-       <action expression="#{schoolSearch.schoolSearch()}" />
+      <action expression="#{manageVoid.beginCreateTeachingVoid()}" />
+      <action expression="#{schoolSearch.schoolSearch()}" />
     </transition>
-    <transition name="manageSchoolVoids" to="manageSchoolVoids">
+    <transition name="cancel" to="home">
+      <action expression="#{manageVoid.cancel}" />
     </transition>
   </page>
-  
- <page name="manageSchoolVoids" view-id="/manageSchoolVoids.xhtml">
-    <redirect />
-  </page>
+
   
   <page name="home" view-id="/home.xhtml">
+    <end-conversation/>
     <redirect />
-  </page>
+   </page>
 
 </pageflow-definition>

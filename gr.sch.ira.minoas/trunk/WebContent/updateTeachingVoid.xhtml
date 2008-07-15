@@ -12,7 +12,7 @@
 <ui:composition template="/layout/template.xhtml">
 
 	<ui:define name="body">
-		<rich:panel>
+		<rich:panel bodyClass="post" headerClass="pagetitle">
 			<f:facet name="header">
 				<h:outputText
 					value="Ανανέωση / Τροποποίηση Υπαρκτής Διδακτικής Απαίτησης Ειδικότητας #{teachingVoid.specialisation.id}" />
@@ -23,15 +23,17 @@
 					<h:outputText value="Σλαβίκο, πρόσθεσε εδω μια περιγραφή ...."/>
 				</h:panelGroup>
 				<h:panelGroup>
-					<ui:include src="/components/void/teachingVoidComponent.xhtml" />
+					<ui:include src="/components/void/teachingVoidComponent.xhtml">
+						<ui:param name="teachingVoid" value="#{teachingVoid}" />
+					</ui:include>
 				</h:panelGroup>
-				<h:panelGroup>
-					<s:button value="Αποθήκευση Αλλαγών" />
-						<s:button value="Προσθήκη Διδακτίκων Ωρών" />
-						<s:button value="Πλήρης Διαγραφή" />
-						<s:button value="Ακύρωση Αλλαγών" />
-				</h:panelGroup>
-			</h:panelGrid>
+					<h:panelGroup>
+						<h:commandButton value="Αποθήκευση Αλλαγών" action="save" />
+						<h:commandButton value="Προσθήκη Διδακτίκων Ωρών" action="addTeachingHours" />
+						<s:button value="Πλήρης Διαγραφή" action="delete" />
+						<s:button value="Ακύρωση Αλλαγών" action="cancel" />
+					</h:panelGroup>
+				</h:panelGrid>
 			</h:form>
 		</rich:panel>
 

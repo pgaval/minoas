@@ -10,22 +10,23 @@
                 template="layout/template.xhtml">
                        
 <ui:define name="body">
-
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputFormat value="Διαχείριση Κενώ Σχολικής Μονάδας {0} ({1} 'ΗΡΑΚΛΕΙΟΥ)">
+		<h2 class="pagetitle"><h:outputFormat value="Διαχείριση Κενώ Σχολικής Μονάδας {0} ({1} 'ΗΡΑΚΛΕΙΟΥ)">
 					<f:param value="#{school.title}"/>
 					<f:param value="#{school.regionCode}"/>
 				</h:outputFormat>
-			</f:facet>
+		</h2>
+		<rich:panel>
 			<s:div rendered="#{teachingVoids.size eq 0}">
 				<h:outputText
 					value="Στην επιλεγμένη σχολική μονάδα, δεν υπάρχουν αυτή την στιγμή καταχωρημένα διδακτικά κενά. Παρακαλώ, " />
 				<s:link action="changeSchool">
 					<h:outputText value="επιλέξτε άλλη σχολική μονάδα" />
 				</s:link>
+				<br />
+				<br />
+				<s:button value="Τέλος Διαχείρησης" action="cancel" />
 			</s:div>
-			<s:div rendered="#{teachingVoids.size gt 0}">
+			<s:div rendered="#{teachingVoids.size gt 0}" styleClass="post">
 				<h:panelGrid columns="1">
 					<h:outputText value="Στον παρακάτω πίνακα εμφανίζονται οι καταχωρυμένες απαιτήσεις σε διδακτικές ώρες ανα ειδικότητα στην επιλεγμένη σχολική μονάδα " />
 				<h:panelGroup>
@@ -37,7 +38,11 @@
 				<ui:include src="/components/void/voidListComponent.xhtml">
 					<ui:param name="teachingVoids" value="#{teachingVoids}" />
 				</ui:include>
+				<h:panelGroup>
+					<s:button value="Τέλος Διαχείρησης" action="cancel" />
+				</h:panelGroup>
 				</h:panelGrid>
+				
 			</s:div>
 		</rich:panel>
 

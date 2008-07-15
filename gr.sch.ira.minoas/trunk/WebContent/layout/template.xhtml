@@ -1,33 +1,45 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:s="http://jboss.com/products/seam/taglib"
-      xmlns:rich="http://richfaces.org/rich"
-      xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Μινοας - Ολοκληρωμένο Σύστημα</title>
-	<link href="stylesheet/screen.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Μινοας - Ολοκληρωμένο Σύστημα</title>
+<link href="stylesheet/default.css" rel="stylesheet" type="text/css"
+	media="screen" />
 </head>
+
 <body>
 
-<div id="document">
-	<div id="header">
-		<div id="title"><img src="img/hdr.title.gif" alt="JBoss Suites: seam framework demo"/></div>
-		<div id="status">
-            Welcome #{user.name}
-            <s:link id="mainPageLink" view="/home.xhtml" value="Κεντρική Σελίδα" propagation="none"/>
-            | <s:link id="loginLink" view="/login.xhtml" value="Σύνδεση" propagation="none"/>
-            | <s:link id="logoutLink" action="#{identity.logout}" value="Αποσύνδεση"/>
-		</div>
+<!-- header start -->
+<div id="header">
+	<div id="logo">
+		<h1>Μίνοας</h1>
+		<p>Ολοκληρωμένο Σύστημα Μηχανογράφησεις</p>
 	</div>
-	<div id="container">
-		<div id="sidebar" >
-			<ui:insert name="sidebar" />
-			<a4j:form>
-	<rich:panelMenu mode="ajax" rendered="#{identity.loggedIn}">
-		<rich:panelMenuGroup label="Διδακτικά Κενά ...." expanded="true">
+	<div id="search">
+	</div>
+</div>
+<!-- header end -->
+<div id="menu">
+	<s:link value="Κεντρική Σελίδα" view="/home.xhtml" propagation="none"  styleClass="current_page_item"/>
+	<s:link value="Σύνδεση" view="/login.xhtml" rendered="#{!identity.loggedIn}" propagation="none"  styleClass="current_page_item"/>
+	<s:link value="Αποσύνδεση" action="#{identity.logout}" view="/home.xhtml" rendered="#{identity.loggedIn}" styleClass="current_page_item"/>
+</div>
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="content">
+		<ui:insert name="body" />
+	</div>
+	<!-- end content -->
+	<!-- start siderbar -->
+	<div id="sidebar">
+		<h2>Διδακτικά Κενά</h2>
+		<rich:panelMenu mode="ajax">
 			<rich:panelMenuItem>
 				<s:link value="Εισαγωγή Νέου Κενού"
 					action="#{manageVoid.beginCreateTeachingVoid()}" />
@@ -36,25 +48,40 @@
 				<s:link value="Διαχείριση Κενών Μονάδας"
 					action="#{manageSchoolVoids.beginSchoolVoidManagement()}" />
 			</rich:panelMenuItem>
-			<rich:panelMenuGroup label="Προβολή Ενεργών Κενών ...." expandMode="ajax">
+			<rich:panelMenuGroup label="Προβολή Ενεργών Κενών ...."
+				expandMode="ajax">
 				<rich:panelMenuItem>
-				<s:link value="Εισαγωγή Νέου Κενού"
-					action="#{manageVoid.beginCreateTeachingVoid()}" />
-			</rich:panelMenuItem>
-			<rich:panelMenuItem>
-				<s:link value="Διαχείριση Κενών Μονάδας"
-					action="#{manageSchoolVoids.beginSchoolVoidManagement()}" />
-			</rich:panelMenuItem>
-			</rich:panelMenuGroup>
+					<s:link value="Εισαγωγή Νέου Κενού"
+						action="#{manageVoid.beginCreateTeachingVoid()}" />
+				</rich:panelMenuItem>
+				<rich:panelMenuItem>
+					<s:link value="Διαχείριση Κενών Μονάδας"
+						action="#{manageSchoolVoids.beginSchoolVoidManagement()}" />
+				</rich:panelMenuItem>
 		</rich:panelMenuGroup>
 	</rich:panelMenu>
-</a4j:form>
-		</div>
-		<div id="body">
-			<ui:insert name="body"/>
-		</div>
 	</div>
-	<div id="footer">Created with JBoss Seam 2.0, JBoss EJB 3.0, JSF 1.2, Hibernate 3 and Facelets</div>
+	<!-- end siderbar -->
+	<div style="clear: both">&nbsp;</div>
+</div>
+<!-- end page -->
+<!-- start footer -->
+<div id="footer">
+<p>kjdslksjdfldsjlfjd</p>
+</div>
+<!-- end footer -->
+<div id="document">
+<div id="header">
+<div id="title"><img src="img/hdr.tittle.gif"
+	alt="JBoss Suites: seam framework demo" /></div>
+<div id="status">Welcome #{user.name} <s:link id="mainPageLink"
+	view="/home.xhtml" value="Κεντρική Σελίδα" propagation="none" /> | <s:link
+	id="loginLink" view="/login.xhtml" value="Σύνδεση" propagation="none" />
+| <s:link id="logoutLink" action="#{identity.logout}" value="Αποσύνδεση" />
+</div>
+</div>
+<div id="container"></div>
+
 </div>
 </body>
 </html>

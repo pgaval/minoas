@@ -8,12 +8,11 @@
       xmlns:rich="http://richfaces.org/rich"
       xmlns:a4j="http://richfaces.org/a4j"
       xmlns:s="http://jboss.com/products/seam/taglib">
-      
+
 <ui:component>
 	<rich:panel>
 		<f:facet name="header">Στοιχεία Διδακτικού Κενού ...</f:facet>
-		<h:form>
-			<h:panelGrid columns="1">
+		<h:panelGrid columns="1">
 				<h:panelGrid columns="4">
 					<h:outputText for="voidSpecialization" value="Ειδικότητα :" />
 					<h:panelGroup>
@@ -41,68 +40,44 @@
 						<f:validateLongRange minimum="1" maximum="1200" />
 					</h:inputText>
 				</h:panelGrid>
-				<rich:panel
-					rendered="#{teachingVoid.teachingResources != null and teachingVoid.teachingResources.size > 0}">
 
-					<rich:dataTable
-						onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-						cellpadding="0" cellspacing="0"
-						rendered="#{teachingVoid.teachingResources != null and teachingVoid.teachingResources.size > 0}"
-						width="700" border="0" var="teachingResource"
-						value="#{teachingVoid.teachingResources}">
+				<rich:dataTable cellpadding="0" cellspacing="0"
+					rendered="#{teachingVoid.teachingResources != null and teachingVoid.teachingResources.size > 0}"
+					width="700" border="0" var="teachingResource"
+					value="#{teachingVoid.teachingResources}">
 
+					<f:facet name="header">
+						<h:outputText value="Κατανομή Διδακτικού Κενού" />
+					</f:facet>
+					<rich:column>
 						<f:facet name="header">
-							<h:outputText value="Κατανομή Διδακτικού Κενού" />
+							<h:outputText value="Διδασκόμενες Ώρες" />
 						</f:facet>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Διδασκόμενες Ώρες" />
-							</f:facet>
-							<h:inputText id="teachingHours" size="4" maxlength="4"
-								value="#{teachingResource.teachingHours}" />
-						</rich:column>
+						<h:inputText id="teachingHours" size="4" maxlength="4"
+							value="#{teachingResource.teachingHours}" />
+					</rich:column>
 
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Τύπος Προσωπικού" />
-							</f:facet>
-							<h:selectOneMenu id="teachingType"
-								value="#{teachingResource.teacherType}">
-								<s:enumItem enumValue="PERMANENT" label="Μόνιμο Προσωπικό" />
-								<s:enumItem enumValue="REPLACEMENT" label="Αναπληρωτής" />
-								<s:enumItem enumValue="HOURLYBASED" label="Ωρομίσθιος" />
-							</h:selectOneMenu>
-						</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Τύπος Προσωπικού" />
+						</f:facet>
+						<h:selectOneMenu id="teachingType"
+							value="#{teachingResource.teacherType}">
+							<s:enumItem enumValue="PERMANENT" label="Μόνιμο Προσωπικό" />
+							<s:enumItem enumValue="REPLACEMENT" label="Αναπληρωτής" />
+							<s:enumItem enumValue="HOURLYBASED" label="Ωρομίσθιος" />
+						</h:selectOneMenu>
+					</rich:column>
 
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Ενέργεια ..." />
-							</f:facet>
-							<a4j:commandLink value="Διαγραφή"
-								action="removeTeachingResource" reRender="voidView" />
-						</rich:column>
-
-
-					</rich:dataTable>
-
-				</rich:panel>
-				<f:facet name="footer">
-					<h:panelGroup>
-						<h:panelGrid columns="3">
-						<h:commandButton value="Προσθήκη Διδακτικών Ωρών"
-							action="addTeachingResource" />
-						<h:commandButton action="save"
-							value="Αποθήκευση" />
-						<h:commandButton action="cancel"
-							value="Ακύρωση" />
-							</h:panelGrid>
-					</h:panelGroup>
-				</f:facet>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Ενέργεια ..." />
+						</f:facet>
+						<a4j:commandLink value="Διαγραφή" action="removeTeachingHours"
+							reRender="voidView" />
+					</rich:column>
+				</rich:dataTable>
 			</h:panelGrid>
-		</h:form>
 	</rich:panel>
-
-
 </ui:component>
 </html> 

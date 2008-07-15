@@ -10,38 +10,43 @@
 	template="layout/template.xhtml">
 
 	<ui:define name="body">
-
-		<rich:panel>
-			<f:facet name="header">Επιλογή Σχολικής Μονάδας</f:facet>
-			<p>
-				<h:outputText
-					value="Πριν να συνεχίσεται, πρέπει να επιλέξετε σχολική μονάδα απο
+		<rich:panel headerClass="pagetitle" bodyClass="post">
+			<f:facet  name="header">
+			Επιλογή Σχολικής Μονάδας
+			</f:facet>
+			<h:outputText styleClass="title"
+				value="Επιλέξτε Σχολική Μονάδα ..." />
+			<br /><br />
+			<h:outputText
+				value="Πριν να συνεχίσεται, πρέπει να επιλέξετε σχολική μονάδα απο
 				τον παρακάτω πίνακα." />
-			</p>
-			<p>
-				<h:outputText value="Για την διευκόλυνση σας, μπορείτε να
+			<br /><br />
+			
+			<h:outputText
+				value="Για την διευκόλυνση σας, μπορείτε να
 				φιλτράρεται την λίστα με τα διαθέσιμα φίλτρα." />
-			</p>	
+			
 			<h:form id="schoolSearchForm">
 				<h:panelGrid columns="3">
 					<h:panelGroup>
-					<h:outputLabel value="Τίτλος Σχολείου : "  />
-					<h:inputText value="#{schoolSearch.searchString}" id="searchString"
-						style="width: 165px;">
-						<a4j:support event="onkeyup"
-							actionListener="#{schoolSearch.schoolSearch}"
-							reRender="schoolListResult" status="schoolSearchStatus"/>
-					</h:inputText>
+						<h:outputLabel value="Τίτλος Σχολείου : " />
+						<h:inputText value="#{schoolSearch.searchString}"
+							id="searchString" style="width: 165px;">
+							<a4j:support event="onkeyup"
+								actionListener="#{schoolSearch.schoolSearch}"
+								reRender="schoolListResult" status="schoolSearchStatus" />
+						</h:inputText>
 					</h:panelGroup>
 					<a4j:status id="schoolSearchStatus">
 						<f:facet name="start">
-						<h:graphicImage value="/img/spinner.gif" />
+							<h:graphicImage value="/img/spinner.gif" />
 						</f:facet>
 					</a4j:status>
-					<a4j:commandButton value="Αναζήτηση" actionListener="#{schoolSearch.schoolSearch}"
-							reRender="schoolListResult" status="schoolSearchStatus"/>
-				</h:panelGrid>		
-				 <a4j:include id="schoolListResult" viewId="/schoolList.xhtml">
+					<a4j:commandButton value="Αναζήτηση"
+						actionListener="#{schoolSearch.schoolSearch}"
+						reRender="schoolListResult" status="schoolSearchStatus" />
+				</h:panelGrid>
+				<a4j:include id="schoolListResult" viewId="/schoolList.xhtml">
 				</a4j:include>
 
 
@@ -49,7 +54,6 @@
 			</h:form>
 
 		</rich:panel>
-
 	</ui:define>
 
 </ui:composition>
