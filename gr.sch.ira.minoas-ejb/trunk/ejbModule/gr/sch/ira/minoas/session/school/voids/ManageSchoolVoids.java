@@ -8,17 +8,14 @@ import gr.sch.ira.minoas.session.school.SchoolAware;
 
 import javax.ejb.Local;
 
-@Local
-public interface ManageSchoolVoids extends SchoolAware {  
+public interface ManageSchoolVoids {  
     
 	
 	public void beginSchoolVoidManagement();
 	
-	public void removeTeachingVoid(TeachingVoid teachingVoid);
-	
 	public Collection<TeachingVoid> searchTeachingVoids();
 	
-	public void remove();
+	public void cancel();
 	
 	
 	

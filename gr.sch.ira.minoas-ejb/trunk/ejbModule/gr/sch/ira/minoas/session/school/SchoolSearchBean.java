@@ -2,10 +2,14 @@ package gr.sch.ira.minoas.session.school;
 
 import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.core.School;
+import gr.sch.ira.minoas.session.BaseSeamComponent;
+import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
+import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
 import java.util.Collection;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -26,45 +30,33 @@ import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
-@Stateful
 @Name("schoolSearch")
 @Scope(ScopeType.CONVERSATION)
 @Restrict("#{identity.loggedIn}")
-public class SchoolSearchBean extends BaseSchoolAware implements SchoolSearch {
-
-	@Logger
-	private Log log;
+@Stateful
+@Local( { IBaseStatefulSeamComponent.class, SchoolSearch.class })
+public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements SchoolSearch {
 
 	@In
 	FacesMessages facesMessages;
 
-	@Begin(nested=true, pageflow="selectSchool")
-	public void begin() {
-		log.info("conversation has just started");
-	}
-
-	@End
-	public void end() {
-		log.info("conversation has ended");
-	}
+	@In(required = false)
+	@Out(required = false, scope = ScopeType.CONVERSATION)
+	private School school = null;
 
 	@DataModel
 	private Collection<School> schools;
 
-	private @EJB CoreSearching coreSearching;
-	
+	private @EJB
+	CoreSearching coreSearching;
+
 	private String searchString;
 
 	public void schoolSearch() {
 		this.schools = coreSearching.searchShools(getSearchPattern());
-		log.info("searching for schools with search pattern \"#0\" returned #1 row(s)." , getSearchPattern(), this.schools.size());
-		
-	}
+		info("searching for schools with search pattern \"#0\" returned #1 row(s).", getSearchPattern(), this.schools
+				.size());
 
-	@Remove
-	@Destroy
-	public void remove() {
-		schools = null;
 	}
 
 	/**
@@ -84,14 +76,15 @@ public class SchoolSearchBean extends BaseSchoolAware implements SchoolSearch {
 
 	@Factory(value = "pattern", scope = ScopeType.EVENT)
 	public String getSearchPattern() {
-		return getSearchString() == null ? "%" : '%' + getSearchString()
-				.toLowerCase().replace('*', '%') + '%';
+		return getSearchString() == null ? "%" : '%' + getSearchString().toLowerCase().replace('*', '%') + '%';
 	}
 
-	@End
+	/**
+	 * @see gr.sch.ira.minoas.session.school.SchoolSearch#selectSchool(gr.sch.ira.minoas.model.core.School)
+	 */
 	public void selectSchool(School school) {
-		log.info("selected school \"#0\".", school.getTitle());
-		setSchool(school);
+		this.school = school;
+		info("school \"#0\" selected and is now part of the conversation.", this.school);
 	}
 
 }

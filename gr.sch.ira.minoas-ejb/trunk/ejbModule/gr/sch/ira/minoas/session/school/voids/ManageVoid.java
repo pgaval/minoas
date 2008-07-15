@@ -1,14 +1,17 @@
 package gr.sch.ira.minoas.session.school.voids;
 
 import java.util.Collection;
+import java.util.Iterator;
 
+import gr.sch.ira.minoas.core.EventConstants;
 import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.model.voids.TeachingVoid;
 import gr.sch.ira.minoas.session.school.SchoolAware;
 
 import javax.ejb.Local;
 
-@Local
+import org.jboss.seam.annotations.RaiseEvent;
+
 public interface ManageVoid extends SchoolAware {
 	
 	enum ConversationStatus {
@@ -18,9 +21,6 @@ public interface ManageVoid extends SchoolAware {
 
 	public TeachingVoid getTeachingVoid();
 
-	public void remove();
-
-	public void begin();
 
 	public void cancel();
 
@@ -37,6 +37,11 @@ public interface ManageVoid extends SchoolAware {
 	public void beginUpdateExistingTeachingVoid(TeachingVoid teachingVoid);
 
 	public void saveCreatedTeachingVoid();
+	
+	public void saveExistingTeachingVoid();
+	
+	public void removeExistingTeachingVoid();
+	
 	
 	
 }

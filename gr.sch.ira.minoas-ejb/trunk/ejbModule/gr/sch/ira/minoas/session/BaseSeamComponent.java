@@ -109,4 +109,6 @@ public abstract class BaseSeamComponent {
 	public void warn(Object arg0, Throwable arg1, Object... arg2) {
 		logger.warn(arg0, arg1, arg2);
 	}
+	
+	
 }

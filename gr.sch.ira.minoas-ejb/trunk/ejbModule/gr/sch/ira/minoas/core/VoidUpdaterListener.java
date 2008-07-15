@@ -25,29 +25,26 @@ public class VoidUpdaterListener extends EntityController {
 	@In(required = true)
 	private TeachingVoid teachingVoid;
 
-	@Observer(EventConstants.EVENT_TEACHING_VOID_ADDED)
+	@Observer({EventConstants.EVENT_TEACHING_VOID_ADDED, EventConstants.EVENT_TEACHING_VOID_MODIFIED})
 	public void foo() {
 		log.info("received teaching void (#0) added event for school #1. ",
 				teachingVoid, teachingVoid.getSchool());
-		teachingVoid = getEntityManager().contains(teachingVoid) ? teachingVoid
-				: getEntityManager().merge(teachingVoid);
+		teachingVoid = getEntityManager().merge(teachingVoid);
+		getEntityManager().refresh(teachingVoid);
 		if (teachingVoid.getTeachingResources() != null) {
-			long required_hours = teachingVoid.getRequiredHours().longValue();
 			long teaching_hours = 0L;
-			long diff = 0L;
 			for (TeachingResource resource : teachingVoid
 					.getTeachingResources()) {
-				teaching_hours = +resource.getTeachingHours().longValue();
+				teaching_hours += resource.getTeachingHours().longValue();
 			}
-			diff = (required_hours - teaching_hours * (-1));
+			
+			teachingVoid.setTeachingHours(Long.valueOf(teaching_hours));
 			log
 					.info(
-							"teaching void #0 has totally #1 teaching hours registered, thus #2 difference.",
-							teachingVoid, teachingVoid.getTeachingHours(), Long
-									.valueOf(diff));
-			teachingVoid.setTeachingHours(Long.valueOf(diff));
+							"teaching void #0 has totally #1 teaching hours registered.",
+							teachingVoid, teachingVoid.getTeachingHours());
+			getEntityManager().persist(teachingVoid);
 			log.info("teaching void #0 has been updated", teachingVoid);
 		}
 	}
-
 }

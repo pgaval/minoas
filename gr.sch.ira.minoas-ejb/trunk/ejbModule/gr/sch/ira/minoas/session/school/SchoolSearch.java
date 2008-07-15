@@ -4,17 +4,9 @@ import gr.sch.ira.minoas.model.core.School;
 
 import javax.ejb.Local;
 
-@Local
-public interface SchoolSearch  extends SchoolAware {
 
-	// seam-gen method
-	public void schoolSearch();
-	
+public interface SchoolSearch {
 
-	
-
-	
-	public void remove();
 
 	/**
 	 * @return the searchString
@@ -32,8 +24,8 @@ public interface SchoolSearch  extends SchoolAware {
 	
 	public void selectSchool(School school);
 	
-	public void begin();
+	public void schoolSearch();
 	
-	public void end();
+	
 
 }
