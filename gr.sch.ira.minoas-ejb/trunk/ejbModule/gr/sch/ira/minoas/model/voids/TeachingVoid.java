@@ -147,5 +147,14 @@ public class TeachingVoid extends BaseModel {
 		return "(" + getSpecialisation() +","+getRequiredHours()+")";
 	}
 	
+	public Long getTeachingHoursOverPlus() {
+		return Long.valueOf(getTeachingHours()-getRequiredHours());
+	}
+	
+	public Long getTeachingHoursInsufficiency() {
+		return Long.valueOf(getRequiredHours()-getTeachingHours());
+	}
+	
+	
 	
 }

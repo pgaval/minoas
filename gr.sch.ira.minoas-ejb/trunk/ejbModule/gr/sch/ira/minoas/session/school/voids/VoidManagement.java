@@ -12,7 +12,7 @@ import javax.ejb.Local;
 
 import org.jboss.seam.annotations.RaiseEvent;
 
-public interface ManageVoid extends SchoolAware {
+public interface VoidManagement extends SchoolAware {
 	
 	enum ConversationStatus {
 		CREATING_NEW_VOID, UPDATING_EXISTING_VOID, NEW_VOID_SAVED, EXISTING_VOID_UPDATED
@@ -20,6 +20,11 @@ public interface ManageVoid extends SchoolAware {
 	public void setTeachingVoid(TeachingVoid teachingVoid);
 
 	public TeachingVoid getTeachingVoid();
+	
+public void beginSchoolVoidManagement();
+	
+	public Collection<TeachingVoid> searchTeachingVoids();
+
 
 
 	public void cancel();
