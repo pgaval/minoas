@@ -9,9 +9,15 @@
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
       <jta-data-source>java:/gr.sch.ira.minoasDatasource</jta-data-source>
       <class>
+      gr.sch.ira.minoas.model.core.Allocation</class>
+      <class>
       gr.sch.ira.minoas.model.core.OrganizationUnit</class>
       <class>
       gr.sch.ira.minoas.model.core.School</class>
+      <class>
+      gr.sch.ira.minoas.model.core.SchoolYear</class>
+      <class>
+      gr.sch.ira.minoas.model.core.Secondment</class>
       <class>
       gr.sch.ira.minoas.model.core.Specialization</class>
       <class>
