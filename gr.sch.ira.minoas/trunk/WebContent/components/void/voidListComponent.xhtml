@@ -45,10 +45,12 @@
 				<h:outputText value="${teachingVoid.teachingHours}" />
 			</rich:column>
 			<rich:column>
-				<h:outputText value="${teachingVoid.teachingHours}" />
+				<h:outputText rendered="${teachingVoid.getTeachingHoursOverPlus() gt 0}" value="${teachingVoid.getTeachingHoursOverPlus()}" />
+				<h:outputText rendered="${teachingVoid.getTeachingHoursOverPlus() lt 0}" value="-" />
 			</rich:column>
 			<rich:column>
-				<h:outputText value="${teachingVoid.teachingHours}" />
+				<h:outputText rendered="${teachingVoid.getTeachingHoursInsufficiency() gt 0}" value="${teachingVoid.getTeachingHoursInsufficiency()}" />
+				<h:outputText rendered="${teachingVoid.getTeachingHoursInsufficiency() lt 0}" value="-" />
 			</rich:column>
 			<f:facet name="footer">
 				<rich:datascroller align="left" for="schoolTeachingVoidsList"

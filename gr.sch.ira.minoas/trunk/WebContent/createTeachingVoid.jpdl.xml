@@ -25,17 +25,17 @@
   <page name="createTeachingVoid" view-id="/createTeachingVoid.xhtml">
     <redirect />
     <transition name="addTeachingHours" to="createTeachingVoid">
-      <action expression="#{manageVoid.addTeachingResource()}" />
+      <action expression="#{voidManagement.addTeachingResource()}" />
     </transition>
     <transition name="removeTeachingResource" to="createTeachingVoid">
       <action
-        expression="#{manageVoid.removeTeachingResource(teachingResource)}" />
+        expression="#{voidManagement.removeTeachingResource(teachingResource)}" />
     </transition>
     <transition name="save" to="createTeachingVoidResult">
-      <action expression="#{manageVoid.saveCreatedTeachingVoid}" />
+      <action expression="#{voidManagement.saveCreatedTeachingVoid}" />
     </transition>
     <transition name="cancel" to="home">
-      <action expression="#{manageVoid.cancel}" />
+      <action expression="#{voidManagement.cancel}" />
     </transition>
     <transition name="changeSchool" to="selectSchool">
       <action expression="#{schoolSearch.schoolSearch()}" />
@@ -46,14 +46,14 @@
   
   <page name="createTeachingVoidResult" view-id="/createTeachingVoid.xhtml">
     <transition name="createAnotherTeachingVoid" to="createTeachingVoid">
-      <action expression="#{manageVoid.beginCreateAnotherTeachingVoid()}" />
+      <action expression="#{voidManagement.beginCreateAnotherTeachingVoid()}" />
     </transition>
     <transition name="changeSchool" to="selectSchool">
-      <action expression="#{manageVoid.beginCreateTeachingVoid()}" />
+      <action expression="#{voidManagement.beginCreateTeachingVoid()}" />
       <action expression="#{schoolSearch.schoolSearch()}" />
     </transition>
     <transition name="cancel" to="home">
-      <action expression="#{manageVoid.cancel}" />
+      <action expression="#{voidManagement.cancel}" />
     </transition>
   </page>
 

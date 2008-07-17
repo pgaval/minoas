@@ -42,21 +42,21 @@
 		<rich:panelMenu mode="ajax">
 			<rich:panelMenuItem>
 				<s:link value="Εισαγωγή Νέου Κενού"
-					action="#{manageVoid.beginCreateTeachingVoid()}" />
+					action="#{voidManagement.beginCreateTeachingVoid()}" />
 			</rich:panelMenuItem>
 			<rich:panelMenuItem>
 				<s:link value="Διαχείριση Κενών Μονάδας"
-					action="#{manageSchoolVoids.beginSchoolVoidManagement()}" />
+					action="#{voidManagement.beginSchoolVoidManagement()}" />
 			</rich:panelMenuItem>
 			<rich:panelMenuGroup label="Προβολή Ενεργών Κενών ...."
 				expandMode="ajax">
 				<rich:panelMenuItem>
 					<s:link value="Εισαγωγή Νέου Κενού"
-						action="#{manageVoid.beginCreateTeachingVoid()}" />
+						action="#{voidManagement.beginCreateTeachingVoid()}" />
 				</rich:panelMenuItem>
 				<rich:panelMenuItem>
 					<s:link value="Διαχείριση Κενών Μονάδας"
-						action="#{manageSchoolVoids.beginSchoolVoidManagement()}" />
+						action="#{voidManagement.beginSchoolVoidManagement()}" />
 				</rich:panelMenuItem>
 		</rich:panelMenuGroup>
 	</rich:panelMenu>
