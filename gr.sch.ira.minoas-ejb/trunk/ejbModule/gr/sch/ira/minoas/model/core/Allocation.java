@@ -3,11 +3,14 @@
  */
 package gr.sch.ira.minoas.model.core;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -28,6 +31,9 @@ private static final long serialVersionUID = 1L;
 	@GenericGenerator(name="system-uuid", strategy="uuid")
 	@Column(name = "id")
 	private String id;
+	
+	@Version
+	private Timestamp version;
 
 	/**
 	 * @return the id

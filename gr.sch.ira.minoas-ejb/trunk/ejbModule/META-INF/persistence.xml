@@ -6,7 +6,9 @@
              version="1.0">
              
    <persistence-unit name="gr.sch.ira.minoas.voids">
+      <!-- 
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
+       -->
       <jta-data-source>java:/gr.sch.ira.minoasDatasource</jta-data-source>
       <class>
       gr.sch.ira.minoas.model.core.Allocation</class>
@@ -23,11 +25,11 @@
       <class>
       gr.sch.ira.minoas.model.core.Teacher</class>
       <class>
-      gr.sch.ira.minoas.model.voids.TeachingResource</class>
+      gr.sch.ira.minoas.model.voids.TeachingRequirement</class>
       <class>
-      gr.sch.ira.minoas.model.voids.TeachingVoid</class>
+      gr.sch.ira.minoas.model.voids.TeachingResource</class>
       <properties>
-         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+         <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
          <property name="hibernate.hbm2ddl.auto" value="update"/>
          <property name="hibernate.show_sql" value="false"/>
          <property name="hibernate.format_sql" value="false"/>

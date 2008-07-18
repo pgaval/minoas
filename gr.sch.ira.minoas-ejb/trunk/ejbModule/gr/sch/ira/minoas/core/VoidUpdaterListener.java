@@ -4,7 +4,7 @@
 package gr.sch.ira.minoas.core;
 
 import gr.sch.ira.minoas.model.voids.TeachingResource;
-import gr.sch.ira.minoas.model.voids.TeachingVoid;
+import gr.sch.ira.minoas.model.voids.TeachingRequirement;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
@@ -23,7 +23,7 @@ public class VoidUpdaterListener extends EntityController {
 	private Log log;
 
 	@In(required = true)
-	private TeachingVoid teachingVoid;
+	private TeachingRequirement teachingVoid;
 
 	@Observer({EventConstants.EVENT_TEACHING_VOID_ADDED, EventConstants.EVENT_TEACHING_VOID_MODIFIED})
 	public void foo() {

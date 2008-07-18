@@ -7,8 +7,10 @@ import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.EAGER;
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.School;
+import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Specialization;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 
 import javax.persistence.Basic;
@@ -21,21 +23,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- * A class representing teaching hour(s) requirement in a concrete school.
+ * A class representing teaching hour(s) requirement in a concrete school
+ * during a defined school year.
  *   
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  *
  */
 @Entity
 @Table(name = "minoas_void")
-public class TeachingVoid extends BaseModel {
+public class TeachingRequirement extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Version
+	private Timestamp version;
 	
 	@Id
 	@GeneratedValue(generator="system-uuid")

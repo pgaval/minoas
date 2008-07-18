@@ -2,7 +2,7 @@ package gr.sch.ira.minoas.core.session;
 
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.Specialization;
-import gr.sch.ira.minoas.model.voids.TeachingVoid;
+import gr.sch.ira.minoas.model.voids.TeachingRequirement;
 
 import java.util.Collection;
 
@@ -25,7 +25,7 @@ class CoreSearchingBean implements CoreSearching {
 	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchVoids(gr.sch.ira.minoas.model.core.School,
 	 *      gr.sch.ira.minoas.model.core.Specialization, int)
 	 */
-	public Collection<TeachingVoid> searchVoids(School school,
+	public Collection<TeachingRequirement> searchVoids(School school,
 			Specialization specialization, int minHours) {
 		return em
 				.createQuery(
@@ -36,7 +36,7 @@ class CoreSearchingBean implements CoreSearching {
 	/**
 	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchVoids(gr.sch.ira.minoas.model.core.School)
 	 */
-	public Collection<TeachingVoid> searchVoids(School school) {
+	public Collection<TeachingRequirement> searchVoids(School school) {
 		return school.getVoids();
 	}
 

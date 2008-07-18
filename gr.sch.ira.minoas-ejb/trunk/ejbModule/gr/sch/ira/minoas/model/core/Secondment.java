@@ -3,6 +3,7 @@
  */
 package gr.sch.ira.minoas.model.core;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -49,6 +51,9 @@ private static final long serialVersionUID = 1L;
 	@Basic
 	@Column(name="end_date")
 	private Date endDate;
+	
+	@Version
+	private Timestamp version;
 	
 	@Basic
 	private Date recovationDate;

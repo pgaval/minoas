@@ -2,7 +2,7 @@ package gr.sch.ira.minoas.core.session;
 
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.Specialization;
-import gr.sch.ira.minoas.model.voids.TeachingVoid;
+import gr.sch.ira.minoas.model.voids.TeachingRequirement;
 
 import java.util.Collection;
 
@@ -10,9 +10,9 @@ import javax.ejb.Remote;
 
 @Remote
 public interface CoreSearching {
-	public Collection<TeachingVoid> searchVoids(School school);
+	public Collection<TeachingRequirement> searchVoids(School school);
 
-	public Collection<TeachingVoid> searchVoids(School school,
+	public Collection<TeachingRequirement> searchVoids(School school,
 			Specialization specialization, int minHours);
 	
 	/**

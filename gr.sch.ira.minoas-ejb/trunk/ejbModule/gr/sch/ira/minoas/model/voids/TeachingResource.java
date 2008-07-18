@@ -31,7 +31,7 @@ public class TeachingResource {
 	
 	@ManyToOne
 	@JoinColumn(name="void_id", referencedColumnName = "id")
-	private TeachingVoid fillingVoid;
+	private TeachingRequirement fillingVoid;
 	
 	@Id
 	@GeneratedValue(generator="system-uuid")
@@ -56,7 +56,7 @@ public class TeachingResource {
 	/**
 	 * @return the fillingVoid
 	 */
-	public TeachingVoid getFillingVoid() {
+	public TeachingRequirement getFillingVoid() {
 		return fillingVoid;
 	}
 
@@ -84,7 +84,7 @@ public class TeachingResource {
 	/**
 	 * @param fillingVoid the fillingVoid to set
 	 */
-	public void setFillingVoid(TeachingVoid fillingVoid) {
+	public void setFillingVoid(TeachingRequirement fillingVoid) {
 		this.fillingVoid = fillingVoid;
 	}
 

@@ -4,7 +4,7 @@ import gr.sch.ira.minoas.core.EventConstants;
 import gr.sch.ira.minoas.model.TeacherType;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.voids.TeachingResource;
-import gr.sch.ira.minoas.model.voids.TeachingVoid;
+import gr.sch.ira.minoas.model.voids.TeachingRequirement;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 import gr.sch.ira.minoas.session.school.BaseSchoolAware;
 
@@ -35,7 +35,7 @@ import org.jboss.seam.annotations.security.Restrict;
 public class VoidManagementBean extends BaseSchoolAware implements VoidManagement {
 
 	@DataModel
-	private Collection<TeachingVoid> teachingVoids;
+	private Collection<TeachingRequirement> teachingVoids;
 
 	@Out(required = false, scope = ScopeType.CONVERSATION)
 	private ConversationStatus conversationStatus;
@@ -48,11 +48,11 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 		info("starting school void(s) management.");
 	}
 
-	public Collection<TeachingVoid> searchTeachingVoids() {
+	public Collection<TeachingRequirement> searchTeachingVoids() {
 		School school = em.merge(getSchool());
 		info("searching for school's '#0' teaching voids.", school);
 		em.refresh(school);
-		Collection<TeachingVoid> teachingvoids = school.getVoids();
+		Collection<TeachingRequirement> teachingvoids = school.getVoids();
 		info("found totally #0 teaching void(s) registered with school '#1'", teachingvoids.size(), getSchool());
 		setTeachingVoids(teachingvoids);
 		return getTeachingVoids();
@@ -60,7 +60,7 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 
 	@In(required = false)
 	@Out(required = false)
-	private TeachingVoid teachingVoid;
+	private TeachingRequirement teachingVoid;
 
 	/**
 	 * @see gr.sch.ira.minoas.session.school.voids.VoidManagement#addTeachingResource()
@@ -87,7 +87,7 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 		createTeachingVoid();
 	}
 
-	public void beginUpdateExistingTeachingVoid(TeachingVoid teachingVoid) {
+	public void beginUpdateExistingTeachingVoid(TeachingRequirement teachingVoid) {
 		info("managing teaching void '#0' of school '#1'.", teachingVoid, getSchool());
 		conversationStatus = ConversationStatus.UPDATING_EXISTING_VOID;
 		setTeachingVoid(em.merge(teachingVoid));
@@ -102,9 +102,9 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 
 	}
 
-	public TeachingVoid createTeachingVoid() {
+	public TeachingRequirement createTeachingVoid() {
 		info("creating new teaching void instance and adding it to the conversation context.");
-		teachingVoid = new TeachingVoid();
+		teachingVoid = new TeachingRequirement();
 		if (hasSchool())
 			teachingVoid.setSchool(getSchool());
 		teachingVoid.setRequiredHours(Long.valueOf(0));
@@ -116,7 +116,7 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 	/**
 	 * @see gr.sch.ira.minoas.session.school.voids.VoidManagement#getTeachingVoid()
 	 */
-	public TeachingVoid getTeachingVoid() {
+	public TeachingRequirement getTeachingVoid() {
 		return this.teachingVoid;
 	}
 
@@ -131,7 +131,7 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 	}
 
 	public void saveCreatedTeachingVoid() {
-		TeachingVoid teaching_void = getTeachingVoid();
+		TeachingRequirement teaching_void = getTeachingVoid();
 		teaching_void.setSchool(getSchool());
 		info("trying to save newly created teaching void '#0'", teaching_void);
 		em.persist(teaching_void);
@@ -153,7 +153,7 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 	}
 
 	public void saveExistingTeachingVoid() {
-		TeachingVoid teaching_void = getTeachingVoid();
+		TeachingRequirement teaching_void = getTeachingVoid();
 		info("trying to save existing teaching void '#0' in school '#1'", teaching_void, getSchool());
 		/*
 		 * check if any of the teaching resource(s) has non positive teaching
@@ -183,29 +183,29 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 
 	public void removeExistingTeachingVoid() {
 		info("trying to remove existing teaching void '#0' from school '#1'", getTeachingVoid(), getSchool());
-		TeachingVoid teaching_void = em.merge(getTeachingVoid());
+		TeachingRequirement teaching_void = em.merge(getTeachingVoid());
 		em.remove(teaching_void);
 		em.flush();
 		info("removed teaching void '#0' from school '#1'", teaching_void, getSchool());
 	}
 
 	/**
-	 * @see gr.sch.ira.minoas.session.school.voids.VoidManagement#setTeachingVoid(gr.sch.ira.minoas.model.voids.TeachingVoid)
+	 * @see gr.sch.ira.minoas.session.school.voids.VoidManagement#setTeachingVoid(gr.sch.ira.minoas.model.voids.TeachingRequirement)
 	 */
-	public void setTeachingVoid(TeachingVoid teachingVoid) {
+	public void setTeachingVoid(TeachingRequirement teachingVoid) {
 		this.teachingVoid = teachingVoid;
 	}
 
-	public Collection<TeachingVoid> getTeachingVoids() {
+	public Collection<TeachingRequirement> getTeachingVoids() {
 		return teachingVoids;
 	}
 
-	public void setTeachingVoids(Collection<TeachingVoid> teachingVoids) {
+	public void setTeachingVoids(Collection<TeachingRequirement> teachingVoids) {
 		this.teachingVoids = teachingVoids;
 	}
 
 	protected void foo() {
-		TeachingVoid teachingVoid = em.merge(this.teachingVoid);
+		TeachingRequirement teachingVoid = em.merge(this.teachingVoid);
 		em.refresh(teachingVoid);
 		if (teachingVoid.getTeachingResources() != null) {
 			long teaching_hours = 0L;

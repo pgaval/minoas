@@ -4,7 +4,7 @@
 package gr.sch.ira.minoas.model.core;
 
 import gr.sch.ira.minoas.model.BaseModel;
-import gr.sch.ira.minoas.model.voids.TeachingVoid;
+import gr.sch.ira.minoas.model.voids.TeachingRequirement;
 
 import java.util.Collection;
 
@@ -40,7 +40,7 @@ public class School extends BaseModel {
 	private String title;
 
 	@OneToMany(mappedBy = "school", fetch=FetchType.LAZY)
-	private Collection<TeachingVoid> voids;
+	private Collection<TeachingRequirement> voids;
 
 	/**
 	 * @return the id
@@ -92,7 +92,7 @@ public class School extends BaseModel {
 	/**
 	 * @return the voids
 	 */
-	public Collection<TeachingVoid> getVoids() {
+	public Collection<TeachingRequirement> getVoids() {
 		return voids;
 	}
 
@@ -140,7 +140,7 @@ public class School extends BaseModel {
 	 * @param voids
 	 *            the voids to set
 	 */
-	public void setVoids(Collection<TeachingVoid> voids) {
+	public void setVoids(Collection<TeachingRequirement> voids) {
 		this.voids = voids;
 	}
 
