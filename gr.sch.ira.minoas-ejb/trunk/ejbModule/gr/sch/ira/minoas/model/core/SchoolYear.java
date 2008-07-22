@@ -39,7 +39,7 @@ public class SchoolYear extends BaseModel {
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy="uuid")
-	@Column(name = "id")
+	@Column(name = "id", length=32)
 	private String id;
 	
 	@Basic

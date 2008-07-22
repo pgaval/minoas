@@ -16,15 +16,16 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "EIDIK")
+@Table(name = "minoas_specialization")
 public class Specialization extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="EID")
+	@Column(name="id", length=6)
 	private String id;
-	@Column(name="PERIGRAFH")
+	
+	@Column(name="title", nullable=false, length=70)
 	private String title;
 
 	/**

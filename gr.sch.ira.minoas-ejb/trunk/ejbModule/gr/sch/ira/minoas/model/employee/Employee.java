@@ -27,39 +27,38 @@ public class Employee extends BaseModel {
 
 	@Basic
 	@Column(name="birth_date")
-	public Date dateOfBirth;
+	private Date dateOfBirth;
 	
 	@Basic
 	@Column(name="father_name", nullable=false, length=15)
-	public String fatherName;
+	private String fatherName;
 	
 	@Basic
 	@Column(name="first_name", nullable=false, length=15)
-	public String firstName;
-	
+	private String firstName;
 	
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy="uuid")
 	@Column(length=32, name = "id")
-	public String id;
+	private String id;
 	
 	@Basic
 	@Column(name="id_number", unique=true, length=10)
-	public String idNumber;
+	private String idNumber;
 	
 	
 	@Basic
 	@Column(name="last_name", nullable=false, length=35)
-	public String lastName;
+	private String lastName;
 	
 	@Basic
 	@Column(name="mother_name", nullable=true, length=15)
-	public String motherName;
+	private String motherName;
 	
 	@Basic
 	@Column(name="vat_number", unique=true, nullable=false, length=9)
-	public String vATNumber;
+	private String vATNumber;
 	
 	/**
 	 * @return the dateOfBirth

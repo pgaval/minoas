@@ -29,7 +29,7 @@ private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy="uuid")
-	@Column(name = "id")
+	@Column(name = "id", length=32)
 	private String id;
 	
 	@Version
