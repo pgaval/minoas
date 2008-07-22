@@ -11,19 +11,25 @@
        -->
       <jta-data-source>java:/gr.sch.ira.minoasDatasource</jta-data-source>
       <class>
-      gr.sch.ira.minoas.model.core.Allocation</class>
-      <class>
       gr.sch.ira.minoas.model.core.OrganizationUnit</class>
       <class>
       gr.sch.ira.minoas.model.core.School</class>
       <class>
       gr.sch.ira.minoas.model.core.SchoolYear</class>
       <class>
-      gr.sch.ira.minoas.model.core.Secondment</class>
-      <class>
       gr.sch.ira.minoas.model.core.Specialization</class>
       <class>
       gr.sch.ira.minoas.model.core.Teacher</class>
+      <class>
+      gr.sch.ira.minoas.model.employee.Employee</class>
+      <class>
+      gr.sch.ira.minoas.model.employee.EmployeeAssigment</class>
+      <class>
+      gr.sch.ira.minoas.model.employee.EmployeeSecondment</class>
+      <class>
+      gr.sch.ira.minoas.model.employee.RegularEmployee</class>
+      <class>
+      gr.sch.ira.minoas.model.employee.RegularEmployment</class>
       <class>
       gr.sch.ira.minoas.model.voids.TeachingRequirement</class>
       <class>
