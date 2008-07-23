@@ -6,6 +6,7 @@
              version="1.0">
              
    <persistence-unit name="gr.sch.ira.minoas.voids" transaction-type="JTA">
+      
       <!-- 
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
        -->
@@ -28,6 +29,12 @@
       gr.sch.ira.minoas.model.employee.RegularEmployee</class>
       <class>
       gr.sch.ira.minoas.model.employee.RegularEmployment</class>
+      <class>
+      gr.sch.ira.minoas.model.security.Principal</class>
+      <class>
+      gr.sch.ira.minoas.model.security.Role</class>
+      <class>
+      gr.sch.ira.minoas.model.security.RoleGroup</class>
       <class>
       gr.sch.ira.minoas.model.voids.TeachingRequirement</class>
       <class>
