@@ -16,33 +16,31 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "YPHRESIA")
+@Table(name = "minoas_organization_unit")
 public class OrganizationUnit extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name="KY")
-	private Long id;
-	@Column(name="TITLOS")
+	@Column(name="id", length=1)
+	private String id;
+	
+	@Column(name="title")
 	private String title;
-	@Column(name="PROIST")
-	private String director;
-	@Column(name="ANAPL")
-	private String secondDirector;
+	
 	
 	//private Collection<School> schools;
 	
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	/**
@@ -57,30 +55,8 @@ public class OrganizationUnit extends BaseModel {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	/**
-	 * @return the director
-	 */
-	public String getDirector() {
-		return director;
-	}
-	/**
-	 * @param director the director to set
-	 */
-	public void setDirector(String director) {
-		this.director = director;
-	}
-	/**
-	 * @return the secondDirector
-	 */
-	public String getSecondDirector() {
-		return secondDirector;
-	}
-	/**
-	 * @param secondDirector the secondDirector to set
-	 */
-	public void setSecondDirector(String secondDirector) {
-		this.secondDirector = secondDirector;
-	}
+	
+	
 //	/**
 //	 * @return the schools
 //	 */

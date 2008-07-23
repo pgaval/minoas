@@ -5,7 +5,7 @@ package gr.sch.ira.minoas.model.voids;
 
 import static javax.persistence.EnumType.STRING;
 import gr.sch.ira.minoas.model.TeacherType;
-import gr.sch.ira.minoas.model.core.Teacher;
+
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -39,9 +39,6 @@ public class TeachingResource {
 	@Column(name = "id")
 	private String id;
 	
-	@ManyToOne
-	@JoinColumn(name="teacher_id", referencedColumnName = "KVD")
-	private Teacher teacher;
 	
 	@Enumerated(STRING)
 	@Column(name="type")

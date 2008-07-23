@@ -22,26 +22,25 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "SXOLEIA")
+@Table(name = "minoas_school")
 public class School extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "KVDSX")
+	@Column(name = "id", length=3)
 	private String id;
 
-	@Column(name = "KOD_SXOLEIOY")
+	@Column(name = "ministry_code", length=7, unique=true)
 	private String ministryCode;
-	@Column(name = "PERIOXH")
+	
+	@Column(name = "region")
 	private Character regionCode;
-	@OneToMany(mappedBy = "school")
-	private Collection<Teacher> teachers;
-	@Column(name = "SXOLEIO")
+	
+	
+	@Column(name = "title", nullable=false, unique=true, length=40)
 	private String title;
 
-	@OneToMany(mappedBy = "school", fetch=FetchType.LAZY)
-	private Collection<TeachingRequirement> voids;
-
+	
 	/**
 	 * @return the id
 	 */
@@ -63,13 +62,7 @@ public class School extends BaseModel {
 		return regionCode;
 	}
 
-	/**
-	 * @return the teachers
-	 */
-	public Collection<Teacher> getTeachers() {
-		return teachers;
-	}
-
+	
 	/**
 	 * @return the description
 	 */
@@ -77,25 +70,7 @@ public class School extends BaseModel {
 		return title;
 	}
 
-	// /**
-	// * @return the unit
-	// */
-	// public OrganizationUnit getUnit() {
-	// return unit;
-	// }
-	// /**
-	// * @param unit the unit to set
-	// */
-	// public void setUnit(OrganizationUnit unit) {
-	// this.unit = unit;
-	// }
-	/**
-	 * @return the voids
-	 */
-	public Collection<TeachingRequirement> getVoids() {
-		return voids;
-	}
-
+	
 	/**
 	 * @param id
 	 *            the id to set
@@ -120,14 +95,7 @@ public class School extends BaseModel {
 		this.regionCode = regionCode;
 	}
 
-	/**
-	 * @param teachers
-	 *            the teachers to set
-	 */
-	public void setTeachers(Collection<Teacher> teachers) {
-		this.teachers = teachers;
-	}
-
+	
 	/**
 	 * @param description
 	 *            the description to set
@@ -136,13 +104,6 @@ public class School extends BaseModel {
 		this.title = description;
 	}
 
-	/**
-	 * @param voids
-	 *            the voids to set
-	 */
-	public void setVoids(Collection<TeachingRequirement> voids) {
-		this.voids = voids;
-	}
 
 	/**
 	 * @see java.lang.Object#toString()

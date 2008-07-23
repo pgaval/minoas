@@ -52,7 +52,8 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 		School school = em.merge(getSchool());
 		info("searching for school's '#0' teaching voids.", school);
 		em.refresh(school);
-		Collection<TeachingRequirement> teachingvoids = school.getVoids();
+		// Collection<TeachingRequirement> teachingvoids = school.getVoids();
+		Collection<TeachingRequirement> teachingvoids = new ArrayList<TeachingRequirement>();
 		info("found totally #0 teaching void(s) registered with school '#1'", teachingvoids.size(), getSchool());
 		setTeachingVoids(teachingvoids);
 		return getTeachingVoids();

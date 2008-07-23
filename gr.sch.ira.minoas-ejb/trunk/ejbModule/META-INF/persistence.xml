@@ -19,8 +19,6 @@
       <class>
       gr.sch.ira.minoas.model.core.Specialization</class>
       <class>
-      gr.sch.ira.minoas.model.core.Teacher</class>
-      <class>
       gr.sch.ira.minoas.model.employee.Employee</class>
       <class>
       gr.sch.ira.minoas.model.employee.EmployeeAssigment</class>

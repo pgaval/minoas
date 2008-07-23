@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+
 @Name("coreSearching")
 @Scope(ScopeType.STATELESS)
 @Stateless
@@ -37,7 +38,7 @@ class CoreSearchingBean implements CoreSearching {
 	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchVoids(gr.sch.ira.minoas.model.core.School)
 	 */
 	public Collection<TeachingRequirement> searchVoids(School school) {
-		return school.getVoids();
+		throw new RuntimeException("not supported operation.");
 	}
 
 	/**
