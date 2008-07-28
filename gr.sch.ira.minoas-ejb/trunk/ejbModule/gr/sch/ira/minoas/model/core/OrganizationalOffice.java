@@ -16,8 +16,8 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "minoas_organization_unit")
-public class OrganizationUnit extends BaseModel {
+@Table(name = "minoas_organizational_office")
+public class OrganizationalOffice extends BaseModel {
 	
 	private static final long serialVersionUID = 1L;
 	
