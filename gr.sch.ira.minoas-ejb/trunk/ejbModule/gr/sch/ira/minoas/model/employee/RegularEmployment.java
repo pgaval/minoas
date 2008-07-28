@@ -17,7 +17,7 @@ import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 
 @Entity
-@Table(name="minoas-regular-employments")
+@Table(name="minoas_regular_employments")
 public class RegularEmployment extends BaseModel {
 	
 	@Id
