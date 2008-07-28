@@ -24,6 +24,11 @@ import gr.sch.ira.minoas.model.BaseModel;
 @Table(name="minoas_role")
 public class Role extends BaseModel {
 
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy="uuid")
@@ -33,4 +38,35 @@ public class Role extends BaseModel {
 	@Basic
 	@Column(name="title", nullable=true)
 	private String title;
+
+	/**
+	 * @param id
+	 * @param title
+	 */
+	public Role(String id, String title) {
+		super();
+		this.id = id;
+		this.title = title;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
 }

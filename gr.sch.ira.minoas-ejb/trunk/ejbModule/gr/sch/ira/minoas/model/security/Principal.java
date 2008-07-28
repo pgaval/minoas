@@ -4,6 +4,7 @@
 package gr.sch.ira.minoas.model.security;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import gr.sch.ira.minoas.model.BaseModel;
 
@@ -11,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -23,7 +26,11 @@ import javax.persistence.Version;
 @Entity
 public class Principal extends BaseModel {
 	
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
 	private static final long serialVersionUID = 1L;
+	
 	
 	@Column(updatable=false, name = "username", length=16)
 	@Id
@@ -42,6 +49,14 @@ public class Principal extends BaseModel {
 	
 	@Version
 	private Timestamp version;
+	
+	@ManyToMany
+	@JoinTable(name="minoas_principal_rolegroups")
+	private Set<RoleGroup> roleGroups;
+	
+	@ManyToMany
+	@JoinTable(name="minoas_principal_roles")
+	private Set<Role> roles;
 
 	/**
 	 * @return the username
@@ -97,6 +112,34 @@ public class Principal extends BaseModel {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	/**
+	 * @return the roleGroups
+	 */
+	public Set<RoleGroup> getRoleGroups() {
+		return roleGroups;
+	}
+
+	/**
+	 * @param roleGroups the roleGroups to set
+	 */
+	public void setRoleGroups(Set<RoleGroup> roleGroups) {
+		this.roleGroups = roleGroups;
+	}
+
+	/**
+	 * @return the roles
+	 */
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	/**
+	 * @param roles the roles to set
+	 */
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 	
 	
