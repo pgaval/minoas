@@ -38,6 +38,24 @@
 	<!-- end content -->
 	<!-- start siderbar -->
 	<div id="sidebar">
+		<h2>Διαχείρηση Μίνοα</h2>
+		<rich:panelMenu mode="ajax">
+			<rich:panelMenuGroup label="Ασφάλεια και Πρόσβαση">
+			<rich:panelMenuItem>
+				<s:link value="Διαχείρηση Χρηστών"
+					action="#{voidManagement.beginCreateTeachingVoid()}" />
+			</rich:panelMenuItem>
+			<rich:panelMenuItem>
+				<s:link value="Διαχείρηση Ρόλων"
+					action="#{voidManagement.beginCreateTeachingVoid()}" />
+			</rich:panelMenuItem>
+			<rich:panelMenuItem>
+				<s:link value="Διαχείρηση Ομάδων"
+					action="#{voidManagement.beginCreateTeachingVoid()}" />
+			</rich:panelMenuItem>
+		</rich:panelMenuGroup>
+		</rich:panelMenu>
+		
 		<h2>Διδακτικά Κενά</h2>
 		<rich:panelMenu mode="ajax">
 			<rich:panelMenuItem>
