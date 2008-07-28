@@ -12,7 +12,7 @@
        -->
       <jta-data-source>java:/gr.sch.ira.minoasDatasource</jta-data-source>
       <class>
-      gr.sch.ira.minoas.model.core.OrganizationUnit</class>
+      gr.sch.ira.minoas.model.core.OrganizationalOffice</class>
       <class>
       gr.sch.ira.minoas.model.core.School</class>
       <class>
