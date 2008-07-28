@@ -49,7 +49,7 @@ public class RoleGroup extends BaseModel {
 	 * Comment for <code>roles</code>
 	 */
 	@ManyToMany
-	@JoinTable(name = "minoas-rolegroup-role")
+	@JoinTable(name = "minoas_rolegroup_role")
 	private Set<Role> roles;
 
 	/**

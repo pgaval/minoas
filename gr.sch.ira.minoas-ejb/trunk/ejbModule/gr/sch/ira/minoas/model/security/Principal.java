@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 import gr.sch.ira.minoas.model.BaseModel;
+import gr.sch.ira.minoas.model.core.OrganizationalOffice;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -44,8 +46,15 @@ public class Principal extends BaseModel {
 	@Column(name="real_name", length=90, nullable=false)
 	private String realName;
 	
+	@Basic
 	@Column(name="email", length=60, nullable=true)
 	private String email;
+	
+	@Basic
+	@ManyToOne(optional=false)
+	private OrganizationalOffice office;
+	
+	
 	
 	@Version
 	private Timestamp version;
