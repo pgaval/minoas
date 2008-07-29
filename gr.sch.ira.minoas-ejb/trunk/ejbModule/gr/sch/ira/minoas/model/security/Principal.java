@@ -68,6 +68,14 @@ public class Principal extends BaseModel {
 	private Set<Role> roles;
 
 	/**
+	 * 
+	 */
+	public Principal() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
 	 * @return the username
 	 */
 	public String getUsername() {

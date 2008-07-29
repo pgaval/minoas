@@ -35,7 +35,7 @@ public class RoleGroup extends BaseModel {
 	 * Comment for <code>id</code>
 	 */
 	@Id
-	@Column(name = "id", length = 20)
+	@Column(name = "id", length = 32)
 	private String id;
 
 	/**
@@ -51,6 +51,14 @@ public class RoleGroup extends BaseModel {
 	@ManyToMany
 	@JoinTable(name = "minoas_rolegroup_role")
 	private Set<Role> roles;
+
+	/**
+	 * 
+	 */
+	public RoleGroup() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @param id

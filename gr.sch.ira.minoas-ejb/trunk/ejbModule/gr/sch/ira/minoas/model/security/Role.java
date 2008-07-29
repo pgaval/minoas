@@ -30,14 +30,20 @@ public class Role extends BaseModel {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy="uuid")
 	@Column(name = "id", length=32)
 	private String id;
 	
 	@Basic
 	@Column(name="title", nullable=true)
 	private String title;
+
+	/**
+	 * 
+	 */
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @param id
