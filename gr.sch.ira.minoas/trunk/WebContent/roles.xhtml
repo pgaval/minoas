@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition template="layout/template.xhtml">
+		<ui:define name="body">
+			<rich:panel bodyClass="post" headerClass="pagetitle">
+			<f:facet name="header">
+				<h:outputText
+					value="Διαχείρηση Ρόλων ..." />
+			</f:facet>
+			<a4j:form>
+				<rich:simpleTogglePanel width="70%" switchType="ajax"
+					label="Προσθήκη Νέου Ρόλου ...">
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Όνομα Ρόλου" for="roleName" />
+						<h:inputText id="roleName" value="" />
+						<h:outputLabel value="Περιγραφή Ρόλου" for="roletitle" />
+						<h:inputText id="roletitle" value="" />
+						<h:panelGroup>
+							<a4j:commandButton value="Καταχώρηση"></a4j:commandButton>
+						</h:panelGroup>
+					</h:panelGrid>
+				</rich:simpleTogglePanel>
+				<ui:include src="/components/security/roleListComponent.xhtml">
+					<ui:param name="rolesList" value="#{roles}" />
+				</ui:include>
+			</a4j:form>
+		</rich:panel>
+		</ui:define>
+	</ui:composition>
+</html>

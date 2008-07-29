@@ -43,15 +43,15 @@
 			<rich:panelMenuGroup label="Ασφάλεια και Πρόσβαση">
 			<rich:panelMenuItem>
 				<s:link value="Διαχείρηση Χρηστών"
-					action="#{voidManagement.beginCreateTeachingVoid()}" />
+					action="#{principalSearch.search()}" view="/principals.xhtml" />
 			</rich:panelMenuItem>
 			<rich:panelMenuItem>
 				<s:link value="Διαχείρηση Ρόλων"
-					action="#{voidManagement.beginCreateTeachingVoid()}" />
+					action="#{roleSearch.search()}" view="/roles.xhtml" />
 			</rich:panelMenuItem>
 			<rich:panelMenuItem>
 				<s:link value="Διαχείρηση Ομάδων"
-					action="#{voidManagement.beginCreateTeachingVoid()}" />
+				action="#{roleGroupSearch.search()}" view="/roleGroups.xhtml" />
 			</rich:panelMenuItem>
 		</rich:panelMenuGroup>
 		</rich:panelMenu>
