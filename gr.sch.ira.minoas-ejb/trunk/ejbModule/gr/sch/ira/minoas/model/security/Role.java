@@ -34,7 +34,7 @@ public class Role extends BaseModel {
 	private String id;
 	
 	@Basic
-	@Column(name="title", nullable=true)
+	@Column(name="title", nullable=true, length=250)
 	private String title;
 
 	/**
