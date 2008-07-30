@@ -4,7 +4,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:s="http://jboss.com/products/seam/taglib">
 
 	<ui:composition template="layout/template.xhtml">
 		<ui:define name="body">
@@ -13,22 +14,52 @@
 				<h:outputText
 					value="Διαχείρηση Ρόλων ..." />
 			</f:facet>
+			<s:div>
+				<h:outputText value="Στον παρακάτω πίνακα εμφανίζονται οι διαθέσιμοι ρόλοι που έχουν οριστεί στο σύστημα." />
+			</s:div>
 			<a4j:form>
-				<rich:simpleTogglePanel width="70%" switchType="ajax"
-					label="Προσθήκη Νέου Ρόλου ...">
-					<h:panelGrid columns="2">
+				<h:panelGrid columns="1">
+					<h:panelGroup>
+						<rich:dataTable id="existingRoleListing" width="100%"
+							rendered="#{roles.rowCount gt 0}" var="role" value="#{roles}">
+							<f:facet name="header">
+								<h:outputText value="Διαθέσιμοι Ρόλοι" />
+							</f:facet>
+
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Όνομα Ρόλου" />
+								</f:facet>
+								<h:outputText value="#{role.id}" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Περιγραφή Ρόλου" />
+								</f:facet>
+								<h:outputText value="#{role.title}" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Ενέργεια ..." />
+								</f:facet>
+								<s:link value="Διαγραφή" />
+							</rich:column>
+							<f:facet name="footer">
+								<rich:datascroller align="left" for="existingRoleListing" id="sc1" /> 
+							</f:facet>
+						</rich:dataTable>
+					</h:panelGroup>
+					<h:panelGroup>
+					<rich:panel>
+						<f:facet name="header">Δημιουργεία Νέου Ρόλου</f:facet>
 						<h:outputLabel value="Όνομα Ρόλου" for="roleName" />
-						<h:inputText id="roleName" value="" />
-						<h:outputLabel value="Περιγραφή Ρόλου" for="roletitle" />
-						<h:inputText id="roletitle" value="" />
-						<h:panelGroup>
-							<a4j:commandButton value="Καταχώρηση"></a4j:commandButton>
-						</h:panelGroup>
-					</h:panelGrid>
-				</rich:simpleTogglePanel>
-				<ui:include src="/components/security/roleListComponent.xhtml">
-					<ui:param name="rolesList" value="#{roles}" />
-				</ui:include>
+						<h:inputText id="roleName" value="" size="16" maxlength="32" />
+						<h:outputLabel value="Περιγραφή Ρόλου" for="roletitle"/>
+						<h:inputText id="roletitle" value="" size="30" maxlength="250"/>
+						<a4j:commandButton value="Καταχώρηση ..."/>
+						</rich:panel>
+					</h:panelGroup>
+				</h:panelGrid>
 			</a4j:form>
 		</rich:panel>
 		</ui:define>
