@@ -21,7 +21,7 @@
 				<h:panelGrid columns="1">
 					<h:panelGroup>
 						<rich:dataTable id="existingRoleListing" width="100%"
-							rendered="#{roles.rowCount gt 0}" var="role" value="#{roles}">
+							rendered="#{roles.rowCount gt 0}" var="a_role" value="#{roles}">
 							<f:facet name="header">
 								<h:outputText value="Διαθέσιμοι Ρόλοι" />
 							</f:facet>
@@ -30,19 +30,25 @@
 								<f:facet name="header">
 									<h:outputText value="Όνομα Ρόλου" />
 								</f:facet>
-								<h:outputText value="#{role.id}" />
+								<h:outputText value="#{a_role.id}" />
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="Περιγραφή Ρόλου" />
 								</f:facet>
-								<h:outputText value="#{role.title}" />
+								<h:outputText value="#{a_role.title}" />
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="Ενέργεια ..." />
 								</f:facet>
-								<s:link value="Διαγραφή" />
+								<a4j:commandLink id="removeRoleLink"
+									action="#{roleManagement.selectRole(a_role)}"
+									value="Διαγραφή Ρόλου" oncomplete="javascript:Richfaces.showModalPanel('removeRolePanel');">
+									<!-- <rich:componentControl for="removeRolePanel"
+										attachTo="removeRoleLink" operation="show" event="onclick" />  -->
+								</a4j:commandLink>
+
 							</rich:column>
 							<f:facet name="footer">
 								<rich:datascroller align="left" for="existingRoleListing" id="sc1" /> 
@@ -62,6 +68,39 @@
 				</h:panelGrid>
 			</a4j:form>
 		</rich:panel>
+		
+		<rich:modalPanel id="removeRolePanel" width="200" height="130" resizeable="true">
+			<a4j:form>
+			<f:facet name="header">
+				<h:outputText value="Διαγραφή Ρόλου ..." />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<!-- <h:graphicImage value="/images/modal/close.png"
+						style="cursor:pointer" id="hidelink" />
+					 -->
+					<h:outputLink value="#" id="hidelink">
+						<h:outputText value="[X]" />
+						<rich:componentControl for="removeRolePanel" attachTo="hidelink"
+							operation="hide" event="onclick" />
+					</h:outputLink>
+				</h:panelGroup>
+			</f:facet>
+			<h:outputText
+				value="Ο Ρόλος θα διαγραφεί απο το σύστημα και η διαδικασία δεν είναι αναστρέψιμη."></h:outputText>
+			<br />
+			<br />
+			<h:outputText value="Να γίνει η διαφραφή ?"></h:outputText>
+        	<br />
+        	<br />
+        	<s:button action="#{roleManagement.removeRole(role)}" propagation="join" value="Ναι"></s:button>
+			<rich:spacer width="15"/>
+			<h:commandButton id="noButton"  value="Οχι">
+			<rich:componentControl for="removeRolePanel" attachTo="noButton"
+							operation="hide" event="onclick" />
+			</h:commandButton>
+			</a4j:form>
+		</rich:modalPanel>
 		</ui:define>
 	</ui:composition>
 </html>
