@@ -3,20 +3,19 @@ Design by Free CSS Templates
 http://www.freecsstemplates.org
 Released for free under a Creative Commons Attribution 2.5 License
 */
-
 body {
 	margin: 0;
 	padding: 0;
 	background: #AAE74A url(../img/img04.gif) repeat-x;
 }
 
-body, th, td, input, textarea {
+body,th,td,input,textarea {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	color: #666666;
 }
 
-p, ol, ul {
+p,ol,ul {
 	line-height: 170%;
 }
 
@@ -25,7 +24,6 @@ a:hover {
 }
 
 /* Header */
-
 #header {
 	width: 960px;
 	height: 120px;
@@ -39,7 +37,7 @@ a:hover {
 	background: url(../img/img01.jpg) no-repeat left center;
 }
 
-#logo h1, #logo p {
+#logo h1,#logo p {
 	text-transform: lowercase;
 }
 
@@ -78,7 +76,7 @@ a:hover {
 	border: none;
 }
 
-#search #s, #search #x {
+#search #s,#search #x {
 	float: left;
 }
 
@@ -101,7 +99,6 @@ a:hover {
 }
 
 /* Menu */
-
 #menu {
 	width: 962px;
 	height: 50px;
@@ -143,7 +140,6 @@ a:hover {
 }
 
 /* Page */
-
 #page {
 	width: 962px;
 	margin: 0 auto;
@@ -151,7 +147,6 @@ a:hover {
 }
 
 /* Content */
-
 #content {
 	float: right;
 	width: 700px;
@@ -201,13 +196,12 @@ a:hover {
 	text-align: right;
 }
 
-.meta .more, .meta .comments {
+.meta .more,.meta .comments {
 	padding-left: 15px;
 	background: url(../img/img14.gif) no-repeat left center;
 }
 
 /* Sidebar */
-
 #sidebar {
 	float: left;
 	width: 230px;
@@ -249,12 +243,11 @@ a:hover {
 	color: #0065FF;
 }
 
-#sidebar a:hover {	
+#sidebar a:hover {
 	text-decoration: underline;
 }
 
 /* Footer */
-
 #footer {
 	width: 962px;
 	margin: 0 auto;
@@ -270,4 +263,12 @@ a:hover {
 
 #footer a {
 	color: #FFFFFF;
+}
+
+.rich-message-marker img {
+	padding-right: 7px;
+}
+
+.rich-message-label {
+	color: red;
 }
