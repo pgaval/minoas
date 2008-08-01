@@ -30,6 +30,7 @@ import javax.ejb.Stateful;
 
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Destroy;
+import org.jboss.seam.annotations.End;
 
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>
@@ -39,15 +40,30 @@ public abstract class BaseStatefulSeamComponentImpl extends BaseSeamComponent im
 	
 	
 
+	/**
+	 * @see gr.sch.ira.minoas.session.IBaseStatefulSeamComponent#create()
+	 */
 	@Create
 	public void create() {
 		info("stateful seam component created.");
 	}
 
+	/**
+	 * @see gr.sch.ira.minoas.session.IBaseStatefulSeamComponent#destroy()
+	 */
 	@Destroy
 	@Remove
 	public void destroy() {
 		info("stateful seam component destroyed.");
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.session.IBaseStatefulSeamComponent#end()
+	 */
+	@End
+	public void end() {
+		info("conversation has been ended");
+		
 	}
 	
 	

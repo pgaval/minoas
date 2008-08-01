@@ -16,7 +16,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
+import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.security.Restrict;
 
@@ -27,6 +29,7 @@ import org.jboss.seam.annotations.security.Restrict;
 @Name("roleSearch")
 @Stateful
 @Restrict("#{identity.loggedIn}")
+@Scope(ScopeType.SESSION)
 @Local( { IBaseStatefulSeamComponent.class, IRoleSearch.class })
 public class RoleSearchBean extends BaseStatefulSeamComponentImpl implements
 		IRoleSearch {
