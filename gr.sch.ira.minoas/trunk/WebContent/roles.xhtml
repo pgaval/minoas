@@ -19,80 +19,87 @@
 			</s:div>
 
 			<h:panelGrid columns="1" width="100%">
+				<a4j:outputPanel id="existingRolesOutputPanel">
+					<h:panelGroup>
+						<a4j:form>
+
+							<rich:dataTable id="existingRoleListing" width="100%" rows="10"
+								rendered="#{roles.rowCount gt 0}" var="a_role" value="#{roles}">
+								<f:facet name="header">
+									<h:outputText value="Διαθέσιμοι Ρόλοι" />
+								</f:facet>
+
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Όνομα Ρόλου" />
+									</f:facet>
+									<h:outputText value="#{a_role.id}" />
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Περιγραφή Ρόλου" />
+									</f:facet>
+									<h:outputText value="#{a_role.title}" />
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Ενέργεια ..." />
+									</f:facet>
+									<a4j:commandLink id="removeRoleLink"
+										action="#{roleManagement.selectRole(a_role)}"
+										value="Διαγραφή Ρόλου"
+										oncomplete="javascript:Richfaces.showModalPanel('removeRolePanel');">
+									</a4j:commandLink>
+
+								</rich:column>
+								<f:facet name="footer">
+									<rich:datascroller align="right" for="existingRoleListing"
+										maxPages="10" id="sc1" renderIfSinglePage="false" />
+								</f:facet>
+							</rich:dataTable>
+						</a4j:form>
+					</h:panelGroup>
+				</a4j:outputPanel>
 				<h:panelGroup>
 					<a4j:form>
-						<rich:dataTable id="existingRoleListing" width="100%"
-							rendered="#{roles.rowCount gt 0}" var="a_role" value="#{roles}">
-							<f:facet name="header">
-								<h:outputText value="Διαθέσιμοι Ρόλοι" />
-							</f:facet>
-
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText value="Όνομα Ρόλου" />
-								</f:facet>
-								<h:outputText value="#{a_role.id}" />
-							</rich:column>
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText value="Περιγραφή Ρόλου" />
-								</f:facet>
-								<h:outputText value="#{a_role.title}" />
-							</rich:column>
-							<rich:column>
-								<f:facet name="header">
-									<h:outputText value="Ενέργεια ..." />
-								</f:facet>
-								<a4j:commandLink id="removeRoleLink"
-									action="#{roleManagement.selectRole(a_role)}"
-									value="Διαγραφή Ρόλου"
-									oncomplete="javascript:Richfaces.showModalPanel('removeRolePanel');">
-									<!-- <rich:componentControl for="removeRolePanel"
-										attachTo="removeRoleLink" operation="show" event="onclick" />  -->
-								</a4j:commandLink>
-
-							</rich:column>
-							<f:facet name="footer">
-								<rich:datascroller align="left" for="existingRoleListing"
-									id="sc1" />
-							</f:facet>
-						</rich:dataTable>
-					</a4j:form>
-				</h:panelGroup>
-
-				<h:panelGroup>
-					<a4j:form>
-						<rich:panel>
-							<f:facet name="header">Δημιουργεία Νέου Ρόλου</f:facet>
-							<h:panelGrid>
-								<s:decorate id="roleNameDecoration"
-									template="/layout/edit.xhtml">
-									<ui:define name="label">Όνομα Ρόλου</ui:define>
-									<h:inputText value="#{role.id}" required="true" size="16" maxlength="32">
-										<a4j:support event="onblur" reRender="roleNameDecoration"
-											bypassUpdates="true" />
-										<f:validateLength minimum="5" maximum="32" />
-									</h:inputText>
-								</s:decorate>
-								<s:decorate id="roleTitleDecoration"
-									template="/layout/edit.xhtml">
-									<ui:define name="label">Περιγραφή Ρόλου</ui:define>
-									<h:inputText id="roletitle" value="#{role.title}" size="30" maxlength="250">
-										<a4j:support event="onblur" reRender="roleTitleDecoration"
-											bypassUpdates="true" />
-									</h:inputText>
-								</s:decorate>
-								<a4j:commandButton value="Καταχώρηση ..." />
-							</h:panelGrid>
-						</rich:panel>
+						<a4j:outputPanel>
+							<rich:panel>
+								<f:facet name="header">Δημιουργεία Νέου Ρόλου</f:facet>
+								<h:panelGrid>
+									<s:decorate id="roleNameDecoration"
+										template="/layout/edit.xhtml">
+										<ui:define name="label">Όνομα Ρόλου</ui:define>
+										<h:inputText value="#{newRole.id}" required="true" size="16"
+											maxlength="32">
+											<a4j:support event="onblur" reRender="roleNameDecoration"
+												bypassUpdates="true" />
+											<f:validateLength minimum="5" maximum="32" />
+										</h:inputText>
+									</s:decorate>
+									<s:decorate id="roleTitleDecoration"
+										template="/layout/edit.xhtml">
+										<ui:define name="label">Περιγραφή Ρόλου</ui:define>
+										<h:inputText id="roletitle" value="#{newRole.title}" size="30"
+											maxlength="250">
+											<a4j:support event="onblur" reRender="roleTitleDecoration"
+												bypassUpdates="true" />
+										</h:inputText>
+									</s:decorate>
+									<a4j:commandButton value="Καταχώρηση ..."
+										action="#{roleManagement.saveRole()}"
+										reRender="existingRolesOutputPanel" />
+								</h:panelGrid>
+							</rich:panel>
+						</a4j:outputPanel>
 					</a4j:form>
 				</h:panelGroup>
 			</h:panelGrid>
 
 		</rich:panel>
-		
-		<rich:modalPanel id="removeRolePanel" width="200" height="130" resizeable="true">
-			
+
+		<rich:modalPanel id="removeRolePanel" width="200" height="130"
+			resizeable="true">
+
 			<f:facet name="header">
 				<h:outputText value="Διαγραφή Ρόλου ..." />
 			</f:facet>
@@ -113,14 +120,19 @@
 			<br />
 			<br />
 			<h:outputText value="Να γίνει η διαγραφή ?"></h:outputText>
-        	<br />
-        	<br />
-        	<a4j:form>
-			<a4j:commandButton value="Ναι" action="#{roleManagement.removeRole()}" oncomplete="Richfaces.hideModalPanel('removeRolePanel')"></a4j:commandButton>
-			<rich:spacer width="15"/>
-			<a4j:commandButton value="Όχι" action="#{roleManagement.end()}" oncomplete="Richfaces.hideModalPanel('removeRolePanel')" reRender="existingRoleListing"/>
+			<br />
+			<br />
+			<a4j:form>
+				<a4j:commandButton value="Ναι"
+					action="#{roleManagement.removeRole()}"
+					oncomplete="Richfaces.hideModalPanel('removeRolePanel')"
+					reRender="existingRolesOutputPanel"></a4j:commandButton>
+				<rich:spacer width="15" />
+				<a4j:commandButton value="Όχι" action="#{roleManagement.end()}"
+					oncomplete="Richfaces.hideModalPanel('removeRolePanel')"
+					reRender="existingRolesOutputPanel" />
 			</a4j:form>
 		</rich:modalPanel>
-		</ui:define>
+	</ui:define>
 	</ui:composition>
 </html>
