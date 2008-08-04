@@ -83,4 +83,11 @@ public class Role extends BaseModel {
 	public String getId() {
 		return id;
 	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 }

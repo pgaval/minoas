@@ -18,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
@@ -55,13 +56,16 @@ public class RoleSearchBean extends BaseStatefulSeamComponentImpl implements
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleSearch#search()
 	 */
+	@Factory("roles")
 	@SuppressWarnings("unchecked")
-	@Observer(EventConstants.EVENT_ROLE_REMOVED)
+	@Observer({EventConstants.EVENT_ROLE_REMOVED, EventConstants.EVENT_ROLE_NEW_ADDED})
 	public void search() {
+		String searchPattern = getSearchPattern();
+		info("searching for roles with #0 search pattern", searchPattern);
 		this.roles = em
 				.createQuery(
 						"SELECT r from Role r WHERE lower(r.id) LIKE :search_pattern")
-				.setParameter("search_pattern", getSearchPattern())
+				.setParameter("search_pattern", searchPattern)
 				.getResultList();
 	}
 

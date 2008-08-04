@@ -11,7 +11,9 @@ import gr.sch.ira.minoas.model.security.Role;
  */
 public interface IRoleManagement {
 	
+	public void constructNewRole();
 	public void selectRole(Role role);
 	public void removeRole();
+	public void saveRole();
 
 }
