@@ -25,6 +25,7 @@ import org.jboss.seam.annotations.RaiseEvent;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.core.Events;
+import org.jboss.seam.faces.FacesMessages;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
@@ -38,6 +39,9 @@ import org.jboss.seam.core.Events;
 public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 		IRoleManagement {
 
+	@In
+	private FacesMessages facesMessages;
+	
 	@In(required = false)
 	@Out(required = false)
 	private Role role;
@@ -73,16 +77,20 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 	@End
 	@RaiseEvent(EventConstants.EVENT_ROLE_NEW_ADDED)
 	public void saveRole() {
-		info("about to save role #0", this.newRole);
-		em.persist(this.newRole);
-		info("role #0, successfully saved.", this.newRole);
-		try {
+		info("about to save new role #0", this.newRole);
+		Role existing_role = em.find(Role.class, newRole.getId());
+		if (existing_role == null) {
+			em.persist(this.newRole);
+			info("role #0, successfully saved.", this.newRole);
 			em.flush();
-		} catch (Exception ex) {
-			warn("failed to save new role #0 due to an exception #1", ex,
-					this.newRole, ex);
+			constructNewRole();
+		} else {
+			warn(
+					"ignoring save request of role #0, since that role already exists",
+					this.newRole);
+			facesMessages.add("role fdsf", newRole.getId());
+			
 		}
-		constructNewRole();
 	}
 
 	@Factory("newRole")
