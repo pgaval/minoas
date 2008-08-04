@@ -25,6 +25,14 @@ import gr.sch.ira.minoas.model.BaseModel;
 public class Role extends BaseModel {
 
 	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "["+getId()+"]";
+	}
+
+	/**
 	 * Comment for <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 1L;

@@ -3,6 +3,7 @@
  */
 package gr.sch.ira.minoas.session.security;
 
+import gr.sch.ira.minoas.core.EventConstants;
 import gr.sch.ira.minoas.model.security.Principal;
 import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
@@ -18,6 +19,7 @@ import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.security.Restrict;
@@ -54,6 +56,7 @@ public class RoleSearchBean extends BaseStatefulSeamComponentImpl implements
 	 * @see gr.sch.ira.minoas.session.security.IRoleSearch#search()
 	 */
 	@SuppressWarnings("unchecked")
+	@Observer(EventConstants.EVENT_ROLE_REMOVED)
 	public void search() {
 		this.roles = em
 				.createQuery(
