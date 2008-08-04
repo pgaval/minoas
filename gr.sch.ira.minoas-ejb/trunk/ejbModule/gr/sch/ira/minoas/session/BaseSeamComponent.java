@@ -3,7 +3,9 @@
  */
 package gr.sch.ira.minoas.session;
 
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 
 /**
@@ -15,6 +17,8 @@ public abstract class BaseSeamComponent {
 	@Logger
 	private Log logger;
 
+	@In
+	protected FacesMessages facesMessages;
 	/**
 	 * @param arg0
 	 * @param arg1
