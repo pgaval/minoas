@@ -6,7 +6,7 @@
 
     <div class="prop">
 
-		<h:panelGrid columns="2" border="3">
+		<h:panelGrid columns="2" border="0">
 		<h:panelGroup>
 			<s:label styleClass="name #{invalid?'errors':''}">
 				<ui:insert name="label" />
@@ -18,11 +18,13 @@
 				<ui:insert />
 			</s:validateAll> </span>
 		</h:panelGroup>
-		<h:panelGroup >
-		 <span class="error">
-            <h:graphicImage value="/img/error.gif" rendered="#{invalid}" styleClass="errors"/>
-            <s:message styleClass="errors"/>
-        </span>
+		<h:panelGroup>
+		</h:panelGroup>
+		<h:panelGroup>
+			<h:graphicImage value="/img/error.png" rendered="#{invalid}"
+				styleClass="errors" />
+			<s:message
+				styleClass="errors" />
 		</h:panelGroup>
 	</h:panelGrid>
         

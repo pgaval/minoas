@@ -17,9 +17,10 @@
 			<s:div>
 				<h:outputText value="Στον παρακάτω πίνακα εμφανίζονται οι διαθέσιμοι ρόλοι που έχουν οριστεί στο σύστημα." />
 			</s:div>
-			<a4j:form>
-				<h:panelGrid columns="1">
-					<h:panelGroup>
+
+			<h:panelGrid columns="1" width="100%">
+				<h:panelGroup>
+					<a4j:form>
 						<rich:dataTable id="existingRoleListing" width="100%"
 							rendered="#{roles.rowCount gt 0}" var="a_role" value="#{roles}">
 							<f:facet name="header">
@@ -42,42 +43,52 @@
 								<f:facet name="header">
 									<h:outputText value="Ενέργεια ..." />
 								</f:facet>
-								<a4j:commandLink id="removeRoleLink" 
+								<a4j:commandLink id="removeRoleLink"
 									action="#{roleManagement.selectRole(a_role)}"
-									value="Διαγραφή Ρόλου" oncomplete="javascript:Richfaces.showModalPanel('removeRolePanel');">
+									value="Διαγραφή Ρόλου"
+									oncomplete="javascript:Richfaces.showModalPanel('removeRolePanel');">
 									<!-- <rich:componentControl for="removeRolePanel"
 										attachTo="removeRoleLink" operation="show" event="onclick" />  -->
 								</a4j:commandLink>
 
 							</rich:column>
 							<f:facet name="footer">
-								<rich:datascroller align="left" for="existingRoleListing" id="sc1" /> 
+								<rich:datascroller align="left" for="existingRoleListing"
+									id="sc1" />
 							</f:facet>
 						</rich:dataTable>
-					</h:panelGroup>
-					<h:panelGroup>
+					</a4j:form>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<a4j:form>
 						<rich:panel>
 							<f:facet name="header">Δημιουργεία Νέου Ρόλου</f:facet>
-							<s:decorate id="roleNameDecoration" template="/layout/edit.xhtml">
-								<ui:define name="label">Όνομα Ρόλου</ui:define>
-								<h:inputText value="" required="true" size="16" maxlength="32">
-									<a4j:support event="onblur" reRender="roleNameDecoration"
-										bypassUpdates="true" />
-									<f:validateLength minimum="5" maximum="32" />
-								</h:inputText>
-							</s:decorate>
-							<s:decorate id="roleTitleDecoration" template="/layout/edit.xhtml">
-								<ui:define name="label">Περιγραφή Ρόλου</ui:define>
-								<h:inputText id="roletitle" value="" size="30" maxlength="250">
-									<a4j:support event="onblur" reRender="roleTitleDecoration"
-										bypassUpdates="true" />
-								</h:inputText>
-							</s:decorate>
-							<a4j:commandButton value="Καταχώρηση ..." />
+							<h:panelGrid>
+								<s:decorate id="roleNameDecoration"
+									template="/layout/edit.xhtml">
+									<ui:define name="label">Όνομα Ρόλου</ui:define>
+									<h:inputText value="#{role.id}" required="true" size="16" maxlength="32">
+										<a4j:support event="onblur" reRender="roleNameDecoration"
+											bypassUpdates="true" />
+										<f:validateLength minimum="5" maximum="32" />
+									</h:inputText>
+								</s:decorate>
+								<s:decorate id="roleTitleDecoration"
+									template="/layout/edit.xhtml">
+									<ui:define name="label">Περιγραφή Ρόλου</ui:define>
+									<h:inputText id="roletitle" value="#{role.title}" size="30" maxlength="250">
+										<a4j:support event="onblur" reRender="roleTitleDecoration"
+											bypassUpdates="true" />
+									</h:inputText>
+								</s:decorate>
+								<a4j:commandButton value="Καταχώρηση ..." />
+							</h:panelGrid>
 						</rich:panel>
-					</h:panelGroup>
-				</h:panelGrid>
-			</a4j:form>
+					</a4j:form>
+				</h:panelGroup>
+			</h:panelGrid>
+
 		</rich:panel>
 		
 		<rich:modalPanel id="removeRolePanel" width="200" height="130" resizeable="true">
