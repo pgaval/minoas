@@ -30,6 +30,13 @@
         </redirect>
     </exception>
     
+    <exception class="org.hibernate.exception.GenericJDBCException">
+        <redirect view-id="/error.xhtml">
+            <message>Not found</message>
+        </redirect>
+    </exception>
+    
+    
     <exception class="javax.persistence.OptimisticLockException">
         <end-conversation/>
         <redirect view-id="/error.xhtml">
