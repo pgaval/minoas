@@ -46,8 +46,7 @@
 										<h:outputText value="Ενέργεια ..." />
 									</f:facet>
 									<a4j:commandLink id="removeRoleLink"
-										action="#{roleManagement.selectRole(a_role)}"
-										value="Διαγραφή Ρόλου"
+										value="Διαγραφή Ρόλου" action="#{roleManagement.selectRole}"
 										oncomplete="javascript:Richfaces.showModalPanel('removeRolePanel');">
 									</a4j:commandLink>
 

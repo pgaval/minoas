@@ -6,32 +6,27 @@
 
     <div class="prop">
 
+		<h:panelGrid columns="1">
 		<h:panelGrid columns="2" border="0">
-		<h:panelGroup>
-			<s:label styleClass="name #{invalid?'errors':''}">
-				<ui:insert name="label" />
-				<s:span styleClass="required" rendered="#{required}">*</s:span>
-			</s:label>
-		</h:panelGroup>
-		<h:panelGroup>
-			<span class="value #{invalid?'errors':''}"> <s:validateAll>
-				<ui:insert />
-			</s:validateAll> </span>
-		</h:panelGroup>
-		<h:panelGroup>
-		</h:panelGroup>
+			<h:panelGroup>
+				<s:label styleClass="name #{invalid?'errors':''}">
+					<ui:insert name="label" />
+					<s:span styleClass="required" rendered="#{required}">*</s:span>
+				</s:label>
+			</h:panelGroup>
+			<h:panelGroup>
+				<span class="value #{invalid?'errors':''}"> <s:validateAll>
+					<ui:insert />
+				</s:validateAll> </span>
+			</h:panelGroup>
+		</h:panelGrid>
 		<h:panelGroup>
 			<h:graphicImage value="/img/error.png" rendered="#{invalid}"
 				styleClass="errors" />
-			<s:message
-				styleClass="errors" />
+			<s:message styleClass="errors" />
 		</h:panelGroup>
 	</h:panelGrid>
         
-
-        
-       
-
-    </div>
+  </div>
 
 </ui:composition>
