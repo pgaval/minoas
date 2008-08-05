@@ -3,12 +3,11 @@
  */
 package gr.sch.ira.minoas.session.security;
 
-import java.util.Collection;
-
-import gr.sch.ira.minoas.core.EventConstants;
 import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
+
+import java.util.Collection;
 
 import javax.ejb.Local;
 import javax.ejb.Stateful;
@@ -18,19 +17,14 @@ import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Out;
-import org.jboss.seam.annotations.RaiseEvent;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
-import org.jboss.seam.core.Events;
-import org.jboss.seam.faces.FacesMessages;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
@@ -71,14 +65,13 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleManagement#removeRole(gr.sch.ira.minoas.model.security.Role)
 	 */
-	@RaiseEvent(EventConstants.EVENT_ROLE_REMOVED)
 	public void removeRole() {
 		info("trying to remove role #0 from system.", role);
 		em.remove(this.role);
 		info("removed succesfully role #0 from system.", role);
 		search();
 	}
-	@RaiseEvent(EventConstants.EVENT_ROLE_NEW_ADDED)
+	
 	public void saveRole() {
 		info("about to save new role #0", this.newRole);
 		Role existing_role = em.find(Role.class, newRole.getId());
@@ -100,7 +93,6 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 	
 	@Factory("roles")
 	@SuppressWarnings("unchecked")
-	@Observer({EventConstants.EVENT_ROLE_REMOVED, EventConstants.EVENT_ROLE_NEW_ADDED})
 	@Begin(join=true)
 	public void search() {
 		String searchPattern = getSearchPattern();
