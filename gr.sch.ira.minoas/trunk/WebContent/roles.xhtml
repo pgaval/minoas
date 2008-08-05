@@ -20,6 +20,7 @@
 
 			<h:panelGrid columns="1" width="100%">
 				<a4j:outputPanel id="existingRolesOutputPanel">
+					<h:messages globalOnly="true" showDetail="true"/>
 					<h:panelGroup>
 						<a4j:form>
 
@@ -39,7 +40,10 @@
 									<f:facet name="header">
 										<h:outputText value="Περιγραφή Ρόλου" />
 									</f:facet>
-									<h:outputText value="#{a_role.title}" />
+									<a4j:commandLink id="updateRoleLink"
+										value="#{a_role.title}" action="#{roleManagement.selectRole}"
+										oncomplete="javascript:Richfaces.showModalPanel('updateRoleTitlePanel');">
+									</a4j:commandLink>
 								</rich:column>
 								<rich:column>
 									<f:facet name="header">
@@ -64,7 +68,7 @@
 						<a4j:outputPanel>
 							<rich:panel>
 								<f:facet name="header">Δημιουργεία Νέου Ρόλου</f:facet>
-								<h:messages globalOnly="true"/>
+								
 								<h:panelGrid columns="2">
 									<s:decorate id="roleNameDecoration"
 										template="/layout/edit.xhtml">
@@ -108,11 +112,7 @@
 					<!-- <h:graphicImage value="/images/modal/close.png"
 						style="cursor:pointer" id="hidelink" />
 					 -->
-					<h:outputLink value="#" id="hidelink">
-						<h:outputText value="[X]" />
-						<rich:componentControl for="removeRolePanel" attachTo="hidelink"
-							operation="hide" event="onclick" />
-					</h:outputLink>
+					<a4j:commandLink value="[X]" onclick="Richfaces.hideModalPanel('removeRolePanel')" />
 				</h:panelGroup>
 			</f:facet>
 			<h:outputText
@@ -130,6 +130,40 @@
 				<rich:spacer width="15" />
 				<a4j:commandButton value="Όχι" action="#{roleManagement.end()}"
 					oncomplete="Richfaces.hideModalPanel('removeRolePanel')"
+					reRender="existingRolesOutputPanel" />
+			</a4j:form>
+		</rich:modalPanel>
+
+		<rich:modalPanel id="updateRoleTitlePanel" width="300" height="130"
+			resizeable="true">
+
+			<f:facet name="header">
+				<h:outputText value="Αλλαγή Τίτλου Ρόλου ..." />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<!-- <h:graphicImage value="/images/modal/close.png"
+						style="cursor:pointer" id="hidelink" />
+					 -->
+					<a4j:commandLink value="[X]"
+						onclick="Richfaces.hideModalPanel('updateRoleTitlePanel')" />
+				</h:panelGroup>
+			</f:facet>
+			<h:outputLabel value="Αλλάξτε το τίτλο του Ρόλου στο παρακάτω πεδίο"
+				for="updateRoleTitleInput" />
+			<h:inputText id="updateRoleTitleInput"  value="#{title}"
+				size="30" maxlength="250" />
+			<br />
+			<br />
+			<a4j:form>
+				<a4j:commandButton value="Ανανέωση Τίτλου"
+					action="#{roleManagement.removeRole()}"
+					oncomplete="Richfaces.hideModalPanel('updateRoleTitlePanel')"
+					reRender="existingRolesOutputPanel"></a4j:commandButton>
+				<rich:spacer width="15" />
+				<a4j:commandButton value="Επιστροφή"
+					action="#{roleManagement.end()}"
+					oncomplete="Richfaces.hideModalPanel('updateRoleTitlePanel')"
 					reRender="existingRolesOutputPanel" />
 			</a4j:form>
 		</rich:modalPanel>
