@@ -38,7 +38,7 @@ public class Role extends BaseModel {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id", length=32)
+	@Column(name = "id", length=32, updatable=false)
 	private String id;
 	
 	@Basic

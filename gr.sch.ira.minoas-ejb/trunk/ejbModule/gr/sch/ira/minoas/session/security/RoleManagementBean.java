@@ -8,6 +8,7 @@ import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateful;
@@ -42,7 +43,7 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 	private String searchString;
 	
 	@DataModel
-	private Collection<Role> roles;
+	private List<Role> roles;
 	
 	
 	/**
@@ -102,6 +103,7 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 						"SELECT r from Role r WHERE lower(r.id) LIKE :search_pattern")
 				.setParameter("search_pattern", searchPattern)
 				.getResultList();
+		info("found totally #0 role(s).", this.roles.size());
 	}
 	
 	@Factory("newRole")

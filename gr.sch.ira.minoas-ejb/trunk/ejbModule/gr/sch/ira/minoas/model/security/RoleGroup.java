@@ -35,7 +35,7 @@ public class RoleGroup extends BaseModel {
 	 * Comment for <code>id</code>
 	 */
 	@Id
-	@Column(name = "id", length = 32)
+	@Column(name = "id", length = 32,updatable=false)
 	private String id;
 
 	/**
@@ -103,6 +103,13 @@ public class RoleGroup extends BaseModel {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }
