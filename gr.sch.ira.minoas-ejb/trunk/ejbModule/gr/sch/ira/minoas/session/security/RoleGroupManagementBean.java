@@ -3,6 +3,7 @@
  */
 package gr.sch.ira.minoas.session.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
@@ -40,17 +42,29 @@ import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 		implements IRoleGroupManagement {
 
+	@In(required = false)
+	@Out(required = false)
+	private List<Role> newRoleGroupRolesList;
+
+	@In(required = false)
+	@Out(required = false)
+	private List<Role> availableRolesList;
+
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#constructNewRoleGroup()
 	 */
 	@Factory("newRoleGroup")
+	@SuppressWarnings("unchecked")
 	public void constructNewRoleGroup() {
 		info("constructing new instance of empty role group as requested.");
 		this.newRoleGroup = new RoleGroup("", "");
-		this.newRoleGroup.setRoles(new LinkedHashSet<Role>());
+		this.newRoleGroupRolesList = new ArrayList<Role>();
+
+		this.availableRolesList = em.createQuery("SELECT r from Role r ")
+				.getResultList();
 	}
 
-	@PersistenceContext
+	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
 	@DataModel
@@ -60,8 +74,9 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 	private RoleGroup roleGroup;
 
 	private String searchString;
-	
-	@In(required=false) @Out(required=false)
+
+	@In(required = false)
+	@Out(required = false)
 	private RoleGroup newRoleGroup;
 
 	/**
@@ -119,15 +134,23 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 	 */
 	public void saveRoleGroup() {
 		info("about to save new role group #0", this.newRoleGroup);
-		RoleGroup existing_role_group = em.find(RoleGroup.class, newRoleGroup.getId());
+		RoleGroup existing_role_group = em.find(RoleGroup.class, newRoleGroup
+				.getId());
 		if (existing_role_group == null) {
 			em.persist(this.newRoleGroup);
-			for (Role role : newRoleGroup.getRoles()) {
+			this.newRoleGroup.setRoles(new LinkedHashSet<Role>());
+
+			for (Role role : newRoleGroupRolesList) {
+				newRoleGroup.getRoles().add(role);
 				em.persist(role);
+
 			}
-			info("role #0, successfully saved.", this.newRoleGroup);
-			//em.flush();
-			//constructNewRole();
+			info(
+					"role group #0, successfully saved, with totally #1 roles registered.",
+					this.newRoleGroup, this.newRoleGroupRolesList.size());
+			// em.flush();
+			// constructNewRole();
+			constructNewRoleGroup();
 			search();
 		} else {
 			warn(
@@ -135,12 +158,11 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 					this.newRoleGroup);
 			facesMessages.add("role fdsf", newRoleGroup.getId());
 		}
-	
 
 	}
-	
+
 	public void selectRoleGroup() {
-		
+
 	}
 
 }
