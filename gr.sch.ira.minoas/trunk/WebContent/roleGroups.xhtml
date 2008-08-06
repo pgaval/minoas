@@ -66,40 +66,52 @@
 						<rich:panel>
 							<f:facet name="header">Δημιουργεία Νέας Ομάδας Ρόλων</f:facet>
 							<a4j:form>
-							<h:panelGrid columns="2">
-								<s:decorate id="roleNameDecoration"
-									template="/layout/edit.xhtml">
-									<ui:define name="label">Όνομα Ομάδας</ui:define>
-									<h:inputText value="#{newRoleGroup.id}" required="true" size="16"
-										maxlength="32">
-										<a4j:support event="onblur" reRender="roleNameDecoration"
-											bypassUpdates="true" />
-										<f:validateLength minimum="5" maximum="32" />
-									</h:inputText>
-								</s:decorate>
-								<s:decorate id="roleTitleDecoration"
-									template="/layout/edit.xhtml">
-									<ui:define name="label">Περιγραφή Ομάδας</ui:define>
-									<h:inputText id="roletitle" value="#{newRoleGroup.title}" size="30"
-										maxlength="250">
-										<a4j:support event="onblur" reRender="roleTitleDecoration"
-											bypassUpdates="true" />
-									</h:inputText>
-								</s:decorate>
-									<rich:listShuttle var="somerole" sourceValue="#{roles.getWrappedData()}"
-										 converter="rolesConverter">
+								<h:panelGrid columns="1">
+									<h:panelGrid columns="2">
+										<s:decorate id="roleNameDecoration"
+											template="/layout/edit.xhtml">
+											<ui:define name="label">Όνομα Ομάδας</ui:define>
+											<h:inputText value="#{newRoleGroup.id}" required="true"
+												size="16" maxlength="32">
+												<a4j:support event="onblur" reRender="roleNameDecoration"
+													bypassUpdates="true" />
+												<f:validateLength minimum="5" maximum="32" />
+											</h:inputText>
+										</s:decorate>
+										<s:decorate id="roleTitleDecoration"
+											template="/layout/edit.xhtml">
+											<ui:define name="label">Περιγραφή Ομάδας</ui:define>
+											<h:inputText id="roletitle" value="#{newRoleGroup.title}"
+												size="30" maxlength="250">
+												<a4j:support event="onblur" reRender="roleTitleDecoration"
+													bypassUpdates="true" />
+											</h:inputText>
+										</s:decorate>
+
+
+
+									</h:panelGrid>
+									<rich:listShuttle var="role"
+										sourceValue="#{roles.getWrappedData()}" 
+										converter="rolesConverter">
 										<h:column>
 											<f:facet name="header">
-												<h:outputText value="Cars" />
+												<h:outputText value="Ρόλος" />
 											</f:facet>
 											<h:outputText value="#{role.id}" />
 										</h:column>
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Περιγραφή" />
+											</f:facet>
+											<h:outputText value="#{role.title}" />
+										</h:column>
 									</rich:listShuttle>
-
 									<a4j:commandButton value="Καταχώρηση ..."
-									action="#{roleGroupManagement.saveRoleGroup()}"
-									reRender="existingRolesOutputPanel" />
-							</h:panelGrid>
+										action="#{roleGroupManagement.saveRoleGroup()}"
+										reRender="existingRolesOutputPanel" />
+								</h:panelGrid>
+
 							</a4j:form>
 						</rich:panel>
 					</h:panelGroup>

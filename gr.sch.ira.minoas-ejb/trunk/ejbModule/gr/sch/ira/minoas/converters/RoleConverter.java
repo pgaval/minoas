@@ -30,15 +30,25 @@ public class RoleConverter extends EntityController implements javax.faces.conve
 	/**
 	 * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
 	 */
-	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
-		return getEntityManager().find(Role.class, arg2);
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+		if (value != null) {
+			return getEntityManager().find(Role.class, value);
+		} else
+			return null;
 	}
 
 	/**
 	 * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
 	 */
-	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
-		return "dasdas";
+	public String getAsString(FacesContext context, UIComponent component, Object value) {
+		if (value != null) {
+			if (value instanceof Role) {
+				return ((Role) value).getId();
+			} else {
+				return value.toString();
+			}
+		} else
+			return null;
 	}
 
 }

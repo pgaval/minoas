@@ -12,7 +12,6 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.faces.Converter;
 import org.jboss.seam.framework.EntityController;
 
-
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  *
@@ -21,7 +20,6 @@ import org.jboss.seam.framework.EntityController;
 @Name("specializationConverter")
 public class SpecializationConverter extends EntityController implements javax.faces.convert.Converter {
 
-	
 	/**
 	 * 
 	 */
@@ -32,22 +30,25 @@ public class SpecializationConverter extends EntityController implements javax.f
 	/**
 	 * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
 	 */
-	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
-		return getEntityManager().find(Specialization.class, arg2);
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+		if (value != null) {
+			return getEntityManager().find(Specialization.class, value);
+		} else
+			return null;
 	}
 
 	/**
 	 * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
 	 */
-	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
-		
-		if(arg2 instanceof Specialization) {
-			return ((Specialization)arg2).getId();
-		} else {
-			return "<UNKNOWN SPECIALIZATION>";
-		}
+	public String getAsString(FacesContext context, UIComponent component, Object value) {
+		if (value != null) {
+			if (value instanceof Specialization) {
+				return ((Specialization) value).getId();
+			} else {
+				return value.toString();
+			}
+		} else
+			return null;
 	}
-
-	
 
 }
