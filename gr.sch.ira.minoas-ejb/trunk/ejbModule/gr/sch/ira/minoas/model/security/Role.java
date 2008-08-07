@@ -3,18 +3,16 @@
  */
 package gr.sch.ira.minoas.model.security;
 
+import gr.sch.ira.minoas.model.BaseModel;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import gr.sch.ira.minoas.model.BaseModel;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
@@ -22,6 +20,7 @@ import gr.sch.ira.minoas.model.BaseModel;
  */
 @Entity
 @Table(name = "minoas_role")
+@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Role extends BaseModel {
 
 	/**

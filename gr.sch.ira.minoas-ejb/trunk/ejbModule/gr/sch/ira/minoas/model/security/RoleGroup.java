@@ -5,6 +5,7 @@ package gr.sch.ira.minoas.model.security;
 
 import gr.sch.ira.minoas.model.BaseModel;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -16,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -24,6 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @Table(name = "minoas_role_group")
+@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 public class RoleGroup extends BaseModel {
 	
 	/**
@@ -50,7 +54,8 @@ public class RoleGroup extends BaseModel {
 	 */
 	@ManyToMany
 	@JoinTable(name = "minoas_rolegroup_role")
-	private Set<Role> roles;
+	@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
+	private List<Role> roles;
 
 	/**
 	 * 
@@ -87,14 +92,14 @@ public class RoleGroup extends BaseModel {
 	/**
 	 * @return the roles
 	 */
-	public Set<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
 	/**
 	 * @param roles the roles to set
 	 */
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 

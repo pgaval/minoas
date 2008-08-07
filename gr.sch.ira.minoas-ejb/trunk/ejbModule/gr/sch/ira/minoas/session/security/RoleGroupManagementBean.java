@@ -5,6 +5,7 @@ package gr.sch.ira.minoas.session.security;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -56,8 +57,6 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 	@Out(required = false)
 	private RoleGroup newRoleGroup;
 
-	private List<Role> newRoleGroupRolesList;
-
 	@DataModelSelection
 	@Out(value="selectedRoleGroup", required=false)
 	private RoleGroup roleGroup;
@@ -75,17 +74,11 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 	public void constructNewRoleGroup() {
 		info("constructing new instance of empty role group as requested.");
 		this.newRoleGroup = new RoleGroup("", "");
-		this.newRoleGroupRolesList = new ArrayList<Role>();
 		this.availableRoles = em.createQuery("SELECT r from Role r ")
 		.getResultList();
 	}
 
-	/**
-	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#getNewRoleGroupRolesList()
-	 */
-	public List<Role> getNewRoleGroupRolesList() {
-		return this.newRoleGroupRolesList;
-	}
+	
 
 	public String getSearchPattern() {
 		return getSearchString() == null ? "%" : '%' + getSearchString()
@@ -117,15 +110,11 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 		RoleGroup existing_role_group = em.find(RoleGroup.class, newRoleGroup
 				.getId());
 		if (existing_role_group == null) {
-			this.newRoleGroup.setRoles(new LinkedHashSet<Role>());
-			for (Role role : newRoleGroupRolesList) {
-				this.newRoleGroup.getRoles().add(role);
-			}
 			em.persist(this.newRoleGroup);
 
 			info(
 					"role group #0, successfully saved, with totally #1 roles registered.",
-					this.newRoleGroup, this.newRoleGroupRolesList.size());
+					this.newRoleGroup, this.newRoleGroup.getRoles().size());
 			constructNewRoleGroup();
 			search();
 		} else {
@@ -159,14 +148,6 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 	public void selectRoleGroup() {
 		info("role group #0 selected for management", this.roleGroup);
 
-	}
-
-	/**
-	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#setNewRoleGroupRolesList(java.util.List)
-	 */
-	public void setNewRoleGroupRolesList(List<Role> roles) {
-		this.newRoleGroupRolesList = roles;
-		
 	}
 
 	/**

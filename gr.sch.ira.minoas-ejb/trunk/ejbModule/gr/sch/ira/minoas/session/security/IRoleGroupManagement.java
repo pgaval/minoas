@@ -24,7 +24,4 @@ public interface IRoleGroupManagement {
 
 	public abstract void saveRoleGroup();
 
-	public void setNewRoleGroupRolesList(List<Role> roles);
-	
-	public List<Role> getNewRoleGroupRolesList();
 }
