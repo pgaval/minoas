@@ -106,4 +106,16 @@ public class Role extends BaseModel {
 	public int hashCode() {
 		return id.hashCode();
 	}
+	
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<Role:");
+		sb.append(getId());
+		sb.append(">");
+		return sb.toString();
+	}
 }

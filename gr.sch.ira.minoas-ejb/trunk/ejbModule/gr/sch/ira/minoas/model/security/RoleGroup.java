@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
@@ -52,7 +53,7 @@ public class RoleGroup extends BaseModel {
 	/**
 	 * Comment for <code>roles</code>
 	 */
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "minoas_rolegroup_role")
 	@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 	private List<Role> roles;
@@ -115,6 +116,18 @@ public class RoleGroup extends BaseModel {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<RoleGroup:");
+		sb.append(getId());
+		sb.append(">");
+		return sb.toString();
 	}
 
 }
