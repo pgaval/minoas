@@ -9,7 +9,7 @@
 
 <ui:composition template="layout/template.xhtml">
 	<ui:define name="body">
-		<a4j:form>
+		
 			<rich:panel bodyClass="post" headerClass="pagetitle">
 				<f:facet name="header">
 					<h:outputText value="Διαχείρηση Ομάδων Ρόλων ..." />
@@ -18,114 +18,124 @@
 					<h:outputText
 						value="Στον παρακάτω πίνακα εμφανίζονται οι διαθέσιμες ομάδες ρόλων που έχουν οριστεί στο σύστημα." />
 				</s:div>
+				
 				<h:panelGrid columns="1" width="100%">
-					<a4j:outputPanel id="existingRolesOutputPanel">
 						<h:messages globalOnly="true" showDetail="true" />
-						<h:panelGroup>
-							<rich:dataTable id="existingRoleGroupListing" width="100%"
-								rows="10" rendered="#{roleGroups.rowCount gt 0}"
-								var="a_roleGroup" value="#{roleGroups}">
+				<h:panelGroup>
+					<a4j:form>
+						<rich:dataTable id="existingRoleGroupListing" width="100%"
+							rows="10" rendered="#{roleGroups.rowCount gt 0}"
+							var="a_roleGroup" value="#{roleGroups}">
+							<f:facet name="header">
+								<h:outputText value="Διαθέσιμες Ομάδες Ρόλων" />
+							</f:facet>
+
+							<rich:column>
 								<f:facet name="header">
-									<h:outputText value="Διαθέσιμες Ομάδες Ρόλων" />
+									<h:outputText value="Όνομα Ομάδας" />
 								</f:facet>
-
-								<rich:column>
-									<f:facet name="header">
-										<h:outputText value="Όνομα Ομάδας" />
-									</f:facet>
-									<h:outputText value="#{a_roleGroup.id}" />
-								</rich:column>
-								<rich:column>
-									<f:facet name="header">
-										<h:outputText value="Περιγραφή Ομάδας" />
-									</f:facet>
-									<a4j:commandLink id="updateRoleLink"
-										value="#{a_roleGroup.title}"
-										action="#{roleManagement.selectRoleGroup}"
-										oncomplete="javascript:Richfaces.showModalPanel('updateRoleTitlePanel');">
-									</a4j:commandLink>
-								</rich:column>
-								<rich:column>
-									<f:facet name="header">
-										<h:outputText value="Ρόλοι" />
-									</f:facet>
-									<a4j:commandLink id="updasteRoleLink"
-										value="#{a_roleGroup.roles.size()}"
-										action="#{roleManagement.selectRoleGroup}"
-										oncomplete="javascript:Richfaces.showModalPanel('updateRoleTitlePanel');">
-									</a4j:commandLink>
-								</rich:column>
-								<rich:column>
-									<f:facet name="header">
-										<h:outputText value="Ενέργεια ..." />
-									</f:facet>
-									<a4j:commandLink id="removeRoleLink" value="Διαγραφή Ομάδας"
-										action="#{roleGroupManagement.selectRoleGroup}"
-										oncomplete="javascript:Richfaces.showModalPanel('removeRoleGroupPanel');">
-									</a4j:commandLink>
-
-								</rich:column>
-								<f:facet name="footer">
-									<rich:datascroller align="right" for="existingRoleGroupListing"
-										maxPages="10" id="sc1" renderIfSinglePage="false" />
+								<h:outputText value="#{a_roleGroup.id}" />
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Περιγραφή Ομάδας" />
 								</f:facet>
-							</rich:dataTable>
-						</h:panelGroup>
-						<h:panelGroup>
-							<rich:panel>
-								<f:facet name="header">Δημιουργεία Νέας Ομάδας Ρόλων</f:facet>
-									<h:panelGrid columns="1">
-									<h:panelGrid columns="2">
-										<s:decorate id="roleNameDecoration"
-											template="/layout/edit.xhtml">
-											<ui:define name="label">Όνομα Ομάδας</ui:define>
-											<h:inputText value="#{newRoleGroup.id}" required="true"
-												size="16" maxlength="32">
-												<a4j:support event="onblur" reRender="roleNameDecoration"
-													bypassUpdates="true" />
-												<f:validateLength minimum="5" maximum="32" />
-											</h:inputText>
-										</s:decorate>
-										<s:decorate id="roleTitleDecoration"
-											template="/layout/edit.xhtml">
-											<ui:define name="label">Περιγραφή Ομάδας</ui:define>
-											<h:inputText id="roletitle" value="#{newRoleGroup.title}"
-												size="30" maxlength="250">
-												<a4j:support event="onblur" reRender="roleTitleDecoration"
-													bypassUpdates="true" />
-											</h:inputText>
-										</s:decorate>
-									</h:panelGrid>
-												
-									<rich:listShuttle id="availableRolesShuttleList" rendered="true" required="false" var="a_role" 
-										sourceCaptionLabel="Διαθέσιμοι Ρόλοι" immediate="true"
-										sourceValue="#{availableRoles2}"
-										targetValue="#{roleGroupManagement.newRoleGroupRoles}"
-										sourceRequired = "false" targetRequired = "false"
-										targetCaptionLabel="Επιλεγμένη Ρόλοι" 
-										converter="rolesConverter">
-										<h:column>
-											<h:outputText value="#{a_role.id}" />
-										</h:column>
-									</rich:listShuttle>
-									<rich:message for="availableRolesShuttleList">
-										<f:facet name="errorMarker">
-											<h:graphicImage value="/img/error.png" />
-										</f:facet>
-									</rich:message>
-									<h:commandButton value="Καταχώρηση ..."
-										action="#{roleGroupManagement.saveRoleGroup()}"
-										reRender="existingRolesOutputPanel" />
+								<a4j:commandLink id="updateRoleLink"
+									value="#{a_roleGroup.title}"
+									action="#{roleGroupManagement.selectRoleGroup()}"
+									oncomplete="javascript:Richfaces.showModalPanel('updateRoleGroupPanel');">
+								</a4j:commandLink>
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Ρόλοι" />
+								</f:facet>
+								<a4j:commandLink id="updasteRoleLink"
+									value="#{a_roleGroup.roles.size()}"
+									action="#{roleGroupManagement.selectRoleGroup}"  reRender="updateRoleGroupRolesPanel"
+									oncomplete="javascript:Richfaces.showModalPanel('updateRoleGroupRolesPanel');">
+								</a4j:commandLink>
+							</rich:column>
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Ενέργεια ..." />
+								</f:facet>
+								<a4j:commandLink id="removeRoleLink" value="Διαγραφή Ομάδας"
+									action="#{roleGroupManagement.selectRoleGroup}"
+									oncomplete="javascript:Richfaces.showModalPanel('removeRoleGroupPanel');">
+								</a4j:commandLink>
+
+							</rich:column>
+							<f:facet name="footer">
+								<rich:datascroller align="right" for="existingRoleGroupListing"
+									maxPages="10" id="sc1" renderIfSinglePage="false" />
+							</f:facet>
+						</rich:dataTable>
+					</a4j:form>
+				</h:panelGroup>
+				<h:panelGroup>
+					<a4j:form>
+						<rich:panel>
+
+							<f:facet name="header">Δημιουργεία Νέας Ομάδας Ρόλων</f:facet>
+							<h:panelGrid columns="1">
+								<h:panelGrid columns="2">
+									<s:decorate id="roleNameDecoration"
+										template="/layout/edit.xhtml">
+										<ui:define name="label">Όνομα Ομάδας</ui:define>
+										<h:inputText value="#{newRoleGroup.id}" required="true"
+											size="16" maxlength="32">
+											<a4j:support event="onblur" reRender="roleNameDecoration"
+												bypassUpdates="true" />
+											<f:validateLength minimum="5" maximum="32" />
+										</h:inputText>
+									</s:decorate>
+									<s:decorate id="roleTitleDecoration"
+										template="/layout/edit.xhtml">
+										<ui:define name="label">Περιγραφή Ομάδας</ui:define>
+										<h:inputText id="roletitle" value="#{newRoleGroup.title}"
+											size="30" maxlength="250">
+											<a4j:support event="onblur" reRender="roleTitleDecoration"
+												bypassUpdates="true" />
+										</h:inputText>
+									</s:decorate>
 								</h:panelGrid>
-								
 
-							</rich:panel>
-						</h:panelGroup>
-					</a4j:outputPanel>
-				</h:panelGrid>
+								<rich:listShuttle id="availableRolesShuttleList" rendered="true"
+									required="false" var="a_role"
+									sourceCaptionLabel="Διαθέσιμοι Ρόλοι" immediate="true"
+									sourceValue="#{availableRoles}"
+									targetValue="#{roleGroupManagement.newRoleGroupRolesList}"
+									sourceRequired="false" targetRequired="false"
+									targetCaptionLabel="Επιλεγμένη Ρόλοι"
+									converter="rolesConverter">
+									<h:column>
+										<h:outputText value="#{a_role.id}" />
+									</h:column>
+									<h:column>
+										<h:outputText value="#{a_role.title}" />
+									</h:column>
+								</rich:listShuttle>
+								<rich:message for="availableRolesShuttleList">
+									<f:facet name="errorMarker">
+										<h:graphicImage value="/img/error.png" />
+									</f:facet>
+								</rich:message>
+								<a4j:commandButton value="Καταχώρηση ..."
+									action="#{roleGroupManagement.saveRoleGroup()}"
+									rerRender="existingRoleGroupListing,availableRolesShuttleList" />
+							</h:panelGrid>
+
+
+						</rich:panel>
+					</a4j:form>
+				</h:panelGroup>
+
+			</h:panelGrid>
 			</rich:panel>
-		</a4j:form>
-		<rich:modalPanel id="removeRoleGroupPanel" width="200" height="130"
+			
+		<!-- modal panel to display when removing a given role group -->	
+		<rich:modalPanel id="removeRoleGroupPanel" width="200" height="150"
 			resizeable="true">
 
 			<f:facet name="header">
@@ -151,12 +161,57 @@
 				<a4j:commandButton value="Ναι"
 					action="#{roleGroupManagement.removeRoleGroup()}"
 					oncomplete="Richfaces.hideModalPanel('removeRoleGroupPanel')"
-					reRender="existingRolesOutputPanel"></a4j:commandButton>
+					reRender="existingRoleGroupListing"></a4j:commandButton>
 				<rich:spacer width="15" />
 				<a4j:commandButton value="Όχι" action="#{roleGroupManagement.end()}"
 					oncomplete="Richfaces.hideModalPanel('removeRoleGroupPanel')"
-					reRender="existingRolesOutputPanel" />
+					reRender="existingRoleGroupListing" />
 			</a4j:form>
+		</rich:modalPanel>
+
+		<rich:modalPanel id="updateRoleGroupPanel" width="200" height="150"
+			resizeable="true">
+			<f:facet name="header">
+				<h:outputText value="Διαγραφή Ρόλου ..." />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<!-- <h:graphicImage value="/images/modal/close.png"
+						style="cursor:pointer" id="hidelink" />
+					 -->
+					<a4j:commandLink value="[X]"
+						onclick="Richfaces.hideModalPanel('updateRoleGroupPanel')" />
+				</h:panelGroup>
+			</f:facet>
+		</rich:modalPanel>
+		
+		<!-- modal panel to be used for modifying a group role role's -->
+		<rich:modalPanel id="updateRoleGroupRolesPanel"
+			resizeable="false" autosized="true">
+			<f:facet name="header">
+				<h:outputText value="Ανανέωση Ρόλων  ..." />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<a4j:commandLink value="[X]"
+						onclick="Richfaces.hideModalPanel('updateRoleGroupRolesPanel')" />
+				</h:panelGroup>
+			</f:facet>
+			<rich:panel rendered="#{selectedRoleGroup != null}">
+			<h:outputText value="#{selectedRoleGroup.roles}" />
+			<rich:pickList value="#{selectedRoleGroup.roles}"  showButtonsLabel="false" disabled="#{selectedRoleGroup == null}" converter="rolesConverter">
+				<s:selectItems  var="role" value="#{selectedRoleGroup.roles}" label="#{role.id}">
+				</s:selectItems>
+			</rich:pickList>
+			<rich:listShuttle  rendered="#{selectedRoleGroup != null}" sourceValue="#{availableRoles}" var="a_role">
+				<h:column>
+					<h:outputText value="#{a_role.id}" />
+				</h:column>
+				<h:column>
+					<h:outputText value="#{a_role.title}" />
+				</h:column>
+			</rich:listShuttle>
+			</rich:panel>
 		</rich:modalPanel>
 	</ui:define>
 </ui:composition>
