@@ -4,7 +4,6 @@
 package gr.sch.ira.minoas.session.security;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -42,34 +42,31 @@ import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 		implements IRoleGroupManagement {
 
-	/**
-	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#getNewRoleGroupRoles()
-	 */
-	public List<Role> getNewRoleGroupRoles() {
-		return this.newRoleGroupRolesList;
-	}
-
-	/**
-	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#setNewRoleGroupRoles(java.util.List)
-	 */
-	public void setNewRoleGroupRoles(List<Role> roles) {
-		this.newRoleGroupRolesList = roles;
-	}
+	
 	
 	@In(required=false) @Out(required=false)
-	private List<Role> availableRoles2;
+	private List<Role> availableRoles;
 
-	/**
-	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#getAvailableRoles()
-	 */
-	public List<Role> getAvailableRoles() {
-		return em.createQuery("SELECT r from Role r ")
-		.getResultList();
-	}
+
+	@PersistenceContext(type = PersistenceContextType.EXTENDED)
+	private EntityManager em;
+
+	
+	@In(required = false)
+	@Out(required = false)
+	private RoleGroup newRoleGroup;
 
 	private List<Role> newRoleGroupRolesList;
 
-	
+	@DataModelSelection
+	@Out(value="selectedRoleGroup", required=false)
+	private RoleGroup roleGroup;
+
+	@DataModel
+	private List<RoleGroup> roleGroups;
+
+	private String searchString;
+
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#constructNewRoleGroup()
 	 */
@@ -79,24 +76,66 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 		info("constructing new instance of empty role group as requested.");
 		this.newRoleGroup = new RoleGroup("", "");
 		this.newRoleGroupRolesList = new ArrayList<Role>();
-		this.availableRoles2 = em.createQuery("SELECT r from Role r ")
+		this.availableRoles = em.createQuery("SELECT r from Role r ")
 		.getResultList();
 	}
 
-	@PersistenceContext(type = PersistenceContextType.EXTENDED)
-	private EntityManager em;
+	/**
+	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#getNewRoleGroupRolesList()
+	 */
+	public List<Role> getNewRoleGroupRolesList() {
+		return this.newRoleGroupRolesList;
+	}
 
-	@DataModel
-	private List<RoleGroup> roleGroups;
+	public String getSearchPattern() {
+		return getSearchString() == null ? "%" : '%' + getSearchString()
+				.toLowerCase().replace('*', '%') + '%';
+	}
 
-	@DataModelSelection
-	private RoleGroup roleGroup;
+	public String getSearchString() {
+		return searchString;
+	}
 
-	private String searchString;
+	/**
+	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#removeRoleGroup()
+	 */
+	@End
+	public void removeRoleGroup() {
+		info("about to remove role group #0.", roleGroup);
+		RoleGroup role_to_remove = em.merge(this.roleGroup);
+		em.remove(role_to_remove);
+		info("role group #0 has been removed.", this.roleGroup);
+		search();
+	}
 
-	@In(required = false)
-	@Out(required = false)
-	private RoleGroup newRoleGroup;
+	/**
+	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#saveRoleGroup()
+	 */
+	@End
+	public void saveRoleGroup() {
+		info("about to save new role group #0", this.newRoleGroup);
+		RoleGroup existing_role_group = em.find(RoleGroup.class, newRoleGroup
+				.getId());
+		if (existing_role_group == null) {
+			this.newRoleGroup.setRoles(new LinkedHashSet<Role>());
+			for (Role role : newRoleGroupRolesList) {
+				this.newRoleGroup.getRoles().add(role);
+			}
+			em.persist(this.newRoleGroup);
+
+			info(
+					"role group #0, successfully saved, with totally #1 roles registered.",
+					this.newRoleGroup, this.newRoleGroupRolesList.size());
+			constructNewRoleGroup();
+			search();
+		} else {
+			warn(
+					"ignoring save request of role #0, since that role already exists",
+					this.newRoleGroup);
+			facesMessages.add("role fdsf", newRoleGroup.getId());
+		}
+
+	}
 
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#search()
@@ -114,13 +153,20 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 		info("found totally #0 role group(s).", this.roleGroups.size());
 	}
 
-	public String getSearchPattern() {
-		return getSearchString() == null ? "%" : '%' + getSearchString()
-				.toLowerCase().replace('*', '%') + '%';
+	/**
+	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#selectRoleGroup()
+	 */
+	public void selectRoleGroup() {
+		info("role group #0 selected for management", this.roleGroup);
+
 	}
 
-	public String getSearchString() {
-		return searchString;
+	/**
+	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#setNewRoleGroupRolesList(java.util.List)
+	 */
+	public void setNewRoleGroupRolesList(List<Role> roles) {
+		this.newRoleGroupRolesList = roles;
+		
 	}
 
 	/**
@@ -134,53 +180,6 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#updateRoleGroup()
 	 */
 	public void updateRoleGroup() {
-
-	}
-
-	/**
-	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#removeRoleGroup()
-	 */
-	public void removeRoleGroup() {
-		info("about to remove role group #0.", roleGroup);
-		RoleGroup role_to_remove = em.merge(this.roleGroup);
-		em.remove(role_to_remove);
-		info("role group #0 has been removed.", this.roleGroup);
-		search();
-	}
-
-	/**
-	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#saveRoleGroup()
-	 */
-	public void saveRoleGroup() {
-		info("about to save new role group #0", this.newRoleGroup);
-		RoleGroup existing_role_group = em.find(RoleGroup.class, newRoleGroup
-				.getId());
-		if (existing_role_group == null) {
-			em.persist(this.newRoleGroup);
-			this.newRoleGroup.setRoles(new LinkedHashSet<Role>());
-
-			for (Role role : newRoleGroupRolesList) {
-				newRoleGroup.getRoles().add(role);
-				em.persist(role);
-
-			}
-			info(
-					"role group #0, successfully saved, with totally #1 roles registered.",
-					this.newRoleGroup, this.newRoleGroupRolesList.size());
-			// em.flush();
-			// constructNewRole();
-			constructNewRoleGroup();
-			search();
-		} else {
-			warn(
-					"ignoring save request of role #0, since that role already exists",
-					this.newRoleGroup);
-			facesMessages.add("role fdsf", newRoleGroup.getId());
-		}
-
-	}
-
-	public void selectRoleGroup() {
 
 	}
 

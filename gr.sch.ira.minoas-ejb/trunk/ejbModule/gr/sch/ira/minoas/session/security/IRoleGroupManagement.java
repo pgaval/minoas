@@ -23,11 +23,8 @@ public interface IRoleGroupManagement {
 	public void constructNewRoleGroup();
 
 	public abstract void saveRoleGroup();
-	
-	public List<Role> getAvailableRoles();
-	
-	public List<Role> getNewRoleGroupRoles();
-	
-	public void setNewRoleGroupRoles(List<Role> roles);
 
+	public void setNewRoleGroupRolesList(List<Role> roles);
+	
+	public List<Role> getNewRoleGroupRolesList();
 }
