@@ -97,17 +97,15 @@
 										</s:decorate>
 									</h:panelGrid>
 												
-									<rich:listShuttle id="availableRolesShuttleList" rendered="true" required="false" var="role" 
+									<rich:listShuttle id="availableRolesShuttleList" rendered="true" required="false" var="a_role" 
 										sourceCaptionLabel="Διαθέσιμοι Ρόλοι" immediate="true"
-										sourceValue="#{availableRolesList}"
-										targetValue="#{newRoleGroupRolesList}"
-										targetCaptionLabel="Επιλεγμένη Ρόλοι"
+										sourceValue="#{availableRoles2}"
+										targetValue="#{roleGroupManagement.newRoleGroupRoles}"
+										sourceRequired = "false" targetRequired = "false"
+										targetCaptionLabel="Επιλεγμένη Ρόλοι" 
 										converter="rolesConverter">
 										<h:column>
-											<h:outputText value="#{role.id}" />
-										</h:column>
-										<h:column>
-											<h:outputText value=" (	 #{role.title} )" />
+											<h:outputText value="#{a_role.id}" />
 										</h:column>
 									</rich:listShuttle>
 									<rich:message for="availableRolesShuttleList">
