@@ -3,13 +3,14 @@
  */
 package gr.sch.ira.minoas.session.security;
 
+import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
 import java.util.Collection;
-import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -42,18 +43,23 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 	
 	private String searchString;
 	
+	@EJB
+	private CoreSearching coreSearching;
+	
 	@DataModel
-	private List<Role> roles;
+	private Collection<Role> roles;
 	
 	
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleManagement#selectRole()
 	 */
 	public void selectRole() {
+		this.role = em.merge(this.role);
 		info("role #0 selected for management", this.role);
 	}
 
-	@DataModelSelection
+	@DataModelSelection()
+	@Out(value="selectedRole", required=false)
 	private Role role;
 
 	@In(required = false)
@@ -75,7 +81,7 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 	
 	public void saveRole() {
 		info("about to save new role #0", this.newRole);
-		Role existing_role = em.find(Role.class, newRole.getId());
+		Role existing_role = coreSearching.findRole(this.newRole.getId());
 		if (existing_role == null) {
 			em.persist(this.newRole);
 			info("role #0, successfully saved.", this.newRole);
@@ -93,17 +99,10 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 
 	
 	@Factory("roles")
-	@SuppressWarnings("unchecked")
 	@Begin(join=true)
 	public void search() {
-		String searchPattern = getSearchPattern();
-		info("searching for roles with #0 search pattern", searchPattern);
-		this.roles = em
-				.createQuery(
-						"SELECT r from Role r WHERE lower(r.id) LIKE :search_pattern")
-				.setParameter("search_pattern", searchPattern)
-				.getResultList();
-		info("found totally #0 role(s).", this.roles.size());
+		this.roles = coreSearching.searchRoles(getSearchString());
+		
 	}
 	
 	@Factory("newRole")
@@ -111,12 +110,6 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 		info("constructing new instance of role");
 		this.newRole = new Role("", "");
 	}
-	
-	public String getSearchPattern() {
-		return getSearchString() == null ? "%" : '%' + getSearchString()
-				.toLowerCase().replace('*', '%') + '%';
-	}
-
 	
 	public String getSearchString() {
 		return searchString;
