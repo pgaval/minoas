@@ -11,8 +11,6 @@ public interface IRoleGroupSearch {
 
 	public void search();
 	
-	public String getSearchPattern();
-	
 	public void setSearchString(String searchString);
 	
 	public String getSearchString();
