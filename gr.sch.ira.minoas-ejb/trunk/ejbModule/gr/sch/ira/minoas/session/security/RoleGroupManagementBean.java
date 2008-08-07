@@ -42,14 +42,34 @@ import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 		implements IRoleGroupManagement {
 
-	@In(required = false)
-	@Out(required = false)
+	/**
+	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#getNewRoleGroupRoles()
+	 */
+	public List<Role> getNewRoleGroupRoles() {
+		return this.newRoleGroupRolesList;
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#setNewRoleGroupRoles(java.util.List)
+	 */
+	public void setNewRoleGroupRoles(List<Role> roles) {
+		this.newRoleGroupRolesList = roles;
+	}
+	
+	@In(required=false) @Out(required=false)
+	private List<Role> availableRoles2;
+
+	/**
+	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#getAvailableRoles()
+	 */
+	public List<Role> getAvailableRoles() {
+		return em.createQuery("SELECT r from Role r ")
+		.getResultList();
+	}
+
 	private List<Role> newRoleGroupRolesList;
 
-	@In(required = false)
-	@Out(required = false)
-	private List<Role> availableRolesList;
-
+	
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#constructNewRoleGroup()
 	 */
@@ -59,9 +79,8 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl
 		info("constructing new instance of empty role group as requested.");
 		this.newRoleGroup = new RoleGroup("", "");
 		this.newRoleGroupRolesList = new ArrayList<Role>();
-
-		this.availableRolesList = em.createQuery("SELECT r from Role r ")
-				.getResultList();
+		this.availableRoles2 = em.createQuery("SELECT r from Role r ")
+		.getResultList();
 	}
 
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)

@@ -1,5 +1,9 @@
 package gr.sch.ira.minoas.session.security;
 
+import gr.sch.ira.minoas.model.security.Role;
+
+import java.util.List;
+
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Factory;
 
@@ -19,5 +23,11 @@ public interface IRoleGroupManagement {
 	public void constructNewRoleGroup();
 
 	public abstract void saveRoleGroup();
+	
+	public List<Role> getAvailableRoles();
+	
+	public List<Role> getNewRoleGroupRoles();
+	
+	public void setNewRoleGroupRoles(List<Role> roles);
 
 }

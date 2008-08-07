@@ -21,16 +21,8 @@ import gr.sch.ira.minoas.model.BaseModel;
  *
  */
 @Entity
-@Table(name="minoas_role")
+@Table(name = "minoas_role")
 public class Role extends BaseModel {
-
-	/**
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "["+getId()+"]";
-	}
 
 	/**
 	 * Comment for <code>serialVersionUID</code>
@@ -38,11 +30,11 @@ public class Role extends BaseModel {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id", length=32, updatable=false)
+	@Column(name = "id", length = 32, updatable = false)
 	private String id;
-	
+
 	@Basic
-	@Column(name="title", nullable=true, length=250)
+	@Column(name = "title", nullable = true, length = 250)
 	private String title;
 
 	/**
@@ -89,5 +81,30 @@ public class Role extends BaseModel {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Role) {
+			Role otherRole = (Role) obj;
+			if (this.id != null) {
+				return this.id.equals(otherRole.getId());
+			} else if (this.id == null && otherRole.getId() == null)
+				return true;
+			else
+				return false;
+		} else
+			return false;
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return id.hashCode();
 	}
 }
