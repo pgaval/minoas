@@ -13,11 +13,14 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
+
+import org.jboss.seam.annotations.Name;
 
 /**
  * Represents an authorized user.
@@ -25,6 +28,7 @@ import javax.persistence.Version;
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * */
 @Table(name="minoas_principal")
+@Name("principal")
 @Entity
 public class Principal extends BaseModel {
 	
@@ -34,9 +38,14 @@ public class Principal extends BaseModel {
 	private static final long serialVersionUID = 1L;
 	
 	
-	@Column(updatable=false, name = "username", length=16)
-	@Id
-	private String username;
+	@Basic
+	@Column(name="email", length=60, nullable=true)
+	private String email;
+	
+	@Basic
+	@ManyToOne(optional=true)
+	@JoinColumn(name="office_id", nullable=true)
+	private OrganizationalOffice office;
 	
 	@Basic
 	@Column(name="password", nullable=false, length=64)
@@ -46,26 +55,17 @@ public class Principal extends BaseModel {
 	@Column(name="real_name", length=90, nullable=false)
 	private String realName;
 	
-	@Basic
-	@Column(name="email", length=60, nullable=true)
-	private String email;
-	
-	@Basic
-	@ManyToOne(optional=false)
-	private OrganizationalOffice office;
-	
-	
-	
-	@Version
-	private Timestamp version;
-	
 	@ManyToMany
 	@JoinTable(name="minoas_principal_rolegroups")
 	private Set<RoleGroup> roleGroups;
 	
-	@ManyToMany
-	@JoinTable(name="minoas_principal_roles")
-	private Set<Role> roles;
+	@Column(updatable=false, name = "username", length=16)
+	@Id
+	private String username;
+
+	@SuppressWarnings("unused")
+	@Version
+	private Timestamp version;
 
 	/**
 	 * 
@@ -74,19 +74,20 @@ public class Principal extends BaseModel {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/**
-	 * @return the username
+	 * @return the email
 	 */
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
+	
 
 	/**
-	 * @param username the username to set
+	 * @return the office
 	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public OrganizationalOffice getOffice() {
+		return office;
 	}
 
 	/**
@@ -97,38 +98,10 @@ public class Principal extends BaseModel {
 	}
 
 	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/**
 	 * @return the realName
 	 */
 	public String getRealName() {
 		return realName;
-	}
-
-	/**
-	 * @param realName the realName to set
-	 */
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
-
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	/**
@@ -139,6 +112,41 @@ public class Principal extends BaseModel {
 	}
 
 	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @param office the office to set
+	 */
+	public void setOffice(OrganizationalOffice office) {
+		this.office = office;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @param realName the realName to set
+	 */
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	/**
 	 * @param roleGroups the roleGroups to set
 	 */
 	public void setRoleGroups(Set<RoleGroup> roleGroups) {
@@ -146,18 +154,12 @@ public class Principal extends BaseModel {
 	}
 
 	/**
-	 * @return the roles
+	 * @param username the username to set
 	 */
-	public Set<Role> getRoles() {
-		return roles;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	/**
-	 * @param roles the roles to set
-	 */
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
 	
 	
 }
