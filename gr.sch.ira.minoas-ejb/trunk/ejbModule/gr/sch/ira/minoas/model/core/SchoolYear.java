@@ -14,13 +14,10 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
-
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  * Represent a school year.
@@ -37,9 +34,7 @@ public class SchoolYear extends BaseModel {
 	private Collection<TeachingRequirement> teachingRequirements;
 	
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy="uuid")
-	@Column(name = "id", length=32)
+	@Column(name = "id", length=4, updatable=false)
 	private String id;
 	
 	@Basic
@@ -49,6 +44,10 @@ public class SchoolYear extends BaseModel {
 	@Basic
 	@Column(name="end_date", nullable=false)
 	private Date endDate;
+	
+	@Basic
+	@Column(name="current", nullable=false)
+	private boolean currentSchoolYear;
 	
 	
 	@Version
@@ -86,6 +85,20 @@ public class SchoolYear extends BaseModel {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * @return the currentSchoolYear
+	 */
+	public boolean isCurrentSchoolYear() {
+		return currentSchoolYear;
+	}
+
+	/**
+	 * @param currentSchoolYear the currentSchoolYear to set
+	 */
+	public void setCurrentSchoolYear(boolean currentSchoolYear) {
+		this.currentSchoolYear = currentSchoolYear;
 	}
 
 }
