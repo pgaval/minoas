@@ -16,13 +16,14 @@
 				<s:div>
 					<h:outputText
 						value="Στον παρακάτω πίνακα εμφανίζονται οι διαθέσιμες ομάδες ρόλων που έχουν οριστεί στο σύστημα." />
+					<s:button action="#{roleGroupManagement.end()}" value="Τέλος Διαχείρησης" view="/home.xhtml"/>
 				</s:div>
 
 				<h:panelGrid columns="1" width="100%">
 					<h:messages globalOnly="true" showDetail="true" />
 					<h:panelGroup>
 						<a4j:outputPanel ajaxRendered="true">
-							<h:form>
+						<h:form>
 							<rich:dataTable id="existingRoleGroupListing" width="100%"
 								rows="10" rendered="#{roleGroups.rowCount gt 0}"
 								var="a_roleGroup" value="#{roleGroups}">
@@ -72,14 +73,15 @@
 										maxPages="10" id="sc1" renderIfSinglePage="false" />
 								</f:facet>
 							</rich:dataTable>
-</h:form>
-						</a4j:outputPanel>
+						</h:form>
+					</a4j:outputPanel>
 					</h:panelGroup>
 				<h:panelGroup>
 					<a4j:form>
-						<rich:panel>
+						<rich:panel  bodyClass="post">
 							<f:facet name="header">Δημιουργεία Νέας Ομάδας Ρόλων</f:facet>
 							<h:panelGrid columns="1">
+								<h:outputText value="Στην παρακάτω φόρμα μπορείτε να δημιουργήσεται μια νέα ομάδα ρόλων." />
 								<h:panelGrid columns="2">
 									<s:decorate id="roleNameDecoration"
 										template="/layout/edit.xhtml">
@@ -101,9 +103,10 @@
 										</h:inputText>
 									</s:decorate>
 								</h:panelGrid>
+								<h:outputText value="Απο την παρακάτω λίστα, επιλέξετε τους ρόλους που θα περιέχονται στην νέα ομάδα." />
 								<rich:pickList value="#{newRoleGroup.roles}"
 									converter="rolesConverter" showButtonsLabel="false">
-									<s:selectItems var="role" value="#{availableRoles}"
+									<s:selectItems var="role" value="#{coreSearching.availableRoles}"
 										label="#{role.id}" />
 								</rich:pickList>
 								<rich:message for="availableRolesShuttleList">
@@ -111,7 +114,7 @@
 										<h:graphicImage value="/img/error.png" />
 									</f:facet>
 								</rich:message>
-								<a4j:commandButton value="Καταχώρηση ..."
+								<a4j:commandButton value="Καταχώρηση Νέας Ομάδας"
 									action="#{roleGroupManagement.saveRoleGroup()}" />
 							</h:panelGrid>
 						</rich:panel>
@@ -174,37 +177,43 @@
 		</rich:modalPanel>
 
 		<!-- modal panel to be used for modifying a group role role's -->
-		<rich:modalPanel id="updateRoleGroupRolesPanel" resizeable="false"
-			autosized="true">
-			<f:facet name="header">
-				<h:outputText value="Ανανέωση Ρόλων  ..." />
-			</f:facet>
-			<f:facet name="controls">
-				<h:panelGroup>
-					<a4j:commandLink value="[X]"
-						onclick="Richfaces.hideModalPanel('updateRoleGroupRolesPanel')" />
-				</h:panelGroup>
-			</f:facet>
-			<rich:panel rendered="#{selectedRoleGroup != null}">
-				<h:outputText value="#{selectedRoleGroup.roles}" />
-				<rich:pickList value="#{selectedRoleGroup.roles}"
-					showButtonsLabel="false" disabled="#{selectedRoleGroup == null}"
-					converter="rolesConverter">
-					<s:selectItems var="role" value="#{selectedRoleGroup.roles}"
-						label="#{role.id}">
-					</s:selectItems>
-				</rich:pickList>
-				<rich:listShuttle rendered="#{selectedRoleGroup != null}"
-					sourceValue="#{availableRoles}" var="a_role">
-					<h:column>
-						<h:outputText value="#{a_role.id}" />
-					</h:column>
-					<h:column>
-						<h:outputText value="#{a_role.title}" />
-					</h:column>
-				</rich:listShuttle>
-			</rich:panel>
-		</rich:modalPanel>
+		<a4j:outputPanel ajaxRendered="true">
+			<rich:modalPanel id="updateRoleGroupRolesPanel" resizeable="false"
+				autosized="true" rendered="#{selectedRoleGroup !=null}">
+				<f:facet name="header">
+					<h:outputText value="Ανανέωση Ομάδας Ρόλων  '#{selectedRoleGroup.id}'..." />
+				</f:facet>
+				<f:facet name="controls">
+					<h:panelGroup>
+						<a4j:commandLink value="[X]"
+							onclick="Richfaces.hideModalPanel('updateRoleGroupRolesPanel')" />
+					</h:panelGroup>
+				</f:facet>
+				<a4j:form>
+					<h:panelGrid columns="1">
+						<h:outputText
+							value="Μπορείται να τροποποίηστε την ομάδα ρόλων αλλάζοντας την περιγραφή ή/και τους ρόλους" />
+						<rich:pickList value="#{selectedRoleGroup.roles}"
+							showButtonsLabel="false" disabled="#{selectedRoleGroup == null}"
+							converter="rolesConverter">
+							<s:selectItems var="role" value="#{coreSearching.availableRoles}"
+								label="#{role.id}">
+							</s:selectItems>
+						</rich:pickList>
+						<h:panelGroup>
+							<s:button value="Τροποποίηση" action="#{roleGroupManagement.updateRoleGroup}" />
+							<a4j:commandButton value="Τροποποίηση"
+								action="#{roleGroupManagement.updateRoleGroup()}"
+								oncomplete="Richfaces.hideModalPanel('updateRoleGroupRolesPanel')" />
+							<rich:spacer width="15" />
+							<a4j:commandButton value="Άκυρο"
+								action="#{roleGroupManagement.search()}"
+								oncomplete="Richfaces.hideModalPanel('updateRoleGroupRolesPanel')" />
+						</h:panelGroup>
+					</h:panelGrid>
+				</a4j:form>
+			</rich:modalPanel>
+		</a4j:outputPanel>
 	</ui:define>
 </ui:composition>
 </html>

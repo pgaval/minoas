@@ -12,6 +12,49 @@
 				<h:outputText
 					value="Διαχείρηση Χρηστών ..." />
 			</f:facet>
+			<h:panelGrid columns="1">
+				<h:outputText value="mpla, mpla, mpla, mpla, mpla...." />
+				<rich:dataTable id="principalTable" width="100%" rows="10" rendered="#{roleGroups.rowCount gt 0}"
+								var="a_principal" value="#{principals}">
+					<f:facet name="header">
+						<h:outputText value="Διαθέσιμοι Χρήστες" />
+					</f:facet>
+					
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Όνομα" />
+						</f:facet>
+						<h:outputText value="#{a_principal.username}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Πραγματικό Όνομα" />
+						</f:facet>
+						<h:outputText value="#{a_principal.realName}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="e-mail" />
+						</f:facet>
+						<h:outputText value="#{a_principal.email}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Γραφείο" />
+						</f:facet>
+						<h:outputText value="#{a_principal.office}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Ενέργειες" />
+						</f:facet>
+					</rich:column>
+					<f:facet name="footer">
+									<rich:datascroller align="right" for="principalTable"
+										maxPages="10" id="sc1" renderIfSinglePage="false" />
+								</f:facet>
+				</rich:dataTable>
+			</h:panelGrid>
 			</rich:panel>
 		</ui:define>
 	</ui:composition>
