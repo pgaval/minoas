@@ -3,11 +3,13 @@
  */
 package gr.sch.ira.minoas.session.security;
 
-import java.util.ArrayList;
+import gr.sch.ira.minoas.core.session.CoreSearching;
+import gr.sch.ira.minoas.model.security.Role;
+import gr.sch.ira.minoas.model.security.RoleGroup;
+import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
+import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
+
 import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -28,12 +30,6 @@ import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
 
-import gr.sch.ira.minoas.core.session.CoreSearching;
-import gr.sch.ira.minoas.model.security.Role;
-import gr.sch.ira.minoas.model.security.RoleGroup;
-import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
-import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
-
 /**
  * @author slavikos
  * 
@@ -47,10 +43,6 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 
 	@EJB
 	private CoreSearching coreSearching;
-
-	@In(required = false)
-	@Out(required = false)
-	private Collection<Role> availableRoles;
 
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
@@ -75,7 +67,6 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 	public void constructNewRoleGroup() {
 		info("constructing new instance of empty role group as requested.");
 		this.newRoleGroup = new RoleGroup("", "");
-		this.availableRoles = coreSearching.searchRoles(null);
 	}
 
 	public String getSearchString() {
@@ -85,10 +76,12 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#removeRoleGroup()
 	 */
+	@End
 	public void removeRoleGroup() {
 		info("about to remove role group #0.", roleGroup);
 		RoleGroup role_to_remove = em.merge(this.roleGroup);
 		em.remove(role_to_remove);
+		em.flush();
 		info("role group #0 has been removed.", this.roleGroup);
 		search();
 	}
@@ -96,6 +89,7 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#saveRoleGroup()
 	 */
+	@End
 	public void saveRoleGroup() {
 		info("about to save new role group #0", this.newRoleGroup);
 		RoleGroup existing_role_group = coreSearching.findRoleGroup(newRoleGroup.getId());
@@ -126,10 +120,9 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#selectRoleGroup()
 	 */
+	@Begin(join=true)
 	public void selectRoleGroup() {
-		this.roleGroup = em.merge(this.roleGroup);
 		info("role group #0 selected for management", this.roleGroup);
-		availableRoles = coreSearching.searchRoles(null);
 	}
 
 	/**
@@ -142,10 +135,14 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#updateRoleGroup()
 	 */
+	@End
 	public void updateRoleGroup() {
 		info("trying to update existing #0 role group", this.roleGroup);
-		System.err.println(this.roleGroup.getRoles().size());
-		RoleGroup roleGroupToUpdate = em.merge(this.roleGroup);
+		for(Role role : roleGroup.getRoles()) {
+			em.merge(role);
+		}
+		em.merge(roleGroup);
+		em.flush();
 		search();
 	}
 
