@@ -3,7 +3,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:s="http://jboss.com/products/seam/taglib">
 
 	<ui:composition template="layout/template.xhtml">
 		<ui:define name="body">
@@ -14,7 +16,8 @@
 			</f:facet>
 			<h:panelGrid columns="1">
 				<h:outputText value="mpla, mpla, mpla, mpla, mpla...." />
-				<rich:dataTable id="principalTable" width="100%" rows="10" rendered="#{roleGroups.rowCount gt 0}"
+				<h:form>
+				<rich:dataTable id="principalTable" width="100%" rows="10" 
 								var="a_principal" value="#{principals}">
 					<f:facet name="header">
 						<h:outputText value="Διαθέσιμοι Χρήστες" />
@@ -48,14 +51,48 @@
 						<f:facet name="header">
 							<h:outputText value="Ενέργειες" />
 						</f:facet>
+						<s:link value="Επεξεργασία" action="#{principalAdmin.selectPrincipal}" />
 					</rich:column>
 					<f:facet name="footer">
-									<rich:datascroller align="right" for="principalTable"
-										maxPages="10" id="sc1" renderIfSinglePage="false" />
-								</f:facet>
+						<rich:datascroller align="right" for="principalTable"
+							maxPages="10" id="sc1" renderIfSinglePage="false" pageIndexVar="pageIndex" pagesVar="pages">
+							<f:facet name="first">
+								<h:outputText value="Πρώτη" />
+							</f:facet>
+							<f:facet name="last">
+								<h:outputText value="Τελευταία" />
+							</f:facet>
+							 <f:facet name="pages">
+
+                                      <h:outputText value="#{pageIndex} / #{pages}"></h:outputText>
+
+                                </f:facet>
+						</rich:datascroller>
+					</f:facet>
 				</rich:dataTable>
+				<s:link value="Εισαγωγή Νέου Χρήστη" action="#{principalAdmin.newPrincipal()}" pageflow="new-principal" propagation="begin" />
+				</h:form>
+				
 			</h:panelGrid>
 			</rich:panel>
+				
+			<rich:modalPanel id="principalWizard" autosized="true" moveable="true">
+							<f:facet name="header">
+				<h:outputText value="Κάτι Σχετικό με principal ..." />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<!-- <h:graphicImage value="/images/modal/close.png"
+						style="cursor:pointer" id="hidelink" />
+					 -->
+					<s:link value="(seam) [X]" action="cancel"
+						onclick="Richfaces.hideModalPanel('principalWizard')" />
+					<a4j:commandLink value="[X]" action="cancel"
+						onclick="Richfaces.hideModalPanel('principalWizard')" />
+				</h:panelGroup>
+			</f:facet>
+			<a4j:include ajaxRendered="true" viewId="/wizard/principal/basic-data.xhtml"></a4j:include>
+		</rich:modalPanel>
 		</ui:define>
 	</ui:composition>
 </html>
