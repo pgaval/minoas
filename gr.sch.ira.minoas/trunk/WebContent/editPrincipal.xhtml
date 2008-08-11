@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:s="http://jboss.com/products/seam/taglib">
+
+	<ui:composition template="layout/template.xhtml">
+	<ui:define name="body">
+		<rich:panel bodyClass="post" headerClass="pagetitle">
+			<f:facet name="header">
+				<h:outputText value="Διαχείρηση Χρηστών ..." />
+			</f:facet>
+			<h:form>
+				<h:panelGrid width="100%"  columns="2">
+					<h:outputLabel value="Όνομα Χρήστη" for="" />
+					<h:inputText id="username" value="" />
+					<h:outputLabel value="Κωδικός Χρήστη" for="" />
+					<h:inputText id="password" value="" />
+					<h:outputLabel value="Πραγματικό Όνομα" for="" />
+					<h:inputText id="realName" value="" />
+					<h:outputLabel value="Γραφείο" for="" />
+					<h:selectOneListbox value=""></h:selectOneListbox>
+				</h:panelGrid>
+				<h:commandButton action="cancel" value="cancel" />
+			</h:form>
+		</rich:panel>
+	</ui:define>
+	</ui:composition>
+
+</html>
