@@ -14,15 +14,26 @@
 				<h:outputText value="Διαχείρηση Χρηστών ..." />
 			</f:facet>
 			<h:form>
-				<h:panelGrid width="100%"  columns="2">
-					<h:outputLabel value="Όνομα Χρήστη" for="" />
-					<h:inputText id="username" value="" />
-					<h:outputLabel value="Κωδικός Χρήστη" for="" />
-					<h:inputText id="password" value="" />
-					<h:outputLabel value="Πραγματικό Όνομα" for="" />
-					<h:inputText id="realName" value="" />
-					<h:outputLabel value="Γραφείο" for="" />
-					<h:selectOneListbox value=""></h:selectOneListbox>
+				<h:panelGrid width="100%" columns="2">
+					<h:panelGroup>
+					<h:panelGrid width="100%" columns="2">
+						<h:outputLabel value="Όνομα Χρήστη" for="" />
+						<h:inputText id="username" value="#{principal.username}" />
+						<h:outputLabel value="Κωδικός Χρήστη" for="" />
+						<h:inputSecret id="password" value="#{principal.password}" />
+						<h:outputLabel value="Πραγματικό Όνομα" for="" />
+						<h:inputText id="realName" value="#{principal.realName}" />
+						<h:outputLabel value="Γραφείο" for="" />
+						<h:selectOneMenu value="#{principal.office}" converter="#{organizationalOfficeConverter}">
+							<f:selectItems value="#{availableOrganizationalOffices.asMap}" />
+						</h:selectOneMenu>
+					</h:panelGrid>
+					</h:panelGroup>
+					<h:panelGroup>
+						<rich:pickList converter="#{roleGroupConverter}" value="#{principal.roleGroups}">
+							<f:selectItems value="#{availableRoleGroups.asMap}" />
+						</rich:pickList>
+					</h:panelGroup>
 				</h:panelGrid>
 				<h:commandButton action="cancel" value="cancel" />
 			</h:form>
