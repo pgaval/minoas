@@ -4,6 +4,7 @@
 package gr.sch.ira.minoas.converters;
 
 import gr.sch.ira.minoas.model.security.Role;
+import gr.sch.ira.minoas.model.security.RoleGroup;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -17,13 +18,13 @@ import org.jboss.seam.framework.EntityController;
  *
  */
 @Converter
-@Name("roleConverter")
-public class RoleConverter extends EntityController implements javax.faces.convert.Converter {
+@Name("roleGroupConverter")
+public class RoleGroupConverter extends EntityController implements javax.faces.convert.Converter {
 
 	/**
 	 * 
 	 */
-	public RoleConverter() {
+	public RoleGroupConverter() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -32,7 +33,7 @@ public class RoleConverter extends EntityController implements javax.faces.conve
 	 */
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value != null) {
-			return getEntityManager().find(Role.class, value);
+			return getEntityManager().find(RoleGroup.class, value);
 		} else
 			return null;
 	}
@@ -42,8 +43,8 @@ public class RoleConverter extends EntityController implements javax.faces.conve
 	 */
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
-			if (value instanceof Role) {
-				return ((Role) value).getId();
+			if (value instanceof RoleGroup) {
+				return ((RoleGroup) value).getId();
 			} else {
 				return value.toString();
 			}

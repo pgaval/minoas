@@ -1,5 +1,6 @@
 package gr.sch.ira.minoas.core.session;
 
+import gr.sch.ira.minoas.model.core.OrganizationalOffice;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.security.Principal;
@@ -47,5 +48,10 @@ public interface CoreSearching {
 	
 	public List<Principal> searchPrincipals(EntityManager entityManager, String search_string);
 	
+	public List<OrganizationalOffice> searchOrganizationalOffices(String search_string);
 	
+	public List<OrganizationalOffice> searchOrganizationalOffices(EntityManager entityManager, String search_string);
+	
+	public List<OrganizationalOffice> getAvailableOrganizationalOffices();
+
 }

@@ -40,8 +40,9 @@ public class PrincipalAdminBean extends BaseStatefulSeamComponentImpl implements
 	 * @see gr.sch.ira.minoas.session.security.IPrincipalAdmin#cancelPrincipal()
 	 */
 	public String cancelPrincipal() {
-		// TODO Auto-generated method stub
-		return null;
+		info("canceling creation of new principal on user's request.");
+		setActivePrincipal(null);
+		return "cancel";
 	}
 
 	/**

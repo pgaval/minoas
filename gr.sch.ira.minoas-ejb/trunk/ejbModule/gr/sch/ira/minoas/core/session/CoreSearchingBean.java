@@ -1,5 +1,6 @@
 package gr.sch.ira.minoas.core.session;
 
+import gr.sch.ira.minoas.model.core.OrganizationalOffice;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.security.Principal;
@@ -8,7 +9,6 @@ import gr.sch.ira.minoas.model.security.RoleGroup;
 import gr.sch.ira.minoas.model.voids.TeachingRequirement;
 import gr.sch.ira.minoas.session.BaseStatelessSeamComponentImpl;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -69,8 +69,7 @@ public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements
 	 * java.lang.String)
 	 */
 	public List<School> searchShools(String school_search_pattern, String regionCode) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("not implemented yet");
 	}
 
 	/**
@@ -152,6 +151,31 @@ public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements
 		debug("found totally #0 role(s).", return_value.size());
 		return return_value;
 	
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.core.session.CoreSearching#getAvailableOrganizationalOffices()
+	 */
+	public List<OrganizationalOffice> getAvailableOrganizationalOffices() {
+		debug("fetching all available organizational offices");
+		List return_value = em.createQuery("SELECT r from OrganizationalOffice r").getResultList();
+		debug("found totally #0 organizational office(s).", return_value.size());
+		return return_value;
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchOrganizationalOffices(javax.persistence.EntityManager, java.lang.String)
+	 */
+	public List<OrganizationalOffice> searchOrganizationalOffices(
+			EntityManager entityManager, String search_string) {
+		throw new RuntimeException("not implemented yet");
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchOrganizationalOffices(java.lang.String)
+	 */
+	public List<OrganizationalOffice> searchOrganizationalOffices(String search_string) {
+		throw new RuntimeException("not implemented yet");
 	}
 
 }

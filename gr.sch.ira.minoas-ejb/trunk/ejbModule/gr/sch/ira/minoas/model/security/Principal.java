@@ -4,6 +4,7 @@
 package gr.sch.ira.minoas.model.security;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 import gr.sch.ira.minoas.model.BaseModel;
@@ -57,7 +58,7 @@ public class Principal extends BaseModel {
 	
 	@ManyToMany
 	@JoinTable(name="minoas_principal_rolegroups")
-	private Set<RoleGroup> roleGroups;
+	private List<RoleGroup> roleGroups;
 	
 	@Column(updatable=false, name = "username", length=16)
 	@Id
@@ -107,7 +108,7 @@ public class Principal extends BaseModel {
 	/**
 	 * @return the roleGroups
 	 */
-	public Set<RoleGroup> getRoleGroups() {
+	public List<RoleGroup> getRoleGroups() {
 		return roleGroups;
 	}
 
@@ -149,7 +150,7 @@ public class Principal extends BaseModel {
 	/**
 	 * @param roleGroups the roleGroups to set
 	 */
-	public void setRoleGroups(Set<RoleGroup> roleGroups) {
+	public void setRoleGroups(List<RoleGroup> roleGroups) {
 		this.roleGroups = roleGroups;
 	}
 
