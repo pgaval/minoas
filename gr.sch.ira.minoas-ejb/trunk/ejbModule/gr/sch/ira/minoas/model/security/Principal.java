@@ -21,6 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jboss.seam.annotations.Name;
 
 /**
@@ -31,6 +33,7 @@ import org.jboss.seam.annotations.Name;
 @Table(name="minoas_principal")
 @Name("principal")
 @Entity
+@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Principal extends BaseModel {
 	
 	/**
