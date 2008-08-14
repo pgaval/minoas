@@ -3,12 +3,11 @@
  */
 package gr.sch.ira.minoas.model.security;
 
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Set;
-
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.OrganizationalOffice;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;

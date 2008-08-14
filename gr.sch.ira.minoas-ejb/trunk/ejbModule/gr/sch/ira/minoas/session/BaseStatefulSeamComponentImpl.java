@@ -26,7 +26,6 @@
 package gr.sch.ira.minoas.session;
 
 import javax.ejb.Remove;
-import javax.ejb.Stateful;
 
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Destroy;

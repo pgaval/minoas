@@ -25,7 +25,6 @@
 
 package gr.sch.ira.minoas.session;
 
-import javax.ejb.Local;
 
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>

@@ -1,10 +1,9 @@
 package gr.sch.ira.minoas.session.school.voids;
 
-import gr.sch.ira.minoas.core.EventConstants;
 import gr.sch.ira.minoas.model.TeacherType;
 import gr.sch.ira.minoas.model.core.School;
-import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.model.voids.TeachingRequirement;
+import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 import gr.sch.ira.minoas.session.school.BaseSchoolAware;
 
@@ -24,7 +23,6 @@ import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
-import org.jboss.seam.annotations.RaiseEvent;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.security.Restrict;
 

@@ -25,15 +25,15 @@
 
 package gr.sch.ira.minoas.model.employee;
 
+import gr.sch.ira.minoas.model.BaseModel;
+import gr.sch.ira.minoas.model.core.School;
+import gr.sch.ira.minoas.model.core.SchoolYear;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import gr.sch.ira.minoas.model.BaseModel;
-import gr.sch.ira.minoas.model.core.School;
-import gr.sch.ira.minoas.model.core.SchoolYear;
 
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>

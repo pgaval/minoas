@@ -3,6 +3,9 @@
  */
 package gr.sch.ira.minoas.model.employee;
 
+import gr.sch.ira.minoas.model.BaseModel;
+import gr.sch.ira.minoas.model.core.SchoolYear;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -15,9 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import gr.sch.ira.minoas.model.BaseModel;
-import gr.sch.ira.minoas.model.core.SchoolYear;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>

@@ -1,10 +1,8 @@
 package gr.sch.ira.minoas.session.school;
 
 import gr.sch.ira.minoas.model.core.School;
-import gr.sch.ira.minoas.session.BaseSeamComponent;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 
-import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Out;
 

@@ -49,8 +49,8 @@ public class PrincipalAdminBean extends BaseStatefulSeamComponentImpl implements
 	 * @see gr.sch.ira.minoas.session.security.IPrincipalAdmin#savePrincipal()
 	 */
 	public String savePrincipal() {
-		// TODO Auto-generated method stub
-		return null;
+		info("saving new principal on user's request.");
+		return "save";
 	}
 
 	/**

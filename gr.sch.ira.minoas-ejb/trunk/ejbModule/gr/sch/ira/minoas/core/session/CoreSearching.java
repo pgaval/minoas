@@ -8,7 +8,6 @@ import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.model.security.RoleGroup;
 import gr.sch.ira.minoas.model.voids.TeachingRequirement;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Remote;

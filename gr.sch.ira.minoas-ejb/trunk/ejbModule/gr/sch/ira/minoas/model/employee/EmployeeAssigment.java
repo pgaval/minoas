@@ -3,6 +3,8 @@
  */
 package gr.sch.ira.minoas.model.employee;
 
+import gr.sch.ira.minoas.model.BaseModel;
+
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -13,8 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import gr.sch.ira.minoas.model.BaseModel;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>

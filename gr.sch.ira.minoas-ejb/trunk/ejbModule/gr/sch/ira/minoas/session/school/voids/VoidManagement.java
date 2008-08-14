@@ -1,16 +1,10 @@
 package gr.sch.ira.minoas.session.school.voids;
 
-import java.util.Collection;
-import java.util.Iterator;
-
-import gr.sch.ira.minoas.core.EventConstants;
-import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.model.voids.TeachingRequirement;
+import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.session.school.SchoolAware;
 
-import javax.ejb.Local;
-
-import org.jboss.seam.annotations.RaiseEvent;
+import java.util.Collection;
 
 public interface VoidManagement extends SchoolAware {
 	

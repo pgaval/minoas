@@ -3,9 +3,9 @@
  */
 package gr.sch.ira.minoas.model.security;
 
-import java.sql.Timestamp;
-
 import gr.sch.ira.minoas.model.BaseModel;
+
+import java.sql.Timestamp;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;

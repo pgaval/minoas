@@ -3,8 +3,8 @@
  */
 package gr.sch.ira.minoas.core;
 
-import gr.sch.ira.minoas.model.voids.TeachingResource;
 import gr.sch.ira.minoas.model.voids.TeachingRequirement;
+import gr.sch.ira.minoas.model.voids.TeachingResource;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;

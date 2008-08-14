@@ -3,7 +3,6 @@
  */
 package gr.sch.ira.minoas.converters;
 
-import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.model.security.RoleGroup;
 
 import javax.faces.component.UIComponent;

@@ -6,7 +6,6 @@ package gr.sch.ira.minoas.model.voids;
 import static javax.persistence.EnumType.STRING;
 import gr.sch.ira.minoas.model.TeacherType;
 
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;

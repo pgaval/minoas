@@ -2,7 +2,6 @@ package gr.sch.ira.minoas.session.school;
 
 import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.core.School;
-import gr.sch.ira.minoas.session.BaseSeamComponent;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
@@ -10,25 +9,17 @@ import java.util.Collection;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
-import javax.ejb.Remove;
 import javax.ejb.Stateful;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.Destroy;
-import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
-import org.jboss.seam.log.Log;
 
 @Name("schoolSearch")
 @Scope(ScopeType.CONVERSATION)

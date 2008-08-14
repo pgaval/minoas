@@ -4,15 +4,10 @@
 package gr.sch.ira.minoas.model.core;
 
 import gr.sch.ira.minoas.model.BaseModel;
-import gr.sch.ira.minoas.model.voids.TeachingRequirement;
-
-import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**

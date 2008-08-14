@@ -1,5 +1,7 @@
 package gr.sch.ira.minoas.model.employee;
 
+import gr.sch.ira.minoas.model.BaseModel;
+
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -12,8 +14,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import gr.sch.ira.minoas.model.BaseModel;
 
 @Entity
 @Table(name="minoas_employee")

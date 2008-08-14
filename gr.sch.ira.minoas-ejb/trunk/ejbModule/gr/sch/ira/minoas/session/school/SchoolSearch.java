@@ -2,8 +2,6 @@ package gr.sch.ira.minoas.session.school;
 
 import gr.sch.ira.minoas.model.core.School;
 
-import javax.ejb.Local;
-
 
 public interface SchoolSearch {
 

@@ -25,6 +25,9 @@
 
 package gr.sch.ira.minoas.session.security;
 
+import gr.sch.ira.minoas.model.security.Principal;
+import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
+
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
@@ -33,9 +36,6 @@ import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
-
-import gr.sch.ira.minoas.model.security.Principal;
-import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>
