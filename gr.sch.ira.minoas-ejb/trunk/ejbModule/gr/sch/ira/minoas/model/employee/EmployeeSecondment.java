@@ -13,58 +13,55 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import org.hibernate.annotations.GenericGenerator;
-
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
- *
+ * 
  */
 @Entity
 @Table(name = "minoas_secondment")
 public class EmployeeSecondment extends BaseModel {
-private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy="uuid")
-	@Column(name = "id", length=32)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	
+
 	@Basic
-	@Column(name="employee_requested")
+	@Column(name = "employee_requested")
 	private boolean employeeRequested;
-	
+
 	@Basic
-	@Column(name="start_date")
+	@Column(name = "start_date")
 	private Date startDate;
-	
+
 	@Basic
-	@Column(name="end_date")
+	@Column(name = "end_date")
 	private Date endDate;
-	
+
 	@Version
 	private Timestamp version;
-	
+
 	@Basic
 	private Date recovationDate;
-	
+
 	@Basic
 	private SchoolYear schoolYear;
-	
+
 	@Basic
 	private String decisionNumber;
-	
+
 	@Basic
 	private String recovationDecisionNumber;
 
@@ -165,5 +162,5 @@ private static final long serialVersionUID = 1L;
 	public void setRecovationDecisionNumber(String recovationDecisionNumber) {
 		this.recovationDecisionNumber = recovationDecisionNumber;
 	}
-	
+
 }

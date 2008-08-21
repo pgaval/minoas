@@ -21,21 +21,20 @@ import javax.persistence.Table;
 public class School extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@Column(name = "id", length=3)
+	@Column(name = "id", length = 3)
 	private String id;
 
-	@Column(name = "ministry_code", length=7, unique=true)
+	@Column(name = "ministry_code", length = 7, unique = true)
 	private String ministryCode;
-	
+
 	@Column(name = "region")
 	private Character regionCode;
-	
-	
-	@Column(name = "title", nullable=false, unique=true, length=40)
+
+	@Column(name = "title", nullable = false, unique = true, length = 40)
 	private String title;
 
-	
 	/**
 	 * @return the id
 	 */
@@ -57,7 +56,6 @@ public class School extends BaseModel {
 		return regionCode;
 	}
 
-	
 	/**
 	 * @return the description
 	 */
@@ -65,40 +63,33 @@ public class School extends BaseModel {
 		return title;
 	}
 
-	
 	/**
-	 * @param id
-	 *            the id to set
+	 * @param id the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
 	/**
-	 * @param ministryCode
-	 *            the ministryCode to set
+	 * @param ministryCode the ministryCode to set
 	 */
 	public void setMinistryCode(String ministryCode) {
 		this.ministryCode = ministryCode;
 	}
 
 	/**
-	 * @param regionCode
-	 *            the regionCode to set
+	 * @param regionCode the regionCode to set
 	 */
 	public void setRegionCode(Character regionCode) {
 		this.regionCode = regionCode;
 	}
 
-	
 	/**
-	 * @param description
-	 *            the description to set
+	 * @param description the description to set
 	 */
 	public void setTitle(String description) {
 		this.title = description;
 	}
-
 
 	/**
 	 * @see java.lang.Object#toString()

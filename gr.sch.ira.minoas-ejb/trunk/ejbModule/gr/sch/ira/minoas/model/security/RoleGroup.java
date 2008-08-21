@@ -23,23 +23,50 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
- *
+ * 
  */
 @Entity
 @Table(name = "minoas_role_group")
-@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class RoleGroup extends BaseModel {
-	
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof RoleGroup) {
+			RoleGroup otherRoleGroup = (RoleGroup) obj;
+			if (this.id != null) {
+				return this.id.equals(otherRoleGroup.getId());
+			}
+			else if (this.id == null && otherRoleGroup.getId() == null)
+				return true;
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+
 	/**
 	 * Comment for <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Comment for <code>id</code>
 	 */
 	@Id
-	@Column(name = "id", length = 32,updatable=false)
+	@Column(name = "id", length = 32, updatable = false)
 	private String id;
 
 	/**
@@ -52,11 +79,11 @@ public class RoleGroup extends BaseModel {
 	/**
 	 * Comment for <code>roles</code>
 	 */
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "minoas_rolegroup_role")
-	@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
+	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	private List<Role> roles;
-	
+
 	@SuppressWarnings("unused")
 	@Version
 	private Timestamp version;

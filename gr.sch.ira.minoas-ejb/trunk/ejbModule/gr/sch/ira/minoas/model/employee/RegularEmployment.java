@@ -7,32 +7,30 @@ import gr.sch.ira.minoas.model.core.SchoolYear;
 import java.sql.Timestamp;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
-@Table(name="minoas_regular_employments")
+@Table(name = "minoas_regular_employments")
 public class RegularEmployment extends BaseModel {
-	
+
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy="uuid")
-	@Column(length=32, name = "id")
-	private String id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
 	private SchoolYear schoolYear;
+
 	private Employee employee;
+
 	private School school;
-	
+
 	@Basic
 	private String decisionNumber;
-	
+
 	@Version
 	private Timestamp version;
 
@@ -95,8 +93,8 @@ public class RegularEmployment extends BaseModel {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	
+
 }

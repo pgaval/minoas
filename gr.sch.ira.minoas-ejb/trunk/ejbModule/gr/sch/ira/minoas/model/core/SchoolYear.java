@@ -4,20 +4,20 @@
 package gr.sch.ira.minoas.model.core;
 
 import gr.sch.ira.minoas.model.BaseModel;
-import gr.sch.ira.minoas.model.voids.TeachingRequirement;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
+
+import org.jboss.seam.annotations.Name;
 
 /**
  * Represent a school year.
@@ -26,65 +26,96 @@ import javax.persistence.Version;
  * */
 @Entity
 @Table(name = "minoas_school_year")
+@Name("schoolYear")
 public class SchoolYear extends BaseModel {
-	
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	private static final long serialVersionUID = 1L;
-	
-	@OneToMany(fetch=FetchType.LAZY)
-	private Collection<TeachingRequirement> teachingRequirements;
-	
-	@Id
-	@Column(name = "id", length=4, updatable=false)
-	private String id;
-	
+
 	@Basic
-	@Column(name="start_date", nullable=false)
-	private Date startDate;
-	
-	@Basic
-	@Column(name="end_date", nullable=false)
-	private Date endDate;
-	
-	@Basic
-	@Column(name="current", nullable=false)
+	@Column(name = "current", nullable = false, updatable = true)
 	private boolean currentSchoolYear;
-	
-	
+
+	@Basic
+	@Column(name = "end_date", nullable = false)
+	private Date endDate;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	@Basic
+	@Column(name = "start_date", nullable = false)
+	private Date startDate;
+
+	@Basic
+	@Column(name = "title", length = 64, nullable = false, updatable = true, unique = true)
+	private String title;
+
+	@SuppressWarnings("unused")
 	@Version
 	private Timestamp version;
-	
+
 	/**
-	 * @return the startDate
+	 * 
 	 */
-	public Date getStartDate() {
-		return startDate;
+	public SchoolYear() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	
+
 	/**
-	 * @param startDate the startDate to set
+	 * @param endDate
+	 * @param startDate
+	 * @param title
 	 */
-	public void setStartDate(Date startDate) {
+	public SchoolYear(Date endDate, Date startDate, String title) {
+		super();
+		this.endDate = endDate;
 		this.startDate = startDate;
+		this.title = title;
 	}
-	
+
+	/**
+	 * @param title
+	 */
+	public SchoolYear(String title) {
+		super();
+		this.title = title;
+	}
+
 	/**
 	 * @return the endDate
 	 */
 	public Date getEndDate() {
 		return endDate;
 	}
-	
-	/**
-	 * @param endDate the endDate to set
-	 */
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
+	}
+
+	/**
+	 * @return the startDate
+	 */
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
 	}
 
 	/**
@@ -99,6 +130,41 @@ public class SchoolYear extends BaseModel {
 	 */
 	public void setCurrentSchoolYear(boolean currentSchoolYear) {
 		this.currentSchoolYear = currentSchoolYear;
+	}
+
+	/**
+	 * @param endDate the endDate to set
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	/**
+	 * @param startDate the startDate to set
+	 */
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		sb.append(getId());
+		sb.append("/");
+		sb.append(getTitle());
+		sb.append("]");
+		return sb.toString();
 	}
 
 }

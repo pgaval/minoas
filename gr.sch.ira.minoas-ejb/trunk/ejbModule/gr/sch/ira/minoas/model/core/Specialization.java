@@ -13,19 +13,19 @@ import javax.persistence.Table;
 /**
  * 
  * @author slavikos
- *
+ * 
  */
 @Entity
 @Table(name = "minoas_specialization")
 public class Specialization extends BaseModel {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@Column(name="id", length=6)
+	@Column(name = "id", length = 6)
 	private String id;
-	
-	@Column(name="title", nullable=false, length=70)
+
+	@Column(name = "title", nullable = false, length = 70)
 	private String title;
 
 	/**
@@ -62,7 +62,7 @@ public class Specialization extends BaseModel {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	public String toString() {
 		return getId();
 	}

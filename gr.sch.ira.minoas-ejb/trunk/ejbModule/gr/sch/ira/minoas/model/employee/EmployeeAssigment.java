@@ -7,31 +7,27 @@ import gr.sch.ira.minoas.model.BaseModel;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import org.hibernate.annotations.GenericGenerator;
-
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
- *
+ * 
  */
 @Entity
 @Table(name = "minoas_allocation")
 public class EmployeeAssigment extends BaseModel {
-	
-private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy="uuid")
-	@Column(name = "id", length=32)
-	private String id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
 	@Version
 	private Timestamp version;
 
@@ -41,6 +37,5 @@ private static final long serialVersionUID = 1L;
 	public String getId() {
 		return id;
 	}
-
 
 }

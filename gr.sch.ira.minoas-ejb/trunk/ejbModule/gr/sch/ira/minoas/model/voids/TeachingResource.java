@@ -11,42 +11,37 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
- *
+ * 
  */
 @Entity
 @Table(name = "minoas_teaching_resource")
 public class TeachingResource {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
-	@JoinColumn(name="void_id", referencedColumnName = "id")
+	@JoinColumn(name = "void_id", referencedColumnName = "id")
 	private TeachingRequirement fillingVoid;
-	
+
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy="uuid")
-	@Column(name = "id")
-	private String id;
-	
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
 	@Enumerated(STRING)
-	@Column(name="type")
+	@Column(name = "type")
 	@Basic
 	private TeacherType teacherType;
-	
-	
+
 	@Basic
-	@Column(name="hours")
+	@Column(name = "hours")
 	private Long teachingHours;
 
 	/**
@@ -59,7 +54,7 @@ public class TeachingResource {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -87,7 +82,7 @@ public class TeachingResource {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -104,6 +99,5 @@ public class TeachingResource {
 	public void setTeachingHours(Long teachingHours) {
 		this.teachingHours = teachingHours;
 	}
-	
-	
+
 }

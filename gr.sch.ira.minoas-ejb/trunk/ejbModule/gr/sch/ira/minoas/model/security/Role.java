@@ -19,11 +19,11 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
- *
+ * 
  */
 @Entity
 @Table(name = "minoas_role")
-@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Role extends BaseModel {
 
 	/**
@@ -38,7 +38,7 @@ public class Role extends BaseModel {
 	@Basic
 	@Column(name = "title", nullable = true, length = 250)
 	private String title;
-	
+
 	@SuppressWarnings("unused")
 	@Version
 	private Timestamp version;
@@ -98,11 +98,13 @@ public class Role extends BaseModel {
 			Role otherRole = (Role) obj;
 			if (this.id != null) {
 				return this.id.equals(otherRole.getId());
-			} else if (this.id == null && otherRole.getId() == null)
+			}
+			else if (this.id == null && otherRole.getId() == null)
 				return true;
 			else
 				return false;
-		} else
+		}
+		else
 			return false;
 	}
 
@@ -113,7 +115,7 @@ public class Role extends BaseModel {
 	public int hashCode() {
 		return id.hashCode();
 	}
-	
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */

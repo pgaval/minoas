@@ -12,61 +12,62 @@ import javax.persistence.Table;
 
 /**
  * 
- * @author 
- *
+ * @author
+ * 
  */
 @Entity
 @Table(name = "minoas_organizational_office")
 public class OrganizationalOffice extends BaseModel {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@Column(name="id", length=1)
+	@Column(name = "id", length = 1)
 	private String id;
-	
-	@Column(name="title")
+
+	@Column(name = "title")
 	private String title;
-	
-	
-	//private Collection<School> schools;
-	
+
+	// private Collection<School> schools;
+
 	/**
 	 * @return the id
 	 */
 	public String getId() {
 		return id;
 	}
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	/**
 	 * @return the title
 	 */
 	public String getTitle() {
 		return title;
 	}
+
 	/**
 	 * @param title the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	
-//	/**
-//	 * @return the schools
-//	 */
-//	public Collection<School> getSchools() {
-//		return schools;
-//	}
-//	/**
-//	 * @param schools the schools to set
-//	 */
-//	public void setSchools(Collection<School> schools) {
-//		this.schools = schools;
-//	}
+
+	// /**
+	// * @return the schools
+	// */
+	// public Collection<School> getSchools() {
+	// return schools;
+	// }
+	// /**
+	// * @param schools the schools to set
+	// */
+	// public void setSchools(Collection<School> schools) {
+	// this.schools = schools;
+	// }
 }

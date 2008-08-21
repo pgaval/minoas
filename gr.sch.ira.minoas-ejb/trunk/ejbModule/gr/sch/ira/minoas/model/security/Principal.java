@@ -29,40 +29,39 @@ import org.jboss.seam.annotations.Name;
  * 
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * */
-@Table(name="minoas_principal")
+@Table(name = "minoas_principal")
 @Name("principal")
 @Entity
-@Cache(usage=CacheConcurrencyStrategy.TRANSACTIONAL)
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Principal extends BaseModel {
-	
+
 	/**
 	 * Comment for <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	@Basic
-	@Column(name="email", length=60, nullable=true)
+	@Column(name = "email", length = 60, nullable = true)
 	private String email;
-	
+
 	@Basic
-	@ManyToOne(optional=true)
-	@JoinColumn(name="office_id", nullable=true)
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "office_id", nullable = true)
 	private OrganizationalOffice office;
-	
+
 	@Basic
-	@Column(name="password", nullable=false, length=64)
+	@Column(name = "password", nullable = false, length = 64)
 	private String password;
-	
+
 	@Basic
-	@Column(name="real_name", length=90, nullable=false)
+	@Column(name = "real_name", length = 90, nullable = false)
 	private String realName;
-	
+
 	@ManyToMany
-	@JoinTable(name="minoas_principal_rolegroups")
+	@JoinTable(name = "minoas_principal_rolegroups")
 	private List<RoleGroup> roleGroups;
-	
-	@Column(updatable=false, name = "username", length=16)
+
+	@Column(updatable = false, name = "username", length = 16)
 	@Id
 	private String username;
 
@@ -77,14 +76,13 @@ public class Principal extends BaseModel {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	/**
 	 * @return the email
 	 */
 	public String getEmail() {
 		return email;
 	}
-	
 
 	/**
 	 * @return the office
@@ -143,6 +141,20 @@ public class Principal extends BaseModel {
 	}
 
 	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		sb.append(getUsername());
+		sb.append("/");
+		sb.append(getRealName());
+		sb.append("]");
+		return sb.toString();
+	}
+
+	/**
 	 * @param realName the realName to set
 	 */
 	public void setRealName(String realName) {
@@ -163,6 +175,4 @@ public class Principal extends BaseModel {
 		this.username = username;
 	}
 
-	
-	
 }
