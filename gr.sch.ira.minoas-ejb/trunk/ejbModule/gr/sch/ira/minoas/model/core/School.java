@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.jboss.seam.annotations.Name;
+
 /**
  * A class representing a school registered in the system. Each school
  * 
@@ -18,6 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "minoas_school")
+@Name("school")
 public class School extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
