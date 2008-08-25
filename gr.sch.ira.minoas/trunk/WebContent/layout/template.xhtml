@@ -44,6 +44,10 @@
 				<s:link value="Σχολική Χρονία"
 					action="#{schoolYearAdmin.search()}" view="/schoolYears.xhtml" />
 			</rich:panelMenuItem>
+			<rich:panelMenuItem >
+			<s:link value="Εισαγωγή Σχολικής Μονάδας" action="#{schoolYearAdmin.search()}"
+			view="/schoolYears.xhtml" />
+			</rich:panelMenuItem>
 				
 			<rich:panelMenuGroup label="Ασφάλεια και Πρόσβαση">
 			<rich:panelMenuItem>
@@ -58,7 +62,22 @@
 			</rich:panelMenuItem>
 		</rich:panelMenuGroup>
 		</rich:panelMenu>
+		<h2>Σχολικές Μονάδες</h2>
 		
+		
+	<rich:panelMenu mode="ajax">
+	<rich:panelMenuItem>
+		<s:link value="Σχολικές Μονάδες" action="#{schoolYearAdmin.search()}"
+			view="/schoolYears.xhtml" />
+	</rich:panelMenuItem>
+	<rich:panelMenuItem>
+		<s:link value="Διαχείρηση Μονάδας" action="#{schoolYearAdmin.search()}"
+			view="/schoolYears.xhtml" />
+	</rich:panelMenuItem>
+	</rich:panelMenu>
+
+	
+
 		<h2>Διδακτικά Κενά</h2>
 		<rich:panelMenu mode="ajax">
 			<rich:panelMenuItem>

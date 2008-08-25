@@ -50,6 +50,7 @@
        <bpm:pageflow-definitions>
            <value>new-principal.jpdl.xml</value>
            <value>new-school-year.jpdl.xml</value>
+           <value>edit-school-year.jpdl.xml</value>
            <value>createTeachingVoid.jpdl.xml</value>
            <value>manageSchoolVoids.jpdl.xml</value>
            <value>selectSchool.jpdl.xml</value>
