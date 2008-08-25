@@ -40,6 +40,11 @@
 	<div id="sidebar">
 		<h2>Διαχείρηση Μίνοα</h2>
 		<rich:panelMenu mode="ajax">
+			<rich:panelMenuItem >
+				<s:link value="Σχολική Χρονία"
+					action="#{schoolYearAdmin.search()}" view="/schoolYears.xhtml" />
+			</rich:panelMenuItem>
+				
 			<rich:panelMenuGroup label="Ασφάλεια και Πρόσβαση">
 			<rich:panelMenuItem>
 				<s:link value="Διαχείρηση Χρηστών"
