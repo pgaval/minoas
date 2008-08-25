@@ -56,5 +56,9 @@ public interface CoreSearching {
 	public List<SchoolYear> getAvailableSchoolYears();
 
 	public List<SchoolYear> getAvailableSchoolYears(EntityManager entityManager);
+	
+	public SchoolYear getActiveSchoolYear();
+	
+	public SchoolYear getActiveSchoolYear(EntityManager entityManager);
 
 }

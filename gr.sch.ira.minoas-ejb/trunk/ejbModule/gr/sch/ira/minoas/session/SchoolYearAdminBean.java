@@ -34,7 +34,8 @@ import org.jboss.seam.annotations.security.Restrict;
 @Stateful
 @Restrict("#{identity.loggedIn}")
 @Local( { IBaseStatefulSeamComponent.class, ISchoolYearAdmin.class })
-public class SchoolYearAdminBean extends BaseStatefulSeamComponentImpl implements ISchoolYearAdmin {
+public class SchoolYearAdminBean extends BaseStatefulSeamComponentImpl
+		implements ISchoolYearAdmin {
 
 	@In(value = "schoolYear", create = true)
 	@Out(value = "schoolYear", required = false, scope = ScopeType.CONVERSATION)
@@ -71,8 +72,12 @@ public class SchoolYearAdminBean extends BaseStatefulSeamComponentImpl implement
 	/**
 	 * @see gr.sch.ira.minoas.session.ISchoolYearAdmin#editSchoolYear()
 	 */
+	@Begin(nested = true, pageflow = "edit-school-year")
 	public String editSchoolYear() {
-		return null;
+		if (selectedSchoolYear != null)
+			setActiveSchoolYear(selectedSchoolYear);
+		info("started editing existing school year '#0'", getActiveSchoolYear());
+		return BEGIN_OUTCOME;
 	}
 
 	/**
@@ -85,7 +90,7 @@ public class SchoolYearAdminBean extends BaseStatefulSeamComponentImpl implement
 	/**
 	 * @see gr.sch.ira.minoas.session.ISchoolYearAdmin#newSchoolYear()
 	 */
-	@Begin(join=true, pageflow = "new-school-year")
+	@Begin(join = true, pageflow = "new-school-year")
 	public String newSchoolYear() {
 		info("started new school year conversation.");
 		SchoolYear new_school_year = new SchoolYear();
@@ -123,18 +128,34 @@ public class SchoolYearAdminBean extends BaseStatefulSeamComponentImpl implement
 	public String saveSchoolYear(SchoolYear schoolYear) {
 		try {
 			info("trying to save/update school year #0", schoolYear);
-			if (schoolYear.getId() != null && em.find(SchoolYear.class, new Long(schoolYear.getId())) == null) {
-				em.persist(schoolYear);
+			SchoolYear currentActiveSchoolYear = coreSearching
+					.getActiveSchoolYear(em);
+			if (schoolYear.isCurrentSchoolYear()
+					&& currentActiveSchoolYear != null) {
+				info(
+						"the newly created or update school '#0' year is now the current active school year, thus unmarking previous active school year '#1'.",
+						schoolYear, currentActiveSchoolYear);
+				currentActiveSchoolYear.setCurrentSchoolYear(false);
+				em.merge(currentActiveSchoolYear);
 			}
-			else {
+			if (schoolYear.getId() != null
+					&& em.find(SchoolYear.class, new Long(schoolYear.getId())) == null) {
+				em.persist(schoolYear);
+			} else {
 				em.merge(schoolYear);
 			}
+
 			em.flush();
-			info("school year #0 has been successufully saved/updated.", schoolYear);
+			info("school year #0 has been successufully saved/updated.",
+					schoolYear);
+			facesMessages
+					.add("Η αποθήκευση στης σχολικής χρονίας #{schoolYear.title} έγινε με επιτυχία.");
 			return SUCCESS_OUTCOME;
-		}
-		catch (Exception ex) {
-			error("failed to save/update school year #0 due to an exception", ex, schoolYear);
+		} catch (Exception ex) {
+			error("failed to save/update school year #0 due to an exception",
+					ex, schoolYear);
+			facesMessages
+					.add("Η αποθήκευση της σχολικής χρονίας #{schoolYear.title} απέτυχε");
 			return FAILURE_OUTCOME;
 		}
 	}
@@ -150,7 +171,8 @@ public class SchoolYearAdminBean extends BaseStatefulSeamComponentImpl implement
 	}
 
 	/**
-	 * @param activeSchoolYear the activeSchoolYear to set
+	 * @param activeSchoolYear
+	 *            the activeSchoolYear to set
 	 */
 	public void setActiveSchoolYear(SchoolYear activeSchoolYear) {
 		this.activeSchoolYear = activeSchoolYear;
