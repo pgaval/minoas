@@ -13,6 +13,9 @@
 			<f:facet name="header">
 				<h:outputText value="Διαχείρηση Σχολικών Χρονίων ..." />
 			</f:facet>
+			
+			<h:messages globalOnly="true" showSummary="true"/>
+			
 			<rich:dataTable var="a_schoolyear" value="#{availableSchoolYears}">
 				<f:facet name="header">
 					<h:outputText value="Λίστα Ενεργών Σχολικών Χρονίων" />
@@ -21,22 +24,30 @@
 					<f:facet name="header">
 						<h:outputText value="Σχολική Χρονία" />
 					</f:facet>
+					<h:outputText value="(Τρέχουσα Σχολική Χρονία)" rendered="#{a_schoolyear.currentSchoolYear}"/>
+					<br />
 					<h:outputText value="#{a_schoolyear.title}" />
+					
+					
 				</rich:column>
 				<rich:column>
 					<f:facet name="header">
 						<h:outputText value="Έναρξη" />
 					</f:facet>
-					<h:outputText value="#{a_schoolyear.startDate}" />
+					<h:outputText value="#{a_schoolyear.startDate}">
+						<s:convertDateTime pattern="MM/dd/yyyy" />
+					</h:outputText>
 				</rich:column>
 				<rich:column>
 					<f:facet name="header">
 						<h:outputText value="Λήξη" />
 					</f:facet>
-					<h:outputText value="#{a_schoolyear.endDate}" />
+					<h:outputText value="#{a_schoolyear.endDate}">
+						<s:convertDateTime pattern="MM/dd/yyyy"></s:convertDateTime>
+					</h:outputText>
 				</rich:column>
 				<rich:column>
-					<s:button value="Επεξεργασία"></s:button>
+					<s:button value="Επεξεργασία" action="#{schoolYearAdmin.editSchoolYear()}"></s:button>
 				</rich:column>
 			</rich:dataTable>
 			<rich:separator></rich:separator>

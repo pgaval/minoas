@@ -11,66 +11,71 @@
 	<ui:define name="body">
 		<rich:panel bodyClass="post" headerClass="pagetitle">
 			<f:facet name="header">
-				<h:outputText value="Εισαγωγή Νέου Σχολικού Έτους ..." />
+				<h:outputText value="Επεξεργασία Σχολικού Έτους ..." />
 			</f:facet>
 			<h:form>
 				<h:outputText
-					value="Με την παρακάτω φόρμα μπορείτε να εισάγεται μια νέα σχολική χρονία στο σύστημα. Είναι σημαντικό να επίλεξετε τώρα αν η νέα σχολική χρονία θα είναι ταυτόχρονα και η νεα τρέχουσα σχολική χρονία." />
+					value="Με την παρακάτω φόρμα μπορείτε να επεξεργαστήτε σχολικές χρονίες στο σύστημα. Είναι σημαντικό να επίλεξετε τώρα αν η σχολική χρονία θα είναι ταυτόχρονα και η νεα τρέχουσα σχολική χρονία." />
 
-				<h:panelGrid columns="2">
-					<f:facet name="header">
-						<h:outputText value="Φόρμα Εισαγωγής Νέας Σχολικής Χρονίας" />
-					</f:facet>
-
-
-					<s:decorate id="schoolYearTitleDecoration"
-						template="/layout/doubleLineEdit.xhtml">
-						<ui:define name="label">
-							<h:outputText value="Τίτλος Σχολικής Χρονίας" />
-						</ui:define>
-						<h:inputText id="schoolYearTitle" value="#{schoolYear.title}" required="true" size="32"
-							maxlength="64">
-							<a4j:support event="onblur" reRender="schoolYearTitle"
-								bypassUpdates="true" />
-							<f:validateLength minimum="5" maximum="32" />
-						</h:inputText>
-					</s:decorate>
-					<s:decorate id="schoolYearIsDefaultDecoration"
-						template="/layout/edit.xhtml">
-						<ui:define name="label">
-							<h:outputText value="Τρέχουσα Σχολική Χρονία" />
-						</ui:define>
-						<h:selectBooleanCheckbox id="schoolYearIsDefaultCheckBox"
-							value="#{schoolYear.currentSchoolYear}" />
-					</s:decorate>
+				<h:panelGrid columns="1">
+					<h:messages globalOnly="true" showSummary="true"/>
+					<h:panelGrid columns="2">
+						<f:facet name="header">
+							<h:outputText value="Φόρμα Επεξεργασίας Σχολικής Χρονίας" />
+						</f:facet>
 
 
-					<s:decorate id="schoolYearFromDateDecoration"
-						template="/layout/doubleLineEdit.xhtml">
-						<ui:define name="label">
-							<h:outputText value="Έναρξη" />
-						</ui:define>
-						<rich:calendar id="schoolYearFromDateCalendar"
-							value="#{schoolYear.startDate}" required="true" mode="ajax" />
-					</s:decorate>
-					<s:decorate id="schoolYearToDateDecoration"
-						template="/layout/doubleLineEdit.xhtml">
-						<ui:define name="label">
-							<h:outputText value="Λήξη" />
-						</ui:define>
-						<rich:calendar id="schoolYearToDateCalendar"
-							value="#{schoolYear.endDate}" required="true" mode="ajax"
-							 />
-					</s:decorate>
+						<s:decorate id="schoolYearTitleDecoration"
+							template="/layout/doubleLineEdit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="Τίτλος Σχολικής Χρονίας" />
+							</ui:define>
+							<h:inputText id="schoolYearTitle" value="#{schoolYear.title}"
+								required="true" size="32" maxlength="64">
+								<a4j:support event="onblur" reRender="schoolYearTitle"
+									bypassUpdates="true" />
+								<f:validateLength minimum="5" maximum="64" />
+							</h:inputText>
+						</s:decorate>
+						<s:decorate id="schoolYearIsDefaultDecoration"
+							template="/layout/edit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="Τρέχουσα Σχολική Χρονία" />
+							</ui:define>
+							<h:selectBooleanCheckbox id="schoolYearIsDefaultCheckBox"
+								value="#{schoolYear.currentSchoolYear}" />
+						</s:decorate>
 
-					<f:facet name="footer">
-						<h:panelGroup style="display:block; text-align:center">
-							<h:commandButton id="saveButton" action="#{schoolYearAdmin.saveSchoolYear}"
-								value="Καταχώρηση Νέας Σχολικής Χρονίας" />
-							<s:button id="cancelButton" action="cancel" value="Ακύρωση" immediate="true"/>
-						</h:panelGroup>
-					</f:facet>
 
+						<s:decorate id="schoolYearFromDateDecoration"
+							template="/layout/doubleLineEdit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="Έναρξη" />
+							</ui:define>
+							<rich:calendar id="schoolYearFromDateCalendar"
+								value="#{schoolYear.startDate}" required="true" mode="ajax" />
+						</s:decorate>
+						<s:decorate id="schoolYearToDateDecoration"
+							template="/layout/doubleLineEdit.xhtml">
+							<ui:define name="label">
+								<h:outputText value="Λήξη" />
+							</ui:define>
+							<rich:calendar id="schoolYearToDateCalendar"
+								value="#{schoolYear.endDate}" required="true" mode="ajax" />
+						</s:decorate>
+
+						<f:facet name="footer">
+							<h:panelGroup style="display:block; text-align:center">
+								<h:commandButton id="saveButton"
+									action="#{schoolYearAdmin.saveSchoolYear}"
+									value="Αποθήκευση Σχολικής Χρονίας" />
+								<s:button id="cancelButton" action="cancel" value="Ακύρωση"
+									immediate="true" />
+							</h:panelGroup>
+						</f:facet>
+
+					</h:panelGrid>
+					
 				</h:panelGrid>
 			</h:form>
 		</rich:panel>

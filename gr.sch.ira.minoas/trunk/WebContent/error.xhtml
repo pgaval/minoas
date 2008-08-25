@@ -7,12 +7,14 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 template="layout/template.xhtml">
 
-<ui:define name="content">
+<ui:define name="body">
 
     <h1>Error</h1>
     <p>Something bad happened :-(</p>
     
     <h:messages styleClass="message"/>
+    
+    <s:link value="Επιστροφή" action="return" />
         
 </ui:define> 
 </ui:composition>
