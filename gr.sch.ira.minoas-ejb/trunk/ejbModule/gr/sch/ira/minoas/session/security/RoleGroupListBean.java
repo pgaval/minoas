@@ -23,7 +23,7 @@ import org.jboss.seam.annotations.security.Restrict;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
- *
+ * 
  */
 @Name("availableRoleGroups")
 @Scope(ScopeType.EVENT)
@@ -31,13 +31,14 @@ import org.jboss.seam.annotations.security.Restrict;
 @Stateful
 @Local( { IBaseStatefulSeamComponent.class, IRoleGroupList.class })
 public class RoleGroupListBean extends BaseStatefulSeamComponentImpl implements IRoleGroupList {
-	
+
 	@EJB
 	private CoreSearching coreSearching;
-	
+
 	public List<RoleGroup> roleGroupList;
-	
+
 	public Map<String, RoleGroup> roleGroupMap;
+
 	/**
 	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
 	 */
@@ -46,26 +47,24 @@ public class RoleGroupListBean extends BaseStatefulSeamComponentImpl implements 
 		super.create();
 		this.roleGroupList = coreSearching.getAvailableRoleGroups();
 		TreeMap<String, RoleGroup> roleGroupMapMap = new TreeMap<String, RoleGroup>();
-		for(RoleGroup office : this.roleGroupList) {
+		for (RoleGroup office : this.roleGroupList) {
 			roleGroupMapMap.put(office.getTitle(), office);
 		}
 		this.roleGroupMap = roleGroupMapMap;
 	}
+
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupList#getAsList()
 	 */
 	public List<RoleGroup> getAsList() {
 		return this.roleGroupList;
 	}
+
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupList#getAsMap()
 	 */
 	public Map<String, RoleGroup> getAsMap() {
 		return this.roleGroupMap;
 	}
-	
-	
-	
-	
-	
+
 }

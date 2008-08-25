@@ -1,4 +1,3 @@
-
 package gr.sch.ira.minoas.session.school;
 
 import gr.sch.ira.minoas.model.core.School;
@@ -9,6 +8,8 @@ import gr.sch.ira.minoas.model.core.School;
  */
 public interface SchoolAware {
 	public void setSchool(School school);
+
 	public School getSchool();
+
 	public boolean hasSchool();
 }

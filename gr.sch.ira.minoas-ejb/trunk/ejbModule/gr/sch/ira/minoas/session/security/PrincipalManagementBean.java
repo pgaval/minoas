@@ -42,16 +42,16 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
  * @version $Id$
  */
 public class PrincipalManagementBean extends BaseStatefulSeamComponentImpl {
-	
+
 	@DataModel
 	private Collection<Principal> principals;
-	
+
 	@DataModelSelection
 	private Principal principal;
-	
-	@PersistenceContext(type=PersistenceContextType.EXTENDED)
+
+	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
-	
+
 	private String searchString;
 
 }

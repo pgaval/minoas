@@ -23,7 +23,7 @@ import org.jboss.seam.annotations.security.Restrict;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
- *
+ * 
  */
 @Name("availableOrganizationalOffices")
 @Scope(ScopeType.EVENT)
@@ -31,13 +31,14 @@ import org.jboss.seam.annotations.security.Restrict;
 @Stateful
 @Local( { IBaseStatefulSeamComponent.class, IOrganizationalOfficeList.class })
 public class OrganizationalOfficeListBean extends BaseStatefulSeamComponentImpl implements IOrganizationalOfficeList {
-	
+
 	@EJB
 	private CoreSearching coreSearching;
-	
+
 	public List<OrganizationalOffice> organizationalOfficesList;
-	
+
 	public Map<String, OrganizationalOffice> organizationalOfficesMap;
+
 	/**
 	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
 	 */
@@ -46,12 +47,12 @@ public class OrganizationalOfficeListBean extends BaseStatefulSeamComponentImpl 
 		super.create();
 		this.organizationalOfficesList = coreSearching.getAvailableOrganizationalOffices();
 		TreeMap<String, OrganizationalOffice> officesMap = new TreeMap<String, OrganizationalOffice>();
-		for(OrganizationalOffice office : this.organizationalOfficesList) {
+		for (OrganizationalOffice office : this.organizationalOfficesList) {
 			officesMap.put(office.getTitle(), office);
 		}
 		this.organizationalOfficesMap = officesMap;
 	}
-	
+
 	/**
 	 * @see gr.sch.ira.minoas.session.school.IOrganizationalOfficeList#getAsMap()
 	 */
@@ -65,6 +66,5 @@ public class OrganizationalOfficeListBean extends BaseStatefulSeamComponentImpl 
 	public List<OrganizationalOffice> getAsList() {
 		return this.organizationalOfficesList;
 	}
-	
-	
+
 }

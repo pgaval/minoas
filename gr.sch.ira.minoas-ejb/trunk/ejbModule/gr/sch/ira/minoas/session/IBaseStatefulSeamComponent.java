@@ -25,18 +25,17 @@
 
 package gr.sch.ira.minoas.session;
 
-
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>
  * @version $Id$
  */
 
 public interface IBaseStatefulSeamComponent {
-	
+
 	public void create();
-	
+
 	public void destroy();
-	
+
 	public void end();
 
 }

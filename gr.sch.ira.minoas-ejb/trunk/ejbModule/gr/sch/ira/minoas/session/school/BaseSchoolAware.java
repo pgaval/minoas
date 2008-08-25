@@ -10,8 +10,7 @@ import org.jboss.seam.annotations.Out;
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * @version $Id$
  */
-public abstract class BaseSchoolAware extends BaseStatefulSeamComponentImpl implements
-		SchoolAware {
+public abstract class BaseSchoolAware extends BaseStatefulSeamComponentImpl implements SchoolAware {
 
 	@In(required = false)
 	@Out(required = false)

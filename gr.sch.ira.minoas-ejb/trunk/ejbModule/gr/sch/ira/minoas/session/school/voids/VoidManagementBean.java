@@ -142,7 +142,8 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 			TeachingResource resource = it.next();
 			if (!(resource.getTeachingHours().longValue() > 0)) {
 				it.remove();
-			} else
+			}
+			else
 				em.persist(resource);
 		}
 		foo();
@@ -165,7 +166,8 @@ public class VoidManagementBean extends BaseSchoolAware implements VoidManagemen
 						"removing teaching resources '#0' from '#1' teaching void, since teaching hours are not positive.",
 						resource, teaching_void);
 				it.remove();
-			} else {
+			}
+			else {
 				if (!em.contains(resource)) {
 					info("registering new teaching resources '#0' to '#1' teaching void.", resource, teaching_void);
 					em.persist(resource);

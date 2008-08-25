@@ -2,6 +2,7 @@ package gr.sch.ira.minoas.core.session;
 
 import gr.sch.ira.minoas.model.core.OrganizationalOffice;
 import gr.sch.ira.minoas.model.core.School;
+import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.security.Principal;
 import gr.sch.ira.minoas.model.security.Role;
@@ -21,20 +22,40 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
 @Name("coreSearching")
-@Scope(ScopeType.STATELESS)
+@Scope(ScopeType.EVENT)
 @Stateless
 @Local(CoreSearching.class)
 public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements CoreSearching {
 
 	/**
-	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchPrincipals(javax.persistence.EntityManager, java.lang.String)
+	 * @see gr.sch.ira.minoas.core.session.CoreSearching#getAvailableSchoolYears()
+	 */
+	public List<SchoolYear> getAvailableSchoolYears() {
+		return getAvailableSchoolYears(null);
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.core.session.CoreSearching#getAvailableSchoolYears(javax.persistence.EntityManager)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SchoolYear> getAvailableSchoolYears(EntityManager entityManager) {
+		debug("fetching all available school years");
+		EntityManager em = getEntityManager(entityManager);
+		List<SchoolYear> return_value = em.createQuery("SELECT r from SchoolYear r").getResultList();
+		debug("found totally #0 school years(s).", return_value.size());
+		return return_value;
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchPrincipals(javax.persistence.EntityManager,
+	 * java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Principal> searchPrincipals(EntityManager entityManager, String search_string) {
 		EntityManager e = entityManager != null ? entityManager : this.em;
 		String pattern = getSearchPattern(search_string);
-		return e.createQuery("SELECT p FROM Principal p WHERE lower(p.username) LIKE :search_pattern")
-				.setParameter("search_pattern", pattern).getResultList();
+		return e.createQuery("SELECT p FROM Principal p WHERE lower(p.username) LIKE :search_pattern").setParameter(
+				"search_pattern", pattern).getResultList();
 	}
 
 	/**
@@ -46,6 +67,14 @@ public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements
 
 	@PersistenceContext
 	private EntityManager em;
+
+	protected EntityManager getEntityManager(EntityManager entityManager) {
+		return entityManager != null ? entityManager : getEntityManager();
+	}
+
+	protected EntityManager getEntityManager() {
+		return this.em;
+	}
 
 	/**
 	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchVoids(gr.sch.ira.minoas.model.core.School,
@@ -150,7 +179,7 @@ public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements
 		List return_value = em.createQuery("SELECT r from Role r").getResultList();
 		debug("found totally #0 role(s).", return_value.size());
 		return return_value;
-	
+
 	}
 
 	/**
@@ -164,10 +193,10 @@ public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements
 	}
 
 	/**
-	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchOrganizationalOffices(javax.persistence.EntityManager, java.lang.String)
+	 * @see gr.sch.ira.minoas.core.session.CoreSearching#searchOrganizationalOffices(javax.persistence.EntityManager,
+	 * java.lang.String)
 	 */
-	public List<OrganizationalOffice> searchOrganizationalOffices(
-			EntityManager entityManager, String search_string) {
+	public List<OrganizationalOffice> searchOrganizationalOffices(EntityManager entityManager, String search_string) {
 		throw new RuntimeException("not implemented yet");
 	}
 

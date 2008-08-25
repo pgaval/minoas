@@ -120,7 +120,7 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleGroupManagement#selectRoleGroup()
 	 */
-	@Begin(join=true)
+	@Begin(join = true)
 	public void selectRoleGroup() {
 		info("role group #0 selected for management", this.roleGroup);
 	}
@@ -138,7 +138,7 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 	@End
 	public void updateRoleGroup() {
 		info("trying to update existing #0 role group", this.roleGroup);
-		for(Role role : roleGroup.getRoles()) {
+		for (Role role : roleGroup.getRoles()) {
 			em.merge(role);
 		}
 		em.merge(roleGroup);

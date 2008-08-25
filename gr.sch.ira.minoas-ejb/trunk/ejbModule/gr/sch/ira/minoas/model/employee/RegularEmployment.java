@@ -18,6 +18,11 @@ import javax.persistence.Version;
 @Table(name = "minoas_regular_employments")
 public class RegularEmployment extends BaseModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -31,6 +36,7 @@ public class RegularEmployment extends BaseModel {
 	@Basic
 	private String decisionNumber;
 
+	@SuppressWarnings("unused")
 	@Version
 	private Timestamp version;
 

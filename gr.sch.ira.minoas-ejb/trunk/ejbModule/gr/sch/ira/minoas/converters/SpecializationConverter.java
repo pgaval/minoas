@@ -14,7 +14,7 @@ import org.jboss.seam.framework.EntityController;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
- *
+ * 
  */
 @Converter
 @Name("specializationConverter")
@@ -28,26 +28,31 @@ public class SpecializationConverter extends EntityController implements javax.f
 	}
 
 	/**
-	 * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+	 * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext,
+	 * javax.faces.component.UIComponent, java.lang.String)
 	 */
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value != null) {
 			return getEntityManager().find(Specialization.class, value);
-		} else
+		}
+		else
 			return null;
 	}
 
 	/**
-	 * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+	 * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext,
+	 * javax.faces.component.UIComponent, java.lang.Object)
 	 */
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
 			if (value instanceof Specialization) {
 				return ((Specialization) value).getId();
-			} else {
+			}
+			else {
 				return value.toString();
 			}
-		} else
+		}
+		else
 			return null;
 	}
 

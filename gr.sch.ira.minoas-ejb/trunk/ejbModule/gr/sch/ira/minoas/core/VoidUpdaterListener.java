@@ -25,24 +25,20 @@ public class VoidUpdaterListener extends EntityController {
 	@In(required = true)
 	private TeachingRequirement teachingVoid;
 
-	@Observer({EventConstants.EVENT_TEACHING_VOID_ADDED, EventConstants.EVENT_TEACHING_VOID_MODIFIED})
+	@Observer( { EventConstants.EVENT_TEACHING_VOID_ADDED, EventConstants.EVENT_TEACHING_VOID_MODIFIED })
 	public void foo() {
-		log.info("received teaching void (#0) added event for school #1. ",
-				teachingVoid, teachingVoid.getSchool());
+		log.info("received teaching void (#0) added event for school #1. ", teachingVoid, teachingVoid.getSchool());
 		teachingVoid = getEntityManager().merge(teachingVoid);
 		getEntityManager().refresh(teachingVoid);
 		if (teachingVoid.getTeachingResources() != null) {
 			long teaching_hours = 0L;
-			for (TeachingResource resource : teachingVoid
-					.getTeachingResources()) {
+			for (TeachingResource resource : teachingVoid.getTeachingResources()) {
 				teaching_hours += resource.getTeachingHours().longValue();
 			}
-			
+
 			teachingVoid.setTeachingHours(Long.valueOf(teaching_hours));
-			log
-					.info(
-							"teaching void #0 has totally #1 teaching hours registered.",
-							teachingVoid, teachingVoid.getTeachingHours());
+			log.info("teaching void #0 has totally #1 teaching hours registered.", teachingVoid, teachingVoid
+					.getTeachingHours());
 			getEntityManager().persist(teachingVoid);
 			log.info("teaching void #0 has been updated", teachingVoid);
 		}

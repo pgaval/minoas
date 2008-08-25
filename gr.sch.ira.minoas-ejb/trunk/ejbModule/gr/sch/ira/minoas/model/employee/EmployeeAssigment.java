@@ -28,13 +28,14 @@ public class EmployeeAssigment extends BaseModel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@SuppressWarnings("unused")
 	@Version
 	private Timestamp version;
 
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 

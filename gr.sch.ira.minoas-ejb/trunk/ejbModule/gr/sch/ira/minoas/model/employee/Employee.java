@@ -143,7 +143,7 @@ public class Employee extends BaseModel {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 

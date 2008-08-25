@@ -50,6 +50,7 @@ public class EmployeeSecondment extends BaseModel {
 	@Column(name = "end_date")
 	private Date endDate;
 
+	@SuppressWarnings("unused")
 	@Version
 	private Timestamp version;
 

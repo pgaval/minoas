@@ -37,19 +37,16 @@ import org.jboss.seam.annotations.security.Restrict;
 @Restrict("#{identity.loggedIn}")
 @Local( { IBaseStatefulSeamComponent.class, IRoleManagement.class })
 @Scope(ScopeType.CONVERSATION)
-public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
-		IRoleManagement {
+public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements IRoleManagement {
 
-	
 	private String searchString;
-	
+
 	@EJB
 	private CoreSearching coreSearching;
-	
+
 	@DataModel
 	private Collection<Role> roles;
-	
-	
+
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleManagement#selectRole()
 	 */
@@ -59,7 +56,7 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 	}
 
 	@DataModelSelection()
-	@Out(value="selectedRole", required=false)
+	@Out(value = "selectedRole", required = false)
 	private Role role;
 
 	@In(required = false)
@@ -78,7 +75,7 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 		info("removed succesfully role #0 from system.", role);
 		search();
 	}
-	
+
 	public void saveRole() {
 		info("about to save new role #0", this.newRole);
 		Role existing_role = coreSearching.findRole(this.newRole.getId());
@@ -88,29 +85,27 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 			em.flush();
 			constructNewRole();
 			search();
-		} else {
-			warn(
-					"ignoring save request of role #0, since that role already exists",
-					this.newRole);
+		}
+		else {
+			warn("ignoring save request of role #0, since that role already exists", this.newRole);
 			facesMessages.add("role fdsf", newRole.getId());
-			
+
 		}
 	}
 
-	
 	@Factory("roles")
-	@Begin(join=true)
+	@Begin(join = true)
 	public void search() {
 		this.roles = coreSearching.searchRoles(getSearchString());
-		
+
 	}
-	
+
 	@Factory("newRole")
 	public void constructNewRole() {
 		info("constructing new instance of role");
 		this.newRole = new Role("", "");
 	}
-	
+
 	public String getSearchString() {
 		return searchString;
 	}

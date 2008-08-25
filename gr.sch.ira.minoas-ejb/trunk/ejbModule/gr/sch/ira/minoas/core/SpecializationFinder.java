@@ -19,13 +19,11 @@ import org.jboss.seam.framework.EntityController;
 public class SpecializationFinder extends EntityController {
 
 	@Transactional
-	public Collection<Specialization> suggestSpecialization(
-			Object specialization_search_pattern) {
+	public Collection<Specialization> suggestSpecialization(Object specialization_search_pattern) {
 		return getEntityManager()
 				.createQuery(
 						"SELECT s from Specialization s WHERE lower(s.id) LIKE lower(:search_pattern + '%') OR lower(s.title) LIKE lower(:search_pattern + '%')")
-				.setParameter("search_pattern", specialization_search_pattern)
-				.getResultList();
+				.setParameter("search_pattern", specialization_search_pattern).getResultList();
 	}
 
 }

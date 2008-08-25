@@ -36,8 +36,6 @@ import org.jboss.seam.annotations.End;
  * @version $Id$
  */
 public abstract class BaseStatefulSeamComponentImpl extends BaseSeamComponent implements IBaseStatefulSeamComponent {
-	
-	
 
 	/**
 	 * @see gr.sch.ira.minoas.session.IBaseStatefulSeamComponent#create()
@@ -62,8 +60,7 @@ public abstract class BaseStatefulSeamComponentImpl extends BaseSeamComponent im
 	@End
 	public void end() {
 		info("conversation has been ended");
-		
+
 	}
-	
-	
+
 }

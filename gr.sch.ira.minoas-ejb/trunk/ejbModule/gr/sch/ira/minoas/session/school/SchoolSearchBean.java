@@ -58,8 +58,7 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements S
 	}
 
 	/**
-	 * @param searchString
-	 *            the searchString to set
+	 * @param searchString the searchString to set
 	 */
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
