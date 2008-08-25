@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="layout/template.xhtml">
+	<ui:define name="body">
+		<rich:panel bodyClass="post" headerClass="pagetitle">
+			<f:facet name="header">
+				<h:outputText value="Διαχείρηση Σχολικών Χρονίων ..." />
+			</f:facet>
+			<rich:dataTable var="a_schoolyear" value="#{availableSchoolYears}">
+				<f:facet name="header">
+					<h:outputText value="Λίστα Ενεργών Σχολικών Χρονίων" />
+				</f:facet>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Σχολική Χρονία" />
+					</f:facet>
+					<h:outputText value="#{a_schoolyear.title}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Έναρξη" />
+					</f:facet>
+					<h:outputText value="#{a_schoolyear.startDate}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Λήξη" />
+					</f:facet>
+					<h:outputText value="#{a_schoolyear.endDate}" />
+				</rich:column>
+				<rich:column>
+					<s:button value="Επεξεργασία"></s:button>
+				</rich:column>
+			</rich:dataTable>
+			<rich:separator></rich:separator>
+
+			<h:form>
+				<s:button value="Εισαγωγή Νέας Σχολικής Χρονίας"
+					action="#{schoolYearAdmin.newSchoolYear()}" />
+			</h:form>
+		</rich:panel>
+	</ui:define>
+
+</ui:composition>
+
+</html>

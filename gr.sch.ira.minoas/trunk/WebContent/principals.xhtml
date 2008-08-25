@@ -16,6 +16,7 @@
 			</f:facet>
 			<h:panelGrid columns="1">
 				<h:outputText value="mpla, mpla, mpla, mpla, mpla...." />
+				
 				<h:form>
 				<rich:dataTable id="principalTable" width="100%" rows="10" 
 								var="a_principal" value="#{principals}">
@@ -70,7 +71,7 @@
 						</rich:datascroller>
 					</f:facet>
 				</rich:dataTable>
-				<s:link value="Εισαγωγή Νέου Χρήστη" action="#{principalAdmin.newPrincipal()}" pageflow="new-principal" propagation="begin" />
+				<s:link value="Εισαγωγή Νέου Χρήστη" action="#{principalAdmin.newPrincipal()}" />
 				</h:form>
 				
 			</h:panelGrid>
@@ -91,7 +92,7 @@
 						onclick="Richfaces.hideModalPanel('principalWizard')" />
 				</h:panelGroup>
 			</f:facet>
-			<a4j:include ajaxRendered="true" viewId="/wizard/principal/basic-data.xhtml"></a4j:include>
+			
 		</rich:modalPanel>
 		</ui:define>
 	</ui:composition>

@@ -14,7 +14,10 @@
     <page view-id="/editPrincipal.xhtml" name="core-data">
         <redirect />
         <transition name="cancel" to="end">
-            <action name="cancel" expression="#{principalAdmin.cancelPrincipal}" />
+            <action name="cancel" expression="#{principalAdmin.cancelPrincipal()}" />
+        </transition>
+        <transition name="save" to="end">
+            <action name="save" expression="#{principalAdmin.savePrincipal()}" />
         </transition>
     </page>
 
