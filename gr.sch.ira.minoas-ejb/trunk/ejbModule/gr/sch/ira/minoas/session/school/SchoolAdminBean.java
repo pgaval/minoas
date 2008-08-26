@@ -99,7 +99,7 @@ public class SchoolAdminBean extends BaseStatefulSeamComponentImpl implements
 	 * @see gr.sch.ira.minoas.session.school.ISchoolAdmin#search()
 	 */
 	public String search() {
-		// TODO Auto-generated method stub
+		schools =  coreSearching.searchShools(null);
 		return null;
 	}
 
