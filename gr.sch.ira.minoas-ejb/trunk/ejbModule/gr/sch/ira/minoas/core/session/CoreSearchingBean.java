@@ -116,11 +116,15 @@ public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements
 	 */
 	@SuppressWarnings("unchecked")
 	public List<School> searchShools(String school_search_pattern) {
-		return em
+		String pattern = getSearchPattern(school_search_pattern);
+		info("searching for schools with #0 search pattern.", pattern);
+		List return_value =  em
 				.createQuery(
 						"SELECT s from School s WHERE lower(s.title) LIKE :search_pattern AND s.ministryCode != '0000000'")
-				.setParameter("search_pattern", school_search_pattern)
+				.setParameter("search_pattern", pattern)
 				.getResultList();
+		info("found totally #0 school(s).", return_value.size());
+		return return_value;
 	}
 
 	/**

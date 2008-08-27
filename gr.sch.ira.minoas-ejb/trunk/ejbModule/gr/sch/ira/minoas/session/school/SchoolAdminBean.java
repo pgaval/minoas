@@ -37,6 +37,8 @@ import gr.sch.ira.minoas.session.ISchoolYearAdmin;
 public class SchoolAdminBean extends BaseStatefulSeamComponentImpl implements
 		ISchoolAdmin {
 
+	private String searchString;
+	
 	@In(value = "school", create = true)
 	@Out(value = "school", required = false, scope = ScopeType.CONVERSATION)
 	private School activeSchool;
@@ -99,8 +101,22 @@ public class SchoolAdminBean extends BaseStatefulSeamComponentImpl implements
 	 * @see gr.sch.ira.minoas.session.school.ISchoolAdmin#search()
 	 */
 	public String search() {
-		schools =  coreSearching.searchShools(null);
+		schools =  coreSearching.searchShools(getSearchString());
 		return null;
+	}
+
+	/**
+	 * @return the searchString
+	 */
+	public String getSearchString() {
+		return searchString;
+	}
+
+	/**
+	 * @param searchString the searchString to set
+	 */
+	public void setSearchString(String searchString) {
+		this.searchString = searchString;
 	}
 
 }

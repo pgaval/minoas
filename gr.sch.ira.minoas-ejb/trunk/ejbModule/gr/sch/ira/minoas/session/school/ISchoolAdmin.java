@@ -13,5 +13,9 @@ public interface ISchoolAdmin {
 	public abstract String search();
 
 	public abstract String newSchool();
+	
+	public String getSearchString();
+
+	public void setSearchString(String searchString);
 
 }
