@@ -8,9 +8,9 @@
       xmlns:s="http://jboss.com/products/seam/taglib"
       xmlns:rich="http://richfaces.ajax4jsf.org/rich"
       xmlns:a4j="http://richfaces.org/a4j">
-	<a4j:outputPanel id="searchResults" rendered="#{schools.rowCount>0}">
-		<rich:dataTable id="schoolList" value="#{schools}" var="school"
-			rendered="#{schools.rowCount>0}" rows="10" border="0"
+	
+		<rich:dataTable id="schoolList" value="#{availableSchools}" var="school"
+			 rows="10" border="0"
 			onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
 			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
 			<f:facet name="header">
@@ -24,26 +24,26 @@
 
 			<rich:column>
 				<f:facet name="header">Τίτλος Μονάδας</f:facet>
-				<s:link id="viewSchoolVoids" value="#{school.title}"
+				<s:link value="#{school.title}"
 					action="selectSchool"/>
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">Περιοχή</f:facet>
 				<h:outputText value="#{school.regionCode}' ΗΡΑΚΛΕΙΟΥ" />
 			</rich:column>
-			
-			<f:facet name="footer">
 
-				<rich:datascroller align="left" for="schoolList" maxPages="20"
-					page="#{schoolVoidSearch.page}" id="sc1" />
-			</f:facet>
+		<f:facet name="footer">
 
-		</rich:dataTable>
+			<rich:datascroller align="left" for="schoolList" maxPages="20"
+				id="sc1" />
+		</f:facet>
 
-
+	</rich:dataTable>
 
 
 
-	</a4j:outputPanel>
+
+
+	
 </ui:component>
 

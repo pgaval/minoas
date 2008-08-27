@@ -7,7 +7,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	template="layout/template.xhtml">
+	template="#{theme.template}">
 
 	<ui:define name="body">
 		<rich:panel headerClass="pagetitle" bodyClass="post">
@@ -25,32 +25,31 @@
 			<h:outputText
 				value="Για την διευκόλυνση σας, μπορείτε να
 				φιλτράρεται την λίστα με τα διαθέσιμα φίλτρα." />
-			
+
 			<h:form id="schoolSearchForm">
-				<h:panelGrid columns="3">
+				<h:panelGrid columns="1">
 					<h:panelGroup>
 						<h:outputLabel value="Τίτλος Σχολείου : " />
-						<h:inputText value="#{schoolSearch.searchString}"
-							id="searchString" style="width: 165px;">
+						<h:inputText value="#{schoolAdmin.searchString}" id="searchString"
+							style="width: 165px;">
 							<a4j:support event="onkeyup"
-								actionListener="#{schoolSearch.schoolSearch}"
-								reRender="schoolListResult" status="schoolSearchStatus" />
+								actionListener="#{schoolAdmin.search}"
+								status="schoolSearchStatus" />
 						</h:inputText>
+
+						<a4j:commandButton value="Αναζήτηση"
+							actionListener="#{schoolAdmin.search}"
+							status="schoolSearchStatus" />
+						<a4j:status id="schoolSearchStatus">
+							<f:facet name="start">
+								<h:graphicImage value="/img/spinner.gif" />
+							</f:facet>
+						</a4j:status>
 					</h:panelGroup>
-					<a4j:status id="schoolSearchStatus">
-						<f:facet name="start">
-							<h:graphicImage value="/img/spinner.gif" />
-						</f:facet>
-					</a4j:status>
-					<a4j:commandButton value="Αναζήτηση"
-						actionListener="#{schoolSearch.schoolSearch}"
-						reRender="schoolListResult" status="schoolSearchStatus" />
+					<a4j:outputPanel ajaxRendered="true">
+						<ui:include src="/components/school/schoolList.xhtml" />
+					</a4j:outputPanel>
 				</h:panelGrid>
-				<a4j:include id="schoolListResult" viewId="/schoolList.xhtml">
-				</a4j:include>
-
-
-
 			</h:form>
 
 		</rich:panel>
