@@ -2,7 +2,7 @@ package gr.sch.ira.minoas.session.school;
 
 public interface ISchoolAdmin {
 
-	public abstract String editSchool();
+	public abstract String selectSchool();
 
 	public abstract String saveSchool();
 

@@ -3,28 +3,30 @@
  */
 package gr.sch.ira.minoas.session.school;
 
+import gr.sch.ira.minoas.core.session.CoreSearching;
+import gr.sch.ira.minoas.model.core.School;
+import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
+import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
+
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
+import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Create;
+import org.jboss.seam.annotations.Destroy;
+import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
-
-import gr.sch.ira.minoas.core.session.CoreSearching;
-import gr.sch.ira.minoas.model.core.School;
-import gr.sch.ira.minoas.model.core.SchoolYear;
-import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
-import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
-import gr.sch.ira.minoas.session.ISchoolYearAdmin;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
@@ -37,25 +39,24 @@ import gr.sch.ira.minoas.session.ISchoolYearAdmin;
 public class SchoolAdminBean extends BaseStatefulSeamComponentImpl implements
 		ISchoolAdmin {
 
-	private String searchString;
-	
 	@In(value = "school", create = true)
 	@Out(value = "school", required = false, scope = ScopeType.CONVERSATION)
 	private School activeSchool;
 
 	@EJB
 	private CoreSearching coreSearching;
-
+	
 	@PersistenceContext
 	private EntityManager em;
 
 	@DataModel(scope = ScopeType.PAGE, value = "availableSchools")
 	private List<School> schools;
 
+	private String searchString;
+
 	@DataModelSelection
 	@Out(required = false, scope = ScopeType.CONVERSATION)
 	private School selectedSchool;
-
 	
 	/**
 	 * @see gr.sch.ira.minoas.session.school.ISchoolAdmin#cancelSchool()
@@ -63,6 +64,16 @@ public class SchoolAdminBean extends BaseStatefulSeamComponentImpl implements
 	public String cancelSchool() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
+	 */
+	@Create
+	@Override
+	public void create() {
+		// TODO Auto-generated method stub
+		super.create();
 	}
 
 	/**
@@ -74,11 +85,29 @@ public class SchoolAdminBean extends BaseStatefulSeamComponentImpl implements
 	}
 
 	/**
-	 * @see gr.sch.ira.minoas.session.school.ISchoolAdmin#editSchool()
+	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#destroy()
 	 */
-	public String editSchool() {
+	@Remove
+	@Destroy
+	@Override
+	public void destroy() {
 		// TODO Auto-generated method stub
-		return null;
+		super.destroy();
+	}
+
+	/**
+	 * @return the activeSchool
+	 */
+	public School getActiveSchool() {
+		return activeSchool;
+	}
+
+	
+	/**
+	 * @return the searchString
+	 */
+	public String getSearchString() {
+		return searchString;
 	}
 
 	/**
@@ -88,6 +117,8 @@ public class SchoolAdminBean extends BaseStatefulSeamComponentImpl implements
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 	/**
 	 * @see gr.sch.ira.minoas.session.school.ISchoolAdmin#saveSchool()
@@ -100,16 +131,28 @@ public class SchoolAdminBean extends BaseStatefulSeamComponentImpl implements
 	/**
 	 * @see gr.sch.ira.minoas.session.school.ISchoolAdmin#search()
 	 */
+	@Factory(value="availableSchools")
 	public String search() {
 		schools =  coreSearching.searchShools(getSearchString());
-		return null;
+		return SUCCESS_OUTCOME;
 	}
 
 	/**
-	 * @return the searchString
+	 * @see gr.sch.ira.minoas.session.school.ISchoolAdmin#selectSchool()
 	 */
-	public String getSearchString() {
-		return searchString;
+	public String selectSchool() {
+		if(selectedSchool!=null) {
+			info("school #0 selected successfully.",selectedSchool);
+			setActiveSchool(selectedSchool);
+		}
+		return SCHOOL_SELECTED_OUTCOME;
+	}
+
+	/**
+	 * @param activeSchool the activeSchool to set
+	 */
+	public void setActiveSchool(School activeSchool) {
+		this.activeSchool = activeSchool;
 	}
 
 	/**

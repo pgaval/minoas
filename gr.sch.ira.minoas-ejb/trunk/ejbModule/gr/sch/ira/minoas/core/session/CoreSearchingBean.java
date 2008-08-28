@@ -18,12 +18,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
-import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
 
 @Name("coreSearching")
-@Scope(ScopeType.EVENT)
 @Stateless
 @Local(CoreSearching.class)
 public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements

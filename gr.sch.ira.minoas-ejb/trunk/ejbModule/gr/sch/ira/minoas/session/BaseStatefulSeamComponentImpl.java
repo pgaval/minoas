@@ -30,11 +30,13 @@ import javax.ejb.Remove;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.Install;
 
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>
  * @version $Id$
  */
+@Install(false)
 public abstract class BaseStatefulSeamComponentImpl extends BaseSeamComponent implements IBaseStatefulSeamComponent {
 
 	/**

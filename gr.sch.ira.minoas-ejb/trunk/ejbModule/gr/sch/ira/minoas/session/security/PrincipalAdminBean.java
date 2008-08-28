@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
+import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,8 @@ import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.Create;
+import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
@@ -37,6 +40,27 @@ import org.jboss.seam.annotations.security.Restrict;
 @Local( { IBaseStatefulSeamComponent.class, IPrincipalAdmin.class })
 @Scope(ScopeType.CONVERSATION)
 public class PrincipalAdminBean extends BaseStatefulSeamComponentImpl implements IPrincipalAdmin {
+
+	/**
+	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
+	 */
+	@Create
+	@Override
+	public void create() {
+		// TODO Auto-generated method stub
+		super.create();
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#destroy()
+	 */
+	@Remove
+	@Destroy
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+	}
 
 	@In(value = "principal", create = true)
 	@Out(value = "principal", required = false)

@@ -8,9 +8,12 @@ import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
 import javax.ejb.Local;
+import javax.ejb.Remove;
 import javax.ejb.Stateful;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Create;
+import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
@@ -27,21 +30,31 @@ import org.jboss.seam.annotations.security.Restrict;
 public class SchoolRecord extends BaseStatefulSeamComponentImpl implements
 		ISchoolRecord {
 
-	@In() 
+	
+	@In(required=true)
+	@Out
 	private School selectedSchool;
+
 	/**
-	 * @see gr.sch.ira.minoas.session.school.ISchoolRecord#selectSchool(gr.sch.ira.minoas.model.core.School)
+	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
 	 */
-	public String selectSchool(School school) {
-		info("lalalal #0", school);
-//		
-//		if (school != null) {
-//			this.school = school;
-//
-//			return SUCCESS_OUTCOME;
-//		} else
-//			return FAILURE_OUTCOME;
-		return null;
+	@Create
+	@Override
+	public void create() {
+		// TODO Auto-generated method stub
+		super.create();
 	}
+	
+	/**
+	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#destroy()
+	 */
+	@Remove
+	@Destroy
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+	}
+	
 
 }

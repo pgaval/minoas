@@ -10,5 +10,5 @@ import gr.sch.ira.minoas.model.core.School;
  *
  */
 public interface ISchoolRecord {
-	public String selectSchool(School school);
+	
 }
