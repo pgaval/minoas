@@ -14,6 +14,8 @@
       <class>
       gr.sch.ira.minoas.model.core.OrganizationalOffice</class>
       <class>
+      gr.sch.ira.minoas.model.core.Address</class>
+      <class>
       gr.sch.ira.minoas.model.core.School</class>
       <class>
       gr.sch.ira.minoas.model.core.SchoolYear</class>

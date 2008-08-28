@@ -26,12 +26,18 @@
 package gr.sch.ira.minoas.model.employee;
 
 import gr.sch.ira.minoas.model.BaseModel;
+import gr.sch.ira.minoas.model.core.Address;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 
+import javax.persistence.Basic;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Fetch;
 
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>
@@ -51,5 +57,9 @@ public class Employment extends BaseModel {
 	private SchoolYear schoolYear;
 
 	private School school;
+	
+	@OneToOne(optional=true)
+	@JoinColumn(name="address_id", nullable=true)
+	private Address address;
 
 }
