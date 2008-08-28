@@ -2,12 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:rich="http://richfaces.org/rich">
 
 	<ui:composition template="#{theme.template}">
 		<ui:define name="body">
-			<h:outputText value="#{school}" />
 			<h:outputText value="#{selectedSchool}" />
+			<rich:panel>
+				<f:facet name="header">
+				 <h:outputText value="Σχολική Μονάδα #{selectedSchool.title}" /> 
+				</f:facet>
+				<rich:tabPanel>
+					<rich:tab label="jdkdkfj">
+					</rich:tab>
+				</rich:tabPanel>
+			</rich:panel>
+			
 		</ui:define>
 
 	</ui:composition>
