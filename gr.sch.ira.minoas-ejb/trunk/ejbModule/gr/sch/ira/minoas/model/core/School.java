@@ -9,6 +9,7 @@ import gr.sch.ira.minoas.model.BaseModel;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -27,13 +28,12 @@ import org.jboss.seam.annotations.Name;
 @Entity
 @Table(name = "minoas_school")
 @Name("school")
-public class School extends BaseModel {
+@DiscriminatorValue("school")
+public class School extends Unit {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "id", length = 3)
-	private String id;
+	
 
 	@Basic
 	@Column(name = "ministry_code", length = 7, unique = true)
@@ -43,29 +43,17 @@ public class School extends BaseModel {
 	@Column(name = "region")
 	private Character regionCode;
 
-	@Basic
-	@Column(name = "title", nullable = false, unique = true, length = 40)
-	private String title;
+	
 	
 	
 	@Basic
 	@Column(name = "points", nullable = true)
 	private Byte points;
 
-	@SuppressWarnings("unused")
-	@Version
-	private Timestamp version;
 	
-	@OneToOne(optional=true)
-	@JoinColumn(name="address_id", nullable=true)
-	private Address address;
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
+	
+	
+	
 	/**
 	 * @return the ministryCode
 	 */
@@ -80,20 +68,8 @@ public class School extends BaseModel {
 		return regionCode;
 	}
 
-	/**
-	 * @return the description
-	 */
-	public String getTitle() {
-		return title;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
+	
+	
 	/**
 	 * @param ministryCode the ministryCode to set
 	 */
@@ -108,13 +84,7 @@ public class School extends BaseModel {
 		this.regionCode = regionCode;
 	}
 
-	/**
-	 * @param description the description to set
-	 */
-	public void setTitle(String description) {
-		this.title = description;
-	}
-
+	
 	/**
 	 * @see java.lang.Object#toString()
 	 */
@@ -145,17 +115,5 @@ public class School extends BaseModel {
 		this.points = points;
 	}
 
-	/**
-	 * @return the address
-	 */
-	public Address getAddress() {
-		return address;
-	}
 
-	/**
-	 * @param address the address to set
-	 */
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 }
