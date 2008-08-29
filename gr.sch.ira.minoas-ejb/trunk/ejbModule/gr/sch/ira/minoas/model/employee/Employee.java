@@ -2,6 +2,7 @@ package gr.sch.ira.minoas.model.employee;
 
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.Address;
+import gr.sch.ira.minoas.model.core.Specialization;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -15,7 +16,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -73,6 +76,18 @@ public class Employee extends BaseModel {
 	@SuppressWarnings("unused")
 	@Version
 	private Timestamp version;
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "specialization_id", nullable = false, updatable = false)
+	private Specialization specialization;
+
+	/**
+	 * 
+	 */
+	public Employee() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @return the addresses
@@ -198,5 +213,19 @@ public class Employee extends BaseModel {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the specialization
+	 */
+	public Specialization getSpecialization() {
+		return specialization;
+	}
+
+	/**
+	 * @param specialization the specialization to set
+	 */
+	public void setSpecialization(Specialization specialization) {
+		this.specialization = specialization;
 	}
 }

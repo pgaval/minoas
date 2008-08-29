@@ -19,7 +19,6 @@
 
 package gr.sch.ira.minoas.model.employee;
 
-import gr.sch.ira.minoas.model.core.Specialization;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -27,8 +26,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -37,7 +34,7 @@ import javax.persistence.Version;
  * @version $Id$
  */
 @Entity
-@Table(name = "minoas_regular_employee")
+@Table(name = "minoas_employee_regular")
 public class RegularEmployee extends Employee {
 
 	/**
@@ -65,10 +62,6 @@ public class RegularEmployee extends Employee {
 	@Column(name = "registry_id", length = 7)
 	private String registryID;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "specialization_id", nullable = false, updatable = false)
-	private Specialization specialization;
-	
 	/**
 	 * @return the appointmentGOF
 	 */
@@ -91,13 +84,6 @@ public class RegularEmployee extends Employee {
 	}
 
 	/**
-	 * @return the specialization
-	 */
-	public Specialization getSpecialization() {
-		return specialization;
-	}
-
-	/**
 	 * @param appointmentGOF the appointmentGOF to set
 	 */
 	public void setAppointmentGOF(String appointmentGOF) {
@@ -116,13 +102,6 @@ public class RegularEmployee extends Employee {
 	 */
 	public void setRegistryID(String registryID) {
 		this.registryID = registryID;
-	}
-
-	/**
-	 * @param specialization the specialization to set
-	 */
-	public void setSpecialization(Specialization specialization) {
-		this.specialization = specialization;
 	}
 
 }
