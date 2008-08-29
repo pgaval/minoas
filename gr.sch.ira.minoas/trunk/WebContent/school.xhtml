@@ -34,7 +34,7 @@
 								value="#{selectedSchool.regionCode}' ΗΡΑΚΛΕΙΟΥ" readonly="true" />
 
 							<h:outputLabel value="Μόρια" for="schoolMoria" />
-							<h:inputText id="schoolMoria" value="#{selectedSchool.points}'"
+							<h:inputText id="schoolMoria" value="#{selectedSchool.points}"
 								readonly="true" />
 						</h:panelGrid>
 					</h:panelGroup>
@@ -56,11 +56,11 @@
 								value="#{selectedSchool.address.postCode}" size="5"
 								readonly="true" />
 							<h:outputLabel value="Πόλη" for="schoolAddressCity" />
-							<h:inputText id="schoolAddressPostalCity"
+							<h:inputText id="schoolAddressCity"
 								value="#{selectedSchool.address.city}" size="14" readonly="true" />
 							
 							<h:panelGroup rendered="#{selectedSchool.address.latitude ne null}">
-								<h:commandButton  value="Χάρτης ..." onclick="javascript:Richfaces.showModalPanel('gmapPanel')" />
+								<h:commandButton id="showSchoolGmapButton" value="Χάρτης ..." onclick="javascript:Richfaces.showModalPanel('gmapPanel')" />
 							</h:panelGroup>
 						</h:panelGrid>
 					</h:panelGroup>
@@ -97,11 +97,11 @@
 				<rich:panel>
 					<h:panelGrid columns="1">
 					<f:view contentType="text/html">
-						<rich:gmap lat="#{selectedSchool.address.latitude}"
+						<rich:gmap lat="#{selectedSchool.address.latitude}" style="width:400px;height:400px" id="gmap" zoom="13" gmapKey="ABQIAAAALql6UJN11mvFyzTxY_36aRTwM0brOpm-All5BF6PoaKBxRWWERSrVezsRzlqyhSpCiLUC7cT0U_zDg"
 							lng="#{selectedSchool.address.longitude}" mapType="G_NORMAL_MAP">
 						</rich:gmap>
 					</f:view>
-					<h:commandButton value="" onclick="javascript:Richfaces.hideModalPanel('gmapPanel')"/>
+					<h:commandButton value="Επιστροφή ...." onclick="javascript:Richfaces.hideModalPanel('gmapPanel')"/>
 					</h:panelGrid>
 				</rich:panel>
 			</rich:modalPanel>
