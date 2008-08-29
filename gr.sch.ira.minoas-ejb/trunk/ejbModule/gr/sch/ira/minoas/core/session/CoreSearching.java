@@ -4,6 +4,7 @@ import gr.sch.ira.minoas.model.core.OrganizationalOffice;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Specialization;
+import gr.sch.ira.minoas.model.employee.Employment;
 import gr.sch.ira.minoas.model.security.Principal;
 import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.model.security.RoleGroup;
@@ -60,5 +61,7 @@ public interface CoreSearching {
 	public SchoolYear getActiveSchoolYear();
 	
 	public SchoolYear getActiveSchoolYear(EntityManager entityManager);
+	
+	public List<Employment> searchFoo(SchoolYear schoolYear, )
 
 }

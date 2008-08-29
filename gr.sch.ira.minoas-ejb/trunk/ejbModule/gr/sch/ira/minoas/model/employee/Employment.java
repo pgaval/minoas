@@ -1,48 +1,35 @@
-/*
- * 
- *
- * Copyright (c) 2008 FORTHnet, S.A. All Rights Reserved.
- *
- *
- * This software is provided "AS IS," without a warranty of any kind. ALL
- * EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND WARRANTIES, INCLUDING ANY
- * IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR
- * NON-INFRINGEMENT, ARE HEREBY EXCLUDED. SUN AND ITS LICENSORS SHALL NOT BE
- * LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
- * OR DISTRIBUTING THE SOFTWARE OR ITS DERIVATIVES. IN NO EVENT WILL SUN OR ITS
- * LICENSORS BE LIABLE FOR ANY LOST REVENUE, PROFIT OR DATA, OR FOR DIRECT,
- * INDIRECT, SPECIAL, CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES, HOWEVER
- * CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY, ARISING OUT OF THE USE OF
- * OR INABILITY TO USE SOFTWARE, EVEN IF SUN HAS BEEN ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGES.
- *
- * This software is not designed or intended for use in on-line control of
- * aircraft, air traffic, aircraft navigation or aircraft communications; or in
- * the design, construction, operation or maintenance of any nuclear
- * facility. Licensee represents and warrants that it will not use or
- * redistribute the Software for such purposes.
- */
+
 
 package gr.sch.ira.minoas.model.employee;
 
 import gr.sch.ira.minoas.model.BaseModel;
-import gr.sch.ira.minoas.model.core.Address;
-import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import org.hibernate.annotations.Fetch;
+import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>
  * @version $Id$
  */
+@Entity
+@Table(name = "minoas_employment")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Employment extends BaseModel {
 
 	/**
@@ -54,12 +41,95 @@ public class Employment extends BaseModel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@OneToOne
+	@JoinColumn(name="schoolyear_id")
 	private SchoolYear schoolYear;
 
-	private School school;
+	@Version
+	@SuppressWarnings("unused")
+	private Timestamp version;
 	
-	@OneToOne(optional=true)
-	@JoinColumn(name="address_id", nullable=true)
-	private Address address;
+	@Basic
+	@Column(name="established", nullable=true)
+	private Date established;
+	
+	@Basic
+	@Column(name="terminated", nullable=true)
+	private Date terminated;
+
+	@ManyToOne
+	@JoinColumn(name="employee_id", nullable=false)
+	private Employee employee;
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the schoolYear
+	 */
+	public SchoolYear getSchoolYear() {
+		return schoolYear;
+	}
+
+	/**
+	 * @param schoolYear the schoolYear to set
+	 */
+	public void setSchoolYear(SchoolYear schoolYear) {
+		this.schoolYear = schoolYear;
+	}
+
+	/**
+	 * @return the established
+	 */
+	public Date getEstablished() {
+		return established;
+	}
+
+	/**
+	 * @param established the established to set
+	 */
+	public void setEstablished(Date established) {
+		this.established = established;
+	}
+
+	/**
+	 * @return the terminated
+	 */
+	public Date getTerminated() {
+		return terminated;
+	}
+
+	/**
+	 * @param terminated the terminated to set
+	 */
+	public void setTerminated(Date terminated) {
+		this.terminated = terminated;
+	}
+
+	/**
+	 * @return the employee
+	 */
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	/**
+	 * @param employee the employee to set
+	 */
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	
+	
 
 }

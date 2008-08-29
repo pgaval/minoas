@@ -21,6 +21,7 @@ package gr.sch.ira.minoas.model.employee;
 
 import gr.sch.ira.minoas.model.core.Specialization;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -29,6 +30,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>
@@ -43,12 +45,8 @@ public class RegularEmployee extends Employee {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Basic
-	@Column(name = "registry_id", length = 7)
-	private String registryID;
-
 	/**
-	 * Greek Official Gazette of appointment (ΦΕΚ Διορισμού)
+	 * Greek Official Gazette of appointment (Γ·β‰Β  Ζ’ΓΓ”Γ’ΓΓ›ΓΓ”Λ)
 	 * 
 	 */
 	@Basic
@@ -56,43 +54,26 @@ public class RegularEmployee extends Employee {
 	private String appointmentGOF;
 
 	/**
-	 * Greek Official Gazette of Date appointment (Ημερομηνία ΦΕΚ Διορισμού)
+	 * Greek Official Gazette of Date appointment (Β«ΓΓ‚Γ’Γ”ΓΓΓο¬‚Β· Γ·β‰Β  Ζ’ΓΓ”Γ’ΓΓ›ΓΓ”Λ)
 	 * 
 	 */
 	@Basic
 	@Column(name = "appointment_gof_date")
 	private Date appointmentGOFDate;
 
+	@Basic
+	@Column(name = "registry_id", length = 7)
+	private String registryID;
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "specialization_id", nullable = false, updatable = false)
 	private Specialization specialization;
-
-	/**
-	 * @return the registryID
-	 */
-	public String getRegistryID() {
-		return registryID;
-	}
-
-	/**
-	 * @param registryID the registryID to set
-	 */
-	public void setRegistryID(String registryID) {
-		this.registryID = registryID;
-	}
-
+	
 	/**
 	 * @return the appointmentGOF
 	 */
 	public String getAppointmentGOF() {
 		return appointmentGOF;
-	}
-
-	/**
-	 * @param appointmentGOF the appointmentGOF to set
-	 */
-	public void setAppointmentGOF(String appointmentGOF) {
-		this.appointmentGOF = appointmentGOF;
 	}
 
 	/**
@@ -103,10 +84,10 @@ public class RegularEmployee extends Employee {
 	}
 
 	/**
-	 * @param appointmentGOFDate the appointmentGOFDate to set
+	 * @return the registryID
 	 */
-	public void setAppointmentGOFDate(Date appointmentGOFDate) {
-		this.appointmentGOFDate = appointmentGOFDate;
+	public String getRegistryID() {
+		return registryID;
 	}
 
 	/**
@@ -114,6 +95,27 @@ public class RegularEmployee extends Employee {
 	 */
 	public Specialization getSpecialization() {
 		return specialization;
+	}
+
+	/**
+	 * @param appointmentGOF the appointmentGOF to set
+	 */
+	public void setAppointmentGOF(String appointmentGOF) {
+		this.appointmentGOF = appointmentGOF;
+	}
+
+	/**
+	 * @param appointmentGOFDate the appointmentGOFDate to set
+	 */
+	public void setAppointmentGOFDate(Date appointmentGOFDate) {
+		this.appointmentGOFDate = appointmentGOFDate;
+	}
+
+	/**
+	 * @param registryID the registryID to set
+	 */
+	public void setRegistryID(String registryID) {
+		this.registryID = registryID;
 	}
 
 	/**
