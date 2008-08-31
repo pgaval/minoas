@@ -9,6 +9,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * 
@@ -16,17 +20,22 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "minoas_specialization")
+@Table(name = "MINOAS_SPECILIZATION")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Specialization extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id", length = 6)
+	@Column(name = "SPECIALIZATION_ID", length = 6)
 	private String id;
 
-	@Column(name = "title", nullable = false, length = 70)
+	@Column(name = "TITLE", nullable = false, length = 70)
 	private String title;
+
+	@SuppressWarnings("unused")
+	@Version
+	private Long version;
 
 	/**
 	 * 
@@ -43,17 +52,17 @@ public class Specialization extends BaseModel {
 	}
 
 	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	/**
 	 * @return the title
 	 */
 	public String getTitle() {
 		return title;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 /**
  * 
@@ -28,6 +29,10 @@ public class OrganizationalOffice extends BaseModel {
 	@Column(name = "title")
 	private String title;
 
+	@SuppressWarnings("unused")
+	@Version
+	private Long version;
+
 	// private Collection<School> schools;
 
 	/**
@@ -38,17 +43,17 @@ public class OrganizationalOffice extends BaseModel {
 	}
 
 	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	/**
 	 * @return the title
 	 */
 	public String getTitle() {
 		return title;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**

@@ -5,7 +5,6 @@ package gr.sch.ira.minoas.model.core;
 
 import gr.sch.ira.minoas.model.BaseModel;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -15,8 +14,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jboss.seam.annotations.Name;
 
 /**
@@ -24,26 +24,20 @@ import org.jboss.seam.annotations.Name;
  * 
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * */
-@Entity
-@Table(name = "minoas_school_year")
 @Name("schoolYear")
+@Entity
+@Table(name = "MINOAS_SCHOOL_YEAR")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class SchoolYear extends BaseModel {
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	private static final long serialVersionUID = 1L;
 
 	@Basic
-	@Column(name = "current", nullable = false, updatable = true)
+	@Column(name = "CURRENT", nullable = false, updatable = true)
 	private boolean currentSchoolYear;
 
 	@Basic
-	@Column(name = "end_date", nullable = false)
+	@Column(name = "END_DATE", nullable = false)
 	private Date endDate;
 
 	@Id
@@ -51,16 +45,12 @@ public class SchoolYear extends BaseModel {
 	private Long id;
 
 	@Basic
-	@Column(name = "start_date", nullable = false)
+	@Column(name = "START_DATE", nullable = false)
 	private Date startDate;
 
 	@Basic
-	@Column(name = "title", length = 64, nullable = false, updatable = true, unique = true)
+	@Column(name = "TITLE", length = 64, nullable = false, updatable = true, unique = true)
 	private String title;
-
-	@SuppressWarnings("unused")
-	@Version
-	private Timestamp version;
 
 	/**
 	 * 
@@ -137,6 +127,13 @@ public class SchoolYear extends BaseModel {
 	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

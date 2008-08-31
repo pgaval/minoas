@@ -3,62 +3,57 @@
  */
 package gr.sch.ira.minoas.model.core;
 
-import java.sql.Timestamp;
-
-import gr.sch.ira.minoas.model.BaseModel;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jboss.seam.annotations.Name;
 
 /**
- * A class representing a school registered in the system. Each school
+ * A class representing a school registered in the system.
  * 
- * @author slavikos
+ * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * 
  */
 @Entity
-@Table(name = "minoas_school")
+@Table(name = "MINOAS_SCHOOL")
 @Name("school")
-@DiscriminatorValue("school")
+@DiscriminatorValue("SCHOOL")
+@PrimaryKeyJoinColumn(name = "UNIT_ID")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class School extends Unit {
 
 	private static final long serialVersionUID = 1L;
 
-	
-
 	@Basic
-	@Column(name = "ministry_code", length = 7, unique = true)
+	@Column(name = "MINISTRY_CODE", length = 7, unique = true)
 	private String ministryCode;
 
 	@Basic
-	@Column(name = "region")
-	private Character regionCode;
-
-	
-	
-	
-	@Basic
-	@Column(name = "points", nullable = true)
+	@Column(name = "POINTS", nullable = true)
 	private Byte points;
 
-	
-	
-	
-	
+	@Basic
+	@Column(name = "REGION")
+	private Character regionCode;
+
 	/**
 	 * @return the ministryCode
 	 */
 	public String getMinistryCode() {
 		return ministryCode;
+	}
+
+	/**
+	 * @return the points
+	 */
+	public Byte getPoints() {
+		return points;
 	}
 
 	/**
@@ -68,13 +63,18 @@ public class School extends Unit {
 		return regionCode;
 	}
 
-	
-	
 	/**
 	 * @param ministryCode the ministryCode to set
 	 */
 	public void setMinistryCode(String ministryCode) {
 		this.ministryCode = ministryCode;
+	}
+
+	/**
+	 * @param points the points to set
+	 */
+	public void setPoints(Byte points) {
+		this.points = points;
 	}
 
 	/**
@@ -84,7 +84,6 @@ public class School extends Unit {
 		this.regionCode = regionCode;
 	}
 
-	
 	/**
 	 * @see java.lang.Object#toString()
 	 */
@@ -100,20 +99,5 @@ public class School extends Unit {
 		sb.append(")] ");
 		return sb.toString();
 	}
-
-	/**
-	 * @return the points
-	 */
-	public Byte getPoints() {
-		return points;
-	}
-
-	/**
-	 * @param points the points to set
-	 */
-	public void setPoints(Byte points) {
-		this.points = points;
-	}
-
 
 }

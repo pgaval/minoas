@@ -3,48 +3,57 @@
  */
 package gr.sch.ira.minoas.model.core;
 
-import java.sql.Timestamp;
+import gr.sch.ira.minoas.model.BaseModel;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import gr.sch.ira.minoas.model.BaseModel;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
- *
+ * 
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@DiscriminatorColumn(name = "type")
-@Table(name="minoas_unit")
+@DiscriminatorColumn(name = "UNIT")
+@Table(name = "MINOAS_UNIT")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public abstract class Unit extends BaseModel {
 
-	@OneToOne(optional=true)
-	@JoinColumn(name="address_id", nullable=true)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ADDRESS_ID", nullable = true)
+	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	private Address address;
-	
+
 	@Id
-	@Column(name = "id", length = 3)
+	@Column(name = "UNIT_ID", length = 3)
 	private String id;
-	
+
 	@Basic
-	@Column(name = "title", nullable = false, unique = true, length = 80)
+	@Column(name = "TITLE", nullable = false, unique = true, length = 80)
 	private String title;
-	
+
 	@SuppressWarnings("unused")
 	@Version
 	private Long version;
-	
+
 	/**
 	 * 
 	 */
