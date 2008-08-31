@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package gr.sch.ira.minoas.model.employement;
 
 import javax.persistence.Basic;
@@ -10,12 +13,16 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/**
+ * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
+ * 
+ */
 @Entity
-@Table(name = "MINOAS_EMPLOYMENT_REGULAR")
+@Table(name = "MINOAS_EMPLOYMENT_DEPUTY")
 @PrimaryKeyJoinColumn(name = "EMPLOYMENT_ID")
-@DiscriminatorValue("REGULAR_EMPLOYMENT")
+@DiscriminatorValue("DEPUTY_EMPLOYMENT")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public class RegularEmployment extends Employment {
+public class DeputyEmployment extends Employment {
 
 	/**
 	 * 
@@ -33,6 +40,13 @@ public class RegularEmployment extends Employment {
 	@Basic
 	@Column(name = "wh_decr_reason", nullable = true)
 	private String workingHoursDecrementReason;
+
+	/**
+	 * 
+	 */
+	public DeputyEmployment() {
+		super();
+	}
 
 	/**
 	 * @return the mandatoryWorkingHours

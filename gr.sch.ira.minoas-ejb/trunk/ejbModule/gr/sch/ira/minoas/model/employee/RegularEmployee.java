@@ -19,22 +19,27 @@
 
 package gr.sch.ira.minoas.model.employee;
 
-
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Version;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>
  * @version $Id$
  */
 @Entity
-@Table(name = "minoas_employee_regular")
+@Table(name = "MINOAS_EMPLOYEE_REGULAR")
+@DiscriminatorValue("EMPLOYEE_REGULAR")
+@PrimaryKeyJoinColumn(name = "EMPLOYEE_ID")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class RegularEmployee extends Employee {
 
 	/**

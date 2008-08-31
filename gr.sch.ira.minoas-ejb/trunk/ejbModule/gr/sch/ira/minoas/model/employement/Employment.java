@@ -1,5 +1,3 @@
-
-
 package gr.sch.ira.minoas.model.employement;
 
 import gr.sch.ira.minoas.model.BaseModel;
@@ -7,11 +5,11 @@ import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.employee.Employee;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,71 +22,57 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 /**
- * This class represents an employment.  Every employment is binded to a concrete
+ * This class represents an employment. Every employment is binded to a concrete
  * {@link Employee} in the system and always references a {@link SchoolYear}.
  * <br />
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * @version $Id$
  */
 @Entity
-@Table(name = "minoas_employment")
+@Table(name = "MINOAS_EMPLOYMENT")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Employment extends BaseModel {
+@DiscriminatorValue("EMPLOYMENT")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+public abstract class Employment extends BaseModel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
-
-	
-
 	@ManyToOne
-	@JoinColumn(name="employee_id", nullable=false)
+	@JoinColumn(name = "employee_id", nullable = false)
 	private Employee employee;
 
 	@Basic
-	@Column(name="established", nullable=true)
+	@Column(name = "established", nullable = true)
 	private Date established;
-	@Basic
-	@Column(name="hours", nullable=false, updatable=false)
-	private Integer hours;
-
-	@Basic
-	@Column(name="hours_deducted", nullable=true, updatable=false)
-	private Integer hoursDeducted;
-
-	@Basic
-	@Column(name="hours_deducted_reason", nullable=true)
-	private String hoursDeductionReason;
 
 	@Id
+	@Column(name = "EMPLOYMENT_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Basic
-	@Column(name="school_id", nullable=false)
-	private School school;
-	
+
 	@OneToOne
-	@JoinColumn(name="schoolyear_id")
+	@JoinColumn(name = "school_id", nullable = false)
+	private School school;
+
+	@OneToOne
+	@JoinColumn(name = "schoolyear_id")
 	private SchoolYear schoolYear;
 
 	@Basic
-	@OneToOne
-	@JoinColumn(name="old_employment_id", nullable=true, updatable=false)
-	private Employment supersededEmployment;
-	
-	@Basic
-	@Column(name="terminated", nullable=true)
+	@Column(name = "terminated", nullable = true)
 	private Date terminated;
-	
-	@Version
+
 	@SuppressWarnings("unused")
-	private Timestamp version;
-	
+	@Version
+	private Long version;
+
 	/**
 	 * 
 	 */
@@ -103,34 +87,12 @@ public class Employment extends BaseModel {
 	public Employee getEmployee() {
 		return employee;
 	}
-	
+
 	/**
 	 * @return the established
 	 */
 	public Date getEstablished() {
 		return established;
-	}
-	
-	
-	/**
-	 * @return the hours
-	 */
-	public Integer getHours() {
-		return hours;
-	}
-
-	/**
-	 * @return the hoursDeducted
-	 */
-	public Integer getHoursDeducted() {
-		return hoursDeducted;
-	}
-
-	/**
-	 * @return the hoursDeductionReason
-	 */
-	public String getHoursDeductionReason() {
-		return hoursDeductionReason;
 	}
 
 	/**
@@ -155,13 +117,6 @@ public class Employment extends BaseModel {
 	}
 
 	/**
-	 * @return the supersededEmployment
-	 */
-	public Employment getSupersededEmployment() {
-		return supersededEmployment;
-	}
-
-	/**
 	 * @return the terminated
 	 */
 	public Date getTerminated() {
@@ -180,27 +135,6 @@ public class Employment extends BaseModel {
 	 */
 	public void setEstablished(Date established) {
 		this.established = established;
-	}
-
-	/**
-	 * @param hours the hours to set
-	 */
-	public void setHours(Integer hours) {
-		this.hours = hours;
-	}
-
-	/**
-	 * @param hoursDeducted the hoursDeducted to set
-	 */
-	public void setHoursDeducted(Integer hoursDeducted) {
-		this.hoursDeducted = hoursDeducted;
-	}
-
-	/**
-	 * @param hoursDeductionReason the hoursDeductionReason to set
-	 */
-	public void setHoursDeductionReason(String hoursDeductionReason) {
-		this.hoursDeductionReason = hoursDeductionReason;
 	}
 
 	/**
@@ -225,21 +159,10 @@ public class Employment extends BaseModel {
 	}
 
 	/**
-	 * @param supersededEmployment the supersededEmployment to set
-	 */
-	public void setSupersededEmployment(Employment supersededEmployment) {
-		this.supersededEmployment = supersededEmployment;
-	}
-
-	/**
 	 * @param terminated the terminated to set
 	 */
 	public void setTerminated(Date terminated) {
 		this.terminated = terminated;
 	}
-	
-	
-	
-	
 
 }

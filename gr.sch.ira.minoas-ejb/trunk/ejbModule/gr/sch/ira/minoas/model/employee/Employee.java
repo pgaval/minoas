@@ -4,12 +4,11 @@ import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.Address;
 import gr.sch.ira.minoas.model.core.Specialization;
 
-import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,9 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -27,8 +24,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
-@Table(name = "minoas_employee")
+@Table(name = "MINOAS_EMPLOYEE")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorValue("EMPLOYEE")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Employee extends BaseModel {
 
 	/**
@@ -36,10 +35,10 @@ public class Employee extends BaseModel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany
-	@JoinTable(name="minoas_employee_address")
+	@ManyToOne
+	@JoinColumn(name = "address_id", nullable = true)
 	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-	private List<Address> addresses;
+	private Address address;
 
 	@Basic
 	@Column(name = "birth_date")
@@ -54,6 +53,7 @@ public class Employee extends BaseModel {
 	private String firstName;
 
 	@Id
+	@Column(name = "EMPLOYEE_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
@@ -68,32 +68,31 @@ public class Employee extends BaseModel {
 	@Basic
 	@Column(name = "mother_name", nullable = true, length = 15)
 	private String motherName;
-	
-	@Basic
-	@Column(name = "vat_number", unique = true, nullable = false, length = 9)
-	private String vATNumber;
-	
-	@SuppressWarnings("unused")
-	@Version
-	private Timestamp version;
 
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "specialization_id", nullable = false, updatable = false)
 	private Specialization specialization;
+
+	@Basic
+	@Column(name = "vat_number", unique = true, nullable = false, length = 9)
+	private String vATNumber;
+
+	@SuppressWarnings("unused")
+	@Version
+	private Long version;
 
 	/**
 	 * 
 	 */
 	public Employee() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @return the addresses
+	 * @return the address
 	 */
-	public List<Address> getAddresses() {
-		return addresses;
+	public Address getAddress() {
+		return address;
 	}
 
 	/**
@@ -146,6 +145,13 @@ public class Employee extends BaseModel {
 	}
 
 	/**
+	 * @return the specialization
+	 */
+	public Specialization getSpecialization() {
+		return specialization;
+	}
+
+	/**
 	 * @return the vATNumber
 	 */
 	public String getVATNumber() {
@@ -153,10 +159,10 @@ public class Employee extends BaseModel {
 	}
 
 	/**
-	 * @param addresses the addresses to set
+	 * @param address the address to set
 	 */
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	/**
@@ -181,6 +187,13 @@ public class Employee extends BaseModel {
 	}
 
 	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
 	 * @param idNumber the idNumber to set
 	 */
 	public void setIdNumber(String idNumber) {
@@ -202,30 +215,16 @@ public class Employee extends BaseModel {
 	}
 
 	/**
-	 * @param number the vATNumber to set
-	 */
-	public void setVATNumber(String number) {
-		vATNumber = number;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the specialization
-	 */
-	public Specialization getSpecialization() {
-		return specialization;
-	}
-
-	/**
 	 * @param specialization the specialization to set
 	 */
 	public void setSpecialization(Specialization specialization) {
 		this.specialization = specialization;
+	}
+
+	/**
+	 * @param number the vATNumber to set
+	 */
+	public void setVATNumber(String number) {
+		vATNumber = number;
 	}
 }
