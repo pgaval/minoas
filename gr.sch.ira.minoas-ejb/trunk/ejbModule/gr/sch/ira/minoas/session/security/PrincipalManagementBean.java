@@ -34,6 +34,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 
@@ -49,7 +50,7 @@ public class PrincipalManagementBean extends BaseStatefulSeamComponentImpl {
 	@DataModelSelection
 	private Principal principal;
 
-	@PersistenceContext(type = PersistenceContextType.EXTENDED)
+	@In
 	private EntityManager em;
 
 	private String searchString;

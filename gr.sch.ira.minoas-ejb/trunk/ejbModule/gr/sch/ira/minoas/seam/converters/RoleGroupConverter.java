@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gr.sch.ira.minoas.converters;
+package gr.sch.ira.minoas.seam.converters;
 
 import gr.sch.ira.minoas.model.security.RoleGroup;
 
@@ -9,6 +9,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.faces.Converter;
 import org.jboss.seam.framework.EntityController;
 
@@ -18,7 +19,13 @@ import org.jboss.seam.framework.EntityController;
  */
 @Converter
 @Name("roleGroupConverter")
+@Transactional
 public class RoleGroupConverter extends EntityController implements javax.faces.convert.Converter {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2019700284340330696L;
 
 	/**
 	 * 

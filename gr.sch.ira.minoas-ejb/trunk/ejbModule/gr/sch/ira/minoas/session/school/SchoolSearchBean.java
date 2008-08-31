@@ -1,7 +1,7 @@
 package gr.sch.ira.minoas.session.school;
 
-import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.core.School;
+import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
@@ -38,7 +38,7 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements S
 	@DataModel
 	private Collection<School> schools;
 
-	private @EJB
+	@In(value="coreSearching")
 	CoreSearching coreSearching;
 
 	private String searchString;

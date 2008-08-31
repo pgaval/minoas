@@ -3,8 +3,8 @@
  */
 package gr.sch.ira.minoas.session.school;
 
-import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.core.School;
+import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
@@ -14,8 +14,11 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
@@ -36,6 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 @Stateful
 @Restrict("#{identity.loggedIn}")
 @Local( { IBaseStatefulSeamComponent.class, ISchoolAdmin.class })
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class SchoolAdminBean extends BaseStatefulSeamComponentImpl implements
 		ISchoolAdmin {
 
@@ -43,11 +47,11 @@ public class SchoolAdminBean extends BaseStatefulSeamComponentImpl implements
 	@Out(value = "school", required = false, scope = ScopeType.CONVERSATION)
 	private School activeSchool;
 
-	@EJB
+	@In(value="coreSearching")
 	private CoreSearching coreSearching;
 	
-	@PersistenceContext
-	private EntityManager em;
+	@In
+	private EntityManager minoasDatabase;
 
 	@DataModel(scope = ScopeType.PAGE, value = "availableSchools")
 	private List<School> schools;

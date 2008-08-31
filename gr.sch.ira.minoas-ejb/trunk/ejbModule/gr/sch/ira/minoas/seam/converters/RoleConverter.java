@@ -1,14 +1,15 @@
 /**
  * 
  */
-package gr.sch.ira.minoas.converters;
+package gr.sch.ira.minoas.seam.converters;
 
-import gr.sch.ira.minoas.model.core.OrganizationalOffice;
+import gr.sch.ira.minoas.model.security.Role;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.faces.Converter;
 import org.jboss.seam.framework.EntityController;
 
@@ -17,8 +18,21 @@ import org.jboss.seam.framework.EntityController;
  * 
  */
 @Converter
-@Name("organizationalOfficeConverter")
-public class OrganizationalOfficeConverter extends EntityController implements javax.faces.convert.Converter {
+@Name("roleConverter")
+@Transactional
+public class RoleConverter extends EntityController implements javax.faces.convert.Converter {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7014294045165402470L;
+
+	/**
+	 * 
+	 */
+	public RoleConverter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext,
@@ -26,8 +40,7 @@ public class OrganizationalOfficeConverter extends EntityController implements j
 	 */
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value != null) {
-
-			return getEntityManager().find(OrganizationalOffice.class, value);
+			return getEntityManager().find(Role.class, value);
 		}
 		else
 			return null;
@@ -39,8 +52,8 @@ public class OrganizationalOfficeConverter extends EntityController implements j
 	 */
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
-			if (value instanceof OrganizationalOffice) {
-				return ((OrganizationalOffice) value).getId();
+			if (value instanceof Role) {
+				return ((Role) value).getId();
 			}
 			else {
 				return value.toString();

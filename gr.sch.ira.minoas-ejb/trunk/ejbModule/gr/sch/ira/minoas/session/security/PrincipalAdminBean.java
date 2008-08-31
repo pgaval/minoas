@@ -3,8 +3,8 @@
  */
 package gr.sch.ira.minoas.session.security;
 
-import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.security.Principal;
+import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
@@ -66,7 +66,7 @@ public class PrincipalAdminBean extends BaseStatefulSeamComponentImpl implements
 	@Out(value = "principal", required = false)
 	private Principal activePrincipal;
 
-	@EJB
+	@In(value="coreSearching")
 	private CoreSearching coreSearching;
 
 	@DataModel
@@ -77,8 +77,8 @@ public class PrincipalAdminBean extends BaseStatefulSeamComponentImpl implements
 	@DataModelSelection
 	private Principal selectedPrinicipal;
 
-	@PersistenceContext(type = PersistenceContextType.EXTENDED)
-	private EntityManager em;
+	@In
+	private EntityManager minoasDatabase;
 
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IPrincipalAdmin#cancelPrincipal()
@@ -140,12 +140,12 @@ public class PrincipalAdminBean extends BaseStatefulSeamComponentImpl implements
 	}
 
 	public void savePrincipal(Principal principal) {
-		if (em.find(Principal.class, new String(principal.getUsername())) != null) {
-			em.merge(principal);
+		if (minoasDatabase.find(Principal.class, new String(principal.getUsername())) != null) {
+			minoasDatabase.merge(principal);
 			info("principal #0 has been updated.", principal);
 		}
 		else {
-			em.persist(principal);
+			minoasDatabase.persist(principal);
 			info("principal #0 has been saved.", principal);
 		}
 	}

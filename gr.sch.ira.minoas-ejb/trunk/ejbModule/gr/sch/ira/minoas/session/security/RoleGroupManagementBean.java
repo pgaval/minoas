@@ -3,9 +3,9 @@
  */
 package gr.sch.ira.minoas.session.security;
 
-import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.model.security.RoleGroup;
+import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
@@ -41,11 +41,11 @@ import org.jboss.seam.annotations.security.Restrict;
 @Scope(ScopeType.CONVERSATION)
 public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl implements IRoleGroupManagement {
 
-	@EJB
+	@In(value="coreSearching")
 	private CoreSearching coreSearching;
 
-	@PersistenceContext(type = PersistenceContextType.EXTENDED)
-	private EntityManager em;
+	@In
+	private EntityManager minoasDatabase;
 
 	@In(required = false)
 	@Out(required = false)
@@ -79,9 +79,9 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 	@End
 	public void removeRoleGroup() {
 		info("about to remove role group #0.", roleGroup);
-		RoleGroup role_to_remove = em.merge(this.roleGroup);
-		em.remove(role_to_remove);
-		em.flush();
+		RoleGroup role_to_remove = minoasDatabase.merge(this.roleGroup);
+		minoasDatabase.remove(role_to_remove);
+		minoasDatabase.flush();
 		info("role group #0 has been removed.", this.roleGroup);
 		search();
 	}
@@ -94,7 +94,7 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 		info("about to save new role group #0", this.newRoleGroup);
 		RoleGroup existing_role_group = coreSearching.findRoleGroup(newRoleGroup.getId());
 		if (existing_role_group == null) {
-			em.persist(this.newRoleGroup);
+			minoasDatabase.persist(this.newRoleGroup);
 
 			info("role group #0, successfully saved, with totally #1 roles registered.", this.newRoleGroup,
 					this.newRoleGroup.getRoles().size());
@@ -139,10 +139,10 @@ public class RoleGroupManagementBean extends BaseStatefulSeamComponentImpl imple
 	public void updateRoleGroup() {
 		info("trying to update existing #0 role group", this.roleGroup);
 		for (Role role : roleGroup.getRoles()) {
-			em.merge(role);
+			minoasDatabase.merge(role);
 		}
-		em.merge(roleGroup);
-		em.flush();
+		minoasDatabase.merge(roleGroup);
+		minoasDatabase.flush();
 		search();
 	}
 

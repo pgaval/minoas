@@ -5,14 +5,11 @@ package gr.sch.ira.minoas.model.security;
 
 import gr.sch.ira.minoas.model.BaseModel;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -39,9 +36,6 @@ public class Role extends BaseModel {
 	@Column(name = "title", nullable = true, length = 250)
 	private String title;
 
-	@SuppressWarnings("unused")
-	@Version
-	private Timestamp version;
 
 	/**
 	 * 

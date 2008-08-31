@@ -26,7 +26,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * 
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "UNIT")
 @Table(name = "MINOAS_UNIT")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)

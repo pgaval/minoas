@@ -3,8 +3,8 @@
  */
 package gr.sch.ira.minoas.session.security;
 
-import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.security.Role;
+import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
@@ -41,7 +41,7 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 
 	private String searchString;
 
-	@EJB
+	@In(value="coreSearching")
 	private CoreSearching coreSearching;
 
 	@DataModel
@@ -51,7 +51,7 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 	 * @see gr.sch.ira.minoas.session.security.IRoleManagement#selectRole()
 	 */
 	public void selectRole() {
-		this.role = em.merge(this.role);
+		this.role = minoasDatabase.merge(this.role);
 		info("role #0 selected for management", this.role);
 	}
 
@@ -63,16 +63,16 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 	@Out(required = false)
 	private Role newRole;
 
-	@PersistenceContext(type = PersistenceContextType.EXTENDED)
-	private EntityManager em;
+	@In
+	private EntityManager minoasDatabase;
 
 	/**
 	 * @see gr.sch.ira.minoas.session.security.IRoleManagement#removeRole(gr.sch.ira.minoas.model.security.Role)
 	 */
 	public void removeRole() {
-		info("trying to remove role #0 from system.", role);
-		em.remove(this.role);
-		info("removed succesfully role #0 from system.", role);
+		info("trying to remove role #0 from systminoasDatabase.", role);
+		minoasDatabase.remove(this.role);
+		info("removed succesfully role #0 from systminoasDatabase.", role);
 		search();
 	}
 
@@ -80,9 +80,9 @@ public class RoleManagementBean extends BaseStatefulSeamComponentImpl implements
 		info("about to save new role #0", this.newRole);
 		Role existing_role = coreSearching.findRole(this.newRole.getId());
 		if (existing_role == null) {
-			em.persist(this.newRole);
+			minoasDatabase.persist(this.newRole);
 			info("role #0, successfully saved.", this.newRole);
-			em.flush();
+			minoasDatabase.flush();
 			constructNewRole();
 			search();
 		}

@@ -5,7 +5,6 @@ package gr.sch.ira.minoas.model.security;
 
 import gr.sch.ira.minoas.model.BaseModel;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -16,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -84,9 +82,7 @@ public class RoleGroup extends BaseModel {
 	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	private List<Role> roles;
 
-	@SuppressWarnings("unused")
-	@Version
-	private Timestamp version;
+	
 
 	/**
 	 * 

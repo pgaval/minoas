@@ -1,5 +1,8 @@
 package gr.sch.ira.minoas.model.employement;
 
+import gr.sch.ira.minoas.model.employee.Employee;
+import gr.sch.ira.minoas.model.employee.RegularEmployee;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -16,6 +19,17 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @DiscriminatorValue("REGULAR_EMPLOYMENT")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class RegularEmployment extends Employment {
+
+	/**
+	 * @see gr.sch.ira.minoas.model.employement.Employment#getEmployee()
+	 */
+	@Override
+	public RegularEmployee getEmployee() {
+		Employee e = super.getEmployee();
+		if(e instanceof RegularEmployee) 
+		return (RegularEmployee)e;
+		else throw new RuntimeException("regular employment needs to point to a regular employee");
+	}
 
 	/**
 	 * 
@@ -74,6 +88,17 @@ public class RegularEmployment extends Employment {
 	 */
 	public void setWorkingHoursDecrementReason(String workingHoursDecrementReason) {
 		this.workingHoursDecrementReason = workingHoursDecrementReason;
+	}
+	
+	public RegularEmployee getRegularEmployee() {
+		System.err.println(getEmployee());
+		return null;
+	}
+	
+	public Integer getFinalWorkingHours() {
+		if(getWorkingHoursDecrement()!=null)
+			return getMandatoryWorkingHours()-getWorkingHoursDecrement();
+		else return getMandatoryWorkingHours();
 	}
 
 }

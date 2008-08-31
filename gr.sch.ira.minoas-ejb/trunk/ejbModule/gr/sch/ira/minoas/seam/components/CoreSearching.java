@@ -1,14 +1,14 @@
-package gr.sch.ira.minoas.core.session;
+package gr.sch.ira.minoas.seam.components;
 
 import gr.sch.ira.minoas.model.core.OrganizationalOffice;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Specialization;
-import gr.sch.ira.minoas.model.employement.Employment;
+import gr.sch.ira.minoas.model.employement.DeputyEmployment;
+import gr.sch.ira.minoas.model.employement.RegularEmployment;
 import gr.sch.ira.minoas.model.security.Principal;
 import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.model.security.RoleGroup;
-import gr.sch.ira.minoas.model.voids.TeachingRequirement;
 
 import java.util.List;
 
@@ -17,10 +17,7 @@ import javax.persistence.EntityManager;
 
 @Remote
 public interface CoreSearching {
-	public List<TeachingRequirement> searchVoids(School school);
-
-	public List<TeachingRequirement> searchVoids(School school, Specialization specialization, int minHours);
-
+	
 	/**
 	 * Searches for schools with a given pattern.
 	 * @param school_search_pattern
@@ -61,6 +58,15 @@ public interface CoreSearching {
 	public SchoolYear getActiveSchoolYear();
 	
 	public SchoolYear getActiveSchoolYear(EntityManager entityManager);
+	
+	public List<RegularEmployment> getSchoolRegularEmployments(EntityManager entityManager, SchoolYear schoolyear, School school);
+	
+	public List<RegularEmployment> getSchoolRegularEmployments(SchoolYear schoolyear, School school);
+	
+	
+	public List<DeputyEmployment> getSchoolDeputyEmployments(SchoolYear schoolyear, School school);
+	
+	
 	
 	
 

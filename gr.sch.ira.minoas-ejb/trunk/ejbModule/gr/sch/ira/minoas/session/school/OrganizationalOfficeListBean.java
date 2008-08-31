@@ -3,8 +3,8 @@
  */
 package gr.sch.ira.minoas.session.school;
 
-import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.core.OrganizationalOffice;
+import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
@@ -17,6 +17,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateful;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.security.Restrict;
@@ -32,7 +33,7 @@ import org.jboss.seam.annotations.security.Restrict;
 @Local( { IBaseStatefulSeamComponent.class, IOrganizationalOfficeList.class })
 public class OrganizationalOfficeListBean extends BaseStatefulSeamComponentImpl implements IOrganizationalOfficeList {
 
-	@EJB
+	@In(value="coreSearching")
 	private CoreSearching coreSearching;
 
 	public List<OrganizationalOffice> organizationalOfficesList;

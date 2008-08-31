@@ -3,8 +3,8 @@
  */
 package gr.sch.ira.minoas.session;
 
-import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.core.SchoolYear;
+import gr.sch.ira.minoas.seam.components.CoreSearching;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -41,11 +41,11 @@ public class SchoolYearAdminBean extends BaseStatefulSeamComponentImpl
 	@Out(value = "schoolYear", required = false, scope = ScopeType.CONVERSATION)
 	private SchoolYear activeSchoolYear;
 
-	@EJB
+	@In(value="coreSearching")
 	private CoreSearching coreSearching;
 
-	@PersistenceContext
-	private EntityManager em;
+	@In
+	private EntityManager minoasDatabase;
 
 	@DataModel(scope = ScopeType.PAGE, value = "availableSchoolYears")
 	private List<SchoolYear> schoolYears;
@@ -129,23 +129,17 @@ public class SchoolYearAdminBean extends BaseStatefulSeamComponentImpl
 		try {
 			info("trying to save/update school year #0", schoolYear);
 			SchoolYear currentActiveSchoolYear = coreSearching
-					.getActiveSchoolYear(em);
+					.getActiveSchoolYear(minoasDatabase);
 			if (schoolYear.isCurrentSchoolYear()
 					&& currentActiveSchoolYear != null) {
 				info(
 						"the newly created or update school '#0' year is now the current active school year, thus unmarking previous active school year '#1'.",
 						schoolYear, currentActiveSchoolYear);
 				currentActiveSchoolYear.setCurrentSchoolYear(false);
-				em.merge(currentActiveSchoolYear);
+				minoasDatabase.merge(currentActiveSchoolYear);
 			}
-			if (schoolYear.getId() != null
-					&& em.find(SchoolYear.class, new Long(schoolYear.getId())) == null) {
-				em.persist(schoolYear);
-			} else {
-				em.merge(schoolYear);
-			}
-
-			em.flush();
+			minoasDatabase.merge(schoolYear);
+			minoasDatabase.flush();
 			info("school year #0 has been successufully saved/updated.",
 					schoolYear);
 			facesMessages

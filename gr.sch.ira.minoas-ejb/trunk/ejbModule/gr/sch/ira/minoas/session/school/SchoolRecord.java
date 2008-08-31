@@ -3,14 +3,15 @@
  */
 package gr.sch.ira.minoas.session.school;
 
-import java.util.List;
-
-import gr.sch.ira.minoas.core.session.CoreSearching;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.employee.Employee;
-import gr.sch.ira.minoas.model.employement.Employment;
+import gr.sch.ira.minoas.model.employement.DeputyEmployment;
+import gr.sch.ira.minoas.model.employement.RegularEmployment;
+import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
+
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -41,21 +42,22 @@ import org.jboss.seam.annotations.security.Restrict;
 public class SchoolRecord extends BaseStatefulSeamComponentImpl implements
 		ISchoolRecord {
 	
-	@PersistenceContext(type=PersistenceContextType.EXTENDED)
-	private EntityManager em;
+	@In
+	private EntityManager minoasDatabase;
 
 	@DataModel(scope=ScopeType.PAGE)
-	private List<Employment> schoolRegularEmployments;
+	private List<RegularEmployment> schoolRegularEmployments;
 	
 	@DataModel(scope=ScopeType.PAGE)
-	private List<Employee> schoolSecondmentEmployments;
+	private List<DeputyEmployment> schoolDeputyEmployments;
 	
-	@EJB
+	
+	@In(value="coreSearching")
 	private CoreSearching coreSearching;
 	
 	
 	@In(required=true)
-	@Out(required=true)
+	@Out(required=true, scope=ScopeType.CONVERSATION)
 	private School selectedSchool;
 
 	/**
@@ -64,7 +66,6 @@ public class SchoolRecord extends BaseStatefulSeamComponentImpl implements
 	@Create
 	@Override
 	public void create() {
-		// TODO Auto-generated method stub
 		super.create();
 	}
 	
@@ -81,6 +82,13 @@ public class SchoolRecord extends BaseStatefulSeamComponentImpl implements
 	
 	@Factory(value="schoolRegularEmployments")
 	public String searchRegularEmployments() {
+		schoolRegularEmployments = coreSearching.getSchoolRegularEmployments(coreSearching.getActiveSchoolYear(), selectedSchool);
+		return SUCCESS_OUTCOME;
+	}
+	
+	@Factory(value="schoolDeputyEmployments")
+	public String searchDeputyEmployments() {
+		schoolDeputyEmployments = coreSearching.getSchoolDeputyEmployments(coreSearching.getActiveSchoolYear(), selectedSchool);
 		return SUCCESS_OUTCOME;
 	}
 	

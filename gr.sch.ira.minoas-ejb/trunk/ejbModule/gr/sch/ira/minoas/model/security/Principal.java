@@ -6,7 +6,6 @@ package gr.sch.ira.minoas.model.security;
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.OrganizationalOffice;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -18,7 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -65,9 +63,7 @@ public class Principal extends BaseModel {
 	@Id
 	private String username;
 
-	@SuppressWarnings("unused")
-	@Version
-	private Timestamp version;
+	
 
 	/**
 	 * 
