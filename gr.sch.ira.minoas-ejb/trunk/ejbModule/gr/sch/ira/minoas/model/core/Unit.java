@@ -3,7 +3,10 @@
  */
 package gr.sch.ira.minoas.model.core;
 
+import java.util.List;
+
 import gr.sch.ira.minoas.model.BaseModel;
+import gr.sch.ira.minoas.model.employement.Secondment;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,6 +18,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -41,6 +45,9 @@ public abstract class Unit extends BaseModel {
 	@JoinColumn(name = "ADDRESS_ID", nullable = true)
 	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	private Address address;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="secondmentUnit")
+	private List<Secondment> secondments;
 
 	@Id
 	@Column(name = "UNIT_ID", length = 3)
@@ -101,6 +108,20 @@ public abstract class Unit extends BaseModel {
 	 */
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	/**
+	 * @return the secondments
+	 */
+	public List<Secondment> getSecondments() {
+		return secondments;
+	}
+
+	/**
+	 * @param secondments the secondments to set
+	 */
+	public void setSecondments(List<Secondment> secondments) {
+		this.secondments = secondments;
 	}
 
 }
