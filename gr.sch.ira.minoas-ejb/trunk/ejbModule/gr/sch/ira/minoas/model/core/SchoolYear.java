@@ -33,7 +33,7 @@ public class SchoolYear extends BaseModel {
 	private static final long serialVersionUID = 1L;
 
 	@Basic
-	@Column(name = "CURRENT", nullable = false, updatable = true)
+	@Column(name = "IS_CURRENT_YEAR", nullable = false, updatable = true)
 	private boolean currentSchoolYear;
 
 	@Basic
