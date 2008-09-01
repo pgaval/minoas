@@ -3,6 +3,7 @@
  */
 package gr.sch.ira.minoas.model.employement;
 
+import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.Unit;
 
 import java.util.Date;
@@ -21,17 +22,22 @@ import javax.persistence.Version;
  * @author slavikos
  * 
  */
-public class Disposal {
+public class Disposal extends BaseModel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@OneToOne
 	private Employment affectedEmployment;
 
 	@Basic
-	@Column(name = "established", nullable = true)
+	@Column(name = "ESTABLISHED", nullable = true)
 	private Date established;
 
 	@Basic
-	@Column(name = "hours", nullable = false)
+	@Column(name = "HOURS", nullable = false)
 	private Integer hours;
 
 	@Id
@@ -39,8 +45,8 @@ public class Disposal {
 	private Long id;
 
 	@OneToMany
-	@JoinColumn(name = "unit_id")
-	private Unit secondmentUnit;
+	@JoinColumn(name = "UNIT_ID")
+	private Unit disposalUnit;
 
 	@SuppressWarnings("unused")
 	@Version
