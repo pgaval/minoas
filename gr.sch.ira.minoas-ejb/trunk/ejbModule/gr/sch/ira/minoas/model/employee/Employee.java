@@ -41,11 +41,11 @@ public class Employee extends BaseModel {
 	private Address address;
 
 	@Basic
-	@Column(name = "BIRTH_DAY")
+	@Column(name = "BIRTH_DAY", nullable=true)
 	private Date dateOfBirth;
 
 	@Basic
-	@Column(name = "FATHER_NAME", nullable = false, length = 15)
+	@Column(name = "FATHER_NAME", nullable = true, length = 15)
 	private String fatherName;
 
 	@Basic
@@ -56,9 +56,13 @@ public class Employee extends BaseModel {
 	@Column(name = "EMPLOYEE_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@Basic
+	@Column(name="LEGACY_CODE", nullable=false, updatable=false, unique=true, length=6)
+	private String legacyCode;
 
 	@Basic
-	@Column(name = "ID_NUMBER", unique = true, length = 10)
+	@Column(name = "ID_NUMBER", unique = true, nullable=true, length = 10)
 	private String idNumber;
 
 	@Basic
@@ -74,7 +78,7 @@ public class Employee extends BaseModel {
 	private Specialization specialization;
 
 	@Basic
-	@Column(name = "VAT_NUMBER", unique = true, nullable = false, length = 9)
+	@Column(name = "VAT_NUMBER", unique = true, nullable = true, length = 9)
 	private String vATNumber;
 
 	@SuppressWarnings("unused")
@@ -226,5 +230,19 @@ public class Employee extends BaseModel {
 	 */
 	public void setVATNumber(String number) {
 		vATNumber = number;
+	}
+
+	/**
+	 * @return the legacyCode
+	 */
+	public String getLegacyCode() {
+		return legacyCode;
+	}
+
+	/**
+	 * @param legacyCode the legacyCode to set
+	 */
+	public void setLegacyCode(String legacyCode) {
+		this.legacyCode = legacyCode;
 	}
 }
