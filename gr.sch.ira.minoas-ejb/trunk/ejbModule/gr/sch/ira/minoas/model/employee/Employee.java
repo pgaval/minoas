@@ -36,20 +36,20 @@ public class Employee extends BaseModel {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "address_id", nullable = true)
+	@JoinColumn(name = "ADDRESS_ID", nullable = true)
 	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	private Address address;
 
 	@Basic
-	@Column(name = "birth_date")
+	@Column(name = "BIRTH_DAY")
 	private Date dateOfBirth;
 
 	@Basic
-	@Column(name = "father_name", nullable = false, length = 15)
+	@Column(name = "FATHER_NAME", nullable = false, length = 15)
 	private String fatherName;
 
 	@Basic
-	@Column(name = "first_name", nullable = false, length = 15)
+	@Column(name = "FIRST_NAME", nullable = false, length = 15)
 	private String firstName;
 
 	@Id
@@ -58,23 +58,23 @@ public class Employee extends BaseModel {
 	private Long id;
 
 	@Basic
-	@Column(name = "id_number", unique = true, length = 10)
+	@Column(name = "ID_NUMBER", unique = true, length = 10)
 	private String idNumber;
 
 	@Basic
-	@Column(name = "last_name", nullable = false, length = 35)
+	@Column(name = "LAST_NAME", nullable = false, length = 35)
 	private String lastName;
 
 	@Basic
-	@Column(name = "mother_name", nullable = true, length = 15)
+	@Column(name = "MOTHER_NAME", nullable = true, length = 15)
 	private String motherName;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "specialization_id", nullable = false, updatable = false)
+	@JoinColumn(name = "SPECIALIZATION_ID", nullable = false, updatable = false)
 	private Specialization specialization;
 
 	@Basic
-	@Column(name = "vat_number", unique = true, nullable = false, length = 9)
+	@Column(name = "VAT_NUMBER", unique = true, nullable = false, length = 9)
 	private String vATNumber;
 
 	@SuppressWarnings("unused")

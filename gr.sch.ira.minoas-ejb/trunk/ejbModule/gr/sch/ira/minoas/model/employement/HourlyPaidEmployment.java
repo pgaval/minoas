@@ -30,7 +30,7 @@ public class HourlyPaidEmployment extends Employment {
 	private static final long serialVersionUID = 1L;
 
 	@Basic
-	@Column(name = "working_hours", nullable = false)
+	@Column(name = "WORKING_HOURS", nullable = false)
 	private Integer workingHours;
 
 	/**

@@ -52,7 +52,7 @@ public class RegularEmployee extends Employee {
 	 * 
 	 */
 	@Basic
-	@Column(name = "appointment_gof", length = 4)
+	@Column(name = "APPOINTMENT_GOF", length = 4)
 	private String appointmentGOF;
 
 	/**
@@ -60,11 +60,11 @@ public class RegularEmployee extends Employee {
 	 * 
 	 */
 	@Basic
-	@Column(name = "appointment_gof_date")
+	@Column(name = "APPOINTMENT_GOF_DATE")
 	private Date appointmentGOFDate;
 
 	@Basic
-	@Column(name = "registry_id", length = 7)
+	@Column(name = "REGISTRY_ID", length = 7)
 	private String registryID;
 
 	/**

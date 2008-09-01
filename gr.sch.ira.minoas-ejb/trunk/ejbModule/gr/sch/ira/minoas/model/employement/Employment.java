@@ -45,11 +45,11 @@ public abstract class Employment extends BaseModel {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "employee_id", nullable = false)
+	@JoinColumn(name = "EMPLOYEE_ID", nullable = false)
 	private Employee employee;
 
 	@Basic
-	@Column(name = "established", nullable = true)
+	@Column(name = "ESTABLISHED", nullable = true)
 	private Date established;
 
 	@Id
@@ -58,15 +58,15 @@ public abstract class Employment extends BaseModel {
 	private Long id;
 
 	@OneToOne
-	@JoinColumn(name = "school_id", nullable = false)
+	@JoinColumn(name = "SCHOOL_ID", nullable = false)
 	private School school;
 
 	@OneToOne
-	@JoinColumn(name = "schoolyear_id")
+	@JoinColumn(name = "SCHOOL_YEAR_ID")
 	private SchoolYear schoolYear;
 
 	@Basic
-	@Column(name = "terminated", nullable = true)
+	@Column(name = "TERMINATED", nullable = true)
 	private Date terminated;
 
 	@SuppressWarnings("unused")
