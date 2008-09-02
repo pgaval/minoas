@@ -62,7 +62,7 @@ public class Employee extends BaseModel {
 	private String legacyCode;
 
 	@Basic
-	@Column(name = "ID_NUMBER", unique = true, nullable=true, length = 10)
+	@Column(name = "ID_NUMBER", unique = false, nullable=true, length = 10)
 	private String idNumber;
 
 	@Basic
@@ -78,7 +78,7 @@ public class Employee extends BaseModel {
 	private Specialization specialization;
 
 	@Basic
-	@Column(name = "VAT_NUMBER", unique = true, nullable = true, length = 9)
+	@Column(name = "VAT_NUMBER", unique = false, nullable = true, length = 10)
 	private String vATNumber;
 
 	@SuppressWarnings("unused")

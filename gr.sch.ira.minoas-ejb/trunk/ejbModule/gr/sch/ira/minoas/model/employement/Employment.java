@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +45,8 @@ public abstract class Employment extends BaseModel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
+	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	@JoinColumn(name = "EMPLOYEE_ID", nullable = false)
 	private Employee employee;
 
