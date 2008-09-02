@@ -11,7 +11,7 @@
 		<rich:panel headerClass="pagetitle" bodyClass="post">
 			<f:facet name="header">
 				<h:outputText
-					value="Διαχείρηση Σχολικής Μονάδας" />
+					value="Διαχείριση Σχολικής Μονάδας" />
 			</f:facet>
 			<rich:panel>
 			<f:facet name="header">
@@ -21,7 +21,7 @@
 				<h:panelGrid columns="2">
 					<h:panelGroup>
 						<h:panelGrid columns="2">
-							<h:outputLabel value="Κωδικός" for="schoolCode" />
+							<h:outputLabel value="Κωδ. Υπουργείου" for="schoolCode" />
 							<h:inputText id="schoolCode"
 								value="#{selectedSchool.ministryCode}" readonly="true" />
 
@@ -39,31 +39,37 @@
 						</h:panelGrid>
 					</h:panelGroup>
 					<h:panelGroup>
-						<h:panelGrid columns="4">
+						<h:panelGrid columns="2">
 							<h:outputLabel value="Διεύθυνση" for="schoolAddress" />
+							<h:outputLabel value="Αριθμός" for="schoolAddressNumber" />
 							<h:panelGroup>
 								<h:inputText id="schoolAddress"
 									value="#{selectedSchool.address.address}" readonly="true" />
 								<h:inputText value="#{selectedSchool.address.addressAdditional}"
 									readonly="true" />
 							</h:panelGroup>
-							<h:outputLabel value="Αριθμός" for="schoolAddressNumber" />
 							<h:inputText id="schoolAddressNumber"
 								value="#{selectedSchool.address.number}" size="4"
 								readonly="true" />
 							<h:outputLabel value="ΤΚ" for="schoolAddressPostalCode" />
+							<h:outputLabel value="Πόλη" for="schoolAddressCity" />
 							<h:inputText id="schoolAddressPostalCode"
 								value="#{selectedSchool.address.postCode}" size="5"
 								readonly="true" />
-							<h:outputLabel value="Πόλη" for="schoolAddressCity" />
 							<h:inputText id="schoolAddressCity"
 								value="#{selectedSchool.address.city}" size="14" readonly="true" />
-							
-							<h:panelGroup rendered="#{selectedSchool.address.latitude ne null}">
-								<h:commandButton id="showSchoolGmapButton" value="Χάρτης ..." onclick="javascript:Richfaces.showModalPanel('gmapPanel')" />
+							<h:panelGroup
+								rendered="#{selectedSchool.address.latitude ne null}">
+								<h:commandButton id="showSchoolGmapButton" value="Χάρτης ..."
+									onclick="javascript:Richfaces.showModalPanel('gmapPanel')" />
 							</h:panelGroup>
 						</h:panelGrid>
 					</h:panelGroup>
+					<f:facet name="footer">
+						<h:panelGroup>
+							<s:button value="Τέλος Διαχείρισης" action="end"/> <s:button value="Επιλογή Άλλης Μονάδας" action="selectSchool"/>
+						</h:panelGroup>
+					</f:facet>
 				</h:panelGrid>
 
 

@@ -11,6 +11,13 @@
   
   <page view-id="/school.xhtml" name="schoolPage">
   	<redirect/>
+    <transition to="startPage" name="selectSchool" />
+    <transition to="home" name="end" />
+  </page>
+  
+  <page view-id="/home.xhtml" name="home">
+    <end-conversation/>
+    <redirect />
   </page>
   
   

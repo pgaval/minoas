@@ -15,20 +15,20 @@
 			</f:facet>
 			<h:form>
 				<h:outputText
-					value="Με την παρακάτω φόρμα μπορείτε να επεξεργαστήτε σχολικές χρονίες στο σύστημα. Είναι σημαντικό να επίλεξετε τώρα αν η σχολική χρονία θα είναι ταυτόχρονα και η νεα τρέχουσα σχολική χρονία." />
+					value="Με την παρακάτω φόρμα μπορείτε να επεξεργαστείτε τα σχολικά έτη του συστήματος. Είναι σημαντικό να επίλεξετε τώρα αν το σχολικό έτος θα είναι ταυτόχρονα και το νέο τρέχων σχολικό έτος." />
 
 				<h:panelGrid columns="1">
 					<h:messages globalOnly="true" showSummary="true"/>
 					<h:panelGrid columns="2">
 						<f:facet name="header">
-							<h:outputText value="Φόρμα Επεξεργασίας Σχολικής Χρονίας" />
+							<h:outputText value="Φόρμα Επεξεργασίας Σχολικού Έτους" />
 						</f:facet>
 
 
 						<s:decorate id="schoolYearTitleDecoration"
 							template="/layout/doubleLineEdit.xhtml">
 							<ui:define name="label">
-								<h:outputText value="Τίτλος Σχολικής Χρονίας" />
+								<h:outputText value="Τίτλος Σχολικού Έτους" />
 							</ui:define>
 							<h:inputText id="schoolYearTitle" value="#{schoolYear.title}"
 								required="true" size="32" maxlength="64">
@@ -40,7 +40,7 @@
 						<s:decorate id="schoolYearIsDefaultDecoration"
 							template="/layout/edit.xhtml">
 							<ui:define name="label">
-								<h:outputText value="Τρέχουσα Σχολική Χρονία" />
+								<h:outputText value="Τρέχων Σχολικό Έτος" />
 							</ui:define>
 							<h:selectBooleanCheckbox id="schoolYearIsDefaultCheckBox"
 								value="#{schoolYear.currentSchoolYear}" />
@@ -53,7 +53,7 @@
 								<h:outputText value="Έναρξη" />
 							</ui:define>
 							<rich:calendar id="schoolYearFromDateCalendar"
-								value="#{schoolYear.startDate}" required="true" mode="ajax" />
+								value="#{schoolYear.startDate}" required="true" mode="ajax" locale="el_GR" />
 						</s:decorate>
 						<s:decorate id="schoolYearToDateDecoration"
 							template="/layout/doubleLineEdit.xhtml">
@@ -61,14 +61,14 @@
 								<h:outputText value="Λήξη" />
 							</ui:define>
 							<rich:calendar id="schoolYearToDateCalendar"
-								value="#{schoolYear.endDate}" required="true" mode="ajax" />
+								value="#{schoolYear.endDate}" required="true" mode="ajax" locale="el_GR"/>
 						</s:decorate>
 
 						<f:facet name="footer">
 							<h:panelGroup style="display:block; text-align:center">
 								<h:commandButton id="saveButton"
 									action="#{schoolYearAdmin.saveSchoolYear}"
-									value="Αποθήκευση Σχολικής Χρονίας" />
+									value="Αποθήκευση Σχολικού Έτους" />
 								<s:button id="cancelButton" action="cancel" value="Ακύρωση"
 									immediate="true" />
 							</h:panelGroup>

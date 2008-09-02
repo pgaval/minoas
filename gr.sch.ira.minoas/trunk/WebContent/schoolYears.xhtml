@@ -11,20 +11,20 @@
 	<ui:define name="body">
 		<rich:panel bodyClass="post" headerClass="pagetitle">
 			<f:facet name="header">
-				<h:outputText value="Διαχείρηση Σχολικών Χρονίων ..." />
+				<h:outputText value="Διαχείριση Σχολικών Ετών ..." />
 			</f:facet>
 			
 			<h:messages globalOnly="true" showSummary="true"/>
 			
 			<rich:dataTable var="a_schoolyear" value="#{availableSchoolYears}">
 				<f:facet name="header">
-					<h:outputText value="Λίστα Ενεργών Σχολικών Χρονίων" />
+					<h:outputText value="Λίστα Ενεργών Σχολικών Ετών" />
 				</f:facet>
 				<rich:column>
 					<f:facet name="header">
-						<h:outputText value="Σχολική Χρονία" />
+						<h:outputText value="Σχολικό Έτος" />
 					</f:facet>
-					<h:outputText value="(Τρέχουσα Σχολική Χρονία)" rendered="#{a_schoolyear.currentSchoolYear}"/>
+					<h:outputText value="(Τρέχων Σχολικό Έτος)" rendered="#{a_schoolyear.currentSchoolYear}"/>
 					<br />
 					<h:outputText value="#{a_schoolyear.title}" />
 					
@@ -53,7 +53,7 @@
 			<rich:separator></rich:separator>
 
 			<h:form>
-				<s:button value="Εισαγωγή Νέας Σχολικής Χρονίας"
+				<s:button value="Εισαγωγή Νέου Σχολικού Έτους"
 					action="#{schoolYearAdmin.newSchoolYear()}" />
 			</h:form>
 		</rich:panel>

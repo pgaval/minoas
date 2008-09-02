@@ -17,8 +17,8 @@
 <!-- header start -->
 <div id="header">
 	<div id="logo">
-		<h1>Μίνοας</h1>
-		<p>Ολοκληρωμένο Σύστημα Μηχανογράφησεις</p>
+		<h1>Μίνωας</h1>
+		<p>Ολοκληρωμένο Σύστημα Μηχανογράφησης</p>
 	</div>
 	<div id="search">
 	</div>
@@ -38,10 +38,10 @@
 	<!-- end content -->
 	<!-- start siderbar -->
 	<div id="sidebar">
-		<h2>Διαχείρηση Μίνοα</h2>
+		<h2>Διαχείριση Μίνωα</h2>
 		<rich:panelMenu mode="ajax">
 			<rich:panelMenuItem >
-				<s:link value="Σχολική Χρονία"
+				<s:link value="Σχολικά Έτη"
 					action="#{schoolYearAdmin.search()}" view="/schoolYears.xhtml" />
 			</rich:panelMenuItem>
 			<rich:panelMenuItem >
@@ -51,14 +51,14 @@
 				
 			<rich:panelMenuGroup label="Ασφάλεια και Πρόσβαση">
 			<rich:panelMenuItem>
-				<s:link value="Διαχείρηση Χρηστών"
+				<s:link value="Διαχείριση Χρηστών"
 					action="#{principalAdmin.search()}" view="/principals.xhtml" />
 			</rich:panelMenuItem>
 			<rich:panelMenuItem>
-				<s:link value="Διαχείρηση Ρόλων" view="/roles.xhtml" />
+				<s:link value="Διαχείριση Ρόλων" view="/roles.xhtml" />
 			</rich:panelMenuItem>
 			<rich:panelMenuItem>
-				<s:link value="Διαχείρηση Ομάδων" view="/roleGroups.xhtml" />
+				<s:link value="Διαχείριση Ομάδων" view="/roleGroups.xhtml" />
 			</rich:panelMenuItem>
 		</rich:panelMenuGroup>
 		</rich:panelMenu>
@@ -67,7 +67,7 @@
 		
 	<rich:panelMenu mode="ajax">
 	<rich:panelMenuItem>
-		<s:link value="Διαχείρηση Μονάδας" pageflow="school-record" propagation="join" action="#{schoolAdmin.search}"  view="/schools.xhtml"/>
+		<s:link value="Διαχείριση Μονάδας" pageflow="school-record" propagation="join" action="#{schoolAdmin.search}"  view="/schools.xhtml"/>
 	</rich:panelMenuItem>
 	</rich:panelMenu>
 
