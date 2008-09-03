@@ -31,6 +31,20 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class Employee extends BaseModel {
 
 	/**
+	 * @return the man
+	 */
+	public boolean isMan() {
+		return man;
+	}
+
+	/**
+	 * @param man the man to set
+	 */
+	public void setMan(boolean man) {
+		this.man = man;
+	}
+
+	/**
 	 * Comment for <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 1L;
@@ -80,6 +94,10 @@ public class Employee extends BaseModel {
 	@Basic
 	@Column(name = "VAT_NUMBER", unique = false, nullable = true, length = 10)
 	private String vATNumber;
+	
+	@Basic
+	@Column(name="man", nullable=true)
+	private boolean man;
 
 	@SuppressWarnings("unused")
 	@Version
