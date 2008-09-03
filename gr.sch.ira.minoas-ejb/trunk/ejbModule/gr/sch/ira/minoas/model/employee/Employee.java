@@ -3,20 +3,25 @@ package gr.sch.ira.minoas.model.employee;
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.Address;
 import gr.sch.ira.minoas.model.core.Specialization;
+import gr.sch.ira.minoas.model.core.Telephone;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -29,20 +34,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @DiscriminatorValue("EMPLOYEE")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Employee extends BaseModel {
-
-	/**
-	 * @return the man
-	 */
-	public boolean isMan() {
-		return man;
-	}
-
-	/**
-	 * @param man the man to set
-	 */
-	public void setMan(boolean man) {
-		this.man = man;
-	}
 
 	/**
 	 * Comment for <code>serialVersionUID</code>
@@ -70,10 +61,6 @@ public class Employee extends BaseModel {
 	@Column(name = "EMPLOYEE_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Basic
-	@Column(name="LEGACY_CODE", nullable=false, updatable=false, unique=true, length=6)
-	private String legacyCode;
 
 	@Basic
 	@Column(name = "ID_NUMBER", unique = false, nullable=true, length = 10)
@@ -82,6 +69,14 @@ public class Employee extends BaseModel {
 	@Basic
 	@Column(name = "LAST_NAME", nullable = false, length = 35)
 	private String lastName;
+	
+	@Basic
+	@Column(name="LEGACY_CODE", nullable=false, updatable=false, unique=true, length=10)
+	private String legacyCode;
+
+	@Basic
+	@Column(name="man", nullable=true)
+	private boolean man;
 
 	@Basic
 	@Column(name = "MOTHER_NAME", nullable = true, length = 15)
@@ -91,18 +86,18 @@ public class Employee extends BaseModel {
 	@JoinColumn(name = "SPECIALIZATION_ID", nullable = false, updatable = false)
 	private Specialization specialization;
 
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="MINOAS_EMPLOYEE_TELEPHONES")
+	private List<Telephone> telephones;
+	
 	@Basic
 	@Column(name = "VAT_NUMBER", unique = false, nullable = true, length = 10)
 	private String vATNumber;
-	
-	@Basic
-	@Column(name="man", nullable=true)
-	private boolean man;
 
 	@SuppressWarnings("unused")
 	@Version
 	private Long version;
-
+	
 	/**
 	 * 
 	 */
@@ -160,6 +155,13 @@ public class Employee extends BaseModel {
 	}
 
 	/**
+	 * @return the legacyCode
+	 */
+	public String getLegacyCode() {
+		return legacyCode;
+	}
+
+	/**
 	 * @return the motherName
 	 */
 	public String getMotherName() {
@@ -174,10 +176,24 @@ public class Employee extends BaseModel {
 	}
 
 	/**
+	 * @return the telephones
+	 */
+	public List<Telephone> getTelephones() {
+		return telephones;
+	}
+
+	/**
 	 * @return the vATNumber
 	 */
 	public String getVATNumber() {
 		return vATNumber;
+	}
+
+	/**
+	 * @return the man
+	 */
+	public boolean isMan() {
+		return man;
 	}
 
 	/**
@@ -230,6 +246,20 @@ public class Employee extends BaseModel {
 	}
 
 	/**
+	 * @param legacyCode the legacyCode to set
+	 */
+	public void setLegacyCode(String legacyCode) {
+		this.legacyCode = legacyCode;
+	}
+
+	/**
+	 * @param man the man to set
+	 */
+	public void setMan(boolean man) {
+		this.man = man;
+	}
+
+	/**
 	 * @param motherName the motherName to set
 	 */
 	public void setMotherName(String motherName) {
@@ -244,23 +274,16 @@ public class Employee extends BaseModel {
 	}
 
 	/**
+	 * @param telephones the telephones to set
+	 */
+	public void setTelephones(List<Telephone> telephones) {
+		this.telephones = telephones;
+	}
+
+	/**
 	 * @param number the vATNumber to set
 	 */
 	public void setVATNumber(String number) {
 		vATNumber = number;
-	}
-
-	/**
-	 * @return the legacyCode
-	 */
-	public String getLegacyCode() {
-		return legacyCode;
-	}
-
-	/**
-	 * @param legacyCode the legacyCode to set
-	 */
-	public void setLegacyCode(String legacyCode) {
-		this.legacyCode = legacyCode;
 	}
 }

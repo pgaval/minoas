@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.jboss.seam.annotations.Name;
 
 import gr.sch.ira.minoas.model.BaseModel;
 

@@ -10,5 +10,6 @@ package gr.sch.ira.minoas.model.core;
 public enum TelephoneNumberType {
 	HOME,
 	WORK,
-	MOBILE
+	MOBILE,
+	FAX
 }

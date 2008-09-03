@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -57,6 +58,10 @@ public abstract class Unit extends BaseModel {
 	@Column(name = "TITLE", nullable = false, unique = true, length = 80)
 	private String title;
 
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="MINOAS_UNIT_TELEPHONES")
+	private List<Telephone> telephones;
+	
 	@SuppressWarnings("unused")
 	@Version
 	private Long version;
@@ -122,6 +127,20 @@ public abstract class Unit extends BaseModel {
 	 */
 	public void setSecondments(List<Secondment> secondments) {
 		this.secondments = secondments;
+	}
+
+	/**
+	 * @return the telephones
+	 */
+	public List<Telephone> getTelephones() {
+		return telephones;
+	}
+
+	/**
+	 * @param telephones the telephones to set
+	 */
+	public void setTelephones(List<Telephone> telephones) {
+		this.telephones = telephones;
 	}
 
 }
