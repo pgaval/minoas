@@ -39,11 +39,11 @@ public class TeachingRequirement extends BaseModel {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "SPECIALIZATION_ID")
 	private Specialization specialization;
 	
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "SCHOOL_YEAR_ID")
 	private SchoolYear schoolYear;
 	

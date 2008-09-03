@@ -76,7 +76,7 @@ public class Employee extends BaseModel {
 
 	@Basic
 	@Column(name="man", nullable=true)
-	private boolean man;
+	private Boolean man;
 
 	@Basic
 	@Column(name = "MOTHER_NAME", nullable = true, length = 15)
@@ -192,7 +192,7 @@ public class Employee extends BaseModel {
 	/**
 	 * @return the man
 	 */
-	public boolean isMan() {
+	public Boolean isMan() {
 		return man;
 	}
 
@@ -255,7 +255,7 @@ public class Employee extends BaseModel {
 	/**
 	 * @param man the man to set
 	 */
-	public void setMan(boolean man) {
+	public void setMan(Boolean man) {
 		this.man = man;
 	}
 
