@@ -2,7 +2,6 @@ package gr.sch.ira.minoas.model.employee;
 
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.Address;
-import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.core.Telephone;
 
 import java.util.Date;
@@ -81,10 +80,6 @@ public class Employee extends BaseModel {
 	@Basic
 	@Column(name = "MOTHER_NAME", nullable = true, length = 15)
 	private String motherName;
-
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "SPECIALIZATION_ID", nullable = false, updatable = false)
-	private Specialization specialization;
 
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="MINOAS_EMPLOYEE_TELEPHONES")
@@ -168,12 +163,7 @@ public class Employee extends BaseModel {
 		return motherName;
 	}
 
-	/**
-	 * @return the specialization
-	 */
-	public Specialization getSpecialization() {
-		return specialization;
-	}
+	
 
 	/**
 	 * @return the telephones
@@ -266,12 +256,6 @@ public class Employee extends BaseModel {
 		this.motherName = motherName;
 	}
 
-	/**
-	 * @param specialization the specialization to set
-	 */
-	public void setSpecialization(Specialization specialization) {
-		this.specialization = specialization;
-	}
 
 	/**
 	 * @param telephones the telephones to set

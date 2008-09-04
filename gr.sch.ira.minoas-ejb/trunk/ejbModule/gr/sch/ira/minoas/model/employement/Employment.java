@@ -3,6 +3,7 @@ package gr.sch.ira.minoas.model.employement;
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
+import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.employee.Employee;
 
 import java.util.Date;
@@ -67,10 +68,15 @@ public abstract class Employment extends BaseModel {
 	@JoinColumn(name = "SCHOOL_YEAR_ID")
 	private SchoolYear schoolYear;
 
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "SPECIALIZATION_ID", nullable = false, updatable = false)
+	private Specialization specialization;
+
 	@Basic
 	@Column(name = "TERMINATED", nullable = true)
 	private Date terminated;
-
+	
+	
 	@SuppressWarnings("unused")
 	@Version
 	private Long version;
@@ -119,6 +125,13 @@ public abstract class Employment extends BaseModel {
 	}
 
 	/**
+	 * @return the specialization
+	 */
+	public Specialization getSpecialization() {
+		return specialization;
+	}
+
+	/**
 	 * @return the terminated
 	 */
 	public Date getTerminated() {
@@ -158,6 +171,13 @@ public abstract class Employment extends BaseModel {
 	 */
 	public void setSchoolYear(SchoolYear schoolYear) {
 		this.schoolYear = schoolYear;
+	}
+
+	/**
+	 * @param specialization the specialization to set
+	 */
+	public void setSpecialization(Specialization specialization) {
+		this.specialization = specialization;
 	}
 
 	/**
