@@ -35,12 +35,12 @@
 						<f:facet name="header">Πατρώνυμο</f:facet>
 						<h:outputText value="#{regularEmployment.employee.fatherName}" />
 					</rich:column>
-					<rich:column sortBy="#{regularEmployment.employee.specialization.id}" sortOrder="ASCENDING">
+					<rich:column sortBy="#{regularEmployment.specialization.id}" sortOrder="ASCENDING">
 						<f:facet name="header">Ειδικότητα</f:facet>
 						<h:outputText id="specializationText"
-							value="#{regularEmployment.employee.specialization.id}">
+							value="#{regularEmployment.specialization.id}">
 							<rich:toolTip for="specializationText"
-								value="#{regularEmployment.employee.specialization.title}" />
+								value="#{regularEmployment.specialization.title}" />
 						</h:outputText>
 					</rich:column>
 					<rich:column sortyBy="#{regularEmployment.mandatoryWorkingHours}">
