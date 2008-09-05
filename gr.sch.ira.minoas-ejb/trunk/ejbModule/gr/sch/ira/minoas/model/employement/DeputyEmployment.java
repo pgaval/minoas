@@ -7,6 +7,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -25,21 +28,39 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class DeputyEmployment extends Employment {
 
 	/**
+	 * @return the secondment
+	 */
+	public Secondment getSecondment() {
+		return secondment;
+	}
+
+	/**
+	 * @param secondment the secondment to set
+	 */
+	public void setSecondment(Secondment secondment) {
+		this.secondment = secondment;
+	}
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@Basic
-	@Column(name = "m_wh", nullable = false)
+	@Column(name = "MANDATORY_WORK_HRS", nullable = false)
 	private Integer mandatoryWorkingHours;
 
 	@Basic
-	@Column(name = "wh_decr", nullable = true)
+	@Column(name = "WORK_HRS_DECR", nullable = true)
 	private Integer workingHoursDecrement;
 
 	@Basic
-	@Column(name = "wh_decr_reason", nullable = true)
+	@Column(name = "WORK_HRS_DECR_REASON", nullable = true)
 	private String workingHoursDecrementReason;
+	
+	@ManyToOne(fetch=FetchType.EAGER, optional=true)
+	@JoinColumn(name="SECONDMENT_ID", nullable=true)
+	private Secondment secondment;
 
 	/**
 	 * 

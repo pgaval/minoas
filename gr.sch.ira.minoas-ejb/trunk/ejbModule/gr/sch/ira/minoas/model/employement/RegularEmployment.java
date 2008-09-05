@@ -9,7 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -40,7 +40,7 @@ public class RegularEmployment extends Employment {
 	@Column(name = "WORK_HRS_DECR_REASON", nullable = true)
 	private String workingHoursDecrementReason;
 	
-	@OneToOne(fetch=FetchType.EAGER, optional=true)
+	@ManyToOne(fetch=FetchType.EAGER, optional=true)
 	@JoinColumn(name="SECONDMENT_ID", nullable=true)
 	private Secondment secondment;
 
