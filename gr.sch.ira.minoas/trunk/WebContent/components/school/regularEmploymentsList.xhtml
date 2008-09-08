@@ -11,7 +11,7 @@
 	<h:outputText value="Στον παρακάτω πίνακα εμφανίζονται όλοι οι μόνιμοι καθηγητές που κατέχουν οργανική θέση στην σχολική μονάδα που επιλέξατε." />
 			<h:form>
 				<rich:dataTable id="regularEmploymentsList" var="regularEmployment"
-					value="#{schoolRegularEmployments}" border="0" rows="15"
+					value="#{regularEmploymentsSearchResult}" border="0" rows="15"
 					onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
 					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 					width="100%">
@@ -24,7 +24,7 @@
 					</rich:column>
 					<rich:column sortBy="#{regularEmployment.employee.lastName}" sortOrder="ASCENDING">
 						<f:facet name="header">Επώνυμο</f:facet>
-						<s:link propagation="new">
+						<s:link action="selectEmployee">
 						<h:outputText value="#{regularEmployment.employee.lastName}" />
 						</s:link>
 					</rich:column>

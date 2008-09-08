@@ -13,6 +13,14 @@
   	<redirect/>
     <transition to="startPage" name="selectSchool" />
     <transition to="home" name="end" />
+    <transition to="employeePage" name="selectEmployee">
+        
+    </transition>
+  </page>
+  
+  <page view-id="/employee.xhtml" name="employeePage">
+    <redirect/>
+    <transition to="schoolPage" name="back" />
   </page>
   
   <page view-id="/home.xhtml" name="home">

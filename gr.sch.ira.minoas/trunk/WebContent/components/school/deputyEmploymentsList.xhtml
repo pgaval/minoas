@@ -8,7 +8,14 @@
 <ui:component>
 	<h:form>
 		<rich:dataTable id="deputyEmploymentsList" var="deputyEmployment"
-			value="#{schoolDeputyEmployments}">
+			value="#{deputyEmploymentsSearchResult}"  border="0" rows="15"
+					onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					width="100%">
+			<rich:column>
+				<f:facet name="header">ΑΦΜ</f:facet>
+				<h:outputText rendered="#{deputyEmployment.employee.VATNumber ne null}"  value="#{deputyEmployment.employee.VATNumber}" />
+			</rich:column>
 			<rich:column>
 				<f:facet name="header">Επώνυμο</f:facet>
 				<h:outputText value="#{deputyEmployment.employee.lastName}" />
@@ -34,6 +41,10 @@
 				<f:facet name="header">Υπ. Ωράριο</f:facet>
 				<h:outputText value="#{deputyEmployment.mandatoryWorkingHours}" />
 			</rich:column>
+			<rich:column sortBy="#{deputyEmployment.finalWorkingHours}">
+						<f:facet name="header">Ωράριο</f:facet>
+						<h:outputText value="#{deputyEmployment.finalWorkingHours}" />
+					</rich:column>
 			<f:facet name="footer">
 				<rich:datascroller align="left" for="deputyEmploymentsList"
 					maxPages="20" id="sc2" />
