@@ -27,6 +27,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class DeputyEmployment extends Employment {
 
+	public Integer getFinalWorkingHours() {
+		if(getWorkingHoursDecrement()!=null)
+			return getMandatoryWorkingHours()-getWorkingHoursDecrement();
+		else return getMandatoryWorkingHours();
+	}
+	
 	/**
 	 * @return the secondment
 	 */

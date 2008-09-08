@@ -39,7 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 @Stateful
 @Restrict("#{identity.loggedIn}")
 @Local( { IBaseStatefulSeamComponent.class, ISchoolRecord.class })
-public class SchoolRecord extends BaseStatefulSeamComponentImpl implements
+public class SchoolRecordBean extends BaseStatefulSeamComponentImpl implements
 		ISchoolRecord {
 	
 	@In
@@ -50,6 +50,8 @@ public class SchoolRecord extends BaseStatefulSeamComponentImpl implements
 	
 	@DataModel(scope=ScopeType.PAGE)
 	private List<DeputyEmployment> schoolDeputyEmployments;
+	
+	
 	
 	
 	@In(value="coreSearching")
