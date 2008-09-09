@@ -13,8 +13,9 @@
   	<redirect/>
     <transition to="startPage" name="selectSchool" />
     <transition to="home" name="end" />
-    <transition to="employeePage" name="selectEmployee">
-        
+    <transition to="employeePage" name="selectRegularEmployment">
+        <action name="lalaa" expression="#{regularEmploymentSearching.selectEmployment()}" />
+        <action name="selectlala" expression="#{employeeAdmin.selectEmployment(activeEmployment)}" />
     </transition>
   </page>
   

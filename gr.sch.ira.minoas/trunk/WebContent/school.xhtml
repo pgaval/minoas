@@ -1,97 +1,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:s="http://jboss.com/products/seam/taglib"
-      xmlns:rich="http://richfaces.org/rich">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich">
 
-	<ui:composition template="#{theme.template}">
-		<ui:define name="body">
+<ui:composition template="#{theme.template}">
+	<ui:define name="body">
 		<rich:panel headerClass="pagetitle" bodyClass="post">
 			<f:facet name="header">
-				<h:outputText
-					value="Διαχείριση Σχολικής Μονάδας" />
+				<h:outputText value="Διαχείριση Σχολικής Μονάδας" />
 			</f:facet>
-			<rich:panel>
-			<f:facet name="header">
-				<h:outputText
-					value="Καρτέλα Σχολικής Μονάδας #{selectedSchool.title}" />
-			</f:facet>
-				<h:panelGrid columns="2">
-					<h:panelGroup>
-						<h:panelGrid columns="2">
-							<h:outputLabel value="Κωδ. Υπουργείου" for="schoolCode" />
-							<h:inputText id="schoolCode"
-								value="#{selectedSchool.ministryCode}" readonly="true" />
 
-							<h:outputLabel value="Τίτλος" for="schoolTitle" />
-							<h:inputText id="schoolTitle" value="#{selectedSchool.title}"
-								readonly="true" />
+			<rich:simpleTogglePanel switchType="Ajax">
+				<f:facet name="header">
+					<h:outputText
+						value="Καρτέλα Σχολικής Μονάδας #{selectedSchool.title}" />
+				</f:facet>
 
-							<h:outputLabel value="Περιοχή" for="schoolRegion" />
-							<h:inputText id="schoolRegion"
-								value="#{selectedSchool.regionCode}' ΗΡΑΚΛΕΙΟΥ" readonly="true" />
-
-							<h:outputLabel value="Μόρια" for="schoolMoria" />
-							<h:inputText id="schoolMoria" value="#{selectedSchool.points}"
-								readonly="true" />
-						</h:panelGrid>
-					</h:panelGroup>
-					<h:panelGroup>
-						<h:panelGrid columns="2">
-							<h:outputLabel value="Διεύθυνση" for="schoolAddress" />
-							<h:outputLabel value="Αριθμός" for="schoolAddressNumber" />
-							<h:panelGroup>
-								<h:inputText id="schoolAddress"
-									value="#{selectedSchool.address.address}" readonly="true" />
-								<h:inputText value="#{selectedSchool.address.addressAdditional}"
-									readonly="true" />
-							</h:panelGroup>
-							<h:inputText id="schoolAddressNumber"
-								value="#{selectedSchool.address.number}" size="4"
-								readonly="true" />
-							<h:outputLabel value="ΤΚ" for="schoolAddressPostalCode" />
-							<h:outputLabel value="Πόλη" for="schoolAddressCity" />
-							<h:inputText id="schoolAddressPostalCode"
-								value="#{selectedSchool.address.postCode}" size="5"
-								readonly="true" />
-							<h:inputText id="schoolAddressCity"
-								value="#{selectedSchool.address.city}" size="14" readonly="true" />
-							<h:panelGroup
-								rendered="#{selectedSchool.address.latitude ne null}">
-								<h:commandButton id="showSchoolGmapButton" value="Χάρτης ..."
-									onclick="javascript:Richfaces.showModalPanel('gmapPanel')" />
-							</h:panelGroup>
-						</h:panelGrid>
-					</h:panelGroup>
-					<f:facet name="footer">
-						<h:panelGroup>
-							<s:button value="Τέλος Διαχείρισης" action="end"/> <s:button value="Επιλογή Άλλης Μονάδας" action="selectSchool"/>
-						</h:panelGroup>
-					</f:facet>
-				</h:panelGrid>
+				<ui:include src="/components/school/basicInfo.xhtml" />
+			</rich:simpleTogglePanel>
 
 
-				<rich:tabPanel mode="Ajax">
+
+			<rich:tabPanel mode="Ajax">
 				<rich:tab>
 					<f:facet name="label">
 						<h:outputText value="Δύναμη Καθηγητών" />
 					</f:facet>
-					<ui:include src="/components/school/schoolEmployeesList.xhtml" /> 
+					<ui:include src="/components/school/schoolEmployeesList.xhtml" />
 				</rich:tab>
 				<rich:tab>
 					<f:facet name="label">
 						<h:outputText value="Διδακτικές Ώρες" />
 					</f:facet>
-					
-					 <ui:include src="/components/school/schoolTeachingRequirementsList.xhtml" />
+
+					<ui:include
+						src="/components/school/schoolTeachingRequirementsList.xhtml" />
 				</rich:tab>
 			</rich:tabPanel>
-		</rich:panel>
+
 		</rich:panel>
 
-	<h:form>
+		<h:form>
 			<rich:modalPanel id="gmapPanel" moveable="true" autosized="true">
 				<f:facet name="header">
 					<h:outputText value="Χάρτης Σχολικής Μονάδας" />
@@ -102,18 +54,21 @@
 
 				<rich:panel>
 					<h:panelGrid columns="1">
-					<f:view contentType="text/html">
-						<rich:gmap lat="#{selectedSchool.address.latitude}" style="width:400px;height:400px" id="gmap" zoom="13" gmapKey="ABQIAAAALql6UJN11mvFyzTxY_36aRTwM0brOpm-All5BF6PoaKBxRWWERSrVezsRzlqyhSpCiLUC7cT0U_zDg"
-							lng="#{selectedSchool.address.longitude}" mapType="G_NORMAL_MAP">
-						</rich:gmap>
-					</f:view>
-					<h:commandButton value="Επιστροφή ...." onclick="javascript:Richfaces.hideModalPanel('gmapPanel')"/>
+						<f:view contentType="text/html">
+							<rich:gmap lat="#{selectedSchool.address.latitude}"
+								style="width:400px;height:400px" id="gmap" zoom="13"
+								gmapKey="ABQIAAAALql6UJN11mvFyzTxY_36aRTwM0brOpm-All5BF6PoaKBxRWWERSrVezsRzlqyhSpCiLUC7cT0U_zDg"
+								lng="#{selectedSchool.address.longitude}" mapType="G_NORMAL_MAP">
+							</rich:gmap>
+						</f:view>
+						<h:commandButton value="Επιστροφή ...."
+							onclick="javascript:Richfaces.hideModalPanel('gmapPanel')" />
 					</h:panelGrid>
 				</rich:panel>
 			</rich:modalPanel>
 		</h:form>
 	</ui:define>
-	
+
 </ui:composition>
 
 </html>

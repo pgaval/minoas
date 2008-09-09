@@ -12,6 +12,13 @@
 			<f:facet name="header">
 				<h:outputText value="Καρτέλα Στοιχείων Προσωπικού" />
 			</f:facet>
+			<rich:simpleTogglePanel switchType="Ajax">
+				<f:facet name="header">
+					<h:outputText
+						value="Καρτέλα #{selectedEmployee.lastName} #{selectedEmployee.firstName} του #{selectedEmployee.fatherName}" />
+				</f:facet>
+				<ui:include src="/components/employee/regular/basicInfo.xhtml" />
+			</rich:simpleTogglePanel>
 			<rich:panel>
 				<f:facet name="header">
 					<h:outputText
