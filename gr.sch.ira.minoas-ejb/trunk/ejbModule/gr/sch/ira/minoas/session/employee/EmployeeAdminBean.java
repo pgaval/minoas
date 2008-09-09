@@ -26,27 +26,29 @@ import gr.sch.ira.minoas.session.school.ISchoolRecord;
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * 
  */
-@Name("employeeRecord")
+@Name("employeeAdmin")
 @Stateful
 @Restrict("#{identity.loggedIn}")
-@Local( { IBaseStatefulSeamComponent.class, IEmployeeRecord.class })
-public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
-		IEmployeeRecord {
+@Local( { IBaseStatefulSeamComponent.class, IEmployeeAdmin.class })
+public class EmployeeAdminBean extends BaseStatefulSeamComponentImpl implements
+		IEmployeeAdmin {
 	
 	/**
-	 * @see gr.sch.ira.minoas.session.employee.IEmployeeRecord#selectEmployee(gr.sch.ira.minoas.model.employee.Employee)
+	 * @see gr.sch.ira.minoas.session.employee.IEmployeeAdmin#selectEmployee(gr.sch.ira.minoas.model.employee.Employee)
 	 */
 	public String selectEmployee(Employee employee) {
 		System.err.println(employee);
-		return null;
+		this.selectedEmployee = employee;
+		return SUCCESS_OUTCOME;
 	}
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employee.IEmployeeRecord#selectEmployment(gr.sch.ira.minoas.model.employement.Employment)
+	 * @see gr.sch.ira.minoas.session.employee.IEmployeeAdmin#selectEmployment(gr.sch.ira.minoas.model.employement.Employment)
 	 */
 	public String selectEmployment(Employment employment) {
-		System.err.println(employment);
-		return null;
+		this.selectedEmployment = minoasDatabase.merge(employment);
+		this.selectedEmployee = employment.getEmployee();
+		return SUCCESS_OUTCOME;
 	}
 
 	@In(value="coreSearching")
@@ -56,10 +58,12 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 	private EntityManager minoasDatabase;
 	
 	@In(required=false)
-	@Out
+	@Out(required=false)
 	private Employee selectedEmployee;
 
-	
+	@In(required=false)
+	@Out(required=false)
+	private Employment selectedEmployment;
 	/**
 	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
 	 */

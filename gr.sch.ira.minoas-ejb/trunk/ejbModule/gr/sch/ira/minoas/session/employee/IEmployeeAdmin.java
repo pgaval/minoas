@@ -10,7 +10,7 @@ import gr.sch.ira.minoas.model.employement.Employment;
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  *
  */
-public interface IEmployeeRecord {
+public interface IEmployeeAdmin {
 	
 	public String selectEmployee(Employee employee);
 

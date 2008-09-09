@@ -20,6 +20,7 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
@@ -34,6 +35,19 @@ import org.jboss.seam.annotations.security.Restrict;
 @Local( { IBaseStatefulSeamComponent.class, IRegularEmploymentSearching.class })
 public class RegularEmploymentSearchingBean extends
 		BaseStatefulSeamComponentImpl implements IRegularEmploymentSearching {
+
+	/**
+	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearching#selectEmployment()
+	 */
+	public String selectEmployment() {
+		if(selectedRegularEmployment!=null) {
+			info("selected '#0' regular employment.", selectedRegularEmployment);
+			this.activeEmployment = selectedRegularEmployment;
+			return EMPLOYMENT_SELECTED_OUTCOME;
+		} else return FAILURE_OUTCOME;
+		
+	}
+
 
 	@In
 	private EntityManager minoasDatabase;
@@ -51,6 +65,8 @@ public class RegularEmploymentSearchingBean extends
 	@DataModelSelection 
 	private RegularEmployment selectedRegularEmployment;
 	
+	@Out(required=false, value="activeEmployment")
+	private RegularEmployment activeEmployment;
 	
 	@In(value="coreSearching")
 	private CoreSearching coreSearching;

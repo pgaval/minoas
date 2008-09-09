@@ -16,5 +16,6 @@ public interface IRegularEmploymentSearching {
 	public School getSchool();
 	public void setSchoolYear(SchoolYear schoolYear);
 	public SchoolYear getSchoolYear();
+	public String selectEmployment();
 
 }
