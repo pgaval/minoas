@@ -35,6 +35,22 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class Employee extends BaseModel {
 
 	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		sb.append(getLastName());
+		sb.append(" ");
+		sb.append(getFirstName());
+		sb.append(" ");
+		sb.append(getFatherName());
+		sb.append(" ]");
+		return sb.toString();
+	}
+
+	/**
 	 * Comment for <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 1L;

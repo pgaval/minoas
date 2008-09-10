@@ -187,4 +187,19 @@ public abstract class Employment extends BaseModel {
 		this.terminated = terminated;
 	}
 
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[ employment for ");
+		sb.append(getEmployee());
+		sb.append(" employee ");
+		sb.append(" on school unit ");
+		sb.append(getSchool());
+		sb.append(" ]");
+		return sb.toString();
+	}
+
 }

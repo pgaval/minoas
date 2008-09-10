@@ -31,22 +31,23 @@ public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements
 	/**
 	 * @see gr.sch.ira.minoas.seam.components.CoreSearching#getSchoolDeputyEmployments(gr.sch.ira.minoas.model.core.SchoolYear, gr.sch.ira.minoas.model.core.School)
 	 */
+	@SuppressWarnings("unchecked")
 	public List<DeputyEmployment> getSchoolDeputyEmployments(SchoolYear schoolyear, School school) {
 		info("fetching all deputy employments in school unit #0 during school year #1", school, schoolyear);
-		List<DeputyEmployment>  return_value  = getEntityManager().createQuery("SELECT e FROM DeputyEmployment e WHERE e.school=:school AND e.schoolYear=:schoolyear ORDER BY e.specialization.id").setParameter("school", school).setParameter("schoolyear", schoolyear).getResultList();
+		List<DeputyEmployment>  return_value  = getEntityManager().createQuery("SELECT e FROM DeputyEmployment e WHERE e.school=:school AND e.schoolYear=:schoolyear ORDER BY e.specialization.id, e.employee.lastName").setParameter("school", school).setParameter("schoolyear", schoolyear).getResultList();
 		info("found totally #0 deputy employment(s) in school unit #1 and school year #2.", return_value.size(), school, schoolyear);
 		return return_value;
-	
 	}
 
 	/**
 	 * @see gr.sch.ira.minoas.seam.components.CoreSearching#getSchoolRegularEmployments(javax.persistence.EntityManager, gr.sch.ira.minoas.model.core.SchoolYear, gr.sch.ira.minoas.model.core.School)
 	 */
+	@SuppressWarnings("unchecked")
 	public List<RegularEmployment> getSchoolRegularEmployments(EntityManager entityManager, SchoolYear schoolyear,
 			School school) {
 		info("fetching all regular employments in school unit #0 during school year #1", school, schoolyear);
 		EntityManager em = getEntityManager(entityManager);
-		List<RegularEmployment>  return_value  = em.createQuery("SELECT e FROM RegularEmployment e WHERE e.school=:school AND e.schoolYear=:schoolyear ORDER BY e.specialization.id").setParameter("school", school).setParameter("schoolyear", schoolyear).getResultList();
+		List<RegularEmployment>  return_value  = em.createQuery("SELECT e FROM RegularEmployment e WHERE e.school=:school AND e.schoolYear=:schoolyear ORDER BY e.specialization.id, e.employee.lastName").setParameter("school", school).setParameter("schoolyear", schoolyear).getResultList();
 		info("found totally #0 regular employment(s) in school unit #1 and school year #2.", return_value.size(), school, schoolyear);
 		return return_value;
 	}
@@ -217,6 +218,7 @@ public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements
 	/**
 	 * @see gr.sch.ira.minoas.seam.components.CoreSearching#getAvailableOrganizationalOffices()
 	 */
+	@SuppressWarnings("unchecked")
 	public List<OrganizationalOffice> getAvailableOrganizationalOffices() {
 		debug("fetching all available organizational offices");
 		List return_value = getEntityManager().createQuery(

@@ -38,7 +38,7 @@ public class EmployeeAdminBean extends BaseStatefulSeamComponentImpl implements
 	 */
 	public String selectEmployee(Employee employee) {
 		System.err.println(employee);
-		this.selectedEmployee = employee;
+		this.activeEmployee = employee;
 		return SUCCESS_OUTCOME;
 	}
 
@@ -46,8 +46,9 @@ public class EmployeeAdminBean extends BaseStatefulSeamComponentImpl implements
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeAdmin#selectEmployment(gr.sch.ira.minoas.model.employement.Employment)
 	 */
 	public String selectEmployment(Employment employment) {
-		this.selectedEmployment = minoasDatabase.merge(employment);
-		this.selectedEmployee = employment.getEmployee();
+		this.activeEmployment = minoasDatabase.merge(employment);
+		this.activeEmployee = employment.getEmployee();
+		info("selected #0 employment and thus employee #1 for management", this.activeEmployment, this.activeEmployee);
 		return SUCCESS_OUTCOME;
 	}
 
@@ -59,11 +60,11 @@ public class EmployeeAdminBean extends BaseStatefulSeamComponentImpl implements
 	
 	@In(required=false)
 	@Out(required=false)
-	private Employee selectedEmployee;
+	private Employee activeEmployee;
 
 	@In(required=false)
 	@Out(required=false)
-	private Employment selectedEmployment;
+	private Employment activeEmployment;
 	/**
 	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
 	 */
