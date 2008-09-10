@@ -11,7 +11,7 @@
 	<h:outputText value="Στον παρακάτω πίνακα εμφανίζονται όλοι οι μόνιμοι καθηγητές που κατέχουν οργανική θέση στην σχολική μονάδα που επιλέξατε." />
 			<h:form>
 				<rich:dataTable id="regularEmploymentsList" var="regularEmployment"
-					value="#{regularEmploymentsSearchResult}" border="0" rows="15"
+					value="#{regularEmploymentsSearchResult}" sortMode="multi"  border="0" rows="10"
 					onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
 					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 					width="100%">
@@ -22,10 +22,10 @@
 						<f:facet name="header">ΑΜ</f:facet>
 						<h:outputText value="#{regularEmployment.employee.registryID}" />
 					</rich:column>
-					<rich:column sortBy="#{regularEmployment.employee.lastName}" sortOrder="ASCENDING">
+					<rich:column>
 						<f:facet name="header">Επώνυμο</f:facet>
 						<s:link  action="selectRegularEmployment">
-						<h:outputText value="#{regularEmployment.employee.lastName}" />
+							<h:outputText value="#{regularEmployment.employee.lastName}" />
 						</s:link>
 					</rich:column>
 					<rich:column>
@@ -36,7 +36,7 @@
 						<f:facet name="header">Πατρώνυμο</f:facet>
 						<h:outputText value="#{regularEmployment.employee.fatherName}" />
 					</rich:column>
-					<rich:column sortBy="#{regularEmployment.specialization.id}" sortOrder="ASCENDING">
+					<rich:column>
 						<f:facet name="header">Ειδικότητα</f:facet>
 						<h:outputText id="specializationText"
 							value="#{regularEmployment.specialization.id}">

@@ -7,7 +7,16 @@
       xmlns:rich="http://richfaces.org/rich">
 
 <ui:component>
-	<h:outputText value="#{selectedRegularEmployment}" />
+	<h:panelGrid columns="4">
+		<h:outputLabel value="Επώνυμο : " for="" />
+		<h:outputText value="#{activeEmployee.lastName}" />
+		<h:outputLabel value="Όνομα : " for="" />
+		<h:outputText value="#{activeEmployee.firstName}" />
+		<h:outputLabel value="Όνομα Πατρός : " for="" />
+		<h:outputText value="#{activeEmployee.fatherName}" />
+		<h:outputLabel value="Όνομα Μητρός : " for="" />
+		<h:outputText value="#{activeEmployee.motherName}" />
+	</h:panelGrid>
 </ui:component>
 
 </html>

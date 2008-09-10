@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:rich="http://richfaces.org/rich">
+
+<ui:component>
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Διεύθυνση" for="schoolAddress" />
+		<h:outputLabel value="Αριθμός" for="schoolAddressNumber" />
+		<h:panelGroup>
+			<h:inputText id="schoolAddress"
+				value="#{selectedSchool.address.address}" readonly="true" />
+			<h:inputText value="#{selectedSchool.address.addressAdditional}"
+				readonly="true" />
+		</h:panelGroup>
+		<h:inputText id="schoolAddressNumber"
+			value="#{selectedSchool.address.number}" size="4" readonly="true" />
+		<h:outputLabel value="ΤΚ" for="schoolAddressPostalCode" />
+		<h:outputLabel value="Πόλη" for="schoolAddressCity" />
+		<h:inputText id="schoolAddressPostalCode"
+			value="#{selectedSchool.address.postCode}" size="5" readonly="true" />
+		<h:inputText id="schoolAddressCity"
+			value="#{selectedSchool.address.city}" size="14" readonly="true" />
+		<h:panelGroup rendered="#{selectedSchool.address.latitude ne null}">
+			<h:commandButton id="showSchoolGmapButton" value="Χάρτης ..."
+				onclick="javascript:Richfaces.showModalPanel('gmapPanel')" />
+		</h:panelGroup>
+	</h:panelGrid>
+</ui:component>
+
+</html>
