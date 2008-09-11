@@ -32,9 +32,9 @@ import org.jboss.seam.annotations.security.Restrict;
 @Name("deputyEmploymentSearching")
 @Stateful
 @Restrict("#{identity.loggedIn}")
-@Local( { IBaseStatefulSeamComponent.class, IDeputyEmploymentSearching.class })
-public class DeputyEmploymentSearchingBean extends
-		BaseStatefulSeamComponentImpl implements IDeputyEmploymentSearching {
+@Local( { IBaseStatefulSeamComponent.class, IDeputyEmploymentSearch.class })
+public class DeputyEmploymentSearchBean extends
+		BaseStatefulSeamComponentImpl implements IDeputyEmploymentSearch {
 
 	@In
 	private EntityManager minoasDatabase;
@@ -58,7 +58,7 @@ public class DeputyEmploymentSearchingBean extends
 	
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearching#search()
+	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearch#search()
 	 */
 	@Factory(value="deputyEmploymentsSearchResult")
 	public String search() {
@@ -71,7 +71,7 @@ public class DeputyEmploymentSearchingBean extends
 
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IDeputyEmploymentSearching#getSchool()
+	 * @see gr.sch.ira.minoas.session.employment.IDeputyEmploymentSearch#getSchool()
 	 */
 	public School getSchool() {
 		return this.selectedSchool;
@@ -79,7 +79,7 @@ public class DeputyEmploymentSearchingBean extends
 
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IDeputyEmploymentSearching#getSchoolYear()
+	 * @see gr.sch.ira.minoas.session.employment.IDeputyEmploymentSearch#getSchoolYear()
 	 */
 	public SchoolYear getSchoolYear() {
 		return this.defaultSchoolYear;
@@ -87,7 +87,7 @@ public class DeputyEmploymentSearchingBean extends
 
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IDeputyEmploymentSearching#setSchool(gr.sch.ira.minoas.model.core.School)
+	 * @see gr.sch.ira.minoas.session.employment.IDeputyEmploymentSearch#setSchool(gr.sch.ira.minoas.model.core.School)
 	 */
 	public void setSchool(School school) {
 		this.selectedSchool = school;
@@ -95,7 +95,7 @@ public class DeputyEmploymentSearchingBean extends
 
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IDeputyEmploymentSearching#setSchoolYear(gr.sch.ira.minoas.model.core.SchoolYear)
+	 * @see gr.sch.ira.minoas.session.employment.IDeputyEmploymentSearch#setSchoolYear(gr.sch.ira.minoas.model.core.SchoolYear)
 	 */
 	public void setSchoolYear(SchoolYear schoolYear) {
 		this.defaultSchoolYear = schoolYear;

@@ -32,12 +32,12 @@ import org.jboss.seam.annotations.security.Restrict;
 @Name("regularEmploymentSearching")
 @Stateful
 @Restrict("#{identity.loggedIn}")
-@Local( { IBaseStatefulSeamComponent.class, IRegularEmploymentSearching.class })
-public class RegularEmploymentSearchingBean extends
-		BaseStatefulSeamComponentImpl implements IRegularEmploymentSearching {
+@Local( { IBaseStatefulSeamComponent.class, IRegularEmploymentSearch.class })
+public class RegularEmploymentSearchBean extends
+		BaseStatefulSeamComponentImpl implements IRegularEmploymentSearch {
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearching#selectEmployment()
+	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearch#selectEmployment()
 	 */
 	public String selectEmployment() {
 		if(selectedRegularEmployment!=null) {
@@ -73,7 +73,7 @@ public class RegularEmploymentSearchingBean extends
 	
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearching#search()
+	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearch#search()
 	 */
 	@Factory(value="regularEmploymentsSearchResult")
 	public String search() {
@@ -86,7 +86,7 @@ public class RegularEmploymentSearchingBean extends
 
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearching#getSchool()
+	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearch#getSchool()
 	 */
 	public School getSchool() {
 		return this.selectedSchool;
@@ -94,7 +94,7 @@ public class RegularEmploymentSearchingBean extends
 
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearching#getSchoolYear()
+	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearch#getSchoolYear()
 	 */
 	public SchoolYear getSchoolYear() {
 		// TODO Auto-generated method stub
@@ -103,7 +103,7 @@ public class RegularEmploymentSearchingBean extends
 
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearching#setSchool(gr.sch.ira.minoas.model.core.School)
+	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearch#setSchool(gr.sch.ira.minoas.model.core.School)
 	 */
 	public void setSchool(School school) {
 		this.selectedSchool = school;
@@ -111,7 +111,7 @@ public class RegularEmploymentSearchingBean extends
 
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearching#setSchoolYear(gr.sch.ira.minoas.model.core.SchoolYear)
+	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearch#setSchoolYear(gr.sch.ira.minoas.model.core.SchoolYear)
 	 */
 	public void setSchoolYear(SchoolYear schoolYear) {
 		this.defaultSchoolYear = schoolYear;

@@ -10,7 +10,7 @@ import gr.sch.ira.minoas.model.core.SchoolYear;
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  *
  */
-public interface IDeputyEmploymentSearching {
+public interface IDeputyEmploymentSearch {
 	public String search();
 	public void setSchool(School school);
 	public School getSchool();
