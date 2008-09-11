@@ -43,6 +43,10 @@ public class RegularEmployment extends Employment {
 	@ManyToOne(fetch=FetchType.EAGER, optional=true)
 	@JoinColumn(name="SECONDMENT_ID", nullable=true)
 	private Secondment secondment;
+	
+	@Basic
+	@Column(name="IS_TEMPORARY", nullable=true)
+	private Boolean temporary;
 
 	/**
 	 * @see gr.sch.ira.minoas.model.employement.Employment#getEmployee()
@@ -124,6 +128,20 @@ public class RegularEmployment extends Employment {
 	
 	public boolean hasSecondment() {
 		return getSecondment()!=null;
+	}
+
+	/**
+	 * @return the temporary
+	 */
+	public Boolean getTemporary() {
+		return temporary;
+	}
+
+	/**
+	 * @param temporary the temporary to set
+	 */
+	public void setTemporary(Boolean temporary) {
+		this.temporary = temporary;
 	}
 
 }
