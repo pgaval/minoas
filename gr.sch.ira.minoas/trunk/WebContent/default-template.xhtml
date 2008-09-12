@@ -38,42 +38,54 @@
 	<!-- end content -->
 	<!-- start siderbar -->
 	<div id="sidebar">
-		<h2>Διαχείριση Μίνωα</h2>
+		<h2>Μενού</h2>
 		<rich:panelMenu mode="ajax">
-			<rich:panelMenuItem >
-				<s:link value="Σχολικά Έτη"
+	<rich:panelMenuGroup label="Διαχείριση Μίνωα">
+		<rich:panelMenu mode="ajax">
+			<rich:panelMenuItem>
+				<s:link value="Σχολικά Έτη" action="#{schoolYearAdmin.search()}"
+					view="/schoolYears.xhtml" />
+			</rich:panelMenuItem>
+			<rich:panelMenuItem>
+				<s:link value="Εισαγωγή Σχολικής Μονάδας"
 					action="#{schoolYearAdmin.search()}" view="/schoolYears.xhtml" />
 			</rich:panelMenuItem>
-			<rich:panelMenuItem >
-			<s:link value="Εισαγωγή Σχολικής Μονάδας" action="#{schoolYearAdmin.search()}"
-			view="/schoolYears.xhtml" />
-			</rich:panelMenuItem>
-				
+
 			<rich:panelMenuGroup label="Ασφάλεια και Πρόσβαση">
-			<rich:panelMenuItem>
-				<s:link value="Διαχείριση Χρηστών"
-					action="#{principalAdmin.search()}" view="/principals.xhtml" />
-			</rich:panelMenuItem>
-			<rich:panelMenuItem>
-				<s:link value="Διαχείριση Ρόλων" view="/roles.xhtml" />
-			</rich:panelMenuItem>
-			<rich:panelMenuItem>
-				<s:link value="Διαχείριση Ομάδων" view="/roleGroups.xhtml" />
-			</rich:panelMenuItem>
-		</rich:panelMenuGroup>
+				<rich:panelMenu>
+					<rich:panelMenuItem>
+						<s:link value="Διαχείριση Χρηστών"
+							action="#{principalAdmin.search()}" view="/principals.xhtml" />
+					</rich:panelMenuItem>
+					<rich:panelMenuItem>
+						<s:link value="Διαχείριση Ρόλων" view="/roles.xhtml" />
+					</rich:panelMenuItem>
+					<rich:panelMenuItem>
+						<s:link value="Διαχείριση Ομάδων" view="/roleGroups.xhtml" />
+					</rich:panelMenuItem>
+				</rich:panelMenu>
+			</rich:panelMenuGroup>
 		</rich:panelMenu>
-		<h2>Σχολικές Μονάδες</h2>
-		
-		
-	<rich:panelMenu mode="ajax">
-	<rich:panelMenuItem>
-		<s:link value="Διαχείριση Μονάδας" pageflow="school-record" propagation="join" action="#{schoolAdmin.search}"  view="/schools.xhtml"/>
-	</rich:panelMenuItem>
-	</rich:panelMenu>
-
-	
-
-		<h2>Διδακτικά Κενά</h2>
+	</rich:panelMenuGroup>
+	<rich:panelMenuGroup label="Σχολικές Μονάδες">
+		<rich:panelMenu mode="ajax">
+			<rich:panelMenuItem>
+				<s:link value="Διαχείριση Μονάδας" pageflow="school-record"
+					propagation="join" action="#{schoolAdmin.search}"
+					view="/schools.xhtml" />
+			</rich:panelMenuItem>
+		</rich:panelMenu>
+	</rich:panelMenuGroup>
+	<rich:panelMenuGroup label="Προσωπικό">
+		<rich:panelMenu>
+			<rich:panelMenuItem>
+				<s:link value="Καρτέλα Εκπαιδευτικού" pageflow="employee-record"
+					propagation="join" action="#{employeeSearch.search}"
+					view="/employees.xhtml" />
+			</rich:panelMenuItem>
+		</rich:panelMenu>
+	</rich:panelMenuGroup>
+	<rich:panelMenuGroup label="Διδακτικά Κενά">
 		<rich:panelMenu mode="ajax">
 			<rich:panelMenuItem>
 				<s:link value="Εισαγωγή Νέου Κενού"
@@ -93,8 +105,13 @@
 					<s:link value="Διαχείριση Κενών Μονάδας"
 						action="#{voidManagement.beginSchoolVoidManagement()}" />
 				</rich:panelMenuItem>
-		</rich:panelMenuGroup>
-	</rich:panelMenu>
+			</rich:panelMenuGroup>
+		</rich:panelMenu>
+
+	</rich:panelMenuGroup>
+
+</rich:panelMenu>
+	
 	</div>
 	<!-- end siderbar -->
 	<div style="clear: both">&nbsp;</div>
