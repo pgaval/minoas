@@ -9,19 +9,118 @@
 
 <ui:composition template="#{theme.template}">
 	<ui:define name="body">
+		<h:form>
 		<rich:panel headerClass="pagetitle" bodyClass="post">
 			<f:facet name="header">
 			Αναζήτηση Προσωπικού
 			</f:facet>
 			<br />
-			<h:panelGrid columns="4">
-				<h:outputLabel value="Ειδικότητα" for="specializationFilter" />
-				<h:inputText value="#{employeeSearch.specializationFilter}"
-					id="specializationFilter">
+				<rich:panelBar>
+					<rich:panelBarItem label="Αναζήτηση με Προσωπικά Στοιχεία">
+						<h:panelGrid columns="4">
+							<h:outputLabel value="Επώνυμο" for="" />
+							<h:inputText value="#{employeeSearch.employeeLastNameFilter}" />
+							<h:outputLabel value="Όνομα" for="" />
+							<h:inputText value="#{employeeSearch.employeeFirstNameFilter}" />
+							<h:outputLabel value="Πατρώνυμο" for="" />
+							<h:inputText value="#{employeeSearch.employeeFatherNameFilter}" />
 
-				</h:inputText>
-			</h:panelGrid>
+							<h:outputLabel value="Ειδικότητα" for="specializationFilter" />
+
+							<h:selectOneMenu value="">
+							</h:selectOneMenu>
+							<f:facet name="footer">
+								<h:commandButton action="search" value="Αναζήτηση" />
+							</f:facet>
+						</h:panelGrid>
+					</rich:panelBarItem>
+					<rich:panelBarItem label="Αναζήτηση με ΑΦΜ">
+						<h:form id="searchEmployeeByVATNumber">
+							<h:outputLabel value="ΑΦΜ" for="afmFilter" />
+							<h:inputText id="afmFilter"
+								value="#{employeeSearch.employeeLastNameFilter}" />
+						</h:form>
+					</rich:panelBarItem>
+					<rich:panelBarItem label="Αναζήτηση με A.M.">
+						<h:form id="searchEmployeeByCodeNumber">
+							<h:outputLabel value="ΑΦΜ" for="codeFilter" />
+							<h:inputText id="codeFilter"
+								value="#{employeeSearch.employeeLastNameFilter}" />
+						</h:form>
+					</rich:panelBarItem>
+				</rich:panelBar>
+
+
+
+				<rich:dataTable id="employeeList" var="employee"
+				value="#{employeesSearchResult}" rows="15" border="0"
+				onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				width="100%">
+				<f:facet name="header">
+					<h:outputLabel value="Λίστα Σχολικών Μονάδων" />
+				</f:facet>
+				<rich:column>
+					<f:facet name="header">
+						ΑΦΜ
+					</f:facet>
+					<h:outputText value="#{employee.vatNumber}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						Α.Μ.
+					</f:facet>
+					<h:outputText value="#{employee}" converter="employeeRegistryIDConverter" />
+				</rich:column>
+				
+				<rich:column>
+					<f:facet name="header">
+						Επώνυμο
+					</f:facet>
+					<h:outputText value="#{employee.lastName}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						Όνομα
+					</f:facet>
+					<h:outputText value="#{employee.firstName}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						Πατρώνυμο
+					</f:facet>
+					<h:outputText value="#{employee.fatherName}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						Μητρώνυμο
+					</f:facet>
+					<h:outputText value="#{employee.motherName}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						Έτος Γέννησης
+					</f:facet>
+					<h:outputText value="#{employee.dateOfBirth}">
+						<s:convertDateTime type="date" pattern="yyyy"/>
+					</h:outputText>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						Τύπος
+					</f:facet>
+					<h:outputText value="#{employee}" converter="employeeTypeConverter" />
+				</rich:column>
+				
+				
+				<f:facet name="footer">
+					<rich:datascroller align="left" for="employeeList" maxPages="20"
+						id="sc1" />
+				</f:facet>
+			</rich:dataTable>
+		
 		</rich:panel>
+		</h:form>
 	</ui:define>
 </ui:composition>
 
