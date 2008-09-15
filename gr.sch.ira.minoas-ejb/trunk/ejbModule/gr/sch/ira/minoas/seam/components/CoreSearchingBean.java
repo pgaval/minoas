@@ -185,7 +185,7 @@ public class CoreSearchingBean extends BaseStatelessSeamComponentImpl implements
 		return return_value;
 	}
 
-	protected String getSearchPattern(String searchString) {
+	public static final String getSearchPattern(String searchString) {
 		return searchString == null ? "%" : '%' + searchString.toLowerCase()
 				.replace('*', '%') + '%';
 	}

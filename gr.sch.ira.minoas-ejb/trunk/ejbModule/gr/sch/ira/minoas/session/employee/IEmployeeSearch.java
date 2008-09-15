@@ -20,5 +20,16 @@ public interface IEmployeeSearch {
 	public void setEmploymentFilter(Boolean employment_filter);
 	
 	public Boolean getEmploymentFilter();
+	
+	public void setEmployeeLastNameFilter(String lastname_filter);
+	
+	public void setEmployeeFirstNameFilter(String firstname_filter);
 
+	public void setEmployeeFatherNameFilter(String fathername_filter);
+	
+	public String getEmployeeLastNameFilter();
+	
+	public String getEmployeeFirstNameFilter();
+
+	public String getEmployeeFatherNameFilter();
 }

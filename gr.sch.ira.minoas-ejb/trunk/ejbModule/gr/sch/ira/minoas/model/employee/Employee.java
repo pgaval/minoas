@@ -90,7 +90,7 @@ public class Employee extends BaseModel {
 	private String legacyCode;
 
 	@Basic
-	@Column(name="man", nullable=true)
+	@Column(name="MAN", nullable=true)
 	private Boolean man;
 
 	@Basic
@@ -103,8 +103,8 @@ public class Employee extends BaseModel {
 	
 	@Basic
 	@Column(name = "VAT_NUMBER", unique = false, nullable = true, length = 10)
-	private String vATNumber;
-
+	private String vatNumber;
+	
 	@SuppressWarnings("unused")
 	@Version
 	private Long version;
@@ -188,12 +188,7 @@ public class Employee extends BaseModel {
 		return telephones;
 	}
 
-	/**
-	 * @return the vATNumber
-	 */
-	public String getVATNumber() {
-		return vATNumber;
-	}
+	
 
 	/**
 	 * @return the man
@@ -281,9 +276,18 @@ public class Employee extends BaseModel {
 	}
 
 	/**
-	 * @param number the vATNumber to set
+	 * @return the vatNumber
 	 */
-	public void setVATNumber(String number) {
-		vATNumber = number;
+	public String getVatNumber() {
+		return vatNumber;
 	}
+
+	/**
+	 * @param vatNumber the vatNumber to set
+	 */
+	public void setVatNumber(String vatNumber) {
+		this.vatNumber = vatNumber;
+	}
+
+	
 }
