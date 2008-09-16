@@ -17,6 +17,8 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -39,6 +41,7 @@ import org.jboss.seam.annotations.security.Restrict;
 @Stateful
 @Restrict("#{identity.loggedIn}")
 @Local( { IBaseStatefulSeamComponent.class, ISchoolRecord.class })
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class SchoolRecordBean extends BaseStatefulSeamComponentImpl implements
 		ISchoolRecord {
 	

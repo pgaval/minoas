@@ -6,18 +6,25 @@ import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.EntityManager;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Factory;
+import org.jboss.seam.annotations.FlushModeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
+import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
 import org.jboss.seam.faces.FacesMessages;
 
@@ -25,29 +32,47 @@ import org.jboss.seam.faces.FacesMessages;
 @Scope(ScopeType.CONVERSATION)
 @Restrict("#{identity.loggedIn}")
 @Stateful
-@Local( { IBaseStatefulSeamComponent.class, SchoolSearch.class })
-public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements SchoolSearch {
+@Local( { IBaseStatefulSeamComponent.class, ISchoolSearch.class })
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
+public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements ISchoolSearch {
 
-	@In
-	FacesMessages facesMessages;
+	@In(value = "school", required=false)
+	@Out(value = "school", required = false, scope = ScopeType.CONVERSATION)
+	private School activeSchool;
 
-	@In(required = false)
-	@Out(required = false, scope = ScopeType.CONVERSATION)
-	private School school = null;
-
-	@DataModel
-	private Collection<School> schools;
-
+	
+	
 	@In(value="coreSearching")
 	CoreSearching coreSearching;
+	
+	@In
+	private EntityManager minoasDatabase;
+
+	
+	@DataModel(scope = ScopeType.PAGE, value = "availableSchools")
+	private List<School> schools;
 
 	private String searchString;
 
-	public void schoolSearch() {
-		this.schools = coreSearching.searchShools(getSearchPattern());
-		info("searching for schools with search pattern \"#0\" returned #1 row(s).", getSearchPattern(), this.schools
-				.size());
+	@DataModelSelection
+	@Out(required = false, scope = ScopeType.CONVERSATION)
+	private School selectedSchool;
 
+	/**
+	 * @see gr.sch.ira.minoas.session.school.ISchoolSearch#beginSchoolSearchConversation()
+	 */
+	@Begin(join=true, pageflow="school-search", flushMode=FlushModeType.AUTO)
+	public String beginSchoolSearchConversation() {
+		info("school search conversation begun.");
+		return BEGIN_OUTCOME;
+	}
+
+
+	/**
+	 * @return the activeSchool
+	 */
+	public School getActiveSchool() {
+		return activeSchool;
 	}
 
 	/**
@@ -58,23 +83,36 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements S
 	}
 
 	/**
+	 * @see gr.sch.ira.minoas.session.school.ISchoolSearch#search()
+	 */
+	@Factory(value="availableSchools")
+	public String search() {
+		schools =  coreSearching.searchShools(getSearchString());
+		return SUCCESS_OUTCOME;
+	}
+
+	public String selectSchool() {
+		if(selectedSchool!=null) {
+			info("school #0 selected successfully.",selectedSchool);
+			setActiveSchool(selectedSchool);
+		}
+		return SCHOOL_SELECTED_OUTCOME;
+	
+	}
+
+	/**
+	 * @param activeSchool the activeSchool to set
+	 */
+	public void setActiveSchool(School activeSchool) {
+		this.activeSchool = activeSchool;
+	}
+
+
+	/**
 	 * @param searchString the searchString to set
 	 */
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
-	}
-
-	@Factory(value = "pattern", scope = ScopeType.EVENT)
-	public String getSearchPattern() {
-		return getSearchString() == null ? "%" : '%' + getSearchString().toLowerCase().replace('*', '%') + '%';
-	}
-
-	/**
-	 * @see gr.sch.ira.minoas.session.school.SchoolSearch#selectSchool(gr.sch.ira.minoas.model.core.School)
-	 */
-	public void selectSchool(School school) {
-		this.school = school;
-		info("school \"#0\" selected and is now part of the conversation.", this.school);
 	}
 
 }

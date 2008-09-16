@@ -7,7 +7,13 @@ public interface IEmployeeSearch {
 	
 	public String search();
 	
+	public String searchByVATNumber();
+	
+	public String searchByRegistryID();
+	
 	public String select();
+	
+	public String beginEmployeeSearchConversation();
 	
 	public void setSpecializationFilter(Specialization specialization_filter);
 	
@@ -32,4 +38,12 @@ public interface IEmployeeSearch {
 	public String getEmployeeFirstNameFilter();
 
 	public String getEmployeeFatherNameFilter();
+	
+	public void setEmployeeVATNumberFilter(String vatnumber_filter);
+	
+	public String getEmployeeVATNumberFilter();
+	
+	public void setEmployeeRegistryIDFilter(String registryid_filter);
+	
+	public String getEmployeeRegistryIDFilter();
 }

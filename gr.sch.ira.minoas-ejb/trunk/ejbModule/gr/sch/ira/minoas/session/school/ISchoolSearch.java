@@ -1,8 +1,6 @@
 package gr.sch.ira.minoas.session.school;
 
-import gr.sch.ira.minoas.model.core.School;
-
-public interface SchoolSearch {
+public interface ISchoolSearch {
 
 	/**
 	 * @return the searchString
@@ -14,10 +12,11 @@ public interface SchoolSearch {
 	 */
 	public void setSearchString(String searchString);
 
-	public String getSearchPattern();
+	
+	public String selectSchool();
 
-	public void selectSchool(School school);
-
-	public void schoolSearch();
+	public String search();
+	
+	public String beginSchoolSearchConversation();
 
 }
