@@ -28,15 +28,15 @@
 				<h:panelGrid columns="1" width="100%">
 					<h:panelGroup>
 						<h:outputLabel value="Τίτλος Σχολείου : " />
-						<h:inputText value="#{schoolAdmin.searchString}" id="searchString"
+						<h:inputText value="#{schoolSearch.searchString}" id="searchString"
 							style="width: 165px;">
 							<a4j:support event="onkeyup"
-								actionListener="#{schoolAdmin.search}"
+								actionListener="#{schoolSearch.search}"
 								status="schoolSearchStatus" />
 						</h:inputText>
 
 						<a4j:commandButton value="Αναζήτηση"
-							actionListener="#{schoolAdmin.search}"
+							actionListener="#{schoolSearch.search}"
 							status="schoolSearchStatus" />
 						<a4j:status id="schoolSearchStatus">
 							<f:facet name="start">

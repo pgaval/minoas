@@ -61,8 +61,8 @@
            <value>new-principal.jpdl.xml</value>
            <value>new-school-year.jpdl.xml</value>
            <value>edit-school-year.jpdl.xml</value>
-           <value>school-record.jpdl.xml</value>
-           <value>employee-record.jpdl.xml</value>
+           <value>school-search.jpdl.xml</value>
+           <value>employee-search.jpdl.xml</value>
        </bpm:pageflow-definitions>
    </bpm:jbpm>
    

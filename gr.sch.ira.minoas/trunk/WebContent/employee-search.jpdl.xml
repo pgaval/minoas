@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pageflow-definition xmlns="http://jboss.com/products/seam/pageflow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://jboss.com/products/seam/pageflow http://jboss.com/products/seam/pageflow-2.0.xsd" name="employee-search">
+
+  <start-state>
+    <transition to="employeeSearchPage" name="begin" />
+  </start-state>
+  
+  
+  <page view-id="/employees.xhtml" name="employeeSearchPage" >
+    <redirect/>
+    <transition name="search" to="employeeSearchPage">
+        <action name="search" expression="#{employeeSearch.search}" />
+    </transition>
+    <transition name="searchByVATNumber" to="employeeSearchPage">
+        <action name="searchByVATNumber" expression="#{employeeSearch.searchByVATNumber}" />
+    </transition>
+    <transition name="searchByRegistryID" to="employeeSearchPage">
+        <action name="searchByRegistryID" expression="#{employeeSearch.searchByRegistryID}" />
+    </transition>
+       <transition to="employeePage" name="employee-selected" />
+  </page>
+   
+  <page view-id="/employee.xhtml" name="employeePage">
+  	<redirect/>
+    <transition name="selectSchool" to="startPage"/>
+    <transition to="home" name="end" />
+    <transition to="employeePage" name="selectRegularEmployment">
+        <action name="lalaa" expression="#{regularEmploymentSearching.selectEmployment()}" />
+        <action name="selectlala" expression="#{employeeAdmin.selectEmployment(activeEmployment)}" />
+    </transition>
+  </page>
+  
+  <page view-id="/home.xhtml" name="home">
+    <end-conversation/>
+    <redirect />
+  </page>
+  
+  
+  
+</pageflow-definition>

@@ -70,18 +70,14 @@
 	<rich:panelMenuGroup label="Σχολικές Μονάδες">
 		<rich:panelMenu mode="ajax">
 			<rich:panelMenuItem>
-				<s:link value="Διαχείριση Μονάδας" pageflow="school-record"
-					propagation="join" action="#{schoolAdmin.search}"
-					view="/schools.xhtml" />
+				<s:link value="Καρτέλα Μονάδας" action="#{schoolSearch.beginSchoolSearchConversation}"/>
 			</rich:panelMenuItem>
 		</rich:panelMenu>
 	</rich:panelMenuGroup>
 	<rich:panelMenuGroup label="Προσωπικό">
 		<rich:panelMenu>
 			<rich:panelMenuItem>
-				<s:link value="Καρτέλα Εκπαιδευτικού" pageflow="employee-record"
-					propagation="join" action="#{employeeSearch.search}"
-					view="/employees.xhtml" />
+				<s:link value="Καρτέλα Εκπαιδευτικού" action="#{employeeSearch.beginEmployeeSearchConversation}" />
 			</rich:panelMenuItem>
 		</rich:panelMenu>
 	</rich:panelMenuGroup>
