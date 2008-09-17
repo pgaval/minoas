@@ -39,7 +39,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorValue("EMPLOYMENT")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public abstract class Employment extends BaseModel {
+public class Employment extends BaseModel {
 
 	/**
 	 * 

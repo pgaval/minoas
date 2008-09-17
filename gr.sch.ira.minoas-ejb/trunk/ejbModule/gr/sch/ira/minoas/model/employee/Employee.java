@@ -3,9 +3,11 @@ package gr.sch.ira.minoas.model.employee;
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.Address;
 import gr.sch.ira.minoas.model.core.Telephone;
+import gr.sch.ira.minoas.model.employement.Employment;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -21,6 +23,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -33,22 +36,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @DiscriminatorValue("EMPLOYEE")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Employee extends BaseModel {
-
-	/**
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append("[");
-		sb.append(getLastName());
-		sb.append(" ");
-		sb.append(getFirstName());
-		sb.append(" ");
-		sb.append(getFatherName());
-		sb.append(" ]");
-		return sb.toString();
-	}
 
 	/**
 	 * Comment for <code>serialVersionUID</code>
@@ -84,11 +71,11 @@ public class Employee extends BaseModel {
 	@Basic
 	@Column(name = "LAST_NAME", nullable = false, length = 35)
 	private String lastName;
-	
+
 	@Basic
 	@Column(name="LEGACY_CODE", nullable=false, updatable=false, unique=true, length=10)
 	private String legacyCode;
-
+	
 	@Basic
 	@Column(name="MAN", nullable=true)
 	private Boolean man;
@@ -105,6 +92,13 @@ public class Employee extends BaseModel {
 	@Column(name = "VAT_NUMBER", unique = false, nullable = true, length = 10)
 	private String vatNumber;
 	
+	@OneToOne
+	@JoinColumn(name="CURRENT_EMPLOYMENT_ID", nullable=true)
+	private Employment currentEmployment;
+	
+	@OneToMany(mappedBy="employee")
+	private Set<Employment> employments;
+	
 	@SuppressWarnings("unused")
 	@Version
 	private Long version;
@@ -115,7 +109,7 @@ public class Employee extends BaseModel {
 	public Employee() {
 		super();
 	}
-
+	
 	/**
 	 * @return the address
 	 */
@@ -179,13 +173,20 @@ public class Employee extends BaseModel {
 		return motherName;
 	}
 
-	
-
 	/**
 	 * @return the telephones
 	 */
 	public List<Telephone> getTelephones() {
 		return telephones;
+	}
+
+	
+
+	/**
+	 * @return the vatNumber
+	 */
+	public String getVatNumber() {
+		return vatNumber;
 	}
 
 	
@@ -276,17 +277,54 @@ public class Employee extends BaseModel {
 	}
 
 	/**
-	 * @return the vatNumber
-	 */
-	public String getVatNumber() {
-		return vatNumber;
-	}
-
-	/**
 	 * @param vatNumber the vatNumber to set
 	 */
 	public void setVatNumber(String vatNumber) {
 		this.vatNumber = vatNumber;
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		sb.append(getLastName());
+		sb.append(" ");
+		sb.append(getFirstName());
+		sb.append(" ");
+		sb.append(getFatherName());
+		sb.append(" ]");
+		return sb.toString();
+	}
+
+	/**
+	 * @return the employments
+	 */
+	public Set<Employment> getEmployments() {
+		return employments;
+	}
+
+	/**
+	 * @param employments the employments to set
+	 */
+	public void setEmployments(Set<Employment> employments) {
+		this.employments = employments;
+	}
+
+	/**
+	 * @return the currentEmployment
+	 */
+	public Employment getCurrentEmployment() {
+		return currentEmployment;
+	}
+
+	/**
+	 * @param currentEmployment the currentEmployment to set
+	 */
+	public void setCurrentEmployment(Employment currentEmployment) {
+		this.currentEmployment = currentEmployment;
 	}
 
 	

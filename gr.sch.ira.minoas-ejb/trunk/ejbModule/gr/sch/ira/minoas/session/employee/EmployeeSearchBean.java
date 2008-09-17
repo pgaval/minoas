@@ -66,7 +66,7 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 
 	private String employeeVATNumberFilter;
 
-	private Boolean employmentFilter;
+	private Boolean employeeEmploymentFilter;
 
 	@In
 	private EntityManager minoasDatabase;
@@ -87,7 +87,7 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	@Override
 	public void create() {
 		super.create();
-		setEmploymentFilter(Boolean.TRUE);
+		setEmployeeEmploymentFilter(Boolean.TRUE);
 	}
 
 	/**
@@ -134,11 +134,8 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 		return employeeVATNumberFilter;
 	}
 
-	/**
-	 * @see gr.sch.ira.minoas.session.employee.IEmployeeSearch#getEmploymentFilter()
-	 */
-	public Boolean getEmploymentFilter() {
-		return employmentFilter;
+	public Boolean getEmployeeEmploymentFilter() {
+		return this.employeeEmploymentFilter;
 	}
 
 	/**
@@ -160,25 +157,44 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	 */
 	public String search() {
 		info(
-				"searching for employees with matching '#0' last name, '#1' first name and '#2' father name. ",
+				"searching for employees with matching '#0' last name, '#1' first name and '#2' father name with employment filter set to '#3'.",
 				getEmployeeLastNameFilter(), getEmployeeFirstNameFilter(),
-				getEmployeeFatherNameFilter());
-		employees = minoasDatabase
-				.createQuery(
-						"SELECT e FROM Employee e WHERE e.lastName LIKE UPPER(:lastName) AND e.firstName LIKE UPPER(:firstName) AND e.fatherName LIKE UPPER(:fatherName) ORDER BY e.lastName ASC, e.firstName ASC")
-				.setParameter(
-						"lastName",
-						CoreSearchingBean
-								.getSearchPattern(getEmployeeLastNameFilter()))
-				.setParameter(
-						"firstName",
-						CoreSearchingBean
-								.getSearchPattern(getEmployeeFirstNameFilter()))
-				.setParameter(
-						"fatherName",
-						CoreSearchingBean
-								.getSearchPattern(getEmployeeFatherNameFilter()))
-				.getResultList();
+				getEmployeeFatherNameFilter(), getEmployeeEmploymentFilter());
+		if (getEmployeeEmploymentFilter()) {
+			employees = minoasDatabase
+					.createQuery(
+							"SELECT e FROM Employee e WHERE e.lastName LIKE UPPER(:lastName) AND e.firstName LIKE UPPER(:firstName) AND e.fatherName LIKE UPPER(:fatherName) AND e.currentEmployment IS NOT NULL  ORDER BY e.lastName ASC, e.firstName ASC")
+					.setParameter(
+							"lastName",
+							CoreSearchingBean
+									.getSearchPattern(getEmployeeLastNameFilter()))
+					.setParameter(
+							"firstName",
+							CoreSearchingBean
+									.getSearchPattern(getEmployeeFirstNameFilter()))
+					.setParameter(
+							"fatherName",
+							CoreSearchingBean
+									.getSearchPattern(getEmployeeFatherNameFilter()))
+					.getResultList();
+		} else {
+			employees = minoasDatabase
+					.createQuery(
+							"SELECT e FROM Employee e WHERE e.lastName LIKE UPPER(:lastName) AND e.firstName LIKE UPPER(:firstName) AND e.fatherName LIKE UPPER(:fatherName) ORDER BY e.lastName ASC, e.firstName ASC")
+					.setParameter(
+							"lastName",
+							CoreSearchingBean
+									.getSearchPattern(getEmployeeLastNameFilter()))
+					.setParameter(
+							"firstName",
+							CoreSearchingBean
+									.getSearchPattern(getEmployeeFirstNameFilter()))
+					.setParameter(
+							"fatherName",
+							CoreSearchingBean
+									.getSearchPattern(getEmployeeFatherNameFilter()))
+					.getResultList();
+		}
 		info("found #0 employee(s)", employees.size());
 		return SUCCESS_OUTCOME;
 	}
@@ -257,11 +273,8 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 		this.employeeVATNumberFilter = employeeVATNumberFilter;
 	}
 
-	/**
-	 * @see gr.sch.ira.minoas.session.employee.IEmployeeSearch#setEmploymentFilter(java.lang.Boolean)
-	 */
-	public void setEmploymentFilter(Boolean employment_filter) {
-		this.employmentFilter = employment_filter;
+	public void setEmployeeEmploymentFilter(Boolean employment_filter) {
+		this.employeeEmploymentFilter = employment_filter;
 	}
 
 	/**

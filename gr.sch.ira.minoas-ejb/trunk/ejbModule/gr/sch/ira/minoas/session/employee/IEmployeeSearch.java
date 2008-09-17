@@ -23,9 +23,9 @@ public interface IEmployeeSearch {
 	
 	public Specialization getSpecializationFilter();
 	
-	public void setEmploymentFilter(Boolean employment_filter);
+	public void setEmployeeEmploymentFilter(Boolean employment_filter);
 	
-	public Boolean getEmploymentFilter();
+	public Boolean getEmployeeEmploymentFilter();
 	
 	public void setEmployeeLastNameFilter(String lastname_filter);
 	
