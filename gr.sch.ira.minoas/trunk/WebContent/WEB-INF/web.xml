@@ -56,8 +56,6 @@
  <login-config>
   <auth-method>BASIC</auth-method>
  </login-config>
- <persistence-unit-ref>
- 	<persistence-unit-name>minoasDatabase</persistence-unit-name>
- </persistence-unit-ref>
+ 
 
 </web-app>

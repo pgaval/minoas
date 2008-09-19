@@ -28,7 +28,9 @@
 			</h:panelGrid>
 		</h:panelGroup>
 		<h:panelGroup>
-			<ui:include src="/components/general/address.xhtml" />
+			<ui:include src="/components/general/address.xhtml">
+				<ui:param name="address" value="#{selectedSchool.address}"/>
+			</ui:include>
 		</h:panelGroup>
 		<f:facet name="footer">
 			<h:panelGroup>

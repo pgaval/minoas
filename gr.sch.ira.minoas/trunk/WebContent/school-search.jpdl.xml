@@ -19,7 +19,6 @@
     <transition name="end" to="home"/>
     <transition name="selectRegularEmployment" to="employeePage">
         <action expression="#{regularEmploymentSearching.selectEmployment()}" />
-        <action expression="#{employeeAdmin.selectEmployment(activeEmployment)}" />
     </transition>
   </page>
   

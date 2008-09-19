@@ -26,13 +26,13 @@ a:hover {
 /* Header */
 #header {
 	width: 960px;
-	height: 120px;
+	height: 100px;
 	margin: 0 auto;
 }
 
 #logo {
 	float: left;
-	height: 120px;
+	height: 100px;
 	margin-left: 10px;
 	background: url(img/img01.jpg) no-repeat left center;
 }

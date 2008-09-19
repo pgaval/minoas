@@ -8,24 +8,24 @@
 
 <ui:component>
 	<h:panelGrid columns="2">
-		<h:outputLabel value="Διεύθυνση" for="schoolAddress" />
-		<h:outputLabel value="Αριθμός" for="schoolAddressNumber" />
+		<h:outputLabel value="Διεύθυνση" for="address" />
+		<h:outputLabel value="Αριθμός" for="addressNumber" />
 		<h:panelGroup>
-			<h:inputText id="schoolAddress"
-				value="#{selectedSchool.address.address}" readonly="true" />
-			<h:inputText value="#{selectedSchool.address.addressAdditional}"
+			<h:inputText id="address"
+				value="#{address.address}" readonly="true" />
+			<h:inputText value="#{address.addressAdditional}"
 				readonly="true" />
 		</h:panelGroup>
-		<h:inputText id="schoolAddressNumber"
-			value="#{selectedSchool.address.number}" size="4" readonly="true" />
-		<h:outputLabel value="ΤΚ" for="schoolAddressPostalCode" />
-		<h:outputLabel value="Πόλη" for="schoolAddressCity" />
-		<h:inputText id="schoolAddressPostalCode"
-			value="#{selectedSchool.address.postCode}" size="5" readonly="true" />
-		<h:inputText id="schoolAddressCity"
-			value="#{selectedSchool.address.city}" size="14" readonly="true" />
-		<h:panelGroup rendered="#{selectedSchool.address.latitude ne null}">
-			<h:commandButton id="showSchoolGmapButton" value="Χάρτης ..."
+		<h:inputText id="addressNumber"
+			value="#{address.number}" size="4" readonly="true" />
+		<h:outputLabel value="ΤΚ" for="addressPostalCode" />
+		<h:outputLabel value="Πόλη" for="addressCity" />
+		<h:inputText id="addressPostalCode"
+			value="#{address.postCode}" size="5" readonly="true" />
+		<h:inputText id="addressCity"
+			value="#{address.city}" size="14" readonly="true" />
+		<h:panelGroup rendered="#{address.latitude ne null}">
+			<h:commandButton id="showAddressGmapButton" value="Χάρτης ..."
 				onclick="javascript:Richfaces.showModalPanel('gmapPanel')" />
 		</h:panelGroup>
 	</h:panelGrid>

@@ -8,21 +8,30 @@
 
 <ui:composition template="#{theme.template}">
 	<ui:define name="body">
+		<h:form>
 		<rich:panel headerClass="pagetitle" bodyClass="post">
-			<f:facet name="header">
-				<h:outputText value="Καρτέλα Στοιχείων Προσωπικού" />
-			</f:facet>
-			<rich:simpleTogglePanel switchType="Ajax">
 				<f:facet name="header">
-					<h:outputText
-						value="Καρτέλα #{activeEmployee.lastName} #{activeEmployee.firstName} του #{activeEmployee.fatherName}" />
+					<h:outputText value="Καρτέλα Στοιχείων Προσωπικού" />
 				</f:facet>
-				<ui:include src="/components/employee/regular/basicInfo.xhtml" />
-			</rich:simpleTogglePanel>
+				<rich:simpleTogglePanel switchType="Ajax">
+					<f:facet name="header">
+						<h:outputText
+							value="Καρτέλα #{activeEmployee.lastName} #{activeEmployee.firstName} του #{activeEmployee.fatherName}" />
+					</f:facet>
+
+					<h:panelGrid columns="2">
+						<ui:include src="/components/employee/basicInfo.xhtml">
+							<ui:param name="employee" value="#{activeEmployee}" />
+						</ui:include>
+						<ui:include src="/components/general/address.xhtml">
+							<ui:param name="address" value="#{activeEmployee.address}" />
+						</ui:include>
+					</h:panelGrid>
+				</rich:simpleTogglePanel>
 		</rich:panel>
 		
 		<s:button value="Πίσω" action="back"></s:button>
-
+		</h:form>	
 	</ui:define>
 
 </ui:composition>
