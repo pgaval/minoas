@@ -5,6 +5,7 @@ package gr.sch.ira.minoas.session.employment;
 
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
+import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.model.employement.RegularEmployment;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
@@ -43,6 +44,7 @@ public class RegularEmploymentSearchBean extends
 		if(selectedRegularEmployment!=null) {
 			info("selected '#0' regular employment.", selectedRegularEmployment);
 			this.activeEmployment = selectedRegularEmployment;
+			this.activeEmployee = selectedRegularEmployment.getEmployee();
 			return EMPLOYMENT_SELECTED_OUTCOME;
 		} else return FAILURE_OUTCOME;
 		
@@ -67,6 +69,10 @@ public class RegularEmploymentSearchBean extends
 	
 	@Out(required=false, value="activeEmployment")
 	private RegularEmployment activeEmployment;
+	
+	@Out(required=false, value="activeEmployee")
+	private Employee activeEmployee;
+	
 	
 	@In(value="coreSearching")
 	private CoreSearching coreSearching;

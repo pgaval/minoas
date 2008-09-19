@@ -13,8 +13,6 @@ public interface IEmployeeSearch {
 	
 	public String select();
 	
-	public String beginEmployeeSearchConversation();
-	
 	public void setSpecializationFilter(Specialization specialization_filter);
 	
 	public void setSchoolYearFilter(SchoolYear school_year);

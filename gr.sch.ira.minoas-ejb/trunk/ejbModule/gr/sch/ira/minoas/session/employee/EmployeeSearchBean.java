@@ -22,6 +22,7 @@ import javax.persistence.Query;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
+import org.jboss.seam.annotations.Conversational;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.FlushModeType;
 import org.jboss.seam.annotations.In;
@@ -40,10 +41,11 @@ import org.jboss.seam.annotations.security.Restrict;
 @Restrict("#{identity.loggedIn}")
 @Local( { IBaseStatefulSeamComponent.class, IEmployeeSearch.class })
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
+@Conversational
 public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 		IEmployeeSearch {
 
-	@Out(value = "Employee", required = false, scope = ScopeType.CONVERSATION)
+	@Out(value = "activeEmployee", required = false, scope = ScopeType.CONVERSATION)
 	private Employee activeEmployee;
 
 	@In(value = "coreSearching")
@@ -75,7 +77,6 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	private SchoolYear schoolYearFilter;
 
 	@DataModelSelection
-	@Out(required = false, scope = ScopeType.CONVERSATION)
 	private Employee selectedEmployee;
 
 	private Specialization specializationFilter;
@@ -223,7 +224,7 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	 */
 	public String select() {
 		if (selectedEmployee != null) {
-			activeEmployee = selectedEmployee;
+			this.activeEmployee = selectedEmployee;
 			info("selected '#0' employee", activeEmployee);
 			return EMPLOYEE_SELECTED_OUTCOME;
 		} else
@@ -287,15 +288,6 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	 */
 	public void setSpecializationFilter(Specialization specialization_filter) {
 		this.specializationFilter = specializationFilter;
-	}
-
-	/**
-	 * @see gr.sch.ira.minoas.session.employee.IEmployeeSearch#beginEmployeeSearchConversation()
-	 */
-	@Begin(join = true, pageflow = "employee-search", flushMode = FlushModeType.AUTO)
-	public String beginEmployeeSearchConversation() {
-		info("being employee search conversation.");
-		return BEGIN_OUTCOME;
 	}
 
 	/**
