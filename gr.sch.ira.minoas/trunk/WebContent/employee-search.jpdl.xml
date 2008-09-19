@@ -8,7 +8,6 @@
     <transition to="employeeSearchPage" name="begin" />
   </start-state>
   
-  
   <page view-id="/employees.xhtml" name="employeeSearchPage" >
     <redirect/>
     <transition name="search" to="employeeSearchPage">
@@ -20,7 +19,9 @@
     <transition name="searchByRegistryID" to="employeeSearchPage">
         <action expression="#{employeeSearch.searchByRegistryID}" />
     </transition>
-       <transition to="employeePage" name="employee-selected" />
+    <transition to="employeePage" name="employee-selected">
+        
+    </transition>
   </page>
    
   <page view-id="/employee.xhtml" name="employeePage">

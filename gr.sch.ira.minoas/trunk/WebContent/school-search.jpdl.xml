@@ -18,8 +18,8 @@
     <transition to="schoolSearchPage" name="selectSchool" />
     <transition name="end" to="home"/>
     <transition name="selectRegularEmployment" to="employeePage">
-        <action name="lalaa" expression="#{regularEmploymentSearching.selectEmployment()}" />
-        <action name="selectlala" expression="#{employeeAdmin.selectEmployment(activeEmployment)}" />
+        <action expression="#{regularEmploymentSearching.selectEmployment()}" />
+        <action expression="#{employeeAdmin.selectEmployment(activeEmployment)}" />
     </transition>
   </page>
   
