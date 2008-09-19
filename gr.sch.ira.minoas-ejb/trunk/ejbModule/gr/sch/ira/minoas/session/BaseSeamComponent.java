@@ -22,6 +22,8 @@ public abstract class BaseSeamComponent {
 	
 	public static final String SCHOOL_SELECTED_OUTCOME ="school-selected";
 	
+	public static final String EMPLOYEE_SELECTED_OUTCOME ="employee-selected";
+	
 	public static final String EMPLOYMENT_SELECTED_OUTCOME ="employment-selected";
 
 	@Logger

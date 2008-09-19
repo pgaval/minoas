@@ -18,6 +18,7 @@ import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
@@ -29,8 +30,6 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
-
-import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
@@ -68,12 +67,12 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 
 	private Boolean employeeEmploymentFilter;
 
+	private Specialization employeeSpecializationFilter;
+
 	@In
 	private EntityManager minoasDatabase;
 
 	private SchoolYear schoolYearFilter;
-
-	private String searchString;
 
 	@DataModelSelection
 	@Out(required = false, scope = ScopeType.CONVERSATION)
@@ -160,41 +159,35 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 				"searching for employees with matching '#0' last name, '#1' first name and '#2' father name with employment filter set to '#3'.",
 				getEmployeeLastNameFilter(), getEmployeeFirstNameFilter(),
 				getEmployeeFatherNameFilter(), getEmployeeEmploymentFilter());
-		if (getEmployeeEmploymentFilter()) {
-			employees = minoasDatabase
-					.createQuery(
-							"SELECT e FROM Employee e WHERE e.lastName LIKE UPPER(:lastName) AND e.firstName LIKE UPPER(:firstName) AND e.fatherName LIKE UPPER(:fatherName) AND e.currentEmployment IS NOT NULL  ORDER BY e.lastName ASC, e.firstName ASC")
-					.setParameter(
-							"lastName",
-							CoreSearchingBean
-									.getSearchPattern(getEmployeeLastNameFilter()))
-					.setParameter(
-							"firstName",
-							CoreSearchingBean
-									.getSearchPattern(getEmployeeFirstNameFilter()))
-					.setParameter(
-							"fatherName",
-							CoreSearchingBean
-									.getSearchPattern(getEmployeeFatherNameFilter()))
-					.getResultList();
-		} else {
-			employees = minoasDatabase
-					.createQuery(
-							"SELECT e FROM Employee e WHERE e.lastName LIKE UPPER(:lastName) AND e.firstName LIKE UPPER(:firstName) AND e.fatherName LIKE UPPER(:fatherName) ORDER BY e.lastName ASC, e.firstName ASC")
-					.setParameter(
-							"lastName",
-							CoreSearchingBean
-									.getSearchPattern(getEmployeeLastNameFilter()))
-					.setParameter(
-							"firstName",
-							CoreSearchingBean
-									.getSearchPattern(getEmployeeFirstNameFilter()))
-					.setParameter(
-							"fatherName",
-							CoreSearchingBean
-									.getSearchPattern(getEmployeeFatherNameFilter()))
-					.getResultList();
+		StringBuffer sb = new StringBuffer();
+		sb
+				.append("SELECT e FROM Employee e WHERE (e.lastName LIKE UPPER(:lastName) AND e.firstName LIKE UPPER(:firstName) AND e.fatherName LIKE UPPER(:fatherName)) ");
+		if (getEmployeeEmploymentFilter())
+			sb.append("AND e.currentEmployment IS NOT NULL ");
+		if (getEmployeeSpecializationFilter() != null) {
+			sb
+					.append("AND e.currentEmployment.specialization=:specialization_filter ");
 		}
+		sb.append("ORDER BY e.lastName ASC, e.firstName ASC");
+		Query q = minoasDatabase
+				.createQuery(sb.toString())
+				.setParameter(
+						"lastName",
+						CoreSearchingBean
+								.getSearchPattern(getEmployeeLastNameFilter()))
+				.setParameter(
+						"firstName",
+						CoreSearchingBean
+								.getSearchPattern(getEmployeeFirstNameFilter()))
+				.setParameter(
+						"fatherName",
+						CoreSearchingBean
+								.getSearchPattern(getEmployeeFatherNameFilter()));
+		if (getEmployeeSpecializationFilter() != null) {
+			q = q.setParameter("specialization_filter",
+					getEmployeeSpecializationFilter());
+		}
+		employees = q.getResultList();
 		info("found #0 employee(s)", employees.size());
 		return SUCCESS_OUTCOME;
 	}
@@ -229,8 +222,13 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeSearch#select()
 	 */
 	public String select() {
-		// TODO Auto-generated method stub
-		return null;
+		if (selectedEmployee != null) {
+			activeEmployee = selectedEmployee;
+			info("selected '#0' employee", activeEmployee);
+			return EMPLOYEE_SELECTED_OUTCOME;
+		} else
+			return FAILURE_OUTCOME;
+
 	}
 
 	/**
@@ -298,5 +296,21 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	public String beginEmployeeSearchConversation() {
 		info("being employee search conversation.");
 		return BEGIN_OUTCOME;
+	}
+
+	/**
+	 * @return the employeeSpecializationFilter
+	 */
+	public Specialization getEmployeeSpecializationFilter() {
+		return employeeSpecializationFilter;
+	}
+
+	/**
+	 * @param employeeSpecializationFilter
+	 *            the employeeSpecializationFilter to set
+	 */
+	public void setEmployeeSpecializationFilter(
+			Specialization employeeSpecializationFilter) {
+		this.employeeSpecializationFilter = employeeSpecializationFilter;
 	}
 }

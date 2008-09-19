@@ -45,5 +45,9 @@ public interface IEmployeeSearch {
 	
 	public void setEmployeeRegistryIDFilter(String registryid_filter);
 	
-	public String getEmployeeRegistryIDFilter();
+	public String getEmployeeRegistryIDFilter();	
+	
+	public Specialization getEmployeeSpecializationFilter();
+	
+	public void setEmployeeSpecializationFilter(Specialization specialization_filter);
 }
