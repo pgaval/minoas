@@ -52,101 +52,56 @@
 										</ui:define>
 										<h:selectBooleanCheckbox value="#{employeeSearch.employeeEmploymentFilter}" />
 									</s:decorate>
+									<s:decorate template="/layout/doubleLineEdit.xhtml">
+										<ui:define name="label">
+											<h:outputText value="Ειδικότητα" />
+										</ui:define>
+										<h:inputText id="specializationFilter"
+											value="#{employeeSearch.employeeSpecializationFilter}"
+											converter="specializationConverter">
+											<rich:suggestionbox height="100" width="250" for="specializationFilter" var="a_spec"
+												suggestionAction="#{specializationSuggester.suggest}">
+												<f:facet name="nothingLabel">
+													<h:outputText value="Άγνωστη Ειδικότητα" />
+												</f:facet>
+												<h:column>
+													<h:outputText value="#{a_spec.id}" />
+												</h:column>
+												<h:column>
+													<h:outputText value="#{a_spec.title}" />
+												</h:column>
+											</rich:suggestionbox>
+										</h:inputText>
+									</s:decorate>
 									<h:commandButton id="searchButton" action="search"
 									value="Αναζήτηση" />
 							</h:panelGrid>
 						</h:form>
 					</h:panelGroup>
-					<h:panelGroup>
-						
-						<h:form id="searchByVATNumberForm">
-							<h:outputLabel value="ΑΦΜ Εκπαιδευτικού : " for="afmFilter" />
-							<h:inputText id="afmFilter"
-								value="#{employeeSearch.employeeVATNumberFilter}" />
-							<h:commandButton id="searchByVATNumberButton"
-								action="searchByVATNumber" value="Αναζήτηση" />
-						</h:form>
-					</h:panelGroup>
-					<h:form id="searchByRegistryIDForm">
-						<h:outputLabel value="Α.Μ Εκπαιδευτικού : " for="codeFilter" />
-						<h:inputText id="codeFilter"
-							value="#{employeeSearch.employeeRegistryIDFilter}" />
-						<h:commandButton action="searchByRegistryID" value="Αναζήτηση" />
-					</h:form>
-				</rich:simpleTogglePanel>
+						<rich:simpleTogglePanel label="Αναζήτηση Βάση ΑΦΜ ή Α.Μ"
+							opened="false">
+							<h:panelGroup>
+
+								<h:form id="searchByVATNumberForm">
+									<h:outputLabel value="ΑΦΜ Εκπαιδευτικού : " for="afmFilter" />
+									<h:inputText id="afmFilter"
+										value="#{employeeSearch.employeeVATNumberFilter}" />
+									<h:commandButton id="searchByVATNumberButton"
+										action="searchByVATNumber" value="Αναζήτηση" />
+								</h:form>
+
+								<h:form id="searchByRegistryIDForm">
+									<h:outputLabel value="Α.Μ Εκπαιδευτικού : " for="codeFilter" />
+									<h:inputText id="codeFilter"
+										value="#{employeeSearch.employeeRegistryIDFilter}" />
+									<h:commandButton action="searchByRegistryID" value="Αναζήτηση" />
+								</h:form>
+							</h:panelGroup>
+						</rich:simpleTogglePanel>
+					</rich:simpleTogglePanel>
 				</h:panelGrid>
 				<h:panelGroup>
-				<h:form>
-					<rich:dataTable id="employeeList" var="employee"
-						value="#{employeesSearchResult}" rows="15" border="0"
-						onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
-						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-						width="100%">
-						<f:facet name="header">
-							<h:outputLabel value="Λίστα Σχολικών Μονάδων" />
-						</f:facet>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="ΑΦΜ" />
-							</f:facet>
-							<h:outputText value="#{employee.vatNumber}" />
-						</rich:column>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Α.Μ." />
-							</f:facet>
-							<h:outputText value="#{employee}"
-								converter="employeeRegistryIDConverter" />
-						</rich:column>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Επώνυμο" />
-							</f:facet>
-							<h:outputText value="#{employee.lastName}" />
-						</rich:column>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Όνομα" />
-							</f:facet>
-							<h:outputText value="#{employee.firstName}" />
-						</rich:column>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Πατρώνυμο" />
-							</f:facet>
-							<h:outputText value="#{employee.fatherName}" />
-						</rich:column>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Ειδικότητα" />
-							</f:facet>
-							<h:outputText id="specializationText"
-								value="#{employee.currentEmployment.specialization.id}">
-								<rich:toolTip for="specializationText"
-									value="#{employee.currentEmployment.specialization.title}" />
-							</h:outputText>
-						</rich:column>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Έτος Γέννησης" />
-							</f:facet>
-							<h:outputText value="#{employee.dateOfBirth}">
-								<s:convertDateTime type="date" pattern="yyyy" />
-							</h:outputText>
-						</rich:column>
-						<rich:column>
-							<f:facet name="header">
-								<h:outputText value="Τύπος" />
-							</f:facet>
-							<h:outputText value="#{employee}"
-								converter="employeeTypeConverter" />
-						</rich:column>
-						<f:facet name="footer">
-							<rich:datascroller align="left" for="employeeList" maxPages="20"
-								id="sc1" />
-						</f:facet>
-					</rich:dataTable>
-				</h:form>
+					<ui:include src="/components/employee/employeeList.xhtml" />
 				</h:panelGroup>
 			</h:panelGrid>
 

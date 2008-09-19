@@ -12,13 +12,13 @@
   <page view-id="/employees.xhtml" name="employeeSearchPage" >
     <redirect/>
     <transition name="search" to="employeeSearchPage">
-        <action name="search" expression="#{employeeSearch.search}" />
+        <action expression="#{employeeSearch.search}" />
     </transition>
     <transition name="searchByVATNumber" to="employeeSearchPage">
-        <action name="searchByVATNumber" expression="#{employeeSearch.searchByVATNumber}" />
+        <action expression="#{employeeSearch.searchByVATNumber}" />
     </transition>
     <transition name="searchByRegistryID" to="employeeSearchPage">
-        <action name="searchByRegistryID" expression="#{employeeSearch.searchByRegistryID}" />
+        <action expression="#{employeeSearch.searchByRegistryID}" />
     </transition>
        <transition to="employeePage" name="employee-selected" />
   </page>
