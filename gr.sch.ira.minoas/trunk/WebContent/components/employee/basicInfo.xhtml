@@ -7,7 +7,7 @@
       xmlns:rich="http://richfaces.org/rich">
 
 <ui:component>
-	<h:panelGrid columns="4">
+	<h:panelGrid columns="6">
 		<h:outputLabel value="Επώνυμο" for="" />
 		<h:outputText value="#{employee.lastName}" />
 		<h:outputLabel value="Όνομα" for="" />
@@ -16,8 +16,14 @@
 		<h:outputText value="#{employee.fatherName}" />
 		<h:outputLabel value="Όνομα Μητρος" for="" />
 		<h:outputText value="#{employee.motherName}" />
+		<h:outputLabel value="ΑΦΜ" for="" />
+		<h:outputText value="#{employee.vatNumber}" />
+		<h:outputLabel value="ΑΜ" for="" />
+		<h:outputText value="#{employeeUtil.getRegistryID(employee)}" />
 		<h:outputLabel value="Ημ/νια Γεννήσεως" for="" />
-		<h:outputText value="" />
+		<h:outputText value="#{employee.dateOfBirth}">
+			<s:convertDateTime type="date" pattern="dd-MM-yyyy" />
+		</h:outputText>
 		<h:outputLabel value="Επώνυμο" for="" />
 		<h:outputText value="" />
 	</h:panelGrid>
