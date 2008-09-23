@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gr.sch.ira.minoas.seam.components.lala;
+package gr.sch.ira.minoas.seam.components.converters;
 
 import gr.sch.ira.minoas.model.core.Specialization;
 

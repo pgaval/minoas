@@ -1,43 +1,31 @@
 /**
  * 
  */
-package gr.sch.ira.minoas.seam.components.lala;
+package gr.sch.ira.minoas.seam.components.converters;
 
-import gr.sch.ira.minoas.model.security.RoleGroup;
+import gr.sch.ira.minoas.model.core.OrganizationalOffice;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
 
-import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.faces.Converter;
+import org.jboss.seam.framework.EntityController;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * 
  */
 @Converter
-@Name("roleGroupConverter")
+@Name("organizationalOfficeConverter")
 @Transactional
-public class RoleGroupConverter implements javax.faces.convert.Converter {
-
-	
-	@In
-	private EntityManager minoasDatabase;
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2019700284340330696L;
+public class OrganizationalOfficeConverter extends EntityController implements javax.faces.convert.Converter {
 
 	/**
 	 * 
 	 */
-	public RoleGroupConverter() {
-		// TODO Auto-generated constructor stub
-	}
+	private static final long serialVersionUID = 4376345579096455221L;
 
 	/**
 	 * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext,
@@ -45,7 +33,8 @@ public class RoleGroupConverter implements javax.faces.convert.Converter {
 	 */
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value != null) {
-			return minoasDatabase.find(RoleGroup.class, value);
+
+			return getEntityManager().find(OrganizationalOffice.class, value);
 		}
 		else
 			return null;
@@ -57,8 +46,8 @@ public class RoleGroupConverter implements javax.faces.convert.Converter {
 	 */
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
-			if (value instanceof RoleGroup) {
-				return ((RoleGroup) value).getId();
+			if (value instanceof OrganizationalOffice) {
+				return ((OrganizationalOffice) value).getId();
 			}
 			else {
 				return value.toString();
