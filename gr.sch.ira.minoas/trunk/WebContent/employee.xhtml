@@ -28,7 +28,30 @@
 						</ui:include>
 					</h:panelGrid>
 				</rich:simpleTogglePanel>
-		</rich:panel>
+
+				<rich:tabPanel mode="Ajax">
+					<rich:tab>
+						<f:facet name="label">
+							<h:outputText value="Τρέχουσα Κατάσταση" />
+						</f:facet>
+					</rich:tab>
+					<rich:tab>
+						<f:facet name="label">
+							<h:outputText value="Ιστορικό Αποσπάσεων" />
+						</f:facet>
+					</rich:tab>
+					<rich:tab>
+						<f:facet name="label">
+							<h:outputText value="Ιστορικό Διαθέσεων" />
+						</f:facet>
+					</rich:tab>
+					<rich:tab>
+						<f:facet name="label">
+							<h:outputText value="Ιστορικό Αδείων" />
+						</f:facet>
+					</rich:tab>
+				</rich:tabPanel>
+			</rich:panel>
 		
 		<s:button value="Πίσω" action="back"></s:button>
 		</h:form>	
