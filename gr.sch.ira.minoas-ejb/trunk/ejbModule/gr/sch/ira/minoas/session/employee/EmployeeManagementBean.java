@@ -44,7 +44,7 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	 */
 	@Begin(nested=true, pageflow="employee-management")
 	public String beginEmployeeManagementConversation() {
-		info("employee admin conversation begun.");
+		info("employee management conversation begun.");
 		return BEGIN_OUTCOME;
 	}
 	

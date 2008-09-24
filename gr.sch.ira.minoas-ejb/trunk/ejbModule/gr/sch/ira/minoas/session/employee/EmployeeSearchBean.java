@@ -31,6 +31,7 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
+import org.mvel.SetAccessor;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
@@ -47,6 +48,14 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 
 	@Out(value = "activeEmployee", required = false, scope = ScopeType.CONVERSATION)
 	private Employee activeEmployee;
+
+	public Employee getActiveEmployee() {
+		return activeEmployee;
+	}
+
+	public void setActiveEmployee(Employee activeEmployee) {
+		this.activeEmployee = activeEmployee;
+	}
 
 	@In(value = "coreSearching")
 	private CoreSearching coreSearching;
@@ -77,6 +86,7 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	private SchoolYear schoolYearFilter;
 
 	@DataModelSelection
+	@Out(required = false, scope = ScopeType.CONVERSATION)
 	private Employee selectedEmployee;
 
 	private Specialization specializationFilter;
@@ -224,8 +234,8 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	 */
 	public String select() {
 		if (selectedEmployee != null) {
-			this.activeEmployee = selectedEmployee;
-			info("selected '#0' employee", activeEmployee);
+			setActiveEmployee(selectedEmployee);
+			info("selected '#0' employee", getActiveEmployee());
 			return EMPLOYEE_SELECTED_OUTCOME;
 		} else
 			return FAILURE_OUTCOME;
