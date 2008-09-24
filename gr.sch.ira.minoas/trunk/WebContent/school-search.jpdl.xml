@@ -20,6 +20,11 @@
     <transition name="selectRegularEmployment" to="employeePage">
         <action expression="#{regularEmploymentSearching.selectEmployment()}" />
     </transition>
+    <transition name="selectDeputyEmployment" to="employeePage">
+        <action expression="#{deputyEmploymentSearching.selectEmployment()}" />
+    </transition>
+    
+    
   </page>
   
   <page view-id="/employee.xhtml" name="employeePage">

@@ -30,9 +30,14 @@
 				</rich:simpleTogglePanel>
 
 				<rich:tabPanel mode="Ajax">
-					<rich:tab>
+					<rich:tab rendered="#{employeeUtil.isRegular(activeEmployee)}">
 						<f:facet name="label">
-							<h:outputText value="Τρέχουσα Κατάσταση" />
+							<h:outputText value="Ιστορικό Οργανικών Θέσεων" />
+						</f:facet>
+					</rich:tab>
+					<rich:tab rendered="#{employeeUtil.isDeputy(activeEmployee)}">
+						<f:facet name="label">
+							<h:outputText value="Ιστορικό Τοποθετήσεων Αναπληρωτή" />
 						</f:facet>
 					</rich:tab>
 					<rich:tab>
@@ -47,7 +52,7 @@
 					</rich:tab>
 					<rich:tab>
 						<f:facet name="label">
-							<h:outputText value="Ιστορικό Αδείων" />
+							<h:outputText value="Ιστορικό Αδειών" />
 						</f:facet>
 					</rich:tab>
 				</rich:tabPanel>

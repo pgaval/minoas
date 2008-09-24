@@ -21,7 +21,7 @@
     </transition>
     
     <transition to="employeePage" name="employee-selected">
-        <action expression="#{employeeSearch.select}" />
+        <action expression="#{employeeSearch.select()}" />
     </transition>
     
   </page>
