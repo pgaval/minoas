@@ -7,7 +7,7 @@ import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
-import gr.sch.ira.minoas.seam.components.CoreSearchingBean;
+import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
@@ -85,8 +85,7 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 
 	private SchoolYear schoolYearFilter;
 
-	@DataModelSelection
-	@Out(required = false, scope = ScopeType.CONVERSATION)
+	@DataModelSelection("employeesSearchResult")
 	private Employee selectedEmployee;
 
 	private Specialization specializationFilter;
@@ -184,15 +183,15 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 				.createQuery(sb.toString())
 				.setParameter(
 						"lastName",
-						CoreSearchingBean
+						CoreSearching
 								.getSearchPattern(getEmployeeLastNameFilter()))
 				.setParameter(
 						"firstName",
-						CoreSearchingBean
+						CoreSearching
 								.getSearchPattern(getEmployeeFirstNameFilter()))
 				.setParameter(
 						"fatherName",
-						CoreSearchingBean
+						CoreSearching
 								.getSearchPattern(getEmployeeFatherNameFilter()));
 		if (getEmployeeSpecializationFilter() != null) {
 			q = q.setParameter("specialization_filter",
