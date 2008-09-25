@@ -7,23 +7,18 @@
       xmlns:rich="http://richfaces.org/rich">
 
 <ui:component>
-	<h:panelGrid columns="2">
+	<h:panelGrid columns="4">
 		<h:outputLabel value="Διεύθυνση" for="address" />
-		<h:outputLabel value="Αριθμός" for="addressNumber" />
 		<h:panelGroup>
-			<h:inputText id="address"
-				value="#{address.address}" readonly="true" />
-			<h:inputText value="#{address.addressAdditional}"
-				readonly="true" />
+			<h:outputText id="address" styleClass="fieldValueText" value="#{address.address}" />
+			<h:outputText styleClass="fieldValueText" value="#{address.addressAdditional}" />
 		</h:panelGroup>
-		<h:inputText id="addressNumber"
-			value="#{address.number}" size="4" readonly="true" />
+		<h:outputLabel value="Αριθμός" for="addressNumber" />
+		<h:outputText id="addressNumber" styleClass="fieldValueText" value="#{address.number}" />
 		<h:outputLabel value="ΤΚ" for="addressPostalCode" />
+		<h:outputText id="addressPostalCode" styleClass="fieldValueText"  value="#{address.postCode}" />
 		<h:outputLabel value="Πόλη" for="addressCity" />
-		<h:inputText id="addressPostalCode"
-			value="#{address.postCode}" size="5" readonly="true" />
-		<h:inputText id="addressCity"
-			value="#{address.city}" size="14" readonly="true" />
+		<h:outputText id="addressCity" styleClass="fieldValueText" value="#{address.city}" />
 		<h:panelGroup rendered="#{address.latitude ne null}">
 			<h:commandButton id="showAddressGmapButton" value="Χάρτης ..."
 				onclick="javascript:Richfaces.showModalPanel('gmapPanel')" />

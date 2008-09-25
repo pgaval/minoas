@@ -13,6 +13,16 @@
 				<f:facet name="header">
 					<h:outputText value="Καρτέλα Στοιχείων Προσωπικού" />
 				</f:facet>
+				<rich:toolBar>
+					<rich:dropDownMenu>
+						<f:facet name="label">
+							<h:panelGroup>
+								<h:graphicImage value="/images/icons/copy.gif" styleClass="pic" />
+								<h:outputText value="File" />
+							</h:panelGroup>
+						</f:facet>
+					</rich:dropDownMenu>
+				</rich:toolBar>
 				<rich:simpleTogglePanel switchType="Ajax">
 					<f:facet name="header">
 						<h:outputText
@@ -34,6 +44,7 @@
 						<f:facet name="label">
 							<h:outputText value="Ιστορικό Οργανικών Θέσεων" />
 						</f:facet>
+						<ui:include src="/components/employee/regularEmploymentsHistory.xhtml" />
 					</rich:tab>
 					<rich:tab rendered="#{employeeUtil.isDeputy(activeEmployee)}">
 						<f:facet name="label">

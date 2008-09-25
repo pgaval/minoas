@@ -29,6 +29,7 @@
    <page view-id="/employee.xhtml" name="employeePage">
     <redirect/>
     <transition to="employeeSearchPage" name="back" />
+    <action expression="#{employeeRecord.search()}" />
    </page> 
    
   <page view-id="/home.xhtml" name="home">

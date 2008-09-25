@@ -11,20 +11,20 @@
 		<h:panelGroup>
 			<h:panelGrid columns="2">
 				<h:outputLabel value="Κωδ. Υπουργείου" for="schoolCode" />
-				<h:inputText id="schoolCode" value="#{selectedSchool.ministryCode}"
-					readonly="true" />
+				<h:outputText id="schoolCode" value="#{selectedSchool.ministryCode}"
+					styleClass="fieldValueText" />
 
 				<h:outputLabel value="Τίτλος" for="schoolTitle" />
-				<h:inputText id="schoolTitle" value="#{selectedSchool.title}"
-					readonly="true" />
+				<h:outputText id="schoolTitle" value="#{selectedSchool.title}"
+					styleClass="fieldValueText" />
 
 				<h:outputLabel value="Περιοχή" for="schoolRegion" />
-				<h:inputText id="schoolRegion"
-					value="#{selectedSchool.regionCode}' ΗΡΑΚΛΕΙΟΥ" readonly="true" />
+				<h:outputText id="schoolRegion"
+					value="#{selectedSchool.regionCode}' ΗΡΑΚΛΕΙΟΥ" styleClass="fieldValueText" />
 
 				<h:outputLabel value="Μόρια" for="schoolMoria" />
-				<h:inputText id="schoolMoria" value="#{selectedSchool.points}"
-					readonly="true" />
+				<h:outputText id="schoolMoria" value="#{selectedSchool.points}"
+					styleClass="fieldValueText" />
 			</h:panelGrid>
 		</h:panelGroup>
 		<h:panelGroup>
