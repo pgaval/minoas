@@ -17,10 +17,15 @@
 					<rich:dropDownMenu>
 						<f:facet name="label">
 							<h:panelGroup>
-								<h:graphicImage value="/images/icons/copy.gif" styleClass="pic" />
-								<h:outputText value="File" />
+								<h:outputText value="Διαχείρηση Εκπαιδευτικού" />
 							</h:panelGroup>
 						</f:facet>
+						<rich:menuGroup value="Αποσπάσης">
+							<rich:menuItem submitMode="none">
+								<s:link value="Νέα Απόσπαση" action="new-secondment"  />
+							</rich:menuItem>
+						</rich:menuGroup>
+
 					</rich:dropDownMenu>
 				</rich:toolBar>
 				<rich:simpleTogglePanel switchType="Ajax">
@@ -38,7 +43,12 @@
 						</ui:include>
 					</h:panelGrid>
 				</rich:simpleTogglePanel>
-
+				<rich:simpleTogglePanel switchType="Ajax">
+					<f:facet name="header">
+						<h:outputText value="Τρέχουσα Κατάσταση (#{defaultSchoolYear.title})" />
+					</f:facet>
+					<h:outputText value="Η τρέχουσα κατάσταση είναι η παρακάτω ...." />
+				</rich:simpleTogglePanel>
 				<rich:tabPanel mode="Ajax">
 					<rich:tab rendered="#{employeeUtil.isRegular(activeEmployee)}">
 						<f:facet name="label">

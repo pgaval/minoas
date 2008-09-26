@@ -29,8 +29,15 @@
    <page view-id="/employee.xhtml" name="employeePage">
     <redirect/>
     <transition to="employeeSearchPage" name="back" />
+    <transition to="NewSecondmentPage" name="new-secondment">
+    	<action expression="#{employeeManagement.beginEmployeeNewSecondment}" />
+    </transition>
     <action expression="#{employeeRecord.search()}" />
    </page> 
+   
+   <page view-id="/new-secondment.xhtml" name="NewSecondmentPage">
+   	 <redirect/>
+   </page>
    
   <page view-id="/home.xhtml" name="home">
     <end-conversation/>

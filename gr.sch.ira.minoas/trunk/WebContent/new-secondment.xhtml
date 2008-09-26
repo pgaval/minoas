@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition template="#{theme.template}">
+	<ui:define name="body">
+		<s:decorate id="schoolYearTitleDecoration"
+			template="/layout/doubleLineEdit.xhtml">
+			<ui:define name="label">
+				<h:outputText value="Απόφαση ΠΥΣΔΕ" />
+			</ui:define>
+			<h:inputText id="schoolYearTitle" value="#{schoolYear.title}"
+				required="false" size="16" maxlength="64">
+				<a4j:support event="onblur" reRender="schoolYearTitle"
+					bypassUpdates="true" />
+				<f:validateLength minimum="5" maximum="64" />
+			</h:inputText>
+		</s:decorate>
+
+		<s:decorate template="/layout/doubleLineEdit.xhtml">
+			<ui:define name="label">
+				<h:outputText value="Υπουργική Απόφαση" />
+			</ui:define>
+			<h:inputText id="ministerialOrder"
+				value="#{newSecondment.ministerialOrder}" required="false" size="16"
+				maxlength="64">
+				<a4j:support event="onblur" reRender="ministerialOrder"
+					bypassUpdates="true" />
+				<f:validateLength minimum="5" maximum="64" />
+			</h:inputText>
+		</s:decorate>
+		<s:decorate template="/layout/doubleLineEdit.xhtml">
+			<ui:define name="label">
+				<h:outputText value="Έναρξη Απόσπασης" />
+			</ui:define>
+			<h:inputText id="ministerialOrder"
+				value="#{newSecondment.established}" required="false" size="16"
+				maxlength="64">
+				<a4j:support event="onblur" reRender="ministerialOrder"
+					bypassUpdates="true" />
+				<f:validateLength minimum="5" maximum="64" />
+			</h:inputText>
+		</s:decorate>
+	</ui:define>
+</ui:composition>
+
+</html>
