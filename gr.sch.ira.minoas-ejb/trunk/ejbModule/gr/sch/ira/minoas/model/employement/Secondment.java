@@ -4,6 +4,8 @@
 package gr.sch.ira.minoas.model.employement;
 
 import gr.sch.ira.minoas.model.BaseModel;
+import gr.sch.ira.minoas.model.core.PYSDE;
+import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Unit;
 
 import java.util.Date;
@@ -22,6 +24,7 @@ import javax.persistence.Version;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.jboss.seam.annotations.Name;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
@@ -30,21 +33,79 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "MINOAS_SECONDMENT")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Name("secondment")
 public class Secondment extends BaseModel {
 
 	
 	/**
-	 * @return the replacementFor
+	 * 
 	 */
-	public Employment getReplacementFor() {
-		return replacementFor;
-	}
+	private static final long serialVersionUID = 1L;
 
+	@ManyToOne(optional=false, fetch=FetchType.EAGER)
+	@JoinColumn(name = "SCHOOL_YEAR_ID", nullable=false)
+	private SchoolYear schoolYear;
+	
+	@Basic
+	@Column(name="MINISTERIAL_ORDER", nullable=true, length=25)
+	private String ministerialOrder;
+
+	@Basic
+	@Column(name="PYSDE_ORDER", nullable=true, length=25)
+	private String pysdeOrder;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="PARENT_EMPLOYMENT_ID", nullable=true)
+	private Employment affectedEmployment;  
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="REPLACEMENT_EMPLOYMENT_ID", nullable=true)
+	private Employment replacementFor;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="TARGET_UNIT", nullable=false)
+	private Unit targetUnit;
+
+	@Basic
+	@Column(name = "DUE_TO", nullable=true)
+	private Date dueTo;
+	
+	@Basic
+	@Column(name="EMPLOYEE_REQUESTED", nullable=true)
+	private Boolean employeeRequested;
+
+	@Basic
+	@Column(name = "ESTABLISHED", nullable = true)
+	private Date established;
+
+	@Id
+	@Column(name="ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	@SuppressWarnings("unused")
+	@Version
+	private Long version;
+	
+	@ManyToOne
+	@JoinColumn(name="TARGET_PYSDE_ID", nullable=true)
+	private PYSDE targetPYSDE; 
+
+	@ManyToOne
+	@JoinColumn(name="SOURCE_PYSDE_ID", nullable=true)
+	private PYSDE sourcePYSDE;
+	
 	/**
-	 * @param replacementFor the replacementFor to set
+	 * @return the affectedEmployment
 	 */
-	public void setReplacementFor(Employment replacementFor) {
-		this.replacementFor = replacementFor;
+	public Employment getAffectedEmployment() {
+		return affectedEmployment;
+	}
+	
+	/**
+	 * @return the dueTo
+	 */
+	public Date getDueTo() {
+		return dueTo;
 	}
 
 	/**
@@ -55,69 +116,12 @@ public class Secondment extends BaseModel {
 	}
 
 	/**
-	 * @param employeeRequested the employeeRequested to set
-	 */
-	public void setEmployeeRequested(Boolean employeeRequested) {
-		this.employeeRequested = employeeRequested;
-	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="PARENT_EMPLOYMENT_ID")
-	private Employment affectedEmployment;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="REPLACEMENT_EMPLOYMENT_ID")
-	private Employment replacementFor; 
-
-	@Basic
-	@Column(name = "DUE_TO", nullable=true)
-	private Date dueTo;
-
-	@Basic
-	@Column(name="EMPLOYEE_REQUESTED", nullable=true)
-	private Boolean employeeRequested;
-
-	@Basic
-	@Column(name = "ESTABLISHED", nullable = true)
-	private Date established;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	@ManyToOne
-	@JoinColumn(name = "UNIT_ID")
-	private Unit secondmentUnit;
-
-	@SuppressWarnings("unused")
-	@Version
-	private Long version;
-
-	/**
-	 * @return the affectedEmployment
-	 */
-	public Employment getAffectedEmployment() {
-		return affectedEmployment;
-	}
-
-	/**
-	 * @return the dueTo
-	 */
-	public Date getDueTo() {
-		return dueTo;
-	}
-
-	/**
 	 * @return the established
 	 */
 	public Date getEstablished() {
 		return established;
 	}
-
+	
 	/**
 	 * @return the id
 	 */
@@ -125,11 +129,37 @@ public class Secondment extends BaseModel {
 		return id;
 	}
 
+	public String getMinisterialOrder() {
+		return ministerialOrder;
+	}
+
+	public String getPysdeOrder() {
+		return pysdeOrder;
+	}
+
 	/**
-	 * @return the secondmentUnit
+	 * @return the replacementFor
 	 */
-	public Unit getSecondmentUnit() {
-		return secondmentUnit;
+	public Employment getReplacementFor() {
+		return replacementFor;
+	}
+
+	
+
+	public SchoolYear getSchoolYear() {
+		return schoolYear;
+	}
+
+	public PYSDE getSourcePYSDE() {
+		return sourcePYSDE;
+	}
+
+	public PYSDE getTargetPYSDE() {
+		return targetPYSDE;
+	}
+
+	public Unit getTargetUnit() {
+		return targetUnit;
 	}
 
 	/**
@@ -146,6 +176,14 @@ public class Secondment extends BaseModel {
 		this.dueTo = dueTo;
 	}
 
+	
+	/**
+	 * @param employeeRequested the employeeRequested to set
+	 */
+	public void setEmployeeRequested(Boolean employeeRequested) {
+		this.employeeRequested = employeeRequested;
+	}
+
 	/**
 	 * @param established the established to set
 	 */
@@ -160,11 +198,35 @@ public class Secondment extends BaseModel {
 		this.id = id;
 	}
 
+	public void setMinisterialOrder(String ministerialOrder) {
+		this.ministerialOrder = ministerialOrder;
+	}
+
+	public void setPysdeOrder(String pysdeOrder) {
+		this.pysdeOrder = pysdeOrder;
+	}
+
 	/**
-	 * @param secondmentUnit the secondmentUnit to set
+	 * @param replacementFor the replacementFor to set
 	 */
-	public void setSecondmentUnit(Unit secondmentUnit) {
-		this.secondmentUnit = secondmentUnit;
+	public void setReplacementFor(Employment replacementFor) {
+		this.replacementFor = replacementFor;
+	}
+
+	public void setSchoolYear(SchoolYear schoolYear) {
+		this.schoolYear = schoolYear;
+	}
+
+	public void setSourcePYSDE(PYSDE sourcePYSDE) {
+		this.sourcePYSDE = sourcePYSDE;
+	}
+
+	public void setTargetPYSDE(PYSDE targetPYSDE) {
+		this.targetPYSDE = targetPYSDE;
+	}
+
+	public void setTargetUnit(Unit targetUnit) {
+		this.targetUnit = targetUnit;
 	}
 
 }

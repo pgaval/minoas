@@ -3,8 +3,10 @@
  */
 package gr.sch.ira.minoas.session.employee;
 
+import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.model.employement.Employment;
+import gr.sch.ira.minoas.model.employement.Secondment;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
@@ -38,6 +40,11 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	@In(required=false)
 	@Out(required=false)
 	private Employee activeEmployee;
+	
+	@Out(required=false)
+	private Secondment newSecondment;
+	
+	private SchoolYear activeSchoolYear;
 
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#beginEmployeeAdminConversation()
@@ -61,6 +68,7 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	@Create
 	public void create() {
 		super.create();
+		activeSchoolYear = coreSearching.getActiveSchoolYear();
 	}
 
 	/**
@@ -86,6 +94,20 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	 */
 	public void setActiveEmployee(Employee activeEmployee) {
 		this.activeEmployee = activeEmployee;
+	}
+
+	@Begin(nested=true)
+	public String beginEmployeeNewSecondment() {
+		info("new secondment conversation begun for employee '#0' during school year '#1'.", getActiveEmployee(), getActiveSchoolYear());
+		return BEGIN_OUTCOME;
+	}
+
+	public SchoolYear getActiveSchoolYear() {
+		return activeSchoolYear;
+	}
+
+	public void setActiveSchoolYear(SchoolYear activeSchoolYear) {
+		this.activeSchoolYear = activeSchoolYear;
 	}
 
 	

@@ -33,19 +33,6 @@ public class DeputyEmployment extends Employment {
 		else return getMandatoryWorkingHours();
 	}
 	
-	/**
-	 * @return the secondment
-	 */
-	public Secondment getSecondment() {
-		return secondment;
-	}
-
-	/**
-	 * @param secondment the secondment to set
-	 */
-	public void setSecondment(Secondment secondment) {
-		this.secondment = secondment;
-	}
 
 	/**
 	 * 
@@ -64,10 +51,6 @@ public class DeputyEmployment extends Employment {
 	@Column(name = "WORK_HRS_DECR_REASON", nullable = true)
 	private String workingHoursDecrementReason;
 	
-	@ManyToOne(fetch=FetchType.EAGER, optional=true)
-	@JoinColumn(name="SECONDMENT_ID", nullable=true)
-	private Secondment secondment;
-
 	/**
 	 * 
 	 */

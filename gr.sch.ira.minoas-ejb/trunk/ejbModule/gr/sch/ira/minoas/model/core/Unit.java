@@ -35,7 +35,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @DiscriminatorColumn(name = "UNIT")
 @Table(name = "MINOAS_UNIT")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-public abstract class Unit extends BaseModel {
+public class Unit extends BaseModel {
 
 	/**
 	 * 
@@ -47,9 +47,6 @@ public abstract class Unit extends BaseModel {
 	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	private Address address;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="secondmentUnit")
-	private List<Secondment> secondments;
-
 	@Id
 	@Column(name = "UNIT_ID", length = 3)
 	private String id;
@@ -61,6 +58,10 @@ public abstract class Unit extends BaseModel {
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="MINOAS_UNIT_TELEPHONES")
 	private List<Telephone> telephones;
+	
+	@ManyToOne(fetch=FetchType.EAGER, optional=true)
+	@JoinColumn(name="CATEGORY_ID", nullable=true)
+	private UnitCategory category;
 	
 	@SuppressWarnings("unused")
 	@Version
@@ -115,19 +116,7 @@ public abstract class Unit extends BaseModel {
 		this.title = title;
 	}
 
-	/**
-	 * @return the secondments
-	 */
-	public List<Secondment> getSecondments() {
-		return secondments;
-	}
-
-	/**
-	 * @param secondments the secondments to set
-	 */
-	public void setSecondments(List<Secondment> secondments) {
-		this.secondments = secondments;
-	}
+	
 
 	/**
 	 * @return the telephones
@@ -141,6 +130,14 @@ public abstract class Unit extends BaseModel {
 	 */
 	public void setTelephones(List<Telephone> telephones) {
 		this.telephones = telephones;
+	}
+
+	public UnitCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(UnitCategory category) {
+		this.category = category;
 	}
 
 }

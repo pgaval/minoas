@@ -13,4 +13,6 @@ public interface IEmployeeManagement {
 	
 	public String beginEmployeeManagementConversation();
 	
+	public String beginEmployeeNewSecondment();
+	
 }

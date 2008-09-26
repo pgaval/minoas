@@ -96,7 +96,7 @@ public class Employee extends BaseModel {
 	@JoinColumn(name="CURRENT_EMPLOYMENT_ID", nullable=true)
 	private Employment currentEmployment;
 	
-	@OneToMany(mappedBy="employee")
+	@OneToMany(mappedBy="employee", fetch=FetchType.LAZY)
 	private Set<Employment> employments;
 	
 	@SuppressWarnings("unused")

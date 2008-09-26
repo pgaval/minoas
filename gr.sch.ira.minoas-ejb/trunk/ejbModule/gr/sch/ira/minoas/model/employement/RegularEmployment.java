@@ -40,10 +40,6 @@ public class RegularEmployment extends Employment {
 	@Column(name = "WORK_HRS_DECR_REASON", nullable = true)
 	private String workingHoursDecrementReason;
 	
-	@ManyToOne(fetch=FetchType.EAGER, optional=true)
-	@JoinColumn(name="SECONDMENT_ID", nullable=true)
-	private Secondment secondment;
-	
 	@Basic
 	@Column(name="IS_TEMPORARY", nullable=true)
 	private Boolean temporary;
@@ -112,24 +108,9 @@ public class RegularEmployment extends Employment {
 		this.workingHoursDecrementReason = workingHoursDecrementReason;
 	}
 
-	/**
-	 * @return the secondment
-	 */
-	public Secondment getSecondment() {
-		return secondment;
-	}
-
-	/**
-	 * @param secondment the secondment to set
-	 */
-	public void setSecondment(Secondment secondment) {
-		this.secondment = secondment;
-	}
 	
-	public boolean hasSecondment() {
-		return getSecondment()!=null;
-	}
-
+	
+	
 	/**
 	 * @return the temporary
 	 */

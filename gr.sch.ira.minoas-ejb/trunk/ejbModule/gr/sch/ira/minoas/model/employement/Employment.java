@@ -64,8 +64,8 @@ public class Employment extends BaseModel {
 	@JoinColumn(name = "SCHOOL_ID", nullable = false)
 	private School school;
 
-	@OneToOne
-	@JoinColumn(name = "SCHOOL_YEAR_ID")
+	@ManyToOne(optional=false, fetch=FetchType.EAGER)
+	@JoinColumn(name = "SCHOOL_YEAR_ID", nullable=false)
 	private SchoolYear schoolYear;
 
 	@ManyToOne(optional = false)
