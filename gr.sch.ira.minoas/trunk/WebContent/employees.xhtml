@@ -24,7 +24,7 @@
 										<ui:define name="label">
 											<h:outputText value="Επώνυμο" />
 										</ui:define>
-										<h:inputText id="employeeLastNameFilter" value="#{employeeSearch.employeeLastNameFilter}"
+										<h:inputText id="employeeLastNameFilter" value="#{employeeSearch.employeeLastNameFilter}" styleClass="fieldValueText"
 											required="true" size="15" maxlength="30">
 											<a4j:support event="onblur" reRender="employeeLastNameFilter"
 												bypassUpdates="true" />
@@ -36,14 +36,14 @@
 											<h:outputText value="Όνομα" />
 										</ui:define>
 										<h:inputText value="#{employeeSearch.employeeFirstNameFilter}"
-											required="false" size="7" maxlength="20" />
+											required="false" size="7" maxlength="20" styleClass="fieldValueText" />
 									</s:decorate>
 									<s:decorate template="/layout/doubleLineEdit.xhtml">
 										<ui:define name="label">
 											<h:outputText value="Πατρώνυμο" />
 										</ui:define>
 										<h:inputText
-											value="#{employeeSearch.employeeFatherNameFilter}"
+											value="#{employeeSearch.employeeFatherNameFilter}" styleClass="fieldValueText"
 											required="false" size="7"  maxlength="20" />
 									</s:decorate>
 									<s:decorate template="/layout/doubleLineEdit.xhtml">
@@ -57,7 +57,7 @@
 											<h:outputText value="Ειδικότητα" />
 										</ui:define>
 										<h:inputText id="specializationFilter"
-											value="#{employeeSearch.employeeSpecializationFilter}"
+											value="#{employeeSearch.employeeSpecializationFilter}" styleClass="fieldValueText"
 											converter="specializationConverter">
 											<rich:suggestionbox height="100" width="250" for="specializationFilter" var="a_spec"
 												suggestionAction="#{specializationSuggester.suggest}">
@@ -85,7 +85,7 @@
 								<h:form id="searchByVATNumberForm">
 									<h:outputLabel value="ΑΦΜ Εκπαιδευτικού : " for="afmFilter" />
 									<h:inputText id="afmFilter"
-										value="#{employeeSearch.employeeVATNumberFilter}" />
+										value="#{employeeSearch.employeeVATNumberFilter}" styleClass="fieldValueText" />
 									<h:commandButton id="searchByVATNumberButton"
 										action="searchByVATNumber" value="Αναζήτηση" />
 								</h:form>
@@ -93,7 +93,7 @@
 								<h:form id="searchByRegistryIDForm">
 									<h:outputLabel value="Α.Μ Εκπαιδευτικού : " for="codeFilter" />
 									<h:inputText id="codeFilter"
-										value="#{employeeSearch.employeeRegistryIDFilter}" />
+										value="#{employeeSearch.employeeRegistryIDFilter}" styleClass="fieldValueText" />
 									<h:commandButton action="searchByRegistryID" value="Αναζήτηση" />
 								</h:form>
 							</h:panelGroup>

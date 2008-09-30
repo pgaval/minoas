@@ -1,4 +1,4 @@
-#Mon Aug 04 20:17:07 EEST 2008
+#Tue Sep 23 11:40:46 EEST 2008
 action.package=gr.sch.ira.minoas.session
 action.sources=/gr.sch.ira.minoas-ejb/ejbModule
 eclipse.preferences.version=1
@@ -10,7 +10,7 @@ seam.project.connection.profile=
 seam.project.deployment.type=ear
 seam.project.settings.version=1.1
 seam.project.web.root.folder=/gr.sch.ira.minoas/WebContent
-seam.runtime.name=jboss-seam-2.0.2SP1
+seam.runtime.name=jboss-seam-2.0.2.SP1
 seam.test.creating=false
 seam.test.project=gr.sch.ira.minoas-test
 test.package=gr.sch.ira.minoas.test

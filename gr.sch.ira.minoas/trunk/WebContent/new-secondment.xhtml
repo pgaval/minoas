@@ -9,18 +9,82 @@
 
 <ui:composition template="#{theme.template}">
 	<ui:define name="body">
-		<s:decorate id="schoolYearTitleDecoration"
+		<h:form>
+		<h:panelGrid columns="3">
+
+			<s:decorate template="/layout/doubleLineEdit.xhtml">
+				<ui:define name="label">
+					<h:outputText value="Τύπος Απόσπασης" />
+				</ui:define>
+				<h:inputText id="secondmentType"
+					value="#{newSecondment.secondmentType}"
+					converter="secondmentTypeConverter" immediate="true" styleClass="fieldValueText">
+					<rich:suggestionbox var="secondmentType" for="secondmentType"
+						suggestionAction="#{secondmentTypeSuggester.suggest}" fetchValue="#{secondmentType.id}">
+						<f:facet name="nothingLabel">
+							<h:outputText value="Άγνωστος Τύπος Απόσπασης" />
+						</f:facet>
+						<h:column>
+							<h:outputText value="#{secondmentType.title}" />
+						</h:column>
+					</rich:suggestionbox>
+				</h:inputText>
+			
+			</s:decorate>
+
+			<s:decorate 
+			template="/layout/doubleLineEdit.xhtml">
+			<ui:define name="label">
+				<h:outputText value="Μονάδα Απόσπασης" />
+			</ui:define>
+			<h:inputText value="#{newSecondment.targetUnit}" id="secondmentTarget" styleClass="fieldValueText">
+						<rich:suggestionbox for="secondmentTarget" var="secondmentUnit"
+							suggestionAction="#{secondmentAwareUnitSuggester.suggest}">
+							<f:facet name="nothingLabel">
+								<h:outputText value="Άγνωστη Μονάδα Απόσπασης" />
+							</f:facet>
+							<h:column>
+								<h:outputText value="#{secondmentUnit.title}" />
+							</h:column>
+						</rich:suggestionbox>
+					</h:inputText>
+		</s:decorate>
+		
+		<s:decorate 
 			template="/layout/doubleLineEdit.xhtml">
 			<ui:define name="label">
 				<h:outputText value="Απόφαση ΠΥΣΔΕ" />
 			</ui:define>
-			<h:inputText id="schoolYearTitle" value="#{schoolYear.title}"
-				required="false" size="16" maxlength="64">
-				<a4j:support event="onblur" reRender="schoolYearTitle"
+			<h:inputText id="pysdeOrder" value="#{newSecondment.pysdeOrder}" styleClass="fieldValueText"
+				required="false" size="16" maxlength="25">
+				<a4j:support event="onblur" reRender="pysdeOrder"
 					bypassUpdates="true" />
-				<f:validateLength minimum="5" maximum="64" />
+				<f:validateLength minimum="5" maximum="25" />
 			</h:inputText>
 		</s:decorate>
+		
+		<h:panelGroup>
+			<h:panelGrid columns="1">
+				<h:outputLabel value="Εκπαιδευτικός" for="" />
+				<h:outputText styleClass="fieldValueText" value="#{newSecondment.employee.lastName} #{newSecondment.employee.firstName} του #{newSecondment.employee.fatherName} (#{newSecondment.employee.currentEmployment.specialization})" />
+			</h:panelGrid>
+		</h:panelGroup>
+		<s:decorate 
+			template="/layout/doubleLineEdit.xhtml">
+			<ui:define name="label">
+				<h:outputText value="Απόφαση Διευθυντή" />
+			</ui:define>
+			<h:inputText id="headMasterOrder" value="#{newSecondment.headMasterOrder}" styleClass="fieldValueText"
+				required="false" size="16" maxlength="25">
+				<a4j:support event="onblur" reRender="headMasterOrder"
+					bypassUpdates="true" />
+				<f:validateLength minimum="5" maximum="25" />
+			</h:inputText>
+		</s:decorate>
+		
+		
+		
+		
 
 		<s:decorate template="/layout/doubleLineEdit.xhtml">
 			<ui:define name="label">
@@ -28,24 +92,37 @@
 			</ui:define>
 			<h:inputText id="ministerialOrder"
 				value="#{newSecondment.ministerialOrder}" required="false" size="16"
-				maxlength="64">
+				maxlength="25" styleClass="fieldValueText">
 				<a4j:support event="onblur" reRender="ministerialOrder"
 					bypassUpdates="true" />
-				<f:validateLength minimum="5" maximum="64" />
+				<f:validateLength minimum="5" maximum="25" />
 			</h:inputText>
 		</s:decorate>
+
 		<s:decorate template="/layout/doubleLineEdit.xhtml">
 			<ui:define name="label">
 				<h:outputText value="Έναρξη Απόσπασης" />
 			</ui:define>
-			<h:inputText id="ministerialOrder"
-				value="#{newSecondment.established}" required="false" size="16"
-				maxlength="64">
-				<a4j:support event="onblur" reRender="ministerialOrder"
-					bypassUpdates="true" />
-				<f:validateLength minimum="5" maximum="64" />
-			</h:inputText>
+			<rich:calendar id="establishedDate"
+				value="#{newSecondment.established}" required="true" mode="ajax"
+				locale="el_GR" inputClass="fieldValueText" datePattern="dd-MM-yyyy" />
 		</s:decorate>
+		<s:decorate template="/layout/doubleLineEdit.xhtml">
+			<ui:define name="label">
+				<h:outputText value="Λήξη Απόσπασης" />
+			</ui:define>
+			<rich:calendar id="dueToDate"
+				value="#{newSecondment.dueTo}" required="true" mode="ajax"
+				locale="el_GR" inputClass="fieldValueText" datePattern="dd-MM-yyyy" />
+		</s:decorate>
+		<s:decorate template="/layout/doubleLineEdit.xhtml">
+			<ui:define name="label">
+				<h:outputText value="Με Αίτηση του ?" />
+			</ui:define>
+			<h:selectBooleanCheckbox value="#{newSecondment.employeeRequested}"/>
+		</s:decorate>
+		</h:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>
 
