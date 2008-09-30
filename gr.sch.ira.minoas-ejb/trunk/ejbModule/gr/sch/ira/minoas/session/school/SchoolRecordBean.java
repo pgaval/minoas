@@ -4,24 +4,20 @@
 package gr.sch.ira.minoas.session.school;
 
 import gr.sch.ira.minoas.model.core.School;
-import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.model.employement.DeputyEmployment;
 import gr.sch.ira.minoas.model.employement.RegularEmployment;
+import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
-import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
-import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
+import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
 
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
@@ -66,7 +62,7 @@ public class SchoolRecordBean extends BaseStatefulSeamComponentImpl implements
 	private School selectedSchool;
 
 	/**
-	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
+	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
 	 */
 	@Create
 	@Override
@@ -75,7 +71,7 @@ public class SchoolRecordBean extends BaseStatefulSeamComponentImpl implements
 	}
 	
 	/**
-	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#destroy()
+	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#destroy()
 	 */
 	@Remove
 	@Destroy

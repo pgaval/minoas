@@ -4,15 +4,14 @@
 package gr.sch.ira.minoas.session.school;
 
 import gr.sch.ira.minoas.model.core.OrganizationalOffice;
+import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
-import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
-import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
+import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
 
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 
@@ -41,7 +40,7 @@ public class OrganizationalOfficeListBean extends BaseStatefulSeamComponentImpl 
 	public Map<String, OrganizationalOffice> organizationalOfficesMap;
 
 	/**
-	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
+	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
 	 */
 	@Override
 	public void create() {

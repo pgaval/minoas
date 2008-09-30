@@ -1,7 +1,10 @@
 /**
  * 
  */
-package gr.sch.ira.minoas.session;
+package gr.sch.ira.minoas.seam.components;
+
+import java.io.Serializable;
+import java.util.Locale;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
@@ -12,19 +15,9 @@ import org.jboss.seam.log.Log;
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * 
  */
-public abstract class BaseSeamComponent {
-
-	public static final String SUCCESS_OUTCOME = "success";
-
-	public static final String FAILURE_OUTCOME = "failure";
-
-	public static final String BEGIN_OUTCOME = "begin";
+public abstract class BaseSeamComponent implements Serializable {
 	
-	public static final String SCHOOL_SELECTED_OUTCOME ="school-selected";
-	
-	public static final String EMPLOYEE_SELECTED_OUTCOME ="employee-selected";
-	
-	public static final String EMPLOYMENT_SELECTED_OUTCOME ="employment-selected";
+	public static final Locale greekLocale = new Locale("el", "GR");
 
 	@Logger
 	private Log logger;

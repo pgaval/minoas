@@ -7,9 +7,7 @@ import gr.sch.ira.minoas.model.security.RoleGroup;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
 
-import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.faces.Converter;
@@ -21,11 +19,8 @@ import org.jboss.seam.annotations.faces.Converter;
 @Converter
 @Name("roleGroupConverter")
 @Transactional
-public class RoleGroupConverter implements javax.faces.convert.Converter {
+public class RoleGroupConverter extends DatabaseAwareBaseConverter  {
 
-	
-	@In
-	private EntityManager minoasDatabase;
 	
 	/**
 	 * 
@@ -45,7 +40,7 @@ public class RoleGroupConverter implements javax.faces.convert.Converter {
 	 */
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value != null) {
-			return minoasDatabase.find(RoleGroup.class, value);
+			return getMinoasDatabase().find(RoleGroup.class, value);
 		}
 		else
 			return null;

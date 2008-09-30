@@ -3,13 +3,13 @@
  */
 package gr.sch.ira.minoas.session.employee;
 
+import gr.sch.ira.minoas.core.CoreUtils;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.employee.Employee;
+import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
-import gr.sch.ira.minoas.seam.components.CoreSearching;
-import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
-import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
+import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
 
 import java.util.List;
 
@@ -21,17 +21,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Conversational;
-import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.FlushModeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
-import org.mvel.SetAccessor;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
@@ -91,7 +87,7 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	private Specialization specializationFilter;
 
 	/**
-	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
+	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
 	 */
 	@Override
 	public void create() {
@@ -100,7 +96,7 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	}
 
 	/**
-	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#destroy()
+	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#destroy()
 	 */
 	@Override
 	public void destroy() {
@@ -183,15 +179,15 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 				.createQuery(sb.toString())
 				.setParameter(
 						"lastName",
-						CoreSearching
+						CoreUtils
 								.getSearchPattern(getEmployeeLastNameFilter()))
 				.setParameter(
 						"firstName",
-						CoreSearching
+						CoreUtils
 								.getSearchPattern(getEmployeeFirstNameFilter()))
 				.setParameter(
 						"fatherName",
-						CoreSearching
+						CoreUtils
 								.getSearchPattern(getEmployeeFatherNameFilter()));
 		if (getEmployeeSpecializationFilter() != null) {
 			q = q.setParameter("specialization_filter",

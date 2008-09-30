@@ -4,19 +4,16 @@
 package gr.sch.ira.minoas.session.security;
 
 import gr.sch.ira.minoas.model.security.Principal;
+import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
-import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
-import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
+import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
 
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
@@ -42,7 +39,7 @@ import org.jboss.seam.annotations.security.Restrict;
 public class PrincipalAdminBean extends BaseStatefulSeamComponentImpl implements IPrincipalAdmin {
 
 	/**
-	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
+	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
 	 */
 	@Create
 	@Override
@@ -52,7 +49,7 @@ public class PrincipalAdminBean extends BaseStatefulSeamComponentImpl implements
 	}
 
 	/**
-	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#destroy()
+	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#destroy()
 	 */
 	@Remove
 	@Destroy

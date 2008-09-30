@@ -20,7 +20,7 @@ import org.jboss.seam.framework.EntityController;
 @Converter
 @Name("organizationalOfficeConverter")
 @Transactional
-public class OrganizationalOfficeConverter extends EntityController implements javax.faces.convert.Converter {
+public class OrganizationalOfficeConverter extends EntityController  {
 
 	/**
 	 * 

@@ -5,11 +5,13 @@ package gr.sch.ira.minoas.session.employee;
 
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.employee.Employee;
-import gr.sch.ira.minoas.model.employement.Employment;
 import gr.sch.ira.minoas.model.employement.Secondment;
+import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
-import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
-import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
+import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.ejb.Local;
 import javax.ejb.Remove;
@@ -62,7 +64,7 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	private EntityManager minoasDatabase;
 	
 	/**
-	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#create()
+	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
 	 */
 	@Override
 	@Create
@@ -72,7 +74,7 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	}
 
 	/**
-	 * @see gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl#destroy()
+	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#destroy()
 	 */
 	@Override
 	@Destroy
@@ -99,6 +101,20 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	@Begin(nested=true)
 	public String beginEmployeeNewSecondment() {
 		info("new secondment conversation begun for employee '#0' during school year '#1'.", getActiveEmployee(), getActiveSchoolYear());
+		/* prepare the new secondment object */
+		
+		newSecondment = new Secondment();
+		newSecondment.setEmployeeRequested(false);
+		newSecondment.setSchoolYear(getActiveSchoolYear());
+		newSecondment.setEmployeeRequested(Boolean.TRUE);
+		newSecondment.setEmployee(getActiveEmployee());
+		
+		newSecondment.setEstablished(new Date((Calendar.getInstance(greekLocale)).getTimeInMillis()));
+		
+		Calendar dueTo = Calendar.getInstance(greekLocale);
+		dueTo.set(Calendar.MONTH, Calendar.JUNE);
+		dueTo.set(Calendar.DAY_OF_MONTH, 30);
+		newSecondment.setDueTo(new Date(dueTo.getTimeInMillis()));
 		return BEGIN_OUTCOME;
 	}
 

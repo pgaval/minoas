@@ -3,7 +3,7 @@
  */
 package gr.sch.ira.minoas.seam.components.converters;
 
-import gr.sch.ira.minoas.model.core.Specialization;
+import gr.sch.ira.minoas.model.employement.SecondmentType;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -17,9 +17,9 @@ import org.jboss.seam.annotations.faces.Converter;
  * 
  */
 @Converter
-@Name("specializationConverter")
+@Name("secondmentTypeConverter")
 @Transactional
-public class SpecializationConverter extends DatabaseAwareBaseConverter  {
+public class SecondmentTypeConverter extends DatabaseAwareBaseConverter {
 
 	/**
 	 * 
@@ -29,7 +29,7 @@ public class SpecializationConverter extends DatabaseAwareBaseConverter  {
 	/**
 	 * 
 	 */
-	public SpecializationConverter() {
+	public SecondmentTypeConverter() {
 		super();
 	}
 
@@ -40,7 +40,17 @@ public class SpecializationConverter extends DatabaseAwareBaseConverter  {
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
 		if (value != null) {
-			return getMinoasDatabase().find(Specialization.class, value);
+			Long secondmentTypeID = null;
+			try {
+				secondmentTypeID = Long.valueOf(value.toString());
+			} catch (Exception ex) {
+				warn(
+						"failed to convert value '#0' to a valid secondment type, due to an exception '#1'",
+						value, ex.getMessage());
+				return null;
+			}
+			return getMinoasDatabase().find(SecondmentType.class,
+					secondmentTypeID);
 		} else
 			return null;
 	}
@@ -52,8 +62,8 @@ public class SpecializationConverter extends DatabaseAwareBaseConverter  {
 	public String getAsString(FacesContext context, UIComponent component,
 			Object value) {
 		if (value != null) {
-			if (value instanceof Specialization) {
-				return ((Specialization) value).getId();
+			if (value instanceof SecondmentType) {
+				return ((SecondmentType) value).getTitle();
 			} else {
 				return value.toString();
 			}

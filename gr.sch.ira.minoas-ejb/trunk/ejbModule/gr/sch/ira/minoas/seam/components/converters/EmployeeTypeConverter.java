@@ -7,21 +7,20 @@ import gr.sch.ira.minoas.model.employee.DeputyEmployee;
 import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.model.employee.HourlyPaidEmployee;
 import gr.sch.ira.minoas.model.employee.RegularEmployee;
-import gr.sch.ira.minoas.model.employement.RegularEmployment;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.annotations.faces.Converter;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * 
  */
-@org.jboss.seam.annotations.faces.Converter
 @Name("employeeTypeConverter")
-public class EmployeeTypeConverter implements Converter {
+@Converter
+public class EmployeeTypeConverter extends BaseConverter {
 
 	public static final String REGULAR_EMPLOYEE_TYPE_STR = "Μόνιμος";
 

@@ -23,7 +23,8 @@
  * redistribute the Software for such purposes.
  */
 
-package gr.sch.ira.minoas.session;
+package gr.sch.ira.minoas.seam.components;
+
 
 import javax.ejb.Remove;
 
@@ -37,10 +38,22 @@ import org.jboss.seam.annotations.Install;
  * @version $Id$
  */
 @Install(false)
-public abstract class BaseStatefulSeamComponentImpl extends BaseSeamComponent implements IBaseStatefulSeamComponent {
+public abstract class BaseStatefulSeamComponentImpl extends BaseDatabaseAwareSeamComponent implements IBaseStatefulSeamComponent {
 
+	public static final String SUCCESS_OUTCOME = "success";
+
+	public static final String FAILURE_OUTCOME = "failure";
+
+	public static final String BEGIN_OUTCOME = "begin";
+	
+	public static final String SCHOOL_SELECTED_OUTCOME ="school-selected";
+	
+	public static final String EMPLOYEE_SELECTED_OUTCOME ="employee-selected";
+	
+	public static final String EMPLOYMENT_SELECTED_OUTCOME ="employment-selected";
+	
 	/**
-	 * @see gr.sch.ira.minoas.session.IBaseStatefulSeamComponent#create()
+	 * @see gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent#create()
 	 */
 	@Create
 	public void create() {
@@ -48,7 +61,7 @@ public abstract class BaseStatefulSeamComponentImpl extends BaseSeamComponent im
 	}
 
 	/**
-	 * @see gr.sch.ira.minoas.session.IBaseStatefulSeamComponent#destroy()
+	 * @see gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent#destroy()
 	 */
 	@Destroy
 	@Remove
@@ -57,7 +70,7 @@ public abstract class BaseStatefulSeamComponentImpl extends BaseSeamComponent im
 	}
 
 	/**
-	 * @see gr.sch.ira.minoas.session.IBaseStatefulSeamComponent#end()
+	 * @see gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent#end()
 	 */
 	@End
 	public void end() {

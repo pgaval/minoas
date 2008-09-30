@@ -26,13 +26,11 @@
 package gr.sch.ira.minoas.session.security;
 
 import gr.sch.ira.minoas.model.security.Principal;
-import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
+import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.datamodel.DataModel;

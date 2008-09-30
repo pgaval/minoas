@@ -10,7 +10,6 @@ import javax.faces.context.FacesContext;
 
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.faces.Converter;
-import org.jboss.seam.framework.EntityController;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
@@ -18,7 +17,7 @@ import org.jboss.seam.framework.EntityController;
  */
 @Converter
 @Name("employeeRegistryIDConverter")
-public class RegularEmployeeRegistryIDConverter extends EntityController implements javax.faces.convert.Converter {
+public class RegularEmployeeRegistryIDConverter extends BaseConverter  {
 
 ;
 

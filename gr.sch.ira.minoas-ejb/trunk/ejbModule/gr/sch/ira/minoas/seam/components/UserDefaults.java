@@ -5,8 +5,6 @@ package gr.sch.ira.minoas.seam.components;
 
 import gr.sch.ira.minoas.model.core.SchoolYear;
 
-import javax.persistence.EntityManager;
-
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -20,9 +18,6 @@ import org.jboss.seam.annotations.Out;
 @Name("userDefaults")
 public class UserDefaults {
 
-	@In
-	private EntityManager minoasDatabase;
-	
 	@In
 	private CoreSearching coreSearching;
 	

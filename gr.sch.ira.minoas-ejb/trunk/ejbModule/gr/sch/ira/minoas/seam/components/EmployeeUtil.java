@@ -8,8 +8,6 @@ import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.model.employee.HourlyPaidEmployee;
 import gr.sch.ira.minoas.model.employee.RegularEmployee;
 
-import java.io.Serializable;
-
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
@@ -20,7 +18,7 @@ import org.jboss.seam.annotations.Scope;
  */
 @Name("employeeUtil")
 @Scope(ScopeType.EVENT)
-public class EmployeeUtil implements Serializable {
+public class EmployeeUtil extends BaseSeamComponent {
 
 	/**
 	 * 

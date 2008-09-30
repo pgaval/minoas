@@ -1,5 +1,6 @@
 package gr.sch.ira.minoas.seam.components;
 
+import gr.sch.ira.minoas.core.CoreUtils;
 import gr.sch.ira.minoas.model.core.OrganizationalOffice;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
@@ -10,7 +11,6 @@ import gr.sch.ira.minoas.model.employement.RegularEmployment;
 import gr.sch.ira.minoas.model.security.Principal;
 import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.model.security.RoleGroup;
-import gr.sch.ira.minoas.session.BaseStatelessSeamComponentImpl;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,14 +20,13 @@ import javax.persistence.NoResultException;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
-import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 
 @Name("coreSearching")
 @Scope(ScopeType.EVENT)
 @AutoCreate
-public class CoreSearching extends BaseStatelessSeamComponentImpl {
+public class CoreSearching extends BaseDatabaseAwareSeamComponent {
 
 	@SuppressWarnings("unchecked")
 	public List<DeputyEmployment> getSchoolDeputyEmployments(SchoolYear schoolyear, School school) {
@@ -69,7 +68,7 @@ public class CoreSearching extends BaseStatelessSeamComponentImpl {
 	public List<Principal> searchPrincipals(EntityManager entityManager,
 			String search_string) {
 		EntityManager em = getEntityManager(entityManager);
-		String pattern = getSearchPattern(search_string);
+		String pattern = CoreUtils.getSearchPattern(search_string);
 		return em
 				.createQuery(
 						"SELECT p FROM Principal p WHERE lower(p.username) LIKE :search_pattern")
@@ -79,9 +78,6 @@ public class CoreSearching extends BaseStatelessSeamComponentImpl {
 	public List<Principal> searchPrincipals(String search_string) {
 		return searchPrincipals(null, search_string);
 	}
-
-	@In
-	private EntityManager minoasDatabase;
 
 	protected EntityManager getEntityManager(EntityManager entityManager) {
 		return entityManager != null ? entityManager : getEntityManager();
@@ -99,7 +95,7 @@ public class CoreSearching extends BaseStatelessSeamComponentImpl {
 
 	@SuppressWarnings("unchecked")
 	public List<School> searchShools(String school_search_pattern) {
-		String pattern = getSearchPattern(school_search_pattern);
+		String pattern = CoreUtils.getSearchPattern(school_search_pattern);
 		info("searching for schools with #0 search pattern.", pattern);
 		List return_value =  getEntityManager()
 				.createQuery(
@@ -116,7 +112,7 @@ public class CoreSearching extends BaseStatelessSeamComponentImpl {
 
 	@SuppressWarnings("unchecked")
 	public List<Role> searchRoles(String role_search_pattern) {
-		String pattern = getSearchPattern(role_search_pattern);
+		String pattern = CoreUtils.getSearchPattern(role_search_pattern);
 		info("searching for roles with #0 search pattern", pattern);
 		List return_value =getEntityManager().createQuery(
 				"SELECT r from Role r WHERE lower(r.id) LIKE :search_pattern")
@@ -135,7 +131,7 @@ public class CoreSearching extends BaseStatelessSeamComponentImpl {
 
 	@SuppressWarnings("unchecked")
 	public List<RoleGroup> searchRoleGroups(String roleGroup_search_pattern) {
-		String pattern = getSearchPattern(roleGroup_search_pattern);
+		String pattern = CoreUtils.getSearchPattern(roleGroup_search_pattern);
 		info("searching for role groups with #0 search pattern", pattern);
 		List return_value = getEntityManager()
 				.createQuery(
@@ -143,11 +139,6 @@ public class CoreSearching extends BaseStatelessSeamComponentImpl {
 				.setParameter("search_pattern", pattern).getResultList();
 		info("found totally #0 role group(s).", return_value.size());
 		return return_value;
-	}
-
-	public static final String getSearchPattern(String searchString) {
-		return searchString == null ? "%" : '%' + searchString.toLowerCase()
-				.replace('*', '%') + '%';
 	}
 
 	@SuppressWarnings("unchecked")

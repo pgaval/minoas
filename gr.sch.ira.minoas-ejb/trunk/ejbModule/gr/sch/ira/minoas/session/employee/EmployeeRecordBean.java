@@ -3,6 +3,12 @@
  */
 package gr.sch.ira.minoas.session.employee;
 
+import gr.sch.ira.minoas.model.employee.Employee;
+import gr.sch.ira.minoas.model.employement.RegularEmployment;
+import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
+import gr.sch.ira.minoas.seam.components.CoreSearching;
+import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
+
 import java.util.Collection;
 
 import javax.ejb.Local;
@@ -16,12 +22,6 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
-
-import gr.sch.ira.minoas.model.employee.Employee;
-import gr.sch.ira.minoas.model.employement.RegularEmployment;
-import gr.sch.ira.minoas.seam.components.CoreSearching;
-import gr.sch.ira.minoas.session.BaseStatefulSeamComponentImpl;
-import gr.sch.ira.minoas.session.IBaseStatefulSeamComponent;
 
 /**
  * @author slavikos

@@ -23,7 +23,7 @@
  * redistribute the Software for such purposes.
  */
 
-package gr.sch.ira.minoas.session;
+package gr.sch.ira.minoas.seam.components;
 
 /**
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>

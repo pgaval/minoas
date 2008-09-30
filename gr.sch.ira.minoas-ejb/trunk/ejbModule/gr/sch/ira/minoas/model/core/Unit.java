@@ -3,10 +3,9 @@
  */
 package gr.sch.ira.minoas.model.core;
 
-import java.util.List;
-
 import gr.sch.ira.minoas.model.BaseModel;
-import gr.sch.ira.minoas.model.employement.Secondment;
+
+import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;

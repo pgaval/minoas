@@ -7,6 +7,7 @@ import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.PYSDE;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Unit;
+import gr.sch.ira.minoas.model.employee.Employee;
 
 import java.util.Date;
 
@@ -53,19 +54,32 @@ public class Secondment extends BaseModel {
 	@Basic
 	@Column(name="PYSDE_ORDER", nullable=true, length=25)
 	private String pysdeOrder;
+	
+	@Basic
+	@Column(name="HEADMASTER_ORDER", nullable=true, length=25)
+	private String headMasterOrder;
 
+	
+	@ManyToOne(fetch=FetchType.EAGER, optional=false)
+	@JoinColumn(name="SECONDMENT_TYPE_ID", nullable=false)
+	private SecondmentType secondmentType;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="PARENT_EMPLOYMENT_ID", nullable=true)
-	private Employment affectedEmployment;  
-	
+	private Employment affectedEmployment;
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="REPLACEMENT_EMPLOYMENT_ID", nullable=true)
 	private Employment replacementFor;
+
+	@ManyToOne(fetch=FetchType.LAZY, optional=false)
+	@JoinColumn(name="EMPLOYEE_ID", nullable=false)
+	private Employee employee;  
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="TARGET_UNIT", nullable=false)
 	private Unit targetUnit;
-
+	
 	@Basic
 	@Column(name = "DUE_TO", nullable=true)
 	private Date dueTo;
@@ -82,18 +96,19 @@ public class Secondment extends BaseModel {
 	@Column(name="ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	@SuppressWarnings("unused")
 	@Version
 	private Long version;
 	
 	@ManyToOne
 	@JoinColumn(name="TARGET_PYSDE_ID", nullable=true)
-	private PYSDE targetPYSDE; 
+	private PYSDE targetPYSDE;
 
 	@ManyToOne
 	@JoinColumn(name="SOURCE_PYSDE_ID", nullable=true)
 	private PYSDE sourcePYSDE;
-	
+
 	/**
 	 * @return the affectedEmployment
 	 */
@@ -107,6 +122,10 @@ public class Secondment extends BaseModel {
 	public Date getDueTo() {
 		return dueTo;
 	}
+	
+	public Employee getEmployee() {
+		return employee;
+	} 
 
 	/**
 	 * @return the employeeRequested
@@ -114,7 +133,7 @@ public class Secondment extends BaseModel {
 	public Boolean getEmployeeRequested() {
 		return employeeRequested;
 	}
-
+	
 	/**
 	 * @return the established
 	 */
@@ -122,6 +141,10 @@ public class Secondment extends BaseModel {
 		return established;
 	}
 	
+	public String getHeadMasterOrder() {
+		return headMasterOrder;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -132,7 +155,7 @@ public class Secondment extends BaseModel {
 	public String getMinisterialOrder() {
 		return ministerialOrder;
 	}
-
+	
 	public String getPysdeOrder() {
 		return pysdeOrder;
 	}
@@ -144,11 +167,15 @@ public class Secondment extends BaseModel {
 		return replacementFor;
 	}
 
-	
-
 	public SchoolYear getSchoolYear() {
 		return schoolYear;
 	}
+
+	public SecondmentType getSecondmentType() {
+		return secondmentType;
+	}
+
+	
 
 	public PYSDE getSourcePYSDE() {
 		return sourcePYSDE;
@@ -176,6 +203,10 @@ public class Secondment extends BaseModel {
 		this.dueTo = dueTo;
 	}
 
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
 	
 	/**
 	 * @param employeeRequested the employeeRequested to set
@@ -189,6 +220,10 @@ public class Secondment extends BaseModel {
 	 */
 	public void setEstablished(Date established) {
 		this.established = established;
+	}
+
+	public void setHeadMasterOrder(String headMasterOrder) {
+		this.headMasterOrder = headMasterOrder;
 	}
 
 	/**
@@ -215,6 +250,10 @@ public class Secondment extends BaseModel {
 
 	public void setSchoolYear(SchoolYear schoolYear) {
 		this.schoolYear = schoolYear;
+	}
+
+	public void setSecondmentType(SecondmentType secondmentType) {
+		this.secondmentType = secondmentType;
 	}
 
 	public void setSourcePYSDE(PYSDE sourcePYSDE) {

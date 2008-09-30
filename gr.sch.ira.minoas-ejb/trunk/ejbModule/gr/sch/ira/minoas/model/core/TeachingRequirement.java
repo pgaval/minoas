@@ -3,6 +3,8 @@
  */
 package gr.sch.ira.minoas.model.core;
 
+import gr.sch.ira.minoas.model.BaseModel;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,13 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import gr.sch.ira.minoas.model.BaseModel;
 
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
