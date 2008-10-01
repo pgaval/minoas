@@ -4,11 +4,13 @@
 package gr.sch.ira.minoas.seam.components.suggesters;
 
 import gr.sch.ira.minoas.model.core.Unit;
+import gr.sch.ira.minoas.model.employement.SecondmentType;
 import gr.sch.ira.minoas.seam.components.BaseDatabaseAwareSeamComponent;
 
 import java.util.Collection;
 
 import org.jboss.seam.ScopeType;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Transactional;
@@ -21,9 +23,13 @@ import org.jboss.seam.annotations.Transactional;
 @Scope(ScopeType.CONVERSATION)
 public class SecondmentAwareUnitSuggester extends BaseDatabaseAwareSeamComponent {
 	
+	@In(required=false)
+	private SecondmentType selectedSecondmentType;
+	
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public Collection<Unit> suggest(Object secondmemt_search_pattern) {
+		info("selected secondment type is #0", selectedSecondmentType);
 		return getMinoasDatabase().createQuery("SELECT u FROM Unit u WHERE LOWER(u.title) LIKE LOWER(:lala+'%')").setParameter("lala", secondmemt_search_pattern).getResultList();
 	}
 

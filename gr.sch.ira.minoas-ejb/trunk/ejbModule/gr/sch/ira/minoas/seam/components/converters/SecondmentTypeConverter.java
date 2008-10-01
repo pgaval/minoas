@@ -3,6 +3,8 @@
  */
 package gr.sch.ira.minoas.seam.components.converters;
 
+import java.util.List;
+
 import gr.sch.ira.minoas.model.employement.SecondmentType;
 
 import javax.faces.component.UIComponent;
@@ -40,17 +42,19 @@ public class SecondmentTypeConverter extends DatabaseAwareBaseConverter {
 	public Object getAsObject(FacesContext context, UIComponent component,
 			String value) {
 		if (value != null) {
-			Long secondmentTypeID = null;
 			try {
-				secondmentTypeID = Long.valueOf(value.toString());
+				return getMinoasDatabase()
+						.createNamedQuery(
+								SecondmentType.NAMED_QUERY_FIND_SECONDMENT_TYPE_BY_TITLE)
+						.setParameter(
+								SecondmentType.QUERY_PARAMETER_SECONDMENT_TITLE,
+								value).getSingleResult();
 			} catch (Exception ex) {
 				warn(
 						"failed to convert value '#0' to a valid secondment type, due to an exception '#1'",
 						value, ex.getMessage());
 				return null;
 			}
-			return getMinoasDatabase().find(SecondmentType.class,
-					secondmentTypeID);
 		} else
 			return null;
 	}

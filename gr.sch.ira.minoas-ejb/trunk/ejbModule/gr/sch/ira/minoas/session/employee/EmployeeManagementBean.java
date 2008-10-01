@@ -6,6 +6,7 @@ package gr.sch.ira.minoas.session.employee;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.model.employement.Secondment;
+import gr.sch.ira.minoas.model.employement.SecondmentType;
 import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
@@ -18,12 +19,15 @@ import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 
+import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Destroy;
+import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
+import org.jboss.seam.annotations.Unwrap;
 import org.jboss.seam.annotations.security.Restrict;
 
 
@@ -46,6 +50,11 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	@Out(required=false)
 	private Secondment newSecondment;
 	
+	@Out(required=false)
+	private SecondmentType selectedSecondmentType;
+	
+	
+	
 	private SchoolYear activeSchoolYear;
 
 	/**
@@ -60,8 +69,7 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	@In(value="coreSearching")
 	private CoreSearching coreSearching;
 	
-	@In
-	private EntityManager minoasDatabase;
+
 	
 	/**
 	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
@@ -98,6 +106,13 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 		this.activeEmployee = activeEmployee;
 	}
 
+	
+	public String secondmentTypeSelected() {
+		selectedSecondmentType = newSecondment.getSecondmentType();
+		debug("lalalalala #0", newSecondment.getSecondmentType());
+		return SUCCESS_OUTCOME;
+	}
+	
 	@Begin(nested=true)
 	public String beginEmployeeNewSecondment() {
 		info("new secondment conversation begun for employee '#0' during school year '#1'.", getActiveEmployee(), getActiveSchoolYear());
