@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -43,7 +44,7 @@ public class UnitCategory extends BaseModel {
 	@Column(name="TITLE", nullable=false, unique=true, length=64)
 	private String title;
 	
-	@OneToMany(mappedBy="category", fetch=FetchType.LAZY)
+	@ManyToMany(mappedBy="categories", fetch=FetchType.LAZY)
 	private Collection<Unit> units;
 	/**
 	 * 

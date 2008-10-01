@@ -5,6 +5,7 @@ package gr.sch.ira.minoas.model.core;
 
 import gr.sch.ira.minoas.model.BaseModel;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -17,6 +18,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -45,7 +47,7 @@ public class Unit extends BaseModel {
 	@JoinColumn(name = "ADDRESS_ID", nullable = true)
 	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	private Address address;
-	
+
 	@Id
 	@Column(name = "UNIT_ID", length = 3)
 	private String id;
@@ -54,14 +56,14 @@ public class Unit extends BaseModel {
 	@Column(name = "TITLE", nullable = false, unique = true, length = 80)
 	private String title;
 
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="MINOAS_UNIT_TELEPHONES")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "MINOAS_UNIT_TELEPHONES")
 	private List<Telephone> telephones;
-	
-	@ManyToOne(fetch=FetchType.EAGER, optional=true)
-	@JoinColumn(name="CATEGORY_ID", nullable=true)
-	private UnitCategory category;
-	
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "MINOAS_UNIT_GATEGORIES", joinColumns = @JoinColumn(name = "UNIT_ID", referencedColumnName = "UNIT_ID"), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID"))
+	private Collection<UnitCategory> categories;
+
 	@SuppressWarnings("unused")
 	@Version
 	private Long version;
@@ -95,27 +97,28 @@ public class Unit extends BaseModel {
 	}
 
 	/**
-	 * @param address the address to set
+	 * @param address
+	 *            the address to set
 	 */
 	public void setAddress(Address address) {
 		this.address = address;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
 	/**
-	 * @param title the title to set
+	 * @param title
+	 *            the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	
 
 	/**
 	 * @return the telephones
@@ -125,18 +128,13 @@ public class Unit extends BaseModel {
 	}
 
 	/**
-	 * @param telephones the telephones to set
+	 * @param telephones
+	 *            the telephones to set
 	 */
 	public void setTelephones(List<Telephone> telephones) {
 		this.telephones = telephones;
 	}
 
-	public UnitCategory getCategory() {
-		return category;
-	}
-
-	public void setCategory(UnitCategory category) {
-		this.category = category;
-	}
+	
 
 }
