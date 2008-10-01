@@ -18,9 +18,9 @@
 				</ui:define>
 				<h:inputText id="secondmentType"
 					value="#{newSecondment.secondmentType}"
-					converter="secondmentTypeConverter" immediate="true" styleClass="fieldValueText">
+					converter="secondmentTypeConverter" immediate="true" styleClass="fieldValueText" >
 					<rich:suggestionbox var="secondmentType" for="secondmentType"
-						suggestionAction="#{secondmentTypeSuggester.suggest}" fetchValue="#{secondmentType.id}">
+						suggestionAction="#{secondmentTypeSuggester.suggest}">
 						<f:facet name="nothingLabel">
 							<h:outputText value="Άγνωστος Τύπος Απόσπασης" />
 						</f:facet>
@@ -28,16 +28,19 @@
 							<h:outputText value="#{secondmentType.title}" />
 						</h:column>
 					</rich:suggestionbox>
+					<a4j:support event="onblur" eventsQueue="foo" limitToList="true" action="#{employeeManagement.secondmentTypeSelected}" reRender="secondmentTargetOutputPanel">
+					</a4j:support>
 				</h:inputText>
 			
 			</s:decorate>
-
+			<a4j:outputPanel id="secondmentTargetOutputPanel">
 			<s:decorate 
 			template="/layout/doubleLineEdit.xhtml">
 			<ui:define name="label">
 				<h:outputText value="Μονάδα Απόσπασης" />
 			</ui:define>
-			<h:inputText value="#{newSecondment.targetUnit}" id="secondmentTarget" styleClass="fieldValueText">
+			
+			<h:inputText  value="#{newSecondment.targetUnit}" id="secondmentTarget" styleClass="fieldValueText" disabled="#{newSecondment.secondmentType eq null}">
 						<rich:suggestionbox for="secondmentTarget" var="secondmentUnit"
 							suggestionAction="#{secondmentAwareUnitSuggester.suggest}">
 							<f:facet name="nothingLabel">
@@ -49,6 +52,7 @@
 						</rich:suggestionbox>
 					</h:inputText>
 		</s:decorate>
+		</a4j:outputPanel>
 		
 		<s:decorate 
 			template="/layout/doubleLineEdit.xhtml">
