@@ -39,74 +39,7 @@
 	<!-- start siderbar -->
 	<div id="sidebar">
 		<h2>Μενού</h2>
-		<rich:panelMenu mode="ajax">
-	<rich:panelMenuGroup label="Διαχείριση Μίνωα">
-		<rich:panelMenu mode="ajax">
-			<rich:panelMenuItem>
-				<s:link value="Σχολικά Έτη" action="#{schoolYearAdmin.search()}"
-					view="/schoolYears.xhtml" />
-			</rich:panelMenuItem>
-			<rich:panelMenuItem>
-				<s:link value="Εισαγωγή Σχολικής Μονάδας"
-					action="#{schoolYearAdmin.search()}" view="/schoolYears.xhtml" />
-			</rich:panelMenuItem>
-
-			<rich:panelMenuGroup label="Ασφάλεια και Πρόσβαση">
-				<rich:panelMenu>
-					<rich:panelMenuItem>
-						<s:link value="Διαχείριση Χρηστών"
-							action="#{principalAdmin.search()}" view="/principals.xhtml" />
-					</rich:panelMenuItem>
-					<rich:panelMenuItem>
-						<s:link value="Διαχείριση Ρόλων" view="/roles.xhtml" />
-					</rich:panelMenuItem>
-					<rich:panelMenuItem>
-						<s:link value="Διαχείριση Ομάδων" view="/roleGroups.xhtml" />
-					</rich:panelMenuItem>
-				</rich:panelMenu>
-			</rich:panelMenuGroup>
-		</rich:panelMenu>
-	</rich:panelMenuGroup>
-	<rich:panelMenuGroup label="Σχολικές Μονάδες">
-		<rich:panelMenu mode="ajax">
-			<rich:panelMenuItem>
-				<s:link value="Καρτέλα Μονάδας" action="#{schoolSearch.beginSchoolSearchConversation}"/>
-			</rich:panelMenuItem>
-		</rich:panelMenu>
-	</rich:panelMenuGroup>
-	<rich:panelMenuGroup label="Προσωπικό">
-		<rich:panelMenu>
-			<rich:panelMenuItem>
-				<s:link value="Καρτέλα Εκπαιδευτικού" action="#{employeeManagement.beginEmployeeManagementConversation}" />
-			</rich:panelMenuItem>
-		</rich:panelMenu>
-	</rich:panelMenuGroup>
-	<rich:panelMenuGroup label="Διδακτικά Κενά">
-		<rich:panelMenu mode="ajax">
-			<rich:panelMenuItem>
-				<s:link value="Εισαγωγή Νέου Κενού"
-					action="#{voidManagement.beginCreateTeachingVoid()}" />
-			</rich:panelMenuItem>
-			<rich:panelMenuItem>
-				<s:link value="Διαχείριση Κενών Μονάδας"
-					action="#{voidManagement.beginSchoolVoidManagement()}" />
-			</rich:panelMenuItem>
-			<rich:panelMenuGroup label="Προβολή Ενεργών Κενών ...."
-				expandMode="ajax">
-				<rich:panelMenuItem>
-					<s:link value="Εισαγωγή Νέου Κενού"
-						action="#{voidManagement.beginCreateTeachingVoid()}" />
-				</rich:panelMenuItem>
-				<rich:panelMenuItem>
-					<s:link value="Διαχείριση Κενών Μονάδας"
-						action="#{voidManagement.beginSchoolVoidManagement()}" />
-				</rich:panelMenuItem>
-			</rich:panelMenuGroup>
-		</rich:panelMenu>
-
-	</rich:panelMenuGroup>
-
-</rich:panelMenu>
+		<ui:include src="/components/menu.xhtml" />
 	
 	</div>
 	<!-- end siderbar -->
