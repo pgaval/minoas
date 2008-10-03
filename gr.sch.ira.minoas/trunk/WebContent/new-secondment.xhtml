@@ -9,123 +9,138 @@
 
 <ui:composition template="#{theme.template}">
 	<ui:define name="body">
+		<h:outputText styleClass="pagetitle"
+			value="Καταχώρηση Απόσπασης Εκπαιδευτικού ..." />
 		<h:form>
-		<h:panelGrid columns="3">
+			<a4j:outputPanel>
+				<h:panelGrid columns="3">
 
-			<s:decorate template="/layout/doubleLineEdit.xhtml">
-				<ui:define name="label">
-					<h:outputText value="Τύπος Απόσπασης" />
-				</ui:define>
-				<h:inputText id="secondmentType"
-					value="#{newSecondment.secondmentType}"
-					converter="secondmentTypeConverter" immediate="true" styleClass="fieldValueText" >
-					<rich:suggestionbox var="secondmentType" for="secondmentType"
-						suggestionAction="#{secondmentTypeSuggester.suggest}">
-						<f:facet name="nothingLabel">
-							<h:outputText value="Άγνωστος Τύπος Απόσπασης" />
-						</f:facet>
-						<h:column>
-							<h:outputText value="#{secondmentType.title}" />
-						</h:column>
-					</rich:suggestionbox>
-					<a4j:support event="onblur" eventsQueue="foo" limitToList="true" action="#{employeeManagement.secondmentTypeSelected}" reRender="secondmentTargetOutputPanel">
-					</a4j:support>
-				</h:inputText>
-			
-			</s:decorate>
-			<a4j:outputPanel id="secondmentTargetOutputPanel">
-			<s:decorate 
-			template="/layout/doubleLineEdit.xhtml">
-			<ui:define name="label">
-				<h:outputText value="Μονάδα Απόσπασης" />
-			</ui:define>
-			
-			<h:inputText  value="#{newSecondment.targetUnit}" id="secondmentTarget" styleClass="fieldValueText" disabled="#{newSecondment.secondmentType eq null}">
-						<rich:suggestionbox for="secondmentTarget" var="secondmentUnit"
-							suggestionAction="#{secondmentAwareUnitSuggester.suggest}">
-							<f:facet name="nothingLabel">
-								<h:outputText value="Άγνωστη Μονάδα Απόσπασης" />
-							</f:facet>
-							<h:column>
-								<h:outputText value="#{secondmentUnit.title}" />
-							</h:column>
-						</rich:suggestionbox>
-					</h:inputText>
-		</s:decorate>
-		</a4j:outputPanel>
-		
-		<s:decorate 
-			template="/layout/doubleLineEdit.xhtml">
-			<ui:define name="label">
-				<h:outputText value="Απόφαση ΠΥΣΔΕ" />
-			</ui:define>
-			<h:inputText id="pysdeOrder" value="#{newSecondment.pysdeOrder}" styleClass="fieldValueText"
-				required="false" size="16" maxlength="25">
-				<a4j:support event="onblur" reRender="pysdeOrder"
-					bypassUpdates="true" />
-				<f:validateLength minimum="5" maximum="25" />
-			</h:inputText>
-		</s:decorate>
-		
-		<h:panelGroup>
-			<h:panelGrid columns="1">
-				<h:outputLabel value="Εκπαιδευτικός" for="" />
-				<h:outputText styleClass="fieldValueText" value="#{newSecondment.employee.lastName} #{newSecondment.employee.firstName} του #{newSecondment.employee.fatherName} (#{newSecondment.employee.currentEmployment.specialization})" />
-			</h:panelGrid>
-		</h:panelGroup>
-		<s:decorate 
-			template="/layout/doubleLineEdit.xhtml">
-			<ui:define name="label">
-				<h:outputText value="Απόφαση Διευθυντή" />
-			</ui:define>
-			<h:inputText id="headMasterOrder" value="#{newSecondment.headMasterOrder}" styleClass="fieldValueText"
-				required="false" size="16" maxlength="25">
-				<a4j:support event="onblur" reRender="headMasterOrder"
-					bypassUpdates="true" />
-				<f:validateLength minimum="5" maximum="25" />
-			</h:inputText>
-		</s:decorate>
-		
-		
-		
-		
+					<s:decorate id="secondmentTypeDecoration"
+						template="/layout/doubleLineEdit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="Τύπος Απόσπασης" />
+						</ui:define>
+						<h:inputText id="secondmentType"
+							value="#{newSecondment.secondmentType}"
+							converter="secondmentTypeConverter" immediate="true"
+							styleClass="fieldValueText">
+							<a4j:support event="onkeyup" eventsQueue="foo" limitToList="true"
+								action="#{employeeManagement.secondmentTypeSelected}"
+								bypassUpdates="true" reRender="secondmentTargetDecoration">
+							</a4j:support>
+							<rich:suggestionbox var="secondmentType" for="secondmentType"
+								suggestionAction="#{secondmentTypeSuggester.suggest}">
+								<f:facet name="nothingLabel">
+									<h:outputText value="Άγνωστος Τύπος Απόσπασης" />
+								</f:facet>
+								<h:column>
+									<h:outputText value="#{secondmentType.title}" />
+								</h:column>
+							</rich:suggestionbox>
 
-		<s:decorate template="/layout/doubleLineEdit.xhtml">
-			<ui:define name="label">
-				<h:outputText value="Υπουργική Απόφαση" />
-			</ui:define>
-			<h:inputText id="ministerialOrder"
-				value="#{newSecondment.ministerialOrder}" required="false" size="16"
-				maxlength="25" styleClass="fieldValueText">
-				<a4j:support event="onblur" reRender="ministerialOrder"
-					bypassUpdates="true" />
-				<f:validateLength minimum="5" maximum="25" />
-			</h:inputText>
-		</s:decorate>
+						</h:inputText>
 
-		<s:decorate template="/layout/doubleLineEdit.xhtml">
-			<ui:define name="label">
-				<h:outputText value="Έναρξη Απόσπασης" />
-			</ui:define>
-			<rich:calendar id="establishedDate"
-				value="#{newSecondment.established}" required="true" mode="ajax"
-				locale="el_GR" inputClass="fieldValueText" datePattern="dd-MM-yyyy" />
-		</s:decorate>
-		<s:decorate template="/layout/doubleLineEdit.xhtml">
-			<ui:define name="label">
-				<h:outputText value="Λήξη Απόσπασης" />
-			</ui:define>
-			<rich:calendar id="dueToDate"
-				value="#{newSecondment.dueTo}" required="true" mode="ajax"
-				locale="el_GR" inputClass="fieldValueText" datePattern="dd-MM-yyyy" />
-		</s:decorate>
-		<s:decorate template="/layout/doubleLineEdit.xhtml">
-			<ui:define name="label">
-				<h:outputText value="Με Αίτηση του ?" />
-			</ui:define>
-			<h:selectBooleanCheckbox value="#{newSecondment.employeeRequested}"/>
-		</s:decorate>
-		</h:panelGrid>
+					</s:decorate>
+
+
+					<s:decorate id="secondmentTargetDecoration"
+						template="/layout/doubleLineEdit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="Μονάδα Απόσπασης" />
+						</ui:define>
+
+						<h:inputText value="#{newSecondment.targetUnit}"
+							id="secondmentTarget" styleClass="fieldValueText"
+							disabled="#{newSecondment.secondmentType eq null}">
+							<rich:suggestionbox for="secondmentTarget" var="secondmentUnit"
+								suggestionAction="#{secondmentAwareUnitSuggester.suggest}">
+								<f:facet name="nothingLabel">
+									<h:outputText value="Άγνωστη Μονάδα Απόσπασης" />
+								</f:facet>
+								<h:column>
+									<h:outputText value="#{secondmentUnit.title}" />
+								</h:column>
+							</rich:suggestionbox>
+						</h:inputText>
+					</s:decorate>
+
+					<s:decorate template="/layout/doubleLineEdit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="Απόφαση ΠΥΣΔΕ" />
+						</ui:define>
+						<h:inputText id="pysdeOrder" value="#{newSecondment.pysdeOrder}"
+							styleClass="fieldValueText" required="false" size="16"
+							maxlength="25">
+							<a4j:support event="onblur" reRender="pysdeOrder"
+								bypassUpdates="true" />
+							<f:validateLength minimum="5" maximum="25" />
+						</h:inputText>
+					</s:decorate>
+
+					<h:panelGroup>
+						<h:panelGrid columns="1">
+							<h:outputLabel value="Εκπαιδευτικός" for="" />
+							<h:outputText styleClass="fieldValueText"
+								value="#{newSecondment.employee.lastName} #{newSecondment.employee.firstName} του #{newSecondment.employee.fatherName} (#{newSecondment.employee.currentEmployment.specialization})" />
+						</h:panelGrid>
+					</h:panelGroup>
+					<s:decorate template="/layout/doubleLineEdit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="Απόφαση Διευθυντή" />
+						</ui:define>
+						<h:inputText id="headMasterOrder"
+							value="#{newSecondment.headMasterOrder}"
+							styleClass="fieldValueText" required="false" size="16"
+							maxlength="25">
+							<a4j:support event="onblur" reRender="headMasterOrder"
+								bypassUpdates="true" />
+							<f:validateLength minimum="5" maximum="25" />
+						</h:inputText>
+					</s:decorate>
+
+
+
+
+
+					<s:decorate template="/layout/doubleLineEdit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="Υπουργική Απόφαση" />
+						</ui:define>
+						<h:inputText id="ministerialOrder"
+							value="#{newSecondment.ministerialOrder}" required="false"
+							size="16" maxlength="25" styleClass="fieldValueText">
+							<a4j:support event="onblur" reRender="ministerialOrder"
+								bypassUpdates="true" />
+							<f:validateLength minimum="5" maximum="25" />
+						</h:inputText>
+					</s:decorate>
+
+					<s:decorate template="/layout/doubleLineEdit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="Έναρξη Απόσπασης" />
+						</ui:define>
+						<rich:calendar id="establishedDate"
+							value="#{newSecondment.established}" required="true" mode="ajax"
+							locale="el_GR" inputClass="fieldValueText"
+							datePattern="dd-MM-yyyy" />
+					</s:decorate>
+					<s:decorate template="/layout/doubleLineEdit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="Λήξη Απόσπασης" />
+						</ui:define>
+						<rich:calendar id="dueToDate" value="#{newSecondment.dueTo}"
+							required="true" mode="ajax" locale="el_GR"
+							inputClass="fieldValueText" datePattern="dd-MM-yyyy" />
+					</s:decorate>
+					<s:decorate template="/layout/doubleLineEdit.xhtml">
+						<ui:define name="label">
+							<h:outputText value="Με Αίτηση του ?" />
+						</ui:define>
+						<h:selectBooleanCheckbox
+							value="#{newSecondment.employeeRequested}" />
+					</s:decorate>
+				</h:panelGrid>
+			</a4j:outputPanel>
 		</h:form>
 	</ui:define>
 </ui:composition>

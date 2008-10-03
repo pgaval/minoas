@@ -45,18 +45,18 @@ body {
 }
 
 .content {
-	float: left;
+	/* float: right; */
 	width: 510px;
 	text-align: justify;
-	padding: 0 30px 0 30px;
+	padding: 0 10px 0 10px;
 	font-size: 12px
 }
 
 .menu {
-	width: 139px;
-	float: right;
-	padding: 0 20px 0 20px;
-	border-left: #8C8484 1px solid;
+	width: 160px;
+	float: left;
+	padding: 0 10px 0 10px;
+	border-right: #8C8484 1px solid;
 	font-size: 12px
 }
 
@@ -107,8 +107,8 @@ body {
 	list-style-type: circle
 }
 
-a {
-	color: #A40008;
+a:link,.w,a.w:link,.w a:link {
+	color: #0000cc;
 	font-weight: bold;
 	text-decoration: none
 }
@@ -136,4 +136,20 @@ a.menu_link:hover {
 	text-align: center;
 	font-weight: bold;
 	font-style: italic
+}
+
+/* styles added by slavikos */
+.rich-message-marker img {
+	padding-right: 7px;
+}
+
+.rich-message-label {
+	color: red;
+}
+
+.fieldValueText {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: black;
 }
