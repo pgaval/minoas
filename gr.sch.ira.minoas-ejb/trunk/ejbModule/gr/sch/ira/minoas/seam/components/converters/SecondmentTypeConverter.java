@@ -9,6 +9,7 @@ import gr.sch.ira.minoas.model.employement.SecondmentType;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.persistence.NoResultException;
 
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Transactional;
@@ -49,6 +50,8 @@ public class SecondmentTypeConverter extends DatabaseAwareBaseConverter {
 						.setParameter(
 								SecondmentType.QUERY_PARAMETER_SECONDMENT_TITLE,
 								value).getSingleResult();
+			} catch (NoResultException nres) {
+				return null;
 			} catch (Exception ex) {
 				warn(
 						"failed to convert value '#0' to a valid secondment type, due to an exception '#1'",
@@ -72,7 +75,7 @@ public class SecondmentTypeConverter extends DatabaseAwareBaseConverter {
 				return value.toString();
 			}
 		} else
-			return null;
+			return EMPTY_STRING;
 	}
 
 }

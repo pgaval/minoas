@@ -16,5 +16,7 @@ import javax.faces.convert.Converter;
  *
  */
 public abstract class BaseConverter extends BaseSeamComponent implements Converter {
+	
+	public static final String EMPTY_STRING = new String("");
 
 }
