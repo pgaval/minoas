@@ -63,6 +63,7 @@
            <value>edit-school-year.jpdl.xml</value>
            <value>school-search.jpdl.xml</value>
            <value>employee-management.jpdl.xml</value>
+           <value>new-secondment.jpdl.xml</value>
        </bpm:pageflow-definitions>
    </bpm:jbpm>
    
