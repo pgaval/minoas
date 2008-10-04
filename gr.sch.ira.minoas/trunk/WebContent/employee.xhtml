@@ -8,9 +8,12 @@
 
 <ui:composition template="#{theme.template}">
 	<ui:define name="body">
-		<h:form>
-			<h:outputText styleClass="pagetitle"
-				value="Καρτέλα Στοιχείων Προσωπικού" />
+
+		<rich:panel width="100%" headerClass="pagetitle">
+			<f:facet name="header">
+				<h:outputText value="Καρτέλα Εκπαιδευτικού #{activeEmployee.lastName} #{activeEmployee.firstName} του #{activeEmployee.fatherName}" />
+			</f:facet>
+			<h:form id="toolbarForm">
 			<rich:toolBar>
 				<rich:dropDownMenu>
 					<f:facet name="label">
@@ -26,58 +29,68 @@
 
 				</rich:dropDownMenu>
 			</rich:toolBar>
-			<rich:simpleTogglePanel switchType="Ajax">
-				<f:facet name="header">
-					<h:outputText
-						value="Καρτέλα #{activeEmployee.lastName} #{activeEmployee.firstName} του #{activeEmployee.fatherName}" />
-				</f:facet>
-
+			</h:form>
+			<h:panelGrid columns="1">
+				<h:panelGroup>
 				<h:panelGrid columns="2">
-					<ui:include src="/components/employee/basicInfo.xhtml">
-						<ui:param name="employee" value="#{activeEmployee}" />
-					</ui:include>
-					<ui:include src="/components/general/address.xhtml">
-						<ui:param name="address" value="#{activeEmployee.address}" />
-					</ui:include>
-				</h:panelGrid>
-			</rich:simpleTogglePanel>
-			<rich:simpleTogglePanel switchType="Ajax">
-				<f:facet name="header">
-					<h:outputText
-						value="Τρέχουσα Κατάσταση (#{defaultSchoolYear.title})" />
-				</f:facet>
-				<h:outputText value="Η τρέχουσα κατάσταση είναι η παρακάτω ...." />
-			</rich:simpleTogglePanel>
-			<rich:tabPanel mode="Ajax">
-				<rich:tab rendered="#{employeeUtil.isRegular(activeEmployee)}">
-					<f:facet name="label">
-						<h:outputText value="Ιστορικό Οργανικών Θέσεων" />
+						<ui:include src="/components/employee/basicInfo.xhtml">
+							<ui:param name="employee" value="#{activeEmployee}" />
+						</ui:include>
+						<ui:include src="/components/general/address.xhtml">
+							<ui:param name="address" value="#{activeEmployee.address}" />
+						</ui:include>
+					</h:panelGrid>
+				</h:panelGroup>
+				
+				<rich:simpleTogglePanel switchType="Ajax">
+					<f:facet name="header">
+						<h:outputText
+							value="Τρέχουσα Κατάσταση (#{defaultSchoolYear.title})" />
 					</f:facet>
-					<ui:include
-						src="/components/employee/regularEmploymentsHistory.xhtml" />
-				</rich:tab>
-				<rich:tab rendered="#{employeeUtil.isDeputy(activeEmployee)}">
-					<f:facet name="label">
-						<h:outputText value="Ιστορικό Τοποθετήσεων Αναπληρωτή" />
-					</f:facet>
-				</rich:tab>
-				<rich:tab>
-					<f:facet name="label">
-						<h:outputText value="Ιστορικό Αποσπάσεων" />
-					</f:facet>
-				</rich:tab>
-				<rich:tab>
-					<f:facet name="label">
-						<h:outputText value="Ιστορικό Διαθέσεων" />
-					</f:facet>
-				</rich:tab>
-				<rich:tab>
-					<f:facet name="label">
-						<h:outputText value="Ιστορικό Αδειών" />
-					</f:facet>
-				</rich:tab>
-			</rich:tabPanel>
+					<h:outputText value="Η τρέχουσα κατάσταση είναι η παρακάτω ...." />
+				</rich:simpleTogglePanel>
 
+				<rich:tabPanel mode="Ajax">
+					<rich:tab rendered="#{employeeUtil.isRegular(activeEmployee)}">
+						<f:facet name="label">
+							<h:outputText value="Ιστορικό Οργανικών Θέσεων" />
+						</f:facet>
+						<ui:include
+							src="/components/employee/regularEmploymentsHistory.xhtml" />
+					</rich:tab>
+					<rich:tab rendered="#{employeeUtil.isDeputy(activeEmployee)}">
+						<f:facet name="label">
+							<h:outputText value="Ιστορικό Τοποθετήσεων Αναπληρωτή" />
+						</f:facet>
+					</rich:tab>
+					<rich:tab>
+						<f:facet name="label">
+							<h:outputText value="Ιστορικό Αποσπάσεων" />
+						</f:facet>
+					</rich:tab>
+					<rich:tab>
+						<f:facet name="label">
+							<h:outputText value="Ιστορικό Διαθέσεων" />
+						</f:facet>
+					</rich:tab>
+					<rich:tab>
+						<f:facet name="label">
+							<h:outputText value="Ιστορικό Αδειών" />
+						</f:facet>
+					</rich:tab>
+				</rich:tabPanel>
+
+
+			</h:panelGrid>
+		</rich:panel>
+
+
+		<h:form>
+			
+			
+			
+			
+			
 
 			<s:button value="Πίσω" action="back"></s:button>
 		</h:form>

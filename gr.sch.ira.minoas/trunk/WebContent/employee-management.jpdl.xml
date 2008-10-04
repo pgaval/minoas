@@ -29,15 +29,19 @@
    <page view-id="/employee.xhtml" name="employeePage">
     <redirect/>
     <transition to="employeeSearchPage" name="back" />
-    <transition to="NewSecondmentPage" name="new-secondment">
+    <transition to="new-secondment-subprocess" name="new-secondment">
     	<action expression="#{employeeManagement.beginEmployeeNewSecondment}" />
     </transition>
     <action expression="#{employeeRecord.search()}" />
    </page> 
    
-   <page view-id="/new-secondment.xhtml" name="NewSecondmentPage">
-   	 <redirect/>
-   </page>
+  	
+   <process-state name="new-secondment-subprocess">
+   	<sub-process name="new-secondment" />  
+   	<transition to="employeePage" />
+   </process-state>
+    
+   
    
   <page view-id="/home.xhtml" name="home">
     <end-conversation/>

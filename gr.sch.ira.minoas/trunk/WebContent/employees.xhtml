@@ -9,113 +9,103 @@
 
 <ui:composition template="#{theme.template}">
 	<ui:define name="body">
-
-		<h:outputText styleClass="pagetitle"
-			value="Αναζήτηση Εκπαιδευτικού Προσωπικού" />
-		<h:panelGrid columns="1" width="100%">
-			<h:panelGrid columns="1" width="100%">
-				<rich:simpleTogglePanel
-					label="Φόρμα Αναζήτησης Εκπαιδευτικού Προσωπικού" switchType="Ajax">
+		<rich:panel width="100%" headerClass="pagetitle">
+			<f:facet name="header">
+				<h:outputText value="Αναζήτηση Εκπαιδευτικού Προσωπικού" />
+			</f:facet>
+			<h:panelGrid columns="1">
+				<!--  section of normal search form -->
+				<h:panelGroup>
+					<h:form id="searchForm">
+						<h:panelGrid columns="4">
+							<s:decorate template="/layout/doubleLineEdit.xhtml">
+								<ui:define name="label">
+									<h:outputText value="Επώνυμο" />
+								</ui:define>
+								<h:inputText id="employeeLastNameFilter"
+									value="#{employeeSearch.employeeLastNameFilter}"
+									styleClass="fieldValueText" required="true" size="15"
+									maxlength="30">
+									<a4j:support event="onblur" reRender="employeeLastNameFilter"
+										bypassUpdates="true" />
+									<f:validateLength minimum="3" maximum="30" />
+								</h:inputText>
+							</s:decorate>
+							<s:decorate template="/layout/doubleLineEdit.xhtml">
+								<ui:define name="label">
+									<h:outputText value="Όνομα" />
+								</ui:define>
+								<h:inputText value="#{employeeSearch.employeeFirstNameFilter}"
+									required="false" size="7" maxlength="20"
+									styleClass="fieldValueText" />
+							</s:decorate>
+							<s:decorate template="/layout/doubleLineEdit.xhtml">
+								<ui:define name="label">
+									<h:outputText value="Πατρώνυμο" />
+								</ui:define>
+								<h:inputText value="#{employeeSearch.employeeFatherNameFilter}"
+									styleClass="fieldValueText" required="false" size="7"
+									maxlength="20" />
+							</s:decorate>
+							<s:decorate template="/layout/doubleLineEdit.xhtml">
+								<ui:define name="label">
+									<h:outputText value="Προσωπικό εν ενεργεία" />
+								</ui:define>
+								<h:selectBooleanCheckbox
+									value="#{employeeSearch.employeeEmploymentFilter}" />
+							</s:decorate>
+							<s:decorate template="/layout/doubleLineEdit.xhtml">
+								<ui:define name="label">
+									<h:outputText value="Ειδικότητα" />
+								</ui:define>
+								<h:inputText id="specializationFilter"
+									value="#{employeeSearch.employeeSpecializationFilter}"
+									styleClass="fieldValueText" converter="specializationConverter">
+									<rich:suggestionbox height="100" width="250"
+										for="specializationFilter" var="a_spec"
+										suggestionAction="#{specializationSuggester.suggest}">
+										<f:facet name="nothingLabel">
+											<h:outputText value="Άγνωστη Ειδικότητα" />
+										</f:facet>
+										<h:column>
+											<h:outputText value="#{a_spec.id}" />
+										</h:column>
+										<h:column>
+											<h:outputText value="#{a_spec.title}" />
+										</h:column>
+									</rich:suggestionbox>
+								</h:inputText>
+							</s:decorate>
+							<h:commandButton id="searchButton" action="search"
+								value="Αναζήτηση" />
+						</h:panelGrid>
+					</h:form>
+				</h:panelGroup>
+				<!--  section of AFM or ID search form  -->
+				<rich:simpleTogglePanel label="Αναζήτηση Βάση ΑΦΜ ή Α.Μ"
+					opened="false">
 					<h:panelGroup>
-						<h:form id="searchForm">
-							<h:panelGrid columns="4">
-								<s:decorate template="/layout/doubleLineEdit.xhtml">
-									<ui:define name="label">
-										<h:outputText value="Επώνυμο" />
-									</ui:define>
-									<h:inputText id="employeeLastNameFilter"
-										value="#{employeeSearch.employeeLastNameFilter}"
-										styleClass="fieldValueText" required="true" size="15"
-										maxlength="30">
-										<a4j:support event="onblur" reRender="employeeLastNameFilter"
-											bypassUpdates="true" />
-										<f:validateLength minimum="3" maximum="30" />
-									</h:inputText>
-								</s:decorate>
-								<s:decorate template="/layout/doubleLineEdit.xhtml">
-									<ui:define name="label">
-										<h:outputText value="Όνομα" />
-									</ui:define>
-									<h:inputText value="#{employeeSearch.employeeFirstNameFilter}"
-										required="false" size="7" maxlength="20"
-										styleClass="fieldValueText" />
-								</s:decorate>
-								<s:decorate template="/layout/doubleLineEdit.xhtml">
-									<ui:define name="label">
-										<h:outputText value="Πατρώνυμο" />
-									</ui:define>
-									<h:inputText value="#{employeeSearch.employeeFatherNameFilter}"
-										styleClass="fieldValueText" required="false" size="7"
-										maxlength="20" />
-								</s:decorate>
-								<s:decorate template="/layout/doubleLineEdit.xhtml">
-									<ui:define name="label">
-										<h:outputText value="Προσωπικό εν ενεργεία" />
-									</ui:define>
-									<h:selectBooleanCheckbox
-										value="#{employeeSearch.employeeEmploymentFilter}" />
-								</s:decorate>
-								<s:decorate template="/layout/doubleLineEdit.xhtml">
-									<ui:define name="label">
-										<h:outputText value="Ειδικότητα" />
-									</ui:define>
-									<h:inputText id="specializationFilter"
-										value="#{employeeSearch.employeeSpecializationFilter}"
-										styleClass="fieldValueText"
-										converter="specializationConverter">
-										<rich:suggestionbox height="100" width="250"
-											for="specializationFilter" var="a_spec"
-											suggestionAction="#{specializationSuggester.suggest}">
-											<f:facet name="nothingLabel">
-												<h:outputText value="Άγνωστη Ειδικότητα" />
-											</f:facet>
-											<h:column>
-												<h:outputText value="#{a_spec.id}" />
-											</h:column>
-											<h:column>
-												<h:outputText value="#{a_spec.title}" />
-											</h:column>
-										</rich:suggestionbox>
-									</h:inputText>
-								</s:decorate>
-								<h:commandButton id="searchButton" action="search"
-									value="Αναζήτηση" />
-							</h:panelGrid>
+						<h:form id="searchByVATNumberForm">
+							<h:outputLabel value="ΑΦΜ Εκπαιδευτικού : " for="afmFilter" />
+							<h:inputText id="afmFilter"
+								value="#{employeeSearch.employeeVATNumberFilter}"
+								styleClass="fieldValueText" />
+							<h:commandButton id="searchByVATNumberButton"
+								action="searchByVATNumber" value="Αναζήτηση" />
+						</h:form>
+
+						<h:form id="searchByRegistryIDForm">
+							<h:outputLabel value="Α.Μ Εκπαιδευτικού : " for="codeFilter" />
+							<h:inputText id="codeFilter"
+								value="#{employeeSearch.employeeRegistryIDFilter}"
+								styleClass="fieldValueText" />
+							<h:commandButton action="searchByRegistryID" value="Αναζήτηση" />
 						</h:form>
 					</h:panelGroup>
-					<rich:simpleTogglePanel label="Αναζήτηση Βάση ΑΦΜ ή Α.Μ"
-						opened="false">
-						<h:panelGroup>
-
-							<h:form id="searchByVATNumberForm">
-								<h:outputLabel value="ΑΦΜ Εκπαιδευτικού : " for="afmFilter" />
-								<h:inputText id="afmFilter"
-									value="#{employeeSearch.employeeVATNumberFilter}"
-									styleClass="fieldValueText" />
-								<h:commandButton id="searchByVATNumberButton"
-									action="searchByVATNumber" value="Αναζήτηση" />
-							</h:form>
-
-							<h:form id="searchByRegistryIDForm">
-								<h:outputLabel value="Α.Μ Εκπαιδευτικού : " for="codeFilter" />
-								<h:inputText id="codeFilter"
-									value="#{employeeSearch.employeeRegistryIDFilter}"
-									styleClass="fieldValueText" />
-								<h:commandButton action="searchByRegistryID" value="Αναζήτηση" />
-							</h:form>
-						</h:panelGroup>
-					</rich:simpleTogglePanel>
 				</rich:simpleTogglePanel>
-			</h:panelGrid>
-			<h:panelGroup>
 				<ui:include src="/components/employee/employeeList.xhtml" />
-			</h:panelGroup>
-		</h:panelGrid>
-
-
-
-
-
+			</h:panelGrid>
+		</rich:panel>
 	</ui:define>
 </ui:composition>
 
