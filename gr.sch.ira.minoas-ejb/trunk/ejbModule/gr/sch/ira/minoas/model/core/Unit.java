@@ -20,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -36,7 +37,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @DiscriminatorColumn(name = "UNIT")
 @Table(name = "MINOAS_UNIT")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@NamedQuery(name = Unit.NAMED_QUERY_FIND_UNIT_BY_TITLE, query = "SELECT u FROM Unit u WHERE u.title=:"
+		+ Unit.QUERY_PARAMETER_UNIT_TITLE)
 public class Unit extends BaseModel {
+
+	public static final String NAMED_QUERY_FIND_UNIT_BY_TITLE = "findUnitByTitle";
+
+	public static final String QUERY_PARAMETER_UNIT_TITLE = "title";
 
 	/**
 	 * 
@@ -134,7 +141,5 @@ public class Unit extends BaseModel {
 	public void setTelephones(List<Telephone> telephones) {
 		this.telephones = telephones;
 	}
-
-	
 
 }

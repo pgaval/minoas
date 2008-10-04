@@ -18,4 +18,8 @@ public interface IEmployeeManagement {
 	
 	public String secondmentTypeSelected();
 	
+	public String endEmployeeManagementConversation();
+	
+	public String endEmployeeNewSecondment();
+	
 }

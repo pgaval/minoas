@@ -28,41 +28,37 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * @author slavikos
- *
+ * 
  */
 @Entity
 @Table(name = "MINOAS_SECONDMENT_TYPE")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-@NamedQuery(name="findSecondmentTypeByTitle",
-            query="SELECT c FROM SecondmentType c WHERE c.title=:title"
-    )
-
+@NamedQuery(name = SecondmentType.NAMED_QUERY_FIND_SECONDMENT_TYPE_BY_TITLE, query = "SELECT c FROM SecondmentType c WHERE c.title=:"
+		+ SecondmentType.QUERY_PARAMETER_SECONDMENT_TITLE)
 public class SecondmentType extends BaseModel {
-	
+
 	public static final String NAMED_QUERY_FIND_SECONDMENT_TYPE_BY_TITLE = "findSecondmentTypeByTitle";
-	
+
 	public static final String QUERY_PARAMETER_SECONDMENT_TITLE = "title";
 
 	@Id
-	@Column(name="ID")
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@SuppressWarnings("unused")
-	@Column(name="VERSION")
+	@Column(name = "VERSION")
 	@Version
 	private Long version;
-	
+
 	@Basic
-	@Column(name="TITLE", length=64, nullable=false, unique=true)
+	@Column(name = "TITLE", length = 64, nullable = false, unique = true)
 	private String title;
-	
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="MINOAS_SECONDMENT_TYPE_UNIT_CATEGORIES", 
-			joinColumns=@JoinColumn(name="SECONDMENT_TYPE_ID", referencedColumnName="ID"),
-		inverseJoinColumns=@JoinColumn(name="UNIT_CATEGORY_ID", referencedColumnName="ID"))
+
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "MINOAS_SECONDMENT_TYPE_UNIT_CATEGORIES", joinColumns = @JoinColumn(name = "SECONDMENT_TYPE_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "UNIT_CATEGORY_ID", referencedColumnName = "ID"))
 	private Collection<UnitCategory> suitableCategoryUnits;
-	
+
 	/**
 	 * 
 	 */
@@ -94,7 +90,5 @@ public class SecondmentType extends BaseModel {
 			Collection<UnitCategory> suitableCategoryUnits) {
 		this.suitableCategoryUnits = suitableCategoryUnits;
 	}
-
-	
 
 }

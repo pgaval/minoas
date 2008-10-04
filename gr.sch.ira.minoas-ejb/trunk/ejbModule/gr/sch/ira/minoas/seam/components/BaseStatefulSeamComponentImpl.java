@@ -46,6 +46,8 @@ public abstract class BaseStatefulSeamComponentImpl extends BaseDatabaseAwareSea
 
 	public static final String BEGIN_OUTCOME = "begin";
 	
+	public static final String END_OUTCOME = "end";
+	
 	public static final String SCHOOL_SELECTED_OUTCOME ="school-selected";
 	
 	public static final String EMPLOYEE_SELECTED_OUTCOME ="employee-selected";

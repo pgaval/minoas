@@ -23,6 +23,7 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Destroy;
+import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -62,10 +63,25 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	 */
 	@Begin(nested=true, pageflow="employee-management")
 	public String beginEmployeeManagementConversation() {
-		info("employee management conversation begun.");
+		info("employee '#0' management conversation begun.", getActiveEmployee());
 		return BEGIN_OUTCOME;
 	}
 	
+	/**
+	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#endEmployeeManagementConversation()
+	 */
+	@End(beforeRedirect=true)
+	public String endEmployeeManagementConversation() {
+		info("employee '#0' management conversation ended.", getActiveEmployee());
+		return END_OUTCOME;
+	}
+	
+	@End(beforeRedirect=true)
+	public String endEmployeeNewSecondment() {
+		info("new secondment '#2'conversation ended for employee '#0' during school year '#1'.", getActiveEmployee(), getActiveSchoolYear(), newSecondment);
+		return END_OUTCOME;
+	}
+
 	@In(value="coreSearching")
 	private CoreSearching coreSearching;
 	
@@ -113,7 +129,7 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 		return SUCCESS_OUTCOME;
 	}
 	
-	@Begin(nested=true)
+	@Begin(join=true)
 	public String beginEmployeeNewSecondment() {
 		info("new secondment conversation begun for employee '#0' during school year '#1'.", getActiveEmployee(), getActiveSchoolYear());
 		/* prepare the new secondment object */
