@@ -19,10 +19,6 @@
 		<h:outputText id="addressPostalCode" styleClass="fieldValueText"  value="#{address.postCode}" />
 		<h:outputLabel value="Πόλη" for="addressCity" />
 		<h:outputText id="addressCity" styleClass="fieldValueText" value="#{address.city}" />
-		<h:panelGroup rendered="#{address.latitude ne null}">
-			<h:commandButton id="showAddressGmapButton" value="Χάρτης ..."
-				onclick="javascript:Richfaces.showModalPanel('gmapPanel')" />
-		</h:panelGroup>
 	</h:panelGrid>
 </ui:component>
 
