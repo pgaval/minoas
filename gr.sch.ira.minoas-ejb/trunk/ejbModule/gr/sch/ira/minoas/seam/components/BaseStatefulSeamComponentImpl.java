@@ -37,7 +37,7 @@ import org.jboss.seam.annotations.Install;
  * @author <a href="mailto:fsla@forthnet.gr">Filippos Slavik</a>
  * @version $Id$
  */
-@Install(false)
+
 public abstract class BaseStatefulSeamComponentImpl extends BaseDatabaseAwareSeamComponent implements IBaseStatefulSeamComponent {
 
 	public static final String SUCCESS_OUTCOME = "success";

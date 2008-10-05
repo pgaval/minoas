@@ -24,7 +24,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * 
  */
 @Entity
-@Table(name = "minoas_role_group")
+@Table(name = "MINOAS_ROLE_GROUP")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class RoleGroup extends BaseModel {
 
@@ -64,21 +64,21 @@ public class RoleGroup extends BaseModel {
 	 * Comment for <code>id</code>
 	 */
 	@Id
-	@Column(name = "id", length = 32, updatable = false)
+	@Column(name = "ID", length = 32, updatable = false)
 	private String id;
 
 	/**
 	 * Comment for <code>title</code>
 	 */
 	@Basic
-	@Column(name = "title", nullable = true)
+	@Column(name = "TITLE", nullable = true)
 	private String title;
 
 	/**
 	 * Comment for <code>roles</code>
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "minoas_rolegroup_role")
+	@JoinTable(name = "MINOAS_ROLEGROUP_ROLE")
 	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	private List<Role> roles;
 

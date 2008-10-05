@@ -19,7 +19,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * 
  */
 @Entity
-@Table(name = "minoas_role")
+@Table(name = "MINOAS_ROLE")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Role extends BaseModel {
 
@@ -29,11 +29,11 @@ public class Role extends BaseModel {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id", length = 32, updatable = false)
+	@Column(name = "ID", length = 32, updatable = false)
 	private String id;
 
 	@Basic
-	@Column(name = "title", nullable = true, length = 250)
+	@Column(name = "TITLE", nullable = true, length = 250)
 	private String title;
 
 

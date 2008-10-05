@@ -27,7 +27,7 @@ import org.jboss.seam.annotations.Name;
  * 
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * */
-@Table(name = "minoas_principal")
+@Table(name = "MINOAS_PRINCIPAL")
 @Name("principal")
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
@@ -39,27 +39,27 @@ public class Principal extends BaseModel {
 	private static final long serialVersionUID = 1L;
 
 	@Basic
-	@Column(name = "email", length = 60, nullable = true)
+	@Column(name = "EMAIL", length = 60, nullable = true)
 	private String email;
 
 	@Basic
 	@ManyToOne(optional = true)
-	@JoinColumn(name = "office_id", nullable = true)
+	@JoinColumn(name = "OFFICE_ID", nullable = true)
 	private OrganizationalOffice office;
 
 	@Basic
-	@Column(name = "password", nullable = false, length = 64)
+	@Column(name = "PASSWORD", nullable = false, length = 64)
 	private String password;
 
 	@Basic
-	@Column(name = "real_name", length = 90, nullable = false)
+	@Column(name = "REAL_NAME", length = 90, nullable = false)
 	private String realName;
 
 	@ManyToMany
-	@JoinTable(name = "minoas_principal_rolegroups")
+	@JoinTable(name = "MINOAS_PRINCIPAL_ROLEGROUPS" )
 	private List<RoleGroup> roleGroups;
 
-	@Column(updatable = false, name = "username", length = 16)
+	@Column(updatable = false, name = "USERNAME", length = 16)
 	@Id
 	private String username;
 

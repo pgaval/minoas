@@ -22,6 +22,11 @@ import org.jboss.seam.annotations.faces.Converter;
 @Converter
 public class EmployeeTypeConverter extends BaseConverter {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static final String REGULAR_EMPLOYEE_TYPE_STR = "Μόνιμος";
 
 	public static final String DEPUTY_EMPLOYEE_TYPE_STR = "Αναπληρωτής";

@@ -24,6 +24,7 @@ import org.jboss.seam.annotations.faces.Converter;
 @Transactional
 public class SecondmentTypeConverter extends DatabaseAwareBaseConverter {
 
+	
 	/**
 	 * 
 	 */

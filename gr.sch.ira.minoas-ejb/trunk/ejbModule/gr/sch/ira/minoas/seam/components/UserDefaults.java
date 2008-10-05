@@ -22,7 +22,7 @@ public class UserDefaults {
 	private CoreSearching coreSearching;
 	
 	
-	@Out(scope=ScopeType.SESSION)
+	@Out(scope=ScopeType.SESSION, required=false)
 	private SchoolYear defaultSchoolYear;
 	
 	@Observer("org.jboss.seam.security.loginSuccessful")

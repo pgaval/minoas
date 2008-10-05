@@ -101,7 +101,7 @@ public class SchoolYearAdminBean extends BaseStatefulSeamComponentImpl
 		new_school_year.setStartDate(new Date(now.getTimeInMillis()));
 		/* prepare the title */
 		StringBuffer sb = new StringBuffer();
-		sb.append("Σχολική Χρονία ");
+		sb.append("Σχολικό Έτος ");
 		sb.append(now.get(Calendar.YEAR));
 		sb.append(" - ");
 		sb.append((now.get(Calendar.YEAR) + 1));

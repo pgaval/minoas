@@ -17,16 +17,16 @@ import javax.persistence.Version;
  * 
  */
 @Entity
-@Table(name = "minoas_organizational_office")
+@Table(name = "MINOAS_ORGANIZATIONAL_OFFICE")
 public class OrganizationalOffice extends BaseModel {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id", length = 1)
+	@Column(name = "ID", length = 1)
 	private String id;
 
-	@Column(name = "title")
+	@Column(name = "TITLE")
 	private String title;
 
 	@SuppressWarnings("unused")
