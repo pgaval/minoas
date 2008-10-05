@@ -23,7 +23,7 @@ public class SecondmentTypeSuggester extends BaseSuggester {
 	public Collection<SecondmentType> suggest(Object secondmemt_search_pattern) {
 		return getMinoasDatabase()
 				.createQuery(
-						"SELECT s from SecondmentType s WHERE LOWER(s.title) LIKE LOWER(:search_pattern + '%')")
+						"SELECT s from SecondmentType s WHERE LOWER(s.title) LIKE LOWER(:search_pattern)")
 				.setParameter(
 						"search_pattern",
 						CoreUtils.getSearchPattern(String

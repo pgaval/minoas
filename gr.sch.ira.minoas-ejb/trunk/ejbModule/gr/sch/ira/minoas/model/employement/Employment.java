@@ -20,6 +20,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.Cache;
@@ -38,6 +41,20 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class Employment extends BaseModel {
 
 	/**
+	 * @return the finalWorkingHours
+	 */
+	public Integer getFinalWorkingHours() {
+		return finalWorkingHours;
+	}
+
+	/**
+	 * @param finalWorkingHours the finalWorkingHours to set
+	 */
+	public void setFinalWorkingHours(Integer finalWorkingHours) {
+		this.finalWorkingHours = finalWorkingHours;
+	}
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -48,8 +65,10 @@ public class Employment extends BaseModel {
 	private Employee employee;
 
 	@Basic
-	@Column(name = "ESTABLISHED", nullable = true)
+	@Column(name = "ESTABLISHED_DATE", nullable = true)
+	@Temporal(TemporalType.DATE)
 	private Date established;
+	
 	@Id
 	@Column(name = "EMPLOYMENT_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -72,7 +91,8 @@ public class Employment extends BaseModel {
 	private Specialization specialization;
 
 	@Basic
-	@Column(name = "TERMINATED", nullable = true)
+	@Column(name = "TERMINATED_DATE", nullable = true)
+	@Temporal(TemporalType.DATE)
 	private Date terminated;
 
 	@Enumerated
@@ -87,6 +107,10 @@ public class Employment extends BaseModel {
 	@Basic
 	@Column(name = "WORK_HRS_DECR", nullable = true)
 	private Integer workingHoursDecrement;
+	
+	@Basic
+	@Column(name= "FINAL_WORKING_HOURS",nullable = true)
+	private Integer finalWorkingHours;
 
 	@Basic
 	@Column(name = "WORK_HRS_DECR_REASON", nullable = true)

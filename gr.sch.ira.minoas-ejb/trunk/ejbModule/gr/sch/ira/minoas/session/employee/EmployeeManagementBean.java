@@ -44,6 +44,16 @@ import org.jboss.seam.annotations.security.Restrict;
 public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implements
 		IEmployeeManagement {
 	
+	/**
+	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#saveSecondment()
+	 */
+	public String saveSecondment() {
+		/* check */
+		info("trying to save secondment #0", this.newSecondment);
+		getMinoasDatabase().persist(newSecondment);
+		return SUCCESS_OUTCOME;
+	}
+
 	@In(required=false)
 	@Out(required=false)
 	private Employee activeEmployee;
@@ -124,14 +134,13 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 
 	
 	public String secondmentTypeSelected() {
+		info("lalalalala #0", newSecondment.getSecondmentType());
 		selectedSecondmentType = newSecondment.getSecondmentType();
-		debug("lalalalala #0", newSecondment.getSecondmentType());
 		return SUCCESS_OUTCOME;
 	}
 	
-	@Begin(join=true)
 	public String beginEmployeeNewSecondment() {
-		info("new secondment conversation begun for employee '#0' during school year '#1'.", getActiveEmployee(), getActiveSchoolYear());
+		info("prepearing new secondment for employee '#0' during school year '#1'.", getActiveEmployee(), getActiveSchoolYear());
 		/* prepare the new secondment object */
 		
 		newSecondment = new Secondment();
