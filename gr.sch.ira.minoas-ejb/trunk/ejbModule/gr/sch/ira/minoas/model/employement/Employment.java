@@ -10,14 +10,12 @@ import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -36,8 +34,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name = "MINOAS_EMPLOYMENT")
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorValue("EMPLOYMENT")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Employment extends BaseModel {
 
@@ -54,11 +50,14 @@ public class Employment extends BaseModel {
 	@Basic
 	@Column(name = "ESTABLISHED", nullable = true)
 	private Date established;
-
 	@Id
 	@Column(name = "EMPLOYMENT_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	@Basic
+	@Column(name = "MANDATORY_WORK_HRS", nullable = false)
+	private Integer mandatoryWorkingHours;
 
 	@OneToOne
 	@JoinColumn(name = "SCHOOL_ID", nullable = false)
@@ -75,11 +74,24 @@ public class Employment extends BaseModel {
 	@Basic
 	@Column(name = "TERMINATED", nullable = true)
 	private Date terminated;
+
+	@Enumerated
+	@Column(name="TYPE", nullable=false, updatable=false)
+	private EmploymentType type;
 	
-	
+
 	@SuppressWarnings("unused")
 	@Version
 	private Long version;
+
+	@Basic
+	@Column(name = "WORK_HRS_DECR", nullable = true)
+	private Integer workingHoursDecrement;
+
+	@Basic
+	@Column(name = "WORK_HRS_DECR_REASON", nullable = true)
+	private String workingHoursDecrementReason;
+	
 
 	/**
 	 * 
@@ -111,6 +123,13 @@ public class Employment extends BaseModel {
 	}
 
 	/**
+	 * @return the mandatoryWorkingHours
+	 */
+	public Integer getMandatoryWorkingHours() {
+		return mandatoryWorkingHours;
+	}
+
+	/**
 	 * @return the school
 	 */
 	public School getSchool() {
@@ -123,7 +142,8 @@ public class Employment extends BaseModel {
 	public SchoolYear getSchoolYear() {
 		return schoolYear;
 	}
-
+	
+	
 	/**
 	 * @return the specialization
 	 */
@@ -136,6 +156,27 @@ public class Employment extends BaseModel {
 	 */
 	public Date getTerminated() {
 		return terminated;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public EmploymentType getType() {
+		return type;
+	}
+
+	/**
+	 * @return the workingHoursDecrement
+	 */
+	public Integer getWorkingHoursDecrement() {
+		return workingHoursDecrement;
+	}
+
+	/**
+	 * @return the workingHoursDecrementReason
+	 */
+	public String getWorkingHoursDecrementReason() {
+		return workingHoursDecrementReason;
 	}
 
 	/**
@@ -157,6 +198,13 @@ public class Employment extends BaseModel {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @param mandatoryWorkingHours the mandatoryWorkingHours to set
+	 */
+	public void setMandatoryWorkingHours(Integer mandatoryWorkingHours) {
+		this.mandatoryWorkingHours = mandatoryWorkingHours;
 	}
 
 	/**
@@ -185,6 +233,27 @@ public class Employment extends BaseModel {
 	 */
 	public void setTerminated(Date terminated) {
 		this.terminated = terminated;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(EmploymentType type) {
+		this.type = type;
+	}
+
+	/**
+	 * @param workingHoursDecrement the workingHoursDecrement to set
+	 */
+	public void setWorkingHoursDecrement(Integer workingHoursDecrement) {
+		this.workingHoursDecrement = workingHoursDecrement;
+	}
+
+	/**
+	 * @param workingHoursDecrementReason the workingHoursDecrementReason to set
+	 */
+	public void setWorkingHoursDecrementReason(String workingHoursDecrementReason) {
+		this.workingHoursDecrementReason = workingHoursDecrementReason;
 	}
 
 	/**

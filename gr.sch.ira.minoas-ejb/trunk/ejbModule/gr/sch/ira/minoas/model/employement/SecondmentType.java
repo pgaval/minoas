@@ -4,7 +4,6 @@
 package gr.sch.ira.minoas.model.employement;
 
 import gr.sch.ira.minoas.model.BaseModel;
-import gr.sch.ira.minoas.model.core.Unit;
 import gr.sch.ira.minoas.model.core.UnitCategory;
 
 import java.util.Collection;

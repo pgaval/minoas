@@ -4,7 +4,8 @@
 package gr.sch.ira.minoas.session.employee;
 
 import gr.sch.ira.minoas.model.employee.Employee;
-import gr.sch.ira.minoas.model.employement.RegularEmployment;
+import gr.sch.ira.minoas.model.employement.Employment;
+import gr.sch.ira.minoas.model.employement.EmploymentType;
 import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
@@ -37,10 +38,10 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 		IEmployeeRecord {
 	
 	@DataModel("regularEmployments")
-	private Collection<RegularEmployment> regularEmployments;
+	private Collection<Employment> regularEmployments;
 	
 	@DataModelSelection("regularEmployments")
-	private RegularEmployment selectedRegularEmployment;
+	private Employment selectedRegularEmployment;
 	
 	@In
 	private CoreSearching coreSearching;
@@ -50,7 +51,7 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 
 	public String search() {
 		info("fetching various info for '#0' employee", getActiveEmployee());
-		this.regularEmployments = coreSearching.getEmployeeRegularsEmployments(getActiveEmployee());
+		this.regularEmployments = coreSearching.getEmployeeEmploymentsOfType(getActiveEmployee(), EmploymentType.REGULAR);
 		return SUCCESS_OUTCOME;
 	}
 

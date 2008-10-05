@@ -6,7 +6,8 @@ package gr.sch.ira.minoas.session.employment;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.employee.Employee;
-import gr.sch.ira.minoas.model.employement.DeputyEmployment;
+import gr.sch.ira.minoas.model.employement.Employment;
+import gr.sch.ira.minoas.model.employement.EmploymentType;
 import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
@@ -48,13 +49,13 @@ public class DeputyEmploymentSearchBean extends
 	private SchoolYear defaultSchoolYear;
 	
 	@DataModel(value="deputyEmploymentsSearchResult", scope=ScopeType.PAGE)
-	private List<DeputyEmployment> deputyEmployments;
+	private List<Employment> deputyEmployments;
 	
 	@DataModelSelection 
-	private DeputyEmployment selectedDeputyEmployment;
+	private Employment selectedDeputyEmployment;
 	
 	@Out(required=false, value="activeEmployment")
-	private DeputyEmployment activeEmployment;
+	private Employment activeEmployment;
 	
 	@Out(required=false, value="activeEmployee")
 	private Employee activeEmployee;
@@ -70,7 +71,7 @@ public class DeputyEmploymentSearchBean extends
 	@Factory(value="deputyEmploymentsSearchResult")
 	public String search() {
 		info("searching for deputy employments in school '#0' during school year '#1'.", getSchool(), getSchoolYear());
-		this.deputyEmployments = coreSearching.getSchoolDeputyEmployments(getSchoolYear(), getSchool());
+		this.deputyEmployments = coreSearching.getSchoolEmploymentsOfType(getSchoolYear(), getSchool(), EmploymentType.DEPUTY);
 		return SUCCESS_OUTCOME;
 	}
 	

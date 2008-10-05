@@ -6,7 +6,9 @@ package gr.sch.ira.minoas.session.employment;
 import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.employee.Employee;
-import gr.sch.ira.minoas.model.employement.RegularEmployment;
+import gr.sch.ira.minoas.model.employement.Employment;
+import gr.sch.ira.minoas.model.employement.EmploymentType;
+
 import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
@@ -62,13 +64,13 @@ public class RegularEmploymentSearchBean extends
 	private SchoolYear defaultSchoolYear;
 	
 	@DataModel(value="regularEmploymentsSearchResult", scope=ScopeType.PAGE)
-	private List<RegularEmployment> regularEmployments;
+	private List<Employment> regularEmployments;
 	
 	@DataModelSelection 
-	private RegularEmployment selectedRegularEmployment;
+	private Employment selectedRegularEmployment;
 	
 	@Out(required=false, value="activeEmployment")
-	private RegularEmployment activeEmployment;
+	private Employment activeEmployment;
 	
 	@Out(required=false, value="activeEmployee")
 	private Employee activeEmployee;
@@ -84,7 +86,7 @@ public class RegularEmploymentSearchBean extends
 	@Factory(value="regularEmploymentsSearchResult")
 	public String search() {
 		info("searching for regular employments in school '#0' during school year '#1'.", getSchool(), getSchoolYear());
-		this.regularEmployments = coreSearching.getSchoolRegularEmployments(getSchoolYear(), getSchool());
+		this.regularEmployments = coreSearching.getSchoolEmploymentsOfType(getSchoolYear(), getSchool(), EmploymentType.REGULAR);
 		return SUCCESS_OUTCOME;
 	}
 	

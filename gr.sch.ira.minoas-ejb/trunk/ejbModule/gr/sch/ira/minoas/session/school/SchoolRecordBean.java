@@ -4,8 +4,8 @@
 package gr.sch.ira.minoas.session.school;
 
 import gr.sch.ira.minoas.model.core.School;
-import gr.sch.ira.minoas.model.employement.DeputyEmployment;
-import gr.sch.ira.minoas.model.employement.RegularEmployment;
+import gr.sch.ira.minoas.model.employement.Employment;
+import gr.sch.ira.minoas.model.employement.EmploymentType;
 import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
@@ -45,10 +45,10 @@ public class SchoolRecordBean extends BaseStatefulSeamComponentImpl implements
 	private EntityManager minoasDatabase;
 
 	@DataModel(scope=ScopeType.PAGE)
-	private List<RegularEmployment> schoolRegularEmployments;
+	private List<Employment> schoolRegularEmployments;
 	
 	@DataModel(scope=ScopeType.PAGE)
-	private List<DeputyEmployment> schoolDeputyEmployments;
+	private List<Employment> schoolDeputyEmployments;
 	
 	
 	
@@ -83,13 +83,13 @@ public class SchoolRecordBean extends BaseStatefulSeamComponentImpl implements
 	
 	@Factory(value="schoolRegularEmployments")
 	public String searchRegularEmployments() {
-		schoolRegularEmployments = coreSearching.getSchoolRegularEmployments(coreSearching.getActiveSchoolYear(), selectedSchool);
+		schoolRegularEmployments = coreSearching.getSchoolEmploymentsOfType(coreSearching.getActiveSchoolYear(), selectedSchool, EmploymentType.REGULAR);
 		return SUCCESS_OUTCOME;
 	}
 	
 	@Factory(value="schoolDeputyEmployments")
 	public String searchDeputyEmployments() {
-		schoolDeputyEmployments = coreSearching.getSchoolDeputyEmployments(coreSearching.getActiveSchoolYear(), selectedSchool);
+		schoolDeputyEmployments = coreSearching.getSchoolEmploymentsOfType(coreSearching.getActiveSchoolYear(), selectedSchool, EmploymentType.DEPUTY);
 		return SUCCESS_OUTCOME;
 	}
 	
