@@ -25,12 +25,9 @@
 							<ui:define name="label">
 								<h:outputText value="Τύπος Απόσπασης" />
 							</ui:define>
-							<h:inputText id="secondmentType" required="true"
-								value="#{newSecondment.secondmentType}"
+							<h:inputText id="secondmentType" required="true" immediate="true"
+								value="#{newSecondment.secondmentType}" tabindex="0"
 									converter="secondmentTypeConverter" styleClass="fieldValueText">
-							<a4j:support event="onblur" ignoreDupResponses="true"  limitToList="true"
-								action="#{employeeManagement.secondmentTypeSelected}">
-							</a4j:support>
 							<rich:suggestionbox var="secondmentType" for="secondmentType"
 								suggestionAction="#{secondmentTypeSuggester.suggest}">
 								<f:facet name="nothingLabel">
@@ -39,12 +36,14 @@
 								<h:column>
 									<h:outputText value="#{secondmentType.title}" />
 								</h:column>
+								
 							</rich:suggestionbox>
-
+							<a4j:support event="onchange" limitToList="true" ajaxSingle="true" reRender="secondmentTargetDecoration" bypassUpdates="false" eventsQueue="validation" 
+								action="#{employeeManagement.secondmentTypeSelected()}">
+							</a4j:support>
 						</h:inputText>
 
 						</s:decorate>
-
 
 						<s:decorate id="secondmentTargetDecoration"
 							template="/layout/doubleLineEdit.xhtml">
@@ -53,8 +52,11 @@
 							</ui:define>
 
 							<h:inputText value="#{newSecondment.targetUnit}" required="true"
-								id="secondmentTarget" styleClass="fieldValueText"
+								id="secondmentTarget" styleClass="fieldValueText" tabindex="1"
 								converter="unitConverter">
+								<a4j:support event="onblur" ajaxSingle="true" 
+									reRender="secondmentTargetDecoration" bypassUpdates="true" />
+									
 								<rich:suggestionbox for="secondmentTarget" var="secondmentUnit"
 									suggestionAction="#{secondmentAwareUnitSuggester.suggest}">
 									<f:facet name="nothingLabel">
@@ -156,7 +158,7 @@
 						</s:decorate>
 						<f:facet name="footer">
 							<h:panelGroup>
-								<h:commandButton action="saveSecondment"
+								<h:commandButton action="save-new-secondment" onclick="if(!confirm('Να καταχωρηθεί η απόσπαση ?')) {form.reset(); return false;}"
 									value=" Καταχώρηση Απόσπασης" />
 								<s:button action="back" value="Ακύρωση Καταχώρησης" />
 							</h:panelGroup>

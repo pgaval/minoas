@@ -8,6 +8,8 @@
     <transition to="employeeSearchPage" name="begin" />
   </start-state>
   
+ 
+  
   <page view-id="/employees.xhtml" name="employeeSearchPage" >
     <redirect/>
     <transition name="search" to="employeeSearchPage">
@@ -29,24 +31,27 @@
    <page view-id="/employee.xhtml" name="employeePage">
     <redirect/>
     <transition to="employeeSearchPage" name="back" />
-    <transition to="new-secondment-subprocess" name="new-secondment">
+    <transition to="new-secondment" name="new-secondment">
     	<action expression="#{employeeManagement.beginEmployeeNewSecondment}" />
     </transition>
     <action expression="#{employeeRecord.search()}" />
    </page> 
    
   	
-   <process-state name="new-secondment-subprocess">
+  	
+   <process-state name="new-secondment">
    	<sub-process name="new-secondment" />  
-   	<transition to="employeePage" />
+   	<transition to="employeePage"></transition>
    </process-state>
-    
    
+   
+    
    
   <page view-id="/home.xhtml" name="home">
     <end-conversation/>
     <redirect />
   </page>
+	
   
   
   

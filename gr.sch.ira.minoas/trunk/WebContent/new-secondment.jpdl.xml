@@ -5,10 +5,20 @@
 	xsi:schemaLocation="http://jboss.com/products/seam/pageflow http://jboss.com/products/seam/pageflow-2.0.xsd"
 	name="new-secondment">
 	
+	<start-state name="start">
+		<transition to="NewSecondmentPage"></transition>
+	</start-state>
 	
-  	<start-page view-id="/new-secondment.xhtml" name="newSecondmentPage">
-  	</start-page>
+	<page view-id="/new-secondment.xhtml" name="NewSecondmentPage">
+    <redirect/>
+    <transition to="end" name="save-new-secondment">
+    	<action expression="#{employeeManagement.saveSecondment}" />
+    </transition>
+   	<transition name="back" to="end"/>
+   </page> 
+	
+ 	<end-state name="end">
+ 	</end-state> 	
   	
-  	<!-- comment  -->
   
   </pageflow-definition>
