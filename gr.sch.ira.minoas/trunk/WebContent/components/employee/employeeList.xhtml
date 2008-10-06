@@ -4,7 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:s="http://jboss.com/products/seam/taglib"
-	xmlns:rich="http://richfaces.org/rich">
+	xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
 
 <ui:component>
 
@@ -35,9 +36,9 @@
 				<f:facet name="header">
 					<h:outputText value="Επώνυμο" />
 				</f:facet>
-				<s:link action="employee-selected">
+				<a4j:commandLink action="employee-selected">
 					<h:outputText value="#{employee.lastName}" />
-				</s:link>
+				</a4j:commandLink>
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">
