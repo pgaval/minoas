@@ -9,4 +9,10 @@ package gr.sch.ira.minoas.session.employee;
  */
 public interface IEmployeeRecord {
 	public String search();
+	
+	public String searchEmployeeRegularEmployments();
+	
+	public String searchEmployeeDeputyEmployments();
+	
+	public String searchEmployeeSecondments();
 }

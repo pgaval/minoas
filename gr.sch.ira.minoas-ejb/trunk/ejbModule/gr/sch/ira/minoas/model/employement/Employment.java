@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -95,8 +96,8 @@ public class Employment extends BaseModel {
 	@Temporal(TemporalType.DATE)
 	private Date terminated;
 
-	@Enumerated
-	@Column(name="TYPE", nullable=false, updatable=false)
+	@Enumerated(EnumType.STRING)
+	@Column(name="EMPLOYMENT_TYPE", nullable=false, updatable=false)
 	private EmploymentType type;
 	
 

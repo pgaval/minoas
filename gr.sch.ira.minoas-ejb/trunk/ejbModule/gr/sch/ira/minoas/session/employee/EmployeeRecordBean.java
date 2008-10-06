@@ -6,6 +6,7 @@ package gr.sch.ira.minoas.session.employee;
 import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.model.employement.Employment;
 import gr.sch.ira.minoas.model.employement.EmploymentType;
+import gr.sch.ira.minoas.model.employement.Secondment;
 import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
@@ -18,6 +19,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import org.jboss.seam.annotations.Conversational;
+import org.jboss.seam.annotations.Factory;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.datamodel.DataModel;
@@ -43,17 +45,60 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 	@DataModelSelection("regularEmployments")
 	private Employment selectedRegularEmployment;
 	
+	@DataModel("deputyEmployments")
+	private Collection<Employment> deputyEmployments;
+	
+	@DataModelSelection("deputyEmployments")
+	private Employment selectedDeputyEmployment;
+	
+	@DataModel("employeeSecondments")
+	private Collection<Secondment> employeeSecondments;
+	
+	@DataModelSelection("employeeSecondments")
+	private Secondment selectedEmployeeSecondment;
+	
 	@In
 	private CoreSearching coreSearching;
 	
 	@In(required=true)
 	private Employee activeEmployee;
 
+	/**
+	 * @see gr.sch.ira.minoas.session.employee.IEmployeeRecord#search()
+	 */
 	public String search() {
-		info("fetching various info for '#0' employee", getActiveEmployee());
-		this.regularEmployments = coreSearching.getEmployeeEmploymentsOfType(getActiveEmployee(), EmploymentType.REGULAR);
+		
 		return SUCCESS_OUTCOME;
 	}
+	
+	
+	/**
+	 * @see gr.sch.ira.minoas.session.employee.IEmployeeRecord#searchEmployeeDeputyEmployments()
+	 */
+	@Factory(value="deputyEmployments")
+	public String searchEmployeeDeputyEmployments() {
+		info("searching deputy employments for employee '#0'", getActiveEmployee());
+		setDeputyEmployments(coreSearching.getEmployeeEmploymentsOfType(getActiveEmployee(), EmploymentType.DEPUTY));
+		return SUCCESS_OUTCOME;
+	}
+
+
+	/**
+	 * @see gr.sch.ira.minoas.session.employee.IEmployeeRecord#searchEmployeeRegularEmployments()
+	 */
+	@Factory(value="regularEmployments")
+	public String searchEmployeeRegularEmployments() {
+		info("searching regular employments for employee '#0'", getActiveEmployee());
+		setRegularEmployments(coreSearching.getEmployeeEmploymentsOfType(getActiveEmployee(), EmploymentType.REGULAR));
+		return SUCCESS_OUTCOME;
+	}
+
+	@Factory(value="employeeSecondments")
+	public String searchEmployeeSecondments() {
+		info("searching secondments for employee '#0'", getActiveEmployee());
+		return SUCCESS_OUTCOME;
+	}
+
 
 	public Employee getActiveEmployee() {
 		return activeEmployee;
@@ -61,6 +106,66 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 
 	public void setActiveEmployee(Employee activeEmployee) {
 		this.activeEmployee = activeEmployee;
+	}
+
+
+	protected Collection<Employment> getRegularEmployments() {
+		return regularEmployments;
+	}
+
+
+	protected void setRegularEmployments(Collection<Employment> regularEmployments) {
+		this.regularEmployments = regularEmployments;
+	}
+
+
+	protected Employment getSelectedRegularEmployment() {
+		return selectedRegularEmployment;
+	}
+
+
+	protected void setSelectedRegularEmployment(Employment selectedRegularEmployment) {
+		this.selectedRegularEmployment = selectedRegularEmployment;
+	}
+
+
+	protected Collection<Employment> getDeputyEmployments() {
+		return deputyEmployments;
+	}
+
+
+	protected void setDeputyEmployments(Collection<Employment> deputyEmployments) {
+		this.deputyEmployments = deputyEmployments;
+	}
+
+
+	protected Employment getSelectedDeputyEmployment() {
+		return selectedDeputyEmployment;
+	}
+
+
+	protected void setSelectedDeputyEmployment(Employment selectedDeputyEmployment) {
+		this.selectedDeputyEmployment = selectedDeputyEmployment;
+	}
+
+
+	protected Collection<Secondment> getSecondments() {
+		return employeeSecondments;
+	}
+
+
+	protected void setSecondments(Collection<Secondment> secondments) {
+		this.employeeSecondments = secondments;
+	}
+
+
+	protected Secondment getSelectedEmployeeSecondment() {
+		return selectedEmployeeSecondment;
+	}
+
+
+	protected void setSelectedEmployeeSecondment(Secondment selectedSecondment) {
+		this.selectedEmployeeSecondment = selectedSecondment;
 	}
 	
 	
