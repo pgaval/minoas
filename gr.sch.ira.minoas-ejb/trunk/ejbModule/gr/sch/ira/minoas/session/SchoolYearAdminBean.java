@@ -105,13 +105,20 @@ public class SchoolYearAdminBean extends BaseStatefulSeamComponentImpl
 		sb.append(now.get(Calendar.YEAR));
 		sb.append(" - ");
 		sb.append((now.get(Calendar.YEAR) + 1));
-		new_school_year.setTitle(sb.toString());
+		new_school_year.setDescription(sb.toString());
+		
+		StringBuffer sb2 = new StringBuffer();
+		sb2.append(now.get(Calendar.YEAR));
+		sb2.append(" - ");
+		sb2.append((now.get(Calendar.YEAR) + 1));
+		new_school_year.setTitle(sb2.toString());
 		/* prepare the to date */
 		now.set(Calendar.MONTH, Calendar.JUNE);
 		now.set(Calendar.DAY_OF_MONTH, 30);
 		now.add(Calendar.YEAR, 1);
 		new_school_year.setEndDate(new Date(now.getTimeInMillis()));
 
+		
 		new_school_year.setId(new Long(System.currentTimeMillis()));
 
 		setActiveSchoolYear(new_school_year);

@@ -39,6 +39,15 @@ import org.jboss.seam.annotations.security.Restrict;
 public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 		IEmployeeRecord {
 	
+	/**
+	 * @see gr.sch.ira.minoas.session.employee.IEmployeeRecord#select()
+	 */
+	public String select() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	@DataModel("regularEmployments")
 	private Collection<Employment> regularEmployments;
 	
@@ -67,7 +76,8 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeRecord#search()
 	 */
 	public String search() {
-		
+		searchEmployeeSecondments();
+		searchEmployeeRegularEmployments();
 		return SUCCESS_OUTCOME;
 	}
 	
@@ -96,6 +106,7 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 	@Factory(value="employeeSecondments")
 	public String searchEmployeeSecondments() {
 		info("searching secondments for employee '#0'", getActiveEmployee());
+		setSecondments(coreSearching.getEmployeeSecondments(getActiveEmployee()));
 		return SUCCESS_OUTCOME;
 	}
 
@@ -159,12 +170,12 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 	}
 
 
-	protected Secondment getSelectedEmployeeSecondment() {
+	public Secondment getSelectedEmployeeSecondment() {
 		return selectedEmployeeSecondment;
 	}
 
 
-	protected void setSelectedEmployeeSecondment(Secondment selectedSecondment) {
+	public void setSelectedEmployeeSecondment(Secondment selectedSecondment) {
 		this.selectedEmployeeSecondment = selectedSecondment;
 	}
 	

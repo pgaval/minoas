@@ -44,6 +44,21 @@ import org.jboss.seam.annotations.security.Restrict;
 public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implements
 		IEmployeeManagement {
 	
+	
+	/**
+	 * @return the employeeActiveSecondment
+	 */
+	public Secondment getEmployeeActiveSecondment() {
+		return employeeActiveSecondment;
+	}
+
+	/**
+	 * @param employeeActiveSecondment the employeeActiveSecondment to set
+	 */
+	public void setEmployeeActiveSecondment(Secondment employeeActiveSecondment) {
+		this.employeeActiveSecondment = employeeActiveSecondment;
+	}
+
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#saveSecondment()
 	 */
@@ -57,6 +72,9 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	@In(required=false)
 	@Out(required=false)
 	private Employee activeEmployee;
+	
+	@Out(required=false)
+	private Secondment employeeActiveSecondment;
 	
 	@Out(required=false)
 	private Secondment newSecondment;
@@ -139,12 +157,23 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 		return SUCCESS_OUTCOME;
 	}
 	
+	
 	public String beginEmployeeNewSecondment() {
 		info("prepearing new secondment for employee '#0' during school year '#1'.", getActiveEmployee(), getActiveSchoolYear());
+		
+		/* check if the employee has already an active secondment 
+		 * 
+		 */
+		setEmployeeActiveSecondment(coreSearching.getEmployeeActiveSecondment(getActiveEmployee()));
+		if(getEmployeeActiveSecondment() != null) {
+			warn("employee '#0' has already an active secondment '#1'.", getActiveEmployee(), getEmployeeActiveSecondment());
+		}
 		/* prepare the new secondment object */
 		
 		newSecondment = new Secondment();
 		newSecondment.setEmployeeRequested(false);
+		newSecondment.setActive(Boolean.TRUE);
+		newSecondment.setSupersededBy(null);
 		newSecondment.setSchoolYear(getActiveSchoolYear());
 		newSecondment.setEmployeeRequested(Boolean.TRUE);
 		newSecondment.setEmployee(getActiveEmployee());

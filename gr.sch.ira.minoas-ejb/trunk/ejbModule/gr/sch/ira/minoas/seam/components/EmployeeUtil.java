@@ -43,4 +43,19 @@ public class EmployeeUtil extends BaseSeamComponent {
 	public boolean isHourlyPaid(Employee employee) {
 		return employee instanceof HourlyPaidEmployee;
 	}
+	
+	public String prettyFormat(Employee employee) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(employee.getLastName());
+		sb.append(" ");
+		sb.append(employee.getFirstName());
+		sb.append(" του ");
+		sb.append(employee.getFatherName());
+		if(employee.getCurrentEmployment()!=null) {
+			sb.append(" (");
+			sb.append(employee.getCurrentEmployment().getSpecialization().getTitle());
+			sb.append(" )");
+		}
+		return sb.toString();
+	}
 }

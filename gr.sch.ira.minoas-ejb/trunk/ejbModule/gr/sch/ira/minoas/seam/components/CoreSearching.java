@@ -8,11 +8,10 @@ import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.model.employement.Employment;
 import gr.sch.ira.minoas.model.employement.EmploymentType;
+import gr.sch.ira.minoas.model.employement.Secondment;
 import gr.sch.ira.minoas.model.security.Principal;
 import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.model.security.RoleGroup;
-import gr.sch.ira.minoas.seam.components.converters.EmployeeTypeConverter;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -194,7 +193,6 @@ public class CoreSearching extends BaseDatabaseAwareSeamComponent {
 				"employee", employee).getResultList();
 		info("found totally '#0' employments for regular employee '#1'.", result.size(), employee);
 		return result;
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -205,6 +203,39 @@ public class CoreSearching extends BaseDatabaseAwareSeamComponent {
 				.setParameter("employee", employee).setParameter("type", type).getResultList();
 		info("found totally '#0' employments for regular employee '#1'.", result.size(), employee);
 		return result;
-
 	}
+
+	@SuppressWarnings("unchecked")
+	public Collection<Secondment> getEmployeeSecondments(Employee employee) {
+		Collection<Secondment> result = null;
+		info("searching employee's '#0' secondments.");
+		result = minoasDatabase.createQuery("SELECT s from Secondment s WHERE s.employee=:employee").setParameter(
+				"employee", employee).getResultList();
+		info("found totally '#0' secondments for employee '#1'.", result.size(), employee);
+		return result;
+	}
+
+	/**
+	 * Returns the active secondment (if any) for the given employee.
+	 * @param employee
+	 * @return
+	 */
+	public Secondment getEmployeeActiveSecondment(Employee employee) {
+		Secondment result = null;
+		try {
+			info("searching employee's '#0' active secondment.");
+			SchoolYear activeSchoolYear = getActiveSchoolYear();
+			result = (Secondment) minoasDatabase
+					.createQuery(
+							"SELECT s from Secondment s WHERE s.employee=:employee AND s.active=TRUE AND s.supersededBy IS NULL and s.schoolYear=:schoolYear")
+					.setParameter("employee", employee).setParameter("schoolYear", activeSchoolYear).getSingleResult();
+			info("found an active secondment '#0', for employee '#1' in school year '#2'", result, employee,
+					activeSchoolYear);
+			return result;
+		}
+		catch (NoResultException ex) {
+			return null;
+		}
+	}
+
 }

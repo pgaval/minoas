@@ -20,6 +20,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -39,6 +40,34 @@ public class Secondment extends BaseModel {
 
 	
 	/**
+	 * @return the supersededBy
+	 */
+	public Secondment getSupersededBy() {
+		return supersededBy;
+	}
+
+	/**
+	 * @param supersededBy the supersededBy to set
+	 */
+	public void setSupersededBy(Secondment supersededBy) {
+		this.supersededBy = supersededBy;
+	}
+
+	/**
+	 * @return the active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -46,6 +75,20 @@ public class Secondment extends BaseModel {
 	@ManyToOne(optional=false, fetch=FetchType.EAGER)
 	@JoinColumn(name = "SCHOOL_YEAR_ID", nullable=false)
 	private SchoolYear schoolYear;
+	
+	/**
+	 * A secondment may or may not be active.
+	 */
+	@Basic
+	@Column(name="IS_ACTIVE", nullable=true)
+	private Boolean active;
+	
+	/**
+	 * A secondment may be superseded by another secondment
+	 */
+	@OneToOne
+	@JoinColumn(name="SUPERSEDED_BY_ID", nullable=true)
+	private Secondment supersededBy;
 	
 	@Basic
 	@Column(name="MINISTERIAL_ORDER", nullable=true, length=25)

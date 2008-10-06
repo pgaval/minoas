@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -30,13 +32,27 @@ import org.jboss.seam.annotations.Name;
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class SchoolYear extends BaseModel {
 
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Basic
 	@Column(name = "IS_CURRENT_YEAR", nullable = false, updatable = true)
 	private boolean currentSchoolYear;
 
-	@Basic
+	@Temporal(TemporalType.DATE)
 	@Column(name = "END_DATE", nullable = false)
 	private Date endDate;
 
@@ -44,13 +60,17 @@ public class SchoolYear extends BaseModel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Basic
+	@Temporal(TemporalType.DATE)
 	@Column(name = "START_DATE", nullable = false)
 	private Date startDate;
 
 	@Basic
-	@Column(name = "TITLE", length = 64, nullable = false, updatable = true, unique = true)
+	@Column(name = "TITLE", length = 32, nullable = false, updatable = true, unique = true)
 	private String title;
+	
+	@Basic
+	@Column(name="DESCRIPTION", length=64, nullable=true)
+	private String description;
 
 	/**
 	 * 
