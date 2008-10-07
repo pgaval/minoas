@@ -12,7 +12,7 @@
 
 		<rich:panel width="100%" headerClass="pagetitle">
 			<f:facet name="header">
-				<h:outputText value="Καρτέλα Εκπαιδευτικού #{activeEmployee.lastName} #{activeEmployee.firstName} του #{activeEmployee.fatherName}" />
+				<h:outputText value="Καρτέλα Εκπαιδευτικού #{employeeUtil.prettyFormat(activeEmployee)}" />
 			</f:facet>
 			<h:form id="toolbarForm">
 			<rich:toolBar>
@@ -57,11 +57,11 @@
 							<h:outputText value="Ιστορικό Οργανικών Θέσεων" />
 						</f:facet>
 						<ui:include
-							src="/components/employee/regularEmploymentsHistory.xhtml" />
+							src="/components/employee/employeeRegularEmploymentsHistory.xhtml" />
 					</rich:tab>
 					<rich:tab rendered="#{employeeUtil.isDeputy(activeEmployee)}">
-						<f:facet name="label">
-							<h:outputText value="Ιστορικό Τοποθετήσεων Αναπληρωτή" />
+					<f:facet name="header">
+					 <h:outputText value="Ιστορικό Τοποθετήσεων Αναπληρωτή" />
 						</f:facet>
 					</rich:tab>
 					<rich:tab id="secondmenttab" rendered="#{!employeeUtil.isHourlyPaid(activeEmployee)}">

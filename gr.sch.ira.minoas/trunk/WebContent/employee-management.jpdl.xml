@@ -29,15 +29,16 @@
     
   </page>
    
+   <decision name="begin-new-secondment" expression="#{employeeManagement.beginEmployeeNewSecondment}">
+   		<transition to="employeePage" name="failure" />
+   		<transition to="new-secondment" name="begin" />
+   </decision>
+   
    <page view-id="/employee.xhtml" name="employeePage">
     <redirect/>
     <transition to="employeeSearchPage" name="back" />
-    <transition to="new-secondment" name="new-secondment">
-    	<action expression="#{employeeManagement.beginEmployeeNewSecondment}" />
-    </transition>
-    
-    
-   </page> 
+    <transition to="begin-new-secondment" name="new-secondment" />
+  	</page> 
    
   	
   	
