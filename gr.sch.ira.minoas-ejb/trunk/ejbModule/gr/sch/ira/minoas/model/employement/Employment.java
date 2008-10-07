@@ -42,6 +42,34 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class Employment extends BaseModel {
 
 	/**
+	 * @return the active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	/**
+	 * @return the supersededBy
+	 */
+	public Employment getSupersededBy() {
+		return supersededBy;
+	}
+
+	/**
+	 * @param supersededBy the supersededBy to set
+	 */
+	public void setSupersededBy(Employment supersededBy) {
+		this.supersededBy = supersededBy;
+	}
+
+	/**
 	 * @return the finalWorkingHours
 	 */
 	public Integer getFinalWorkingHours() {
@@ -65,6 +93,22 @@ public class Employment extends BaseModel {
 	@JoinColumn(name = "EMPLOYEE_ID", nullable = false)
 	private Employee employee;
 
+	
+	/**
+	 * An employment may or may not be active.
+	 */
+	@Basic
+	@Column(name="IS_ACTIVE", nullable=true)
+	private Boolean active;
+	
+	/**
+	 * An employment may be superseded by another employment
+	 */
+	@OneToOne
+	@JoinColumn(name="SUPERSEDED_BY_ID", nullable=true)
+	private Employment supersededBy;
+	
+	
 	@Basic
 	@Column(name = "ESTABLISHED_DATE", nullable = true)
 	@Temporal(TemporalType.DATE)

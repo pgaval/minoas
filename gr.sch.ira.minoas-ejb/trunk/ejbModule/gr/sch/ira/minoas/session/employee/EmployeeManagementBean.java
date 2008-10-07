@@ -5,6 +5,7 @@ package gr.sch.ira.minoas.session.employee;
 
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.employee.Employee;
+import gr.sch.ira.minoas.model.employement.Employment;
 import gr.sch.ira.minoas.model.employement.Secondment;
 import gr.sch.ira.minoas.model.employement.SecondmentType;
 import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
@@ -12,11 +13,14 @@ import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.ejb.Local;
 import javax.ejb.Remove;
 import javax.ejb.Stateful;
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.persistence.EntityManager;
 
 import org.jboss.seam.ScopeType;
@@ -31,8 +35,6 @@ import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Unwrap;
 import org.jboss.seam.annotations.security.Restrict;
 
-
-
 /**
  * @author <a href="mailto:filippos@slavik.gr">Filippos Slavik</a>
  * 
@@ -41,10 +43,8 @@ import org.jboss.seam.annotations.security.Restrict;
 @Stateful
 @Restrict("#{identity.loggedIn}")
 @Local( { IBaseStatefulSeamComponent.class, IEmployeeManagement.class })
-public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implements
-		IEmployeeManagement {
-	
-	
+public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implements IEmployeeManagement {
+
 	/**
 	 * @return the employeeActiveSecondment
 	 */
@@ -65,56 +65,58 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	public String saveSecondment() {
 		/* check */
 		info("trying to save secondment #0", this.newSecondment);
+		if(getEmployeeActiveSecondment()!=null) {
+			getEmployeeActiveSecondment().setActive(Boolean.FALSE);
+			getEmployeeActiveSecondment().setSupersededBy(newSecondment);
+		}
 		getMinoasDatabase().persist(newSecondment);
+		getMinoasDatabase().merge(getEmployeeActiveSecondment());
 		return SUCCESS_OUTCOME;
 	}
 
-	@In(required=false)
-	@Out(required=false)
+	@In(required = false)
+	@Out(required = false)
 	private Employee activeEmployee;
-	
-	@Out(required=false)
+
+	@Out(required = false)
 	private Secondment employeeActiveSecondment;
-	
-	@Out(required=false)
+
+	@Out(required = false)
 	private Secondment newSecondment;
-	
-	@Out(required=false)
+
+	@Out(required = false)
 	private SecondmentType selectedSecondmentType;
-	
-	
-	
+
 	private SchoolYear activeSchoolYear;
 
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#beginEmployeeAdminConversation()
 	 */
-	@Begin(nested=true, pageflow="employee-management")
+	@Begin(nested = true, pageflow = "employee-management")
 	public String beginEmployeeManagementConversation() {
 		info("employee '#0' management conversation begun.", getActiveEmployee());
 		return BEGIN_OUTCOME;
 	}
-	
+
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#endEmployeeManagementConversation()
 	 */
-	@End(beforeRedirect=true)
+	@End(beforeRedirect = true)
 	public String endEmployeeManagementConversation() {
 		info("employee '#0' management conversation ended.", getActiveEmployee());
 		return END_OUTCOME;
 	}
-	
-	@End(beforeRedirect=true)
+
+	@End(beforeRedirect = true)
 	public String endEmployeeNewSecondment() {
-		info("new secondment '#2'conversation ended for employee '#0' during school year '#1'.", getActiveEmployee(), getActiveSchoolYear(), newSecondment);
+		info("new secondment '#2'conversation ended for employee '#0' during school year '#1'.", getActiveEmployee(),
+				getActiveSchoolYear(), newSecondment);
 		return END_OUTCOME;
 	}
 
-	@In(value="coreSearching")
+	@In(value = "coreSearching")
 	private CoreSearching coreSearching;
-	
 
-	
 	/**
 	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
 	 */
@@ -134,7 +136,6 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	public void destroy() {
 		super.destroy();
 	}
-	
 
 	/**
 	 * @return the activeEmployee
@@ -150,26 +151,27 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 		this.activeEmployee = activeEmployee;
 	}
 
-	
 	public String secondmentTypeSelected() {
 		info("lalalalala #0", newSecondment.getSecondmentType());
 		selectedSecondmentType = newSecondment.getSecondmentType();
 		return SUCCESS_OUTCOME;
 	}
-	
-	
+
 	public String beginEmployeeNewSecondment() {
-		info("prepearing new secondment for employee '#0' during school year '#1'.", getActiveEmployee(), getActiveSchoolYear());
-		
-		/* check if the employee has already an active secondment 
-		 * 
+		info("prepearing new secondment for employee '#0' during school year '#1'.", getActiveEmployee(),
+				getActiveSchoolYear());
+
+		/*
+		 * check if the employee has already an active secondment
 		 */
 		setEmployeeActiveSecondment(coreSearching.getEmployeeActiveSecondment(getActiveEmployee()));
-		if(getEmployeeActiveSecondment() != null) {
-			warn("employee '#0' has already an active secondment '#1'.", getActiveEmployee(), getEmployeeActiveSecondment());
+		if (getEmployeeActiveSecondment() != null) {
+			warn("employee '#0' has already an active secondment '#1'.", getActiveEmployee(),
+					getEmployeeActiveSecondment());
 		}
 		/* prepare the new secondment object */
-		
+
+		/* fill the obvious values */
 		newSecondment = new Secondment();
 		newSecondment.setEmployeeRequested(false);
 		newSecondment.setActive(Boolean.TRUE);
@@ -177,13 +179,31 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 		newSecondment.setSchoolYear(getActiveSchoolYear());
 		newSecondment.setEmployeeRequested(Boolean.TRUE);
 		newSecondment.setEmployee(getActiveEmployee());
-		
 		newSecondment.setEstablished(new Date((Calendar.getInstance(greekLocale)).getTimeInMillis()));
-		
 		Calendar dueTo = Calendar.getInstance(greekLocale);
 		dueTo.set(Calendar.MONTH, Calendar.JUNE);
 		dueTo.set(Calendar.DAY_OF_MONTH, 30);
 		newSecondment.setDueTo(new Date(dueTo.getTimeInMillis()));
+
+		/* find the employee's current employment */
+		Collection<Employment> activeEmployments = coreSearching.getEmployeeActiveEmployments(getActiveEmployee());
+		if (activeEmployments.size() != 1) {
+			/*
+			 * for a secondment to be valid, the employee in question needs to
+			 * have exactly one active employment.
+			 */
+			warn(
+					"new secondment for employee '#0' with ID '#1' is not possible, since the employee in question needs to have exactly one active employment and not #2 employment(s)",
+					getActiveEmployee(), getActiveEmployee().getId(), activeEmployments.size());
+			
+			getFacesMessages().addFromResourceBundle(FacesMessage.SEVERITY_ERROR,  "EmployeeManagementBean.ONE_EMPLOYMENT_NEEDED_FOR_SECONDMENT", getActiveEmployee());
+			return FAILURE_OUTCOME;
+		}
+		Employment affected_employment = activeEmployments.iterator().next();
+		newSecondment.setAffectedEmployment(affected_employment);
+		
+		/* adjust working hours */
+		
 		return BEGIN_OUTCOME;
 	}
 
@@ -195,5 +215,4 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 		this.activeSchoolYear = activeSchoolYear;
 	}
 
-	
 }

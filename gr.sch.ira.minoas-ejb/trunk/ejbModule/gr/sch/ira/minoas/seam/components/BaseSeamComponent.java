@@ -17,6 +17,13 @@ import org.jboss.seam.log.Log;
  */
 public abstract class BaseSeamComponent implements Serializable {
 	
+	/**
+	 * @return the facesMessages
+	 */
+	public FacesMessages getFacesMessages() {
+		return facesMessages;
+	}
+
 	public static final Locale greekLocale = new Locale("el", "GR");
 
 	@Logger

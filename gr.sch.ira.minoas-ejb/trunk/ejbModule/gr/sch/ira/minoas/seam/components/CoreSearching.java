@@ -189,7 +189,27 @@ public class CoreSearching extends BaseDatabaseAwareSeamComponent {
 	public Collection<Employment> getEmployeeEmployments(Employee employee) {
 		List<Employment> result;
 		debug("trying to featch all  employments for employee '#0'", employee);
-		result = minoasDatabase.createQuery("SELECT e from Employment e WHERE e.employee=:employee").setParameter(
+		result = minoasDatabase.createQuery("SELECT e from Employment e WHERE e.employee=:employee ORDER BY e.schoolYear.title").setParameter(
+				"employee", employee).getResultList();
+		info("found totally '#0' employments for employee '#1'.", result.size(), employee);
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Collection<Employment> getEmployeeEmployments(Employee employee, SchoolYear schoolyear) {
+		List<Employment> result;
+		debug("trying to featch all  employments for employee '#0' during school year '#1'.", employee, schoolyear);
+		result = minoasDatabase.createQuery("SELECT e from Employment e WHERE e.employee=:employee AND e.schoolYear=:schoolyear").setParameter(
+				"employee", employee).setParameter("schoolyear", schoolyear).getResultList();
+		info("found totally '#0' employments for regular employee '#1' during school year '#2'.", result.size(), employee, schoolyear);
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Collection<Employment> getEmployeeActiveEmployments(Employee employee) {
+		List<Employment> result;
+		debug("trying to featch all  employments for employee '#0'", employee);
+		result = minoasDatabase.createQuery("SELECT e from Employment e WHERE e.employee=:employee AND e.active = TRUE").setParameter(
 				"employee", employee).getResultList();
 		info("found totally '#0' employments for regular employee '#1'.", result.size(), employee);
 		return result;
@@ -199,7 +219,7 @@ public class CoreSearching extends BaseDatabaseAwareSeamComponent {
 	public Collection<Employment> getEmployeeEmploymentsOfType(Employee employee, EmploymentType type) {
 		List<Employment> result;
 		debug("trying to featch all  employments for employee '#0'", employee);
-		result = minoasDatabase.createQuery("SELECT e from Employment e WHERE e.employee=:employee AND e.type=:type")
+		result = minoasDatabase.createQuery("SELECT e from Employment e WHERE e.employee=:employee AND e.type=:type ORDER BY e.schoolYear.title")
 				.setParameter("employee", employee).setParameter("type", type).getResultList();
 		info("found totally '#0' employments for regular employee '#1'.", result.size(), employee);
 		return result;

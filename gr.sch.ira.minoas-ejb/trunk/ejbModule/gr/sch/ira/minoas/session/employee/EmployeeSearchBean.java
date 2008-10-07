@@ -72,7 +72,7 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 
 	private String employeeVATNumberFilter;
 
-	private Boolean employeeEmploymentFilter;
+	private Boolean employeeActiveFilter;
 
 	private Specialization employeeSpecializationFilter;
 
@@ -92,7 +92,7 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	@Override
 	public void create() {
 		super.create();
-		setEmployeeEmploymentFilter(Boolean.TRUE);
+		setEmployeeActiveFilter(Boolean.TRUE);
 	}
 
 	/**
@@ -139,8 +139,8 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 		return employeeVATNumberFilter;
 	}
 
-	public Boolean getEmployeeEmploymentFilter() {
-		return this.employeeEmploymentFilter;
+	public Boolean getEmployeeActiveFilter() {
+		return this.employeeActiveFilter;
 	}
 
 	/**
@@ -164,15 +164,15 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 		info(
 				"searching for employees with matching '#0' last name, '#1' first name and '#2' father name with employment filter set to '#3'.",
 				getEmployeeLastNameFilter(), getEmployeeFirstNameFilter(),
-				getEmployeeFatherNameFilter(), getEmployeeEmploymentFilter());
+				getEmployeeFatherNameFilter(), getEmployeeActiveFilter());
 		StringBuffer sb = new StringBuffer();
 		sb
 				.append("SELECT e FROM Employee e WHERE (e.lastName LIKE UPPER(:lastName) AND e.firstName LIKE UPPER(:firstName) AND e.fatherName LIKE UPPER(:fatherName)) ");
-		if (getEmployeeEmploymentFilter())
-			sb.append("AND e.currentEmployment IS NOT NULL ");
+		if (getEmployeeActiveFilter())
+			sb.append("AND e.active = TRUE ");
 		if (getEmployeeSpecializationFilter() != null) {
 			sb
-					.append("AND e.currentEmployment.specialization=:specialization_filter ");
+					.append("AND e.specialization=:specialization_filter ");
 		}
 		sb.append("ORDER BY e.lastName ASC, e.firstName ASC");
 		Query q = minoasDatabase
@@ -277,8 +277,8 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 		this.employeeVATNumberFilter = employeeVATNumberFilter;
 	}
 
-	public void setEmployeeEmploymentFilter(Boolean employment_filter) {
-		this.employeeEmploymentFilter = employment_filter;
+	public void setEmployeeActiveFilter(Boolean employment_filter) {
+		this.employeeActiveFilter = employment_filter;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package gr.sch.ira.minoas.model.employee;
 
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.Address;
+import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.core.Telephone;
 import gr.sch.ira.minoas.model.employement.Employment;
 
@@ -20,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -36,6 +38,34 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @DiscriminatorValue("EMPLOYEE")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Employee extends BaseModel {
+
+	/**
+	 * @return the active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	/**
+	 * @return the lastSpecialization
+	 */
+	public Specialization getLastSpecialization() {
+		return lastSpecialization;
+	}
+
+	/**
+	 * @param lastSpecialization the lastSpecialization to set
+	 */
+	public void setLastSpecialization(Specialization lastSpecialization) {
+		this.lastSpecialization = lastSpecialization;
+	}
 
 	/**
 	 * Comment for <code>serialVersionUID</code>
@@ -95,6 +125,22 @@ public class Employee extends BaseModel {
 	@OneToOne
 	@JoinColumn(name="CURRENT_EMPLOYMENT_ID", nullable=true)
 	private Employment currentEmployment;
+	
+	/**
+	 * Each employee have a specialization, which is actually the last employment's 
+	 * specialization.
+	 */
+	@ManyToOne
+	@JoinColumn(name="LAST_SPECIALIZATION_ID", nullable=true)
+	private Specialization lastSpecialization;
+	
+	/**
+	 * An employee can be active or not. 
+	 */
+	@Basic
+	@Column(name="IS_ACTIVE", nullable=true)
+	private Boolean active;
+	
 	
 	@OneToMany(mappedBy="employee", fetch=FetchType.LAZY)
 	private Set<Employment> employments;
