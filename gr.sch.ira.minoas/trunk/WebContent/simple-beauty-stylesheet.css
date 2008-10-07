@@ -162,14 +162,14 @@ a.menu_link:hover {
 		background:#EFEFEF;
 		color:#222222;
 		padding:4px;
-		text-align:center;
+		text-align:justify;
 	}
 	.clean-yellow{
 		border:solid 1px #DEDEDE; 
 		background:#FFFFCC;
 		color:#222222;
 		padding:4px;
-		text-align:center;
+		text-align:justify;
 	}
 	
 	.clean-warning {
@@ -177,7 +177,7 @@ a.menu_link:hover {
 		background:#FFFFCC;
 		color:#222222;
 		padding:4px;
-		text-align:center;
+		text-align:justify;
 	}
 	.clean-ok{
 		border:solid 1px #349534; 
@@ -185,7 +185,7 @@ a.menu_link:hover {
 		color:#008000;
 		font-weight:bold;
 		padding:4px;
-		text-align:center;
+		text-align:justify;
 	}
 	.clean-error{
 		border:solid 1px #CC0000; 
@@ -193,7 +193,7 @@ a.menu_link:hover {
 		color:#CC0000;
 		font-weight:bold;
 		padding:4px;
-		text-align:center;
+		text-align:justify;
 	}
 	
 	.clean-gray-title{
@@ -209,6 +209,7 @@ a.menu_link:hover {
 		color:#222222;
 		padding:4px;
 		text-align:left;
+		font-weight:bold;
 	}
 	
 	.clean-warning-title {
@@ -244,14 +245,14 @@ a.menu_link:hover {
 		background:#EFEFEF;
 		color:#222222;
 		padding:4px;
-		text-align:center;
+		text-align:justify;
 	}
 	.icon-yellow{
 		border:solid 1px #DEDEDE; 
 		background:#FFFFCC url(img/icon-yellow.png) 8px 6px no-repeat;
 		color:#222222;
 		padding:4px;
-		text-align:center;
+		text-align:justify;
 	}
 	.icon-ok{
 		border:solid 1px #90ac13; 
@@ -259,7 +260,7 @@ a.menu_link:hover {
 		color:#6b800d;
 		font-weight:bold;
 		padding:4px;
-		text-align:center;
+		text-align:justify;
 	}
 	.icon-error{
 		border:solid 1px #CC0000; 
@@ -267,5 +268,17 @@ a.menu_link:hover {
 		color:#CC0000;
 		font-weight:bold;
 		padding:4px;
-		text-align:center;
+		text-align:justify;
+	}
+	
+	
+	.info-message {
+		font-weight:bold;
+		color:#6b800d;
+	}
+	
+	.error-message {
+		font-weight:bold;
+		color:#CC0000;
+		
 	}
