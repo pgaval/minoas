@@ -14,10 +14,14 @@
     <transition to="end" name="save-new-secondment">
     	<action expression="#{employeeManagement.saveSecondment}" />
     </transition>
-   	<transition name="back" to="end"/>
+    
+   	<transition name="back" to="end">
+   		
+   	</transition>
    </page> 
 	
  	<end-state name="end">
+ 		
  	</end-state> 	
   	
   

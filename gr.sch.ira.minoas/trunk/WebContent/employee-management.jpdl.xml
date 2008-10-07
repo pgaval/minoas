@@ -24,6 +24,7 @@
     
     <transition to="employeePage" name="employee-selected">
         <action expression="#{employeeSearch.select()}" />
+        <action expression="#{employeeRecord.search()}" />
     </transition>
     
   </page>
@@ -34,7 +35,8 @@
     <transition to="new-secondment" name="new-secondment">
     	<action expression="#{employeeManagement.beginEmployeeNewSecondment}" />
     </transition>
-    <action expression="#{employeeRecord.search()}" />
+    
+    
    </page> 
    
   	

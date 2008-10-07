@@ -4,7 +4,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:s="http://jboss.com/products/seam/taglib"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
 
 <ui:composition template="#{theme.template}">
 	<ui:define name="body">
@@ -42,7 +43,7 @@
 					</h:panelGrid>
 				</h:panelGroup>
 				
-				<rich:simpleTogglePanel switchType="Ajax">
+				<rich:simpleTogglePanel switchType="AJAX">
 					<f:facet name="header">
 						<h:outputText
 							value="Τρέχουσα Κατάσταση (#{defaultSchoolYear.title})" />
@@ -63,20 +64,21 @@
 							<h:outputText value="Ιστορικό Τοποθετήσεων Αναπληρωτή" />
 						</f:facet>
 					</rich:tab>
-					<rich:tab rendered="#{!employeeUtil.isHourlyPaid(activeEmployee)}">
+					<rich:tab id="secondmenttab" rendered="#{!employeeUtil.isHourlyPaid(activeEmployee)}">
 						<f:facet name="label">
 							<h:outputText value="Ιστορικό Αποσπάσεων" />
 						</f:facet>
 						
 						<ui:include
 							src="/components/employee/employeeSecondmentsHistory.xhtml" />
+							
 					</rich:tab>
-					<rich:tab>
+					<rich:tab disabled="true">
 						<f:facet name="label">
 							<h:outputText value="Ιστορικό Διαθέσεων" />
 						</f:facet>
 					</rich:tab>
-					<rich:tab>
+					<rich:tab disabled="true">
 						<f:facet name="label">
 							<h:outputText value="Ιστορικό Αδειών" />
 						</f:facet>

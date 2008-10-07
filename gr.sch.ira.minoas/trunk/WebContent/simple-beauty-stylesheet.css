@@ -1,5 +1,5 @@
 body {
-	background: #CACACA url("images/background.png") repeat-x;
+	background: #CACACA url("img/simple-beauty/background.png") repeat-x;
 	font-family: "Trebuchet MS", Verdana, serif
 }
 
@@ -46,9 +46,9 @@ body {
 
 .content {
 	/* float: right; */
-	width: 510px;
+	width: 540px;
 	text-align: justify;
-	padding: 0 10px 0 10px;
+	padding: 0 0px 0 0px;
 	font-size: 12px
 }
 
@@ -153,3 +153,119 @@ a.menu_link:hover {
 	font-weight: bold;
 	color: black;
 }
+
+/* --------------------------------- */
+/* MESSAGE BOX CLEAN	serie	  	 */
+/* --------------------------------- */
+	.clean-gray{
+		border:solid 1px #DEDEDE; 
+		background:#EFEFEF;
+		color:#222222;
+		padding:4px;
+		text-align:center;
+	}
+	.clean-yellow{
+		border:solid 1px #DEDEDE; 
+		background:#FFFFCC;
+		color:#222222;
+		padding:4px;
+		text-align:center;
+	}
+	
+	.clean-warning {
+		border:solid 1px #DEDEDE; 
+		background:#FFFFCC;
+		color:#222222;
+		padding:4px;
+		text-align:center;
+	}
+	.clean-ok{
+		border:solid 1px #349534; 
+		background:#C9FFCA;
+		color:#008000;
+		font-weight:bold;
+		padding:4px;
+		text-align:center;
+	}
+	.clean-error{
+		border:solid 1px #CC0000; 
+		background:#F7CBCA;
+		color:#CC0000;
+		font-weight:bold;
+		padding:4px;
+		text-align:center;
+	}
+	
+	.clean-gray-title{
+		border:solid 1px #DEDEDE; 
+		background:#EFEFEF;
+		color:#222222;
+		padding:4px;
+		text-align:left;
+	}
+	.clean-yellow-title {
+		border:solid 1px #DEDEDE; 
+		background:#FFFFCC;
+		color:#222222;
+		padding:4px;
+		text-align:left;
+	}
+	
+	.clean-warning-title {
+		border:solid 1px #DEDEDE; 
+		background:#FFFFCC;
+		color:#222222;
+		padding:4px;
+		text-align:left;
+		font-weight:bold;
+	}
+	.clean-ok-title{
+		border:solid 1px #349534; 
+		background:#C9FFCA;
+		color:#008000;
+		font-weight:bold;
+		padding:4px;
+		text-align:left;
+	}
+	.clean-error-title{
+		border:solid 1px #CC0000; 
+		background:#F7CBCA;
+		color:#CC0000;
+		font-weight:bold;
+		padding:4px;
+		text-align:left;
+	}
+	
+/* --------------------------------- */
+/* MESSAGE BOX Iconized	  		 */
+/* --------------------------------- */
+	.icon-gray{
+		border:solid 1px #DEDEDE; 
+		background:#EFEFEF;
+		color:#222222;
+		padding:4px;
+		text-align:center;
+	}
+	.icon-yellow{
+		border:solid 1px #DEDEDE; 
+		background:#FFFFCC url(img/icon-yellow.png) 8px 6px no-repeat;
+		color:#222222;
+		padding:4px;
+		text-align:center;
+	}
+	.icon-ok{
+		border:solid 1px #90ac13; 
+		background:#eef4d3 url(img/icon-green.png) 8px 6px no-repeat;
+		color:#6b800d;
+		font-weight:bold;
+		padding:4px;
+		text-align:center;
+	}
+	.icon-error{
+		border:solid 1px #CC0000; 
+		background:#F7CBCA url(img/icon-red.png) 8px 6px no-repeat;
+		color:#CC0000;
+		font-weight:bold;
+		padding:4px;
+		text-align:center;
+	}

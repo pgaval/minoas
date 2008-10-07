@@ -15,11 +15,48 @@
 			value="Καταχώρηση Απόσπασης Εκπαιδευτικού #{newSecondment.employee.lastName} #{newSecondment.employee.firstName} του #{newSecondment.employee.fatherName} (#{newSecondment.employee.currentEmployment.specialization})" />
 		
 			</f:facet>
-			
+			<rich:panel headerClass="clean-warning-title" bodyClass="clean-warning">
+				<f:facet name="header">
+					<h:outputText value="Προσοχή, Υπάρχει Ενεργή Απόσπαση" />
+				</f:facet>
+				
+				<h:panelGrid columns="1">
+					<h:panelGroup>
+						
+							
+						
+						<h:outputText value="Για τον εκπαιδευτικό" />
+						<h:outputText styleClass="fieldValueText"
+							value=" #{employeeUtil.prettyFormat(activeEmployee)} " />
+						<h:outputText
+							value="υπάρχει ήδει ενεργή απόσπαση για το τρέχων σχολικό έτος. Για περισσότερες πληροφορίες για την ενεργή απόσπαση " />
+						<a4j:commandLink>
+							<h:outputText value="πατήστε εδω." />
+						</a4j:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="Αν θα συνεχίσεται και καταχωρήσεται νέα απόσπαση, η τρέχουσα θα ανδρανοποιηθεί και θα αντικατασταθεί απο την νεα." />
+					</h:panelGroup>
+					<f:facet name="footer">
+						<s:button action="back" value="Ακύρωση Καταχώρησης" />
+					</f:facet>
+				</h:panelGrid>
+				
+			</rich:panel>
 			<h:form>
 				<a4j:outputPanel>
 					<h:panelGrid columns="3">
-
+						
+						<h:panelGroup>
+							<h:panelGrid columns="1">
+								<h:outputLabel value="Εκπαιδευτικός" for="" />
+								<h:outputText styleClass="fieldValueText"
+									value="#{newSecondment.employee.lastName} #{newSecondment.employee.firstName} του #{newSecondment.employee.fatherName} (#{newSecondment.employee.currentEmployment.specialization})" />
+							</h:panelGrid>
+						</h:panelGroup>
+						
 						<s:decorate id="secondmentTypeDecoration"
 							template="/layout/doubleLineEdit.xhtml">
 							<ui:define name="label">
@@ -44,7 +81,9 @@
 						</h:inputText>
 
 						</s:decorate>
-
+						
+						
+						
 						<s:decorate id="secondmentTargetDecoration"
 							template="/layout/doubleLineEdit.xhtml">
 							<ui:define name="label">
@@ -83,13 +122,7 @@
 							</h:inputText>
 						</s:decorate>
 
-						<h:panelGroup>
-							<h:panelGrid columns="1">
-								<h:outputLabel value="Εκπαιδευτικός" for="" />
-								<h:outputText styleClass="fieldValueText"
-									value="#{newSecondment.employee.lastName} #{newSecondment.employee.firstName} του #{newSecondment.employee.fatherName} (#{newSecondment.employee.currentEmployment.specialization})" />
-							</h:panelGrid>
-						</h:panelGroup>
+						
 						<s:decorate id="headMasterOrderDecoration"
 							template="/layout/doubleLineEdit.xhtml">
 							<ui:define name="label">

@@ -77,33 +77,39 @@
 								</h:inputText>
 							</s:decorate>
 							<h:commandButton id="searchButton" action="search"
-								value="Αναζήτηση" />
+								value="Αναζήτηση">
+								<s:defaultAction />
+							</h:commandButton>
 						</h:panelGrid>
 					</h:form>
 				</h:panelGroup>
-				<!--  section of AFM or ID search form  -->
-				<rich:simpleTogglePanel label="Αναζήτηση Βάση ΑΦΜ ή Α.Μ"
-					opened="false">
-					<h:panelGroup>
-						<h:form id="searchByVATNumberForm">
-							<h:outputLabel value="ΑΦΜ Εκπαιδευτικού : " for="afmFilter" />
-							<h:inputText id="afmFilter"
-								value="#{employeeSearch.employeeVATNumberFilter}"
-								styleClass="fieldValueText" />
-							<h:commandButton id="searchByVATNumberButton"
-								action="searchByVATNumber" value="Αναζήτηση" />
-						</h:form>
+				<h:panelGroup>
+					<!--  section of AFM or ID search form  -->
+					<rich:simpleTogglePanel label="Αναζήτηση Βάση ΑΦΜ ή Α.Μ"
+						opened="false">
+						<h:panelGroup>
+							<h:form id="searchByVATNumberForm">
+								<h:outputLabel value="ΑΦΜ Εκπαιδευτικού : " for="afmFilter" />
+								<h:inputText id="afmFilter"
+									value="#{employeeSearch.employeeVATNumberFilter}"
+									styleClass="fieldValueText" />
+								<h:commandButton id="searchByVATNumberButton"
+									action="searchByVATNumber" value="Αναζήτηση" />
+							</h:form>
 
-						<h:form id="searchByRegistryIDForm">
-							<h:outputLabel value="Α.Μ Εκπαιδευτικού : " for="codeFilter" />
-							<h:inputText id="codeFilter"
-								value="#{employeeSearch.employeeRegistryIDFilter}"
-								styleClass="fieldValueText" />
-							<h:commandButton action="searchByRegistryID" value="Αναζήτηση" />
-						</h:form>
-					</h:panelGroup>
-				</rich:simpleTogglePanel>
-				<ui:include src="/components/employee/employeeList.xhtml" />
+							<h:form id="searchByRegistryIDForm">
+								<h:outputLabel value="Α.Μ Εκπαιδευτικού : " for="codeFilter" />
+								<h:inputText id="codeFilter"
+									value="#{employeeSearch.employeeRegistryIDFilter}"
+									styleClass="fieldValueText" />
+								<h:commandButton action="searchByRegistryID" value="Αναζήτηση" />
+							</h:form>
+						</h:panelGroup>
+					</rich:simpleTogglePanel>
+				</h:panelGroup>
+				<h:panelGroup>
+					<ui:include src="/components/employee/employeeList.xhtml" />
+				</h:panelGroup>
 			</h:panelGrid>
 		</rich:panel>
 	</ui:define>
