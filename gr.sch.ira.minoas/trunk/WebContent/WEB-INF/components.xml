@@ -6,6 +6,7 @@
             xmlns:bpm="http://jboss.com/products/seam/bpm"
             xmlns:security="http://jboss.com/products/seam/security"
             xmlns:mail="http://jboss.com/products/seam/mail"
+            xmlns:web="http://jboss.com/products/seam/web"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:theme="http://jboss.com/products/seam/theme"
             xmlns:transaction="http://jboss.com/products/seam/transaction" 
@@ -18,6 +19,7 @@
                  http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.0.xsd
                  http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.0.xsd
                  http://jboss.com/products/seam/theme http://jboss.com/products/seam/theme-2.0.xsd
+                 http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.0.xsd
                  http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.0.xsd">
 
    <core:init debug="true" jndi-pattern="@jndiPattern@" transaction-management-enabled="true"/>
@@ -33,6 +35,8 @@
                    persistence-unit-jndi-name="java:/EntityManagerFactories/minoasDatabase"/>
                    
    <transaction:ejb-transaction/>
+     
+   <web:character-encoding-filter encoding="UTF-8"  override-client="true" url-pattern="*.seam" />
                                               
 
    <drools:rule-base name="securityRules">
@@ -68,17 +72,11 @@
    </bpm:jbpm>
    
    <theme:theme-selector cookie-enabled="true">
-
        <theme:available-themes>
-
            <value>default</value>
-
            <value>accessible</value>
-
            <value>printable</value>
-
        </theme:available-themes>
-
    </theme:theme-selector>
    
 
