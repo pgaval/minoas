@@ -80,9 +80,9 @@
 		</f:facet>
 		<a4j:outputPanel id="secondmentInfoPanelOutputPanel">
 			<rich:panel>
-			<h:outputText value="Αναλυτικά Στοιχεία Απόσπασης εκπαιδευτικού "  />
-			<h:outputText styleClass="fieldValue" value="#{activeEmployee.lastName} " />
-			<h:outputText value="#{employeeRecord.selectedEmployeeSecondment}" />
+				<ui:include src="/components/employee/secondmentDetail.xhtml">
+					<ui:param name="secondment" value="#{employeeRecord.selectedEmployeeSecondment}" />
+				</ui:include>
 			</rich:panel>
 		</a4j:outputPanel>
 
