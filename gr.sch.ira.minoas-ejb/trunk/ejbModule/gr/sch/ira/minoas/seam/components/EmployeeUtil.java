@@ -53,7 +53,7 @@ public class EmployeeUtil extends BaseSeamComponent {
 		sb.append(employee.getFatherName());
 		if(employee.getCurrentEmployment()!=null) {
 			sb.append(" (");
-			sb.append(employee.getCurrentEmployment().getSpecialization().getTitle());
+			sb.append(employee.getCurrentEmployment().getSpecialization().getId());
 			sb.append(" )");
 		}
 		return sb.toString();

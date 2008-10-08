@@ -29,6 +29,7 @@ public class PYSDE extends BaseModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="ID")
 	private Long id;
 	
 	@Basic

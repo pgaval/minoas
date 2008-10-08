@@ -48,7 +48,7 @@ public class TeachingRequirement extends BaseModel {
 	
 	@ManyToOne
 	@JoinColumn(name="SCHOOL_ID")
-	private School school;
+	private Unit school;
 	
 	@Basic
 	@Column(name="HOURS")
@@ -114,7 +114,7 @@ public class TeachingRequirement extends BaseModel {
 	/**
 	 * @return the school
 	 */
-	public School getSchool() {
+	public Unit getSchool() {
 		return school;
 	}
 
@@ -122,7 +122,7 @@ public class TeachingRequirement extends BaseModel {
 	/**
 	 * @param school the school to set
 	 */
-	public void setSchool(School school) {
+	public void setSchool(Unit school) {
 		this.school = school;
 	}
 

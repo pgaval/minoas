@@ -1,9 +1,9 @@
 package gr.sch.ira.minoas.model.employement;
 
 import gr.sch.ira.minoas.model.BaseModel;
-import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Specialization;
+import gr.sch.ira.minoas.model.core.Unit;
 import gr.sch.ira.minoas.model.employee.Employee;
 
 import java.util.Date;
@@ -23,7 +23,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.hibernate.annotations.Cache;
@@ -42,78 +41,31 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class Employment extends BaseModel {
 
 	/**
-	 * @return the active
-	 */
-	public Boolean getActive() {
-		return active;
-	}
-
-	/**
-	 * @param active the active to set
-	 */
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
-
-	/**
-	 * @return the supersededBy
-	 */
-	public Employment getSupersededBy() {
-		return supersededBy;
-	}
-
-	/**
-	 * @param supersededBy the supersededBy to set
-	 */
-	public void setSupersededBy(Employment supersededBy) {
-		this.supersededBy = supersededBy;
-	}
-
-	/**
-	 * @return the finalWorkingHours
-	 */
-	public Integer getFinalWorkingHours() {
-		return finalWorkingHours;
-	}
-
-	/**
-	 * @param finalWorkingHours the finalWorkingHours to set
-	 */
-	public void setFinalWorkingHours(Integer finalWorkingHours) {
-		this.finalWorkingHours = finalWorkingHours;
-	}
-
-	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-	@JoinColumn(name = "EMPLOYEE_ID", nullable = false)
-	private Employee employee;
-
-	
 	/**
 	 * An employment may or may not be active.
 	 */
 	@Basic
 	@Column(name="IS_ACTIVE", nullable=true)
 	private Boolean active;
-	
-	/**
-	 * An employment may be superseded by another employment
-	 */
-	@OneToOne
-	@JoinColumn(name="SUPERSEDED_BY_ID", nullable=true)
-	private Employment supersededBy;
-	
-	
+
+	@ManyToOne(fetch=FetchType.EAGER)
+	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+	@JoinColumn(name = "EMPLOYEE_ID", nullable = false)
+	private Employee employee;
+
 	@Basic
 	@Column(name = "ESTABLISHED_DATE", nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date established;
-	
+
+	@Basic
+	@Column(name= "FINAL_WORKING_HOURS",nullable = true)
+	private Integer finalWorkingHours;
+
 	@Id
 	@Column(name = "EMPLOYMENT_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -125,16 +77,39 @@ public class Employment extends BaseModel {
 
 	@OneToOne
 	@JoinColumn(name = "SCHOOL_ID", nullable = false)
-	private School school;
+	private Unit school;
 
+	
 	@ManyToOne(optional=false, fetch=FetchType.EAGER)
 	@JoinColumn(name = "SCHOOL_YEAR_ID", nullable=false)
 	private SchoolYear schoolYear;
-
+	
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "SPECIALIZATION_ID", nullable = false, updatable = false)
 	private Specialization specialization;
+	
+	@OneToOne(optional=true, fetch=FetchType.LAZY)
+	@JoinColumn(name="SECONDMENT_ID", nullable=true)
+	private Secondment secondment;
+	
+	
+	
+	
+	public Secondment getSecondment() {
+		return secondment;
+	}
 
+	public void setSecondment(Secondment secondment) {
+		this.secondment = secondment;
+	}
+
+	/**
+	 * An employment may be superseded by another employment
+	 */
+	@OneToOne
+	@JoinColumn(name="SUPERSEDED_BY_ID", nullable=true)
+	private Employment supersededBy;
+	
 	@Basic
 	@Column(name = "TERMINATED_DATE", nullable = true)
 	@Temporal(TemporalType.DATE)
@@ -143,7 +118,6 @@ public class Employment extends BaseModel {
 	@Enumerated(EnumType.STRING)
 	@Column(name="EMPLOYMENT_TYPE", nullable=false, updatable=false)
 	private EmploymentType type;
-	
 
 	@SuppressWarnings("unused")
 	@Version
@@ -152,15 +126,10 @@ public class Employment extends BaseModel {
 	@Basic
 	@Column(name = "WORK_HRS_DECR", nullable = true)
 	private Integer workingHoursDecrement;
-	
-	@Basic
-	@Column(name= "FINAL_WORKING_HOURS",nullable = true)
-	private Integer finalWorkingHours;
 
 	@Basic
 	@Column(name = "WORK_HRS_DECR_REASON", nullable = true)
 	private String workingHoursDecrementReason;
-	
 
 	/**
 	 * 
@@ -169,6 +138,14 @@ public class Employment extends BaseModel {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * @return the active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+	
 
 	/**
 	 * @return the employee
@@ -183,6 +160,13 @@ public class Employment extends BaseModel {
 	public Date getEstablished() {
 		return established;
 	}
+	
+	/**
+	 * @return the finalWorkingHours
+	 */
+	public Integer getFinalWorkingHours() {
+		return finalWorkingHours;
+	}
 
 	/**
 	 * @return the id
@@ -190,6 +174,7 @@ public class Employment extends BaseModel {
 	public Long getId() {
 		return id;
 	}
+	
 
 	/**
 	 * @return the mandatoryWorkingHours
@@ -201,7 +186,7 @@ public class Employment extends BaseModel {
 	/**
 	 * @return the school
 	 */
-	public School getSchool() {
+	public Unit getSchool() {
 		return school;
 	}
 
@@ -211,13 +196,19 @@ public class Employment extends BaseModel {
 	public SchoolYear getSchoolYear() {
 		return schoolYear;
 	}
-	
-	
+
 	/**
 	 * @return the specialization
 	 */
 	public Specialization getSpecialization() {
 		return specialization;
+	}
+
+	/**
+	 * @return the supersededBy
+	 */
+	public Employment getSupersededBy() {
+		return supersededBy;
 	}
 
 	/**
@@ -233,7 +224,8 @@ public class Employment extends BaseModel {
 	public EmploymentType getType() {
 		return type;
 	}
-
+	
+	
 	/**
 	 * @return the workingHoursDecrement
 	 */
@@ -249,6 +241,13 @@ public class Employment extends BaseModel {
 	}
 
 	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	/**
 	 * @param employee the employee to set
 	 */
 	public void setEmployee(Employee employee) {
@@ -260,6 +259,13 @@ public class Employment extends BaseModel {
 	 */
 	public void setEstablished(Date established) {
 		this.established = established;
+	}
+
+	/**
+	 * @param finalWorkingHours the finalWorkingHours to set
+	 */
+	public void setFinalWorkingHours(Integer finalWorkingHours) {
+		this.finalWorkingHours = finalWorkingHours;
 	}
 
 	/**
@@ -279,7 +285,7 @@ public class Employment extends BaseModel {
 	/**
 	 * @param school the school to set
 	 */
-	public void setSchool(School school) {
+	public void setSchool(Unit school) {
 		this.school = school;
 	}
 
@@ -295,6 +301,13 @@ public class Employment extends BaseModel {
 	 */
 	public void setSpecialization(Specialization specialization) {
 		this.specialization = specialization;
+	}
+
+	/**
+	 * @param supersededBy the supersededBy to set
+	 */
+	public void setSupersededBy(Employment supersededBy) {
+		this.supersededBy = supersededBy;
 	}
 
 	/**

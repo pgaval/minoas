@@ -75,6 +75,10 @@ public class Unit extends BaseModel {
 	@Version
 	private Long version;
 
+	@ManyToOne
+	@JoinColumn(name = "PYSDE_ID", nullable = true)
+	private PYSDE pysde;
+
 	/**
 	 * 
 	 */
@@ -140,6 +144,14 @@ public class Unit extends BaseModel {
 	 */
 	public void setTelephones(List<Telephone> telephones) {
 		this.telephones = telephones;
+	}
+
+	public PYSDE getPysde() {
+		return pysde;
+	}
+
+	public void setPysde(PYSDE pysde) {
+		this.pysde = pysde;
 	}
 
 }

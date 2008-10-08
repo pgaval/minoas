@@ -3,7 +3,7 @@
  */
 package gr.sch.ira.minoas.session.school;
 
-import gr.sch.ira.minoas.model.core.School;
+import gr.sch.ira.minoas.model.core.Unit;
 import gr.sch.ira.minoas.model.employement.Employment;
 import gr.sch.ira.minoas.model.employement.EmploymentType;
 import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
@@ -59,7 +59,7 @@ public class SchoolRecordBean extends BaseStatefulSeamComponentImpl implements
 	
 	@In(required=true)
 	@Out(required=true, scope=ScopeType.CONVERSATION)
-	private School selectedSchool;
+	private Unit selectedSchool;
 
 	/**
 	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()

@@ -41,7 +41,7 @@ public class School extends Unit {
 	@Basic
 	@Column(name = "REGION")
 	private Character regionCode;
-
+	
 	/**
 	 * @return the ministryCode
 	 */

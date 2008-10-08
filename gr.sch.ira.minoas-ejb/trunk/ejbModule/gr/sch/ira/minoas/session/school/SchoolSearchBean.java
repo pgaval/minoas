@@ -1,6 +1,7 @@
 package gr.sch.ira.minoas.session.school;
 
 import gr.sch.ira.minoas.model.core.School;
+import gr.sch.ira.minoas.model.core.Unit;
 import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
@@ -35,7 +36,7 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements I
 
 	@In(value = "school", required=false)
 	@Out(value = "school", required = false, scope = ScopeType.CONVERSATION)
-	private School activeSchool;
+	private Unit activeSchool;
 
 	
 	
@@ -53,7 +54,7 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements I
 
 	@DataModelSelection
 	@Out(required = false, scope = ScopeType.CONVERSATION)
-	private School selectedSchool;
+	private Unit selectedSchool;
 
 	/**
 	 * @see gr.sch.ira.minoas.session.school.ISchoolSearch#beginSchoolSearchConversation()
@@ -68,7 +69,7 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements I
 	/**
 	 * @return the activeSchool
 	 */
-	public School getActiveSchool() {
+	public Unit getActiveSchool() {
 		return activeSchool;
 	}
 
@@ -100,7 +101,7 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements I
 	/**
 	 * @param activeSchool the activeSchool to set
 	 */
-	public void setActiveSchool(School activeSchool) {
+	public void setActiveSchool(Unit activeSchool) {
 		this.activeSchool = activeSchool;
 	}
 

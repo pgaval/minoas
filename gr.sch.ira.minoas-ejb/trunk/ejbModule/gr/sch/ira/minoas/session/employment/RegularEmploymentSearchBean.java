@@ -3,8 +3,8 @@
  */
 package gr.sch.ira.minoas.session.employment;
 
-import gr.sch.ira.minoas.model.core.School;
 import gr.sch.ira.minoas.model.core.SchoolYear;
+import gr.sch.ira.minoas.model.core.Unit;
 import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.model.employement.Employment;
 import gr.sch.ira.minoas.model.employement.EmploymentType;
@@ -57,7 +57,7 @@ public class RegularEmploymentSearchBean extends
 	private EntityManager minoasDatabase;
 	
 	@In(required=false)
-	private School selectedSchool;
+	private Unit selectedSchool;
 
 	
 	@In(required=false)
@@ -96,7 +96,7 @@ public class RegularEmploymentSearchBean extends
 	/**
 	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearch#getSchool()
 	 */
-	public School getSchool() {
+	public Unit getSchool() {
 		return this.selectedSchool;
 	}
 
@@ -113,7 +113,7 @@ public class RegularEmploymentSearchBean extends
 	/**
 	 * @see gr.sch.ira.minoas.session.employment.IRegularEmploymentSearch#setSchool(gr.sch.ira.minoas.model.core.School)
 	 */
-	public void setSchool(School school) {
+	public void setSchool(Unit school) {
 		this.selectedSchool = school;
 	}
 
