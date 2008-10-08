@@ -37,16 +37,19 @@
    <page view-id="/employee.xhtml" name="employeePage">
     <redirect/>
     <transition to="employeeSearchPage" name="back" />
-    <transition to="begin-new-secondment" name="new-secondment" />
+    <transition to="begin-new-secondment" name="new-secondment">
+    	<action expression="employeeManagement.beginEmployeeNewSecondment"></action>
+    </transition>
+    
   	</page> 
    
   	
-  	
+  	<!-- 
    <process-state name="new-secondment">
    	<sub-process name="new-secondment" />  
    	<transition to="employeePage"></transition>
    </process-state>
-   
+    -->
    
     
    

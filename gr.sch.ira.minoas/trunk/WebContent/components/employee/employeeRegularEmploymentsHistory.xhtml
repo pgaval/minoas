@@ -19,27 +19,21 @@
 			</f:facet>
 			<rich:column>
 				<f:facet name="header">
-					<h:outputText value="Οργανική" />
-				</f:facet>
-				<h:outputText value="#{employment.school.title}" />
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
 					<h:outputText value="Σχολικό Έτος" />
 				</f:facet>
 				<h:outputText value="#{employment.schoolYear.title}" />
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">
-					<h:outputText value="Υποχρεωτικό Ωράριο" />
+					<h:outputText value="Οργανική" />
 				</f:facet>
-				<h:outputText value="#{employment.mandatoryWorkingHours}" />
+				<h:outputText value="#{employment.school.title}" />
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">
-					<h:outputText value="Πραγματικό Ωράριο" />
+					<h:outputText value="Ωράριο" />
 				</f:facet>
-				<h:outputText value="#{employment.finalWorkingHours}" />
+				<h:outputText value="#{employment.mandatoryWorkingHours} / #{employment.finalWorkingHours}" />
 			</rich:column>
 			<rich:column>
 				<h:outputText value="Λεπτομέρειες" />

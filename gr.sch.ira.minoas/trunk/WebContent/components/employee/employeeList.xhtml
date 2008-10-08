@@ -34,17 +34,11 @@
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">
-					<h:outputText value="Επώνυμο" />
+					<h:outputText value="Ονοματεπώνυμο" />
 				</f:facet>
 				<a4j:commandLink action="employee-selected">
-					<h:outputText value="#{employee.lastName}" />
+					<h:outputText value="#{employee.lastName} #{employee.firstName}" />
 				</a4j:commandLink>
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-					<h:outputText value="Όνομα" />
-				</f:facet>
-				<h:outputText value="#{employee.firstName}" />
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">

@@ -11,7 +11,7 @@
 	<h:outputText value="Στον παρακάτω πίνακα εμφανίζονται όλοι οι μόνιμοι καθηγητές που κατέχουν οργανική θέση στην σχολική μονάδα που επιλέξατε." />
 			<h:form>
 				<rich:dataTable id="regularEmploymentsList" var="regularEmployment"
-					value="#{regularEmploymentsSearchResult}" sortMode="multi"  border="0" rows="10"
+					value="#{regularEmploymentsSearchResult}" sortMode="multi"  border="0" rows="20"
 					onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
 					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 					width="100%">
@@ -23,21 +23,18 @@
 						<h:outputText value="#{regularEmployment.employee.registryID}" />
 					</rich:column>
 					<rich:column>
-						<f:facet name="header">Επώνυμο</f:facet>
+						<f:facet name="header">Ονοματεπώνυμο</f:facet>
 						<s:link  action="selectRegularEmployment">
-							<h:outputText value="#{regularEmployment.employee.lastName}" />
+							<h:outputText value="#{regularEmployment.employee.lastName} #{regularEmployment.employee.firstName}" />
 						</s:link>
 					</rich:column>
-					<rich:column>
-						<f:facet name="header">Όνομα</f:facet>
-						<h:outputText value="#{regularEmployment.employee.firstName}" />
-					</rich:column>
+					
 					<rich:column>
 						<f:facet name="header">Πατρώνυμο</f:facet>
 						<h:outputText value="#{regularEmployment.employee.fatherName}" />
 					</rich:column>
 					<rich:column>
-						<f:facet name="header">Ειδικότητα</f:facet>
+						<f:facet name="header">Ειδικ.</f:facet>
 						<h:outputText id="specializationText"
 							value="#{regularEmployment.specialization.id}">
 							<rich:toolTip for="specializationText"
@@ -45,12 +42,8 @@
 						</h:outputText>
 					</rich:column>
 					<rich:column sortyBy="#{regularEmployment.mandatoryWorkingHours}">
-						<f:facet name="header">Υπ. Ωράριο</f:facet>
-						<h:outputText value="#{regularEmployment.mandatoryWorkingHours}" />
-					</rich:column>
-					<rich:column sortBy="#{regularEmployment.finalWorkingHours}">
 						<f:facet name="header">Ωράριο</f:facet>
-						<h:outputText value="#{regularEmployment.finalWorkingHours}" />
+						<h:outputText value="#{regularEmployment.mandatoryWorkingHours} / #{regularEmployment.finalWorkingHours}" />
 					</rich:column>
 					<f:facet name="footer">
 						<rich:datascroller align="left" for="regularEmploymentsList"
