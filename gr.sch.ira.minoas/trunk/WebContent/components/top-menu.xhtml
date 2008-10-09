@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<ui:component>
+	<a4j:form id="menuform">
+		<rich:toolBar>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="Σχολική Μονάδα" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem value="Προβολή Καρτέλας" submitMode="ajax" ajaxSingle="true"
+						action="#{employeeManagement.beginEmployeeNewSecondment}" />
+			</rich:dropDownMenu>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="Προσωπικό" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuGroup value="Αποσπάσεις">
+					<rich:menuItem value="Εισαγωγή" submitMode="ajax" ajaxSingle="true"
+						action="#{employeeManagement.beginEmployeeNewSecondment}" />
+				</rich:menuGroup>
+			</rich:dropDownMenu>
+		</rich:toolBar>
+	</a4j:form>
+</ui:component>
+
+</html>
