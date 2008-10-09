@@ -38,7 +38,6 @@ import org.jboss.seam.annotations.security.Restrict;
 @Restrict("#{identity.loggedIn}")
 @Local( { IBaseStatefulSeamComponent.class, IEmployeeSearch.class })
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-@Conversational
 public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 		IEmployeeSearch {
 

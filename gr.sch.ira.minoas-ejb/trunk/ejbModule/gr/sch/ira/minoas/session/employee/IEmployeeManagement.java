@@ -14,7 +14,9 @@ public interface IEmployeeManagement {
 	
 	public String beginEmployeeManagementConversation();
 	
-	public String beginEmployeeNewSecondment();
+	public void beginEmployeeNewSecondment();
+	
+	public String prepareNewSecondmet();
 	
 	public String secondmentTypeSelected();
 	
@@ -23,6 +25,8 @@ public interface IEmployeeManagement {
 	public String endEmployeeManagementConversation();
 	
 	public String endEmployeeNewSecondment();
+	
+	public boolean hasActiveEmployee();
 	
 	
 	

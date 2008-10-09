@@ -47,7 +47,8 @@ import org.jboss.seam.annotations.security.Restrict;
 @Stateful
 @Restrict("#{identity.loggedIn}")
 @Local( { IBaseStatefulSeamComponent.class, IEmployeeManagement.class })
-public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implements IEmployeeManagement {
+public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
+		implements IEmployeeManagement {
 
 	/**
 	 * 
@@ -77,22 +78,39 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	 */
 	@Begin(nested = true, pageflow = "employee-management")
 	public String beginEmployeeManagementConversation() {
-		info("employee '#0' management conversation begun.", getActiveEmployee());
+		info("employee '#0' management conversation begun.",
+				getActiveEmployee());
 		return BEGIN_OUTCOME;
 	}
 
-	@Begin(flushMode=FlushModeType.MANUAL, nested=true, pageflow = "new-secondment")
-	public String beginEmployeeNewSecondment() {
-		info("prepearing new secondment for employee '#0' during school year '#1'.", getActiveEmployee(),
-				getActiveSchoolYear());
+	@Begin(flushMode = FlushModeType.MANUAL, nested = true, pageflow = "new-secondment")
+	public void beginEmployeeNewSecondment() {
+		info("a new secondment, during school year #0,  conversation has begun.",getActiveSchoolYear());
+	}
 
+	public boolean hasActiveEmployee() {
+		return activeEmployee != null;
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
+	 */
+	@Override
+	@Create
+	public void create() {
+		super.create();
+		activeSchoolYear = coreSearching.getActiveSchoolYear();
+	}
+
+	public String prepareNewSecondmet() {
 		/*
 		 * check if the employee has already an active secondment
 		 */
-		setEmployeeActiveSecondment(coreSearching.getEmployeeActiveSecondment(getActiveEmployee()));
+		setEmployeeActiveSecondment(coreSearching
+				.getEmployeeActiveSecondment(getActiveEmployee()));
 		if (getEmployeeActiveSecondment() != null) {
-			warn("employee '#0' has already an active secondment '#1'.", getActiveEmployee(),
-					getEmployeeActiveSecondment());
+			warn("employee '#0' has already an active secondment '#1'.",
+					getActiveEmployee(), getEmployeeActiveSecondment());
 		}
 		/* prepare the new secondment object */
 
@@ -104,14 +122,16 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 		newSecondment.setSchoolYear(getActiveSchoolYear());
 		newSecondment.setEmployeeRequested(Boolean.TRUE);
 		newSecondment.setEmployee(getActiveEmployee());
-		newSecondment.setEstablished(new Date((Calendar.getInstance(greekLocale)).getTimeInMillis()));
+		newSecondment.setEstablished(new Date((Calendar
+				.getInstance(greekLocale)).getTimeInMillis()));
 		Calendar dueTo = Calendar.getInstance(greekLocale);
 		dueTo.set(Calendar.MONTH, Calendar.JUNE);
 		dueTo.set(Calendar.DAY_OF_MONTH, 30);
 		newSecondment.setDueTo(new Date(dueTo.getTimeInMillis()));
 
 		/* find the employee's current employment */
-		Collection<Employment> activeEmployments = coreSearching.getEmployeeActiveEmployments(getActiveEmployee());
+		Collection<Employment> activeEmployments = coreSearching
+				.getEmployeeActiveEmployments(getActiveEmployee());
 		if (activeEmployments.size() != 1) {
 			/*
 			 * for a secondment to be valid, the employee in question needs to
@@ -119,33 +139,30 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 			 */
 			warn(
 					"new secondment for employee '#0' with ID '#1' is not possible, since the employee in question needs to have exactly one active employment and not #2 employment(s)",
-					getActiveEmployee(), getActiveEmployee().getId(), activeEmployments.size());
-			
-			getFacesMessages().addFromResourceBundle(FacesMessage.SEVERITY_ERROR,  "EmployeeManagementBean.ONE_EMPLOYMENT_NEEDED_FOR_SECONDMENT", getActiveEmployee());
+					getActiveEmployee(), getActiveEmployee().getId(),
+					activeEmployments.size());
+
+			getFacesMessages()
+					.addFromResourceBundle(
+							FacesMessage.SEVERITY_ERROR,
+							"EmployeeManagementBean.ONE_EMPLOYMENT_NEEDED_FOR_SECONDMENT",
+							getActiveEmployee());
 			return FAILURE_OUTCOME;
 		}
 		Employment affected_employment = activeEmployments.iterator().next();
 		newSecondment.setAffectedEmployment(affected_employment);
-		newSecondment.setSourcePYSDE(affected_employment.getSchool().getPysde());
-		
-		/* adjust working hours by retrieving the mandatory working hours from the
-		 * affected employment. When copying do not copy any decrement since, this 
-		 * can be done later on. 
-		 **/
-		newSecondment.setFinalWorkingHours(affected_employment.getMandatoryWorkingHours());
-		
-		
-		return BEGIN_OUTCOME;
-	}
+		newSecondment
+				.setSourcePYSDE(affected_employment.getSchool().getPysde());
 
-	/**
-	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
-	 */
-	@Override
-	@Create
-	public void create() {
-		super.create();
-		activeSchoolYear = coreSearching.getActiveSchoolYear();
+		/*
+		 * adjust working hours by retrieving the mandatory working hours from
+		 * the affected employment. When copying do not copy any decrement
+		 * since, this can be done later on.
+		 */
+		newSecondment.setFinalWorkingHours(affected_employment
+				.getMandatoryWorkingHours());
+
+		return SUCCESS_OUTCOME;
 	}
 
 	/**
@@ -163,14 +180,17 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	 */
 	@End(beforeRedirect = true)
 	public String endEmployeeManagementConversation() {
-		info("employee '#0' management conversation ended.", getActiveEmployee());
+		info("employee '#0' management conversation ended.",
+				getActiveEmployee());
 		return END_OUTCOME;
 	}
 
-	@End(beforeRedirect = true)
+	@End
 	public String endEmployeeNewSecondment() {
-		info("new secondment '#2'conversation ended for employee '#0' during school year '#1'.", getActiveEmployee(),
-				getActiveSchoolYear(), newSecondment);
+		info(
+				"new secondment '#2'conversation ended for employee '#0' during school year '#1'.",
+				getActiveEmployee(), getActiveSchoolYear(), newSecondment);
+		newSecondment=null;
 		return END_OUTCOME;
 	}
 
@@ -198,19 +218,23 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	public String saveSecondment() {
 		/* check */
 		info("trying to save secondment #0", this.newSecondment);
-		if(getEmployeeActiveSecondment()!=null) {
+		if (getEmployeeActiveSecondment() != null) {
 			getEmployeeActiveSecondment().setActive(Boolean.FALSE);
 			getEmployeeActiveSecondment().setSupersededBy(newSecondment);
-			setEmployeeActiveSecondment(getMinoasDatabase().merge(getEmployeeActiveSecondment()));
+			setEmployeeActiveSecondment(getMinoasDatabase().merge(
+					getEmployeeActiveSecondment()));
 		}
-		if(newSecondment.getTargetUnit()!=null) {
-			newSecondment.setTargetPYSDE(newSecondment.getTargetUnit().getPysde());
+		if (newSecondment.getTargetUnit() != null) {
+			newSecondment.setTargetPYSDE(newSecondment.getTargetUnit()
+					.getPysde());
 		}
 		newSecondment.setInsertedOn(new Date(System.currentTimeMillis()));
 		getMinoasDatabase().persist(newSecondment);
-		Employment employment = getMinoasDatabase().merge(newSecondment.getAffectedEmployment());
-		//employment.setSecondment(newSecondment);
+		Employment employment = getMinoasDatabase().merge(
+				newSecondment.getAffectedEmployment());
+		// employment.setSecondment(newSecondment);
 		setEmployeeActiveSecondment(newSecondment);
+		getMinoasDatabase().flush();
 		return SUCCESS_OUTCOME;
 	}
 
@@ -221,7 +245,8 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	}
 
 	/**
-	 * @param activeEmployee the activeEmployee to set
+	 * @param activeEmployee
+	 *            the activeEmployee to set
 	 */
 	public void setActiveEmployee(Employee activeEmployee) {
 		this.activeEmployee = activeEmployee;
@@ -232,7 +257,8 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl implem
 	}
 
 	/**
-	 * @param employeeActiveSecondment the employeeActiveSecondment to set
+	 * @param employeeActiveSecondment
+	 *            the employeeActiveSecondment to set
 	 */
 	public void setEmployeeActiveSecondment(Secondment employeeActiveSecondment) {
 		this.employeeActiveSecondment = employeeActiveSecondment;
