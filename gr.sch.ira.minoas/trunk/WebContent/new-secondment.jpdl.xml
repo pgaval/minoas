@@ -6,23 +6,65 @@
 	name="new-secondment">
 	
 	<start-state name="start">
-		<transition to="NewSecondmentPage"></transition>
+		<transition to="hasActiveEmployee"></transition>
 	</start-state>
 	
-	<page view-id="/new-secondment.xhtml" name="NewSecondmentPage">
-    <redirect/>
-    <transition to="end" name="save-new-secondment">
-    	<action expression="#{employeeManagement.saveSecondment}" />
-    </transition>
-    
-   	<transition name="back" to="end">
-   		
-   	</transition>
-   </page> 
+	<decision name="hasActiveEmployee" expression="#{employeeManagement.hasActiveEmployee()}">
+		<transition name="true" to="newSecondmentPage" />
+		<transition name="false" to="employeeSearchPage" />
+	</decision>
 	
- 	<end-state name="end">
- 		
- 	</end-state> 	
-  	
+	<page view-id="/employees.xhtml" name="employeeSearchPage">
+		<redirect />
+		<transition name="search" to="employeeSearchPage">
+        		<action expression="#{employeeSearch.search}" />
+        </transition>
+        
+    	<transition name="searchByVATNumber" to="employeeSearchPage">
+        	<action expression="#{employeeSearch.searchByVATNumber}" />
+    	</transition>
+    	<transition name="searchByRegistryID" to="employeeSearchPage">
+        	<action expression="#{employeeSearch.searchByRegistryID}" />
+    	</transition>
+    
+    	<transition to="secondmentPrepared" name="employee-selected">
+        	<action expression="#{employeeSearch.select()}" />
+        	<action expression="#{employeeRecord.search()}" />
+    	</transition>
+	</page>
+	
+	<decision name="secondmentPrepared" expression="#{employeeManagement.prepareNewSecondmet}">
+		<transition name="success" to="newSecondmentPage" />
+		<transition name="failure" to="employeeSearchPage" />
+	</decision>
+	
+	<page view-id="/new-secondment.xhtml" name="newSecondmentPage">
+    	<redirect/>
+    	<transition to="saveSecondment" name="save-new-secondment" />
+    		
+    	
+   		<transition name="cancel" to="end">
+   			<action expression="#{employeeManagement.endEmployeeNewSecondment}" />
+   		</transition>
+   		<transition name="back" to="employeeSearchPage" />
+   </page> 
+   
+   <decision name="saveSecondment" expression="#{employeeManagement.saveSecondment}">
+   		<transition name="success" to="EmployeePage" />
+		<transition name="failure" to="newSecondmentPage" />
+   </decision>
+   
+   
+   <page view-id="/employee.xhtml" name="EmployeePage">
+   		<end-conversation/>
+   		<redirect />
+   	</page>
+	
+ 	
+  	<page view-id="/home.xhtml" name="home">
+  		<end-conversation before-redirect="yes"/>
+  		<redirect />
+  		
+  	</page>
   
   </pageflow-definition>

@@ -41,7 +41,7 @@
 								value="Αν θα συνεχίσεται και καταχωρήσεται νέα απόσπαση, η τρέχουσα θα ανδρανοποιηθεί και θα αντικατασταθεί απο την νεα." />
 						</h:panelGroup>
 						<f:facet name="footer">
-							<s:button action="back" value="Ακύρωση Καταχώρησης" />
+							<s:button action="cancel" value="Ακύρωση Καταχώρησης" />
 						</f:facet>
 					</h:panelGrid>
 
@@ -197,7 +197,8 @@
 								<h:commandButton action="save-new-secondment"
 									onclick="if(!confirm('Να καταχωρηθεί η απόσπαση ?')) {form.reset(); return false;}"
 									value=" Καταχώρηση Απόσπασης" />
-								<s:button action="back" value="Ακύρωση Καταχώρησης" />
+								<s:button action="cancel" value="Ακύρωση Καταχώρησης" />
+								<s:button action="end" value="Επιστροφή" />
 							</h:panelGroup>
 						</f:facet>
 					</h:panelGrid>

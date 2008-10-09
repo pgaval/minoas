@@ -15,9 +15,11 @@
     <transition name="search" to="employeeSearchPage">
         <action expression="#{employeeSearch.search}" />
     </transition>
+    
     <transition name="searchByVATNumber" to="employeeSearchPage">
         <action expression="#{employeeSearch.searchByVATNumber}" />
     </transition>
+    
     <transition name="searchByRegistryID" to="employeeSearchPage">
         <action expression="#{employeeSearch.searchByRegistryID}" />
     </transition>
@@ -35,13 +37,12 @@
    </decision>
    
    <page view-id="/employee.xhtml" name="employeePage">
-    <redirect/>
-    <transition to="employeeSearchPage" name="back" />
-    <transition to="begin-new-secondment" name="new-secondment">
-    	<action expression="employeeManagement.beginEmployeeNewSecondment"></action>
-    </transition>
-    
-  	</page> 
+    	<redirect/>
+    	<transition to="employeeSearchPage" name="back" />
+    	<transition to="begin-new-secondment" name="new-secondment">
+    		<action expression="employeeManagement.beginEmployeeNewSecondment"></action>
+    	</transition>
+   </page> 
    
   	
   	<!-- 
