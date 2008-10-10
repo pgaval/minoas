@@ -136,6 +136,7 @@ public class Secondment extends BaseModel {
 	
 	@SuppressWarnings("unused")
 	@Version
+	
 	private Long version;
 	
 	@Basic

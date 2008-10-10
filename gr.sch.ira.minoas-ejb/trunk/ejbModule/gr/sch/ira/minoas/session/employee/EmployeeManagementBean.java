@@ -219,21 +219,21 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
 		/* check */
 		info("trying to save secondment #0", this.newSecondment);
 		if (getEmployeeActiveSecondment() != null) {
-			getEmployeeActiveSecondment().setActive(Boolean.FALSE);
-			getEmployeeActiveSecondment().setSupersededBy(newSecondment);
-			setEmployeeActiveSecondment(getMinoasDatabase().merge(
-					getEmployeeActiveSecondment()));
+			Secondment activeSecondment = getEmployeeActiveSecondment();
+			activeSecondment.setActive(Boolean.FALSE);
+			activeSecondment.setSupersededBy(newSecondment);
+			getMinoasDatabase().merge(activeSecondment);
 		}
+		newSecondment.setInsertedOn(new Date(System.currentTimeMillis()));
 		if (newSecondment.getTargetUnit() != null) {
 			newSecondment.setTargetPYSDE(newSecondment.getTargetUnit()
 					.getPysde());
 		}
-		newSecondment.setInsertedOn(new Date(System.currentTimeMillis()));
+		setEmployeeActiveSecondment(newSecondment);
 		getMinoasDatabase().persist(newSecondment);
 		Employment employment = getMinoasDatabase().merge(
 				newSecondment.getAffectedEmployment());
-		// employment.setSecondment(newSecondment);
-		setEmployeeActiveSecondment(newSecondment);
+		employment.setSecondment(newSecondment);
 		getMinoasDatabase().flush();
 		return SUCCESS_OUTCOME;
 	}

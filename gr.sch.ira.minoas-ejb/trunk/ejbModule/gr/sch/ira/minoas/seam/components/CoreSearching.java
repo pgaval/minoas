@@ -29,6 +29,11 @@ import org.jboss.seam.annotations.Scope;
 @AutoCreate
 public class CoreSearching extends BaseDatabaseAwareSeamComponent {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@SuppressWarnings("unchecked")
 	public List<Employment> getSchoolEmployments(SchoolYear schoolyear,
 			Unit school) {

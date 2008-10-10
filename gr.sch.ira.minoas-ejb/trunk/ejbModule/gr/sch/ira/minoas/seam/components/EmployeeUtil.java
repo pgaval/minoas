@@ -43,19 +43,29 @@ public class EmployeeUtil extends BaseSeamComponent {
 	public boolean isHourlyPaid(Employee employee) {
 		return employee instanceof HourlyPaidEmployee;
 	}
-	
+
 	public String prettyFormat(Employee employee) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(employee.getLastName());
-		sb.append(" ");
-		sb.append(employee.getFirstName());
-		sb.append(" του ");
-		sb.append(employee.getFatherName());
-		if(employee.getCurrentEmployment()!=null) {
-			sb.append(" (");
-			sb.append(employee.getCurrentEmployment().getSpecialization().getId());
-			sb.append(" )");
-		}
-		return sb.toString();
+		if (employee != null) {
+			StringBuffer sb = new StringBuffer();
+			sb.append(employee.getLastName());
+			sb.append(" ");
+			sb.append(employee.getFirstName());
+			sb.append(" του ");
+			sb.append(employee.getFatherName());
+			if (employee.getCurrentEmployment() != null) {
+				sb.append(" (");
+				sb.append(employee.getCurrentEmployment().getSpecialization()
+						.getId());
+				sb.append(" )");
+			}
+			return sb.toString();
+		} else
+			return null;
+	}
+	
+	public boolean hasSecondment(Employee employee) {
+		if(employee!=null && employee.getCurrentEmployment()!=null) {
+			return employee.getCurrentEmployment().getSecondment()!=null;
+		} else return false;
 	}
 }
