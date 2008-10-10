@@ -18,6 +18,7 @@
 					<f:facet name="header">
 						<h:outputText value="Λιστά Μόνιμων Καθηγητών που κατέχουν Οργανική Θέση στην Μονάδα ..." />
 					</f:facet>
+					
 					<rich:column>
 						<f:facet name="header">ΑΜ</f:facet>
 						<h:outputText value="#{regularEmployment.employee.registryID}" />
@@ -27,6 +28,7 @@
 						<s:link  action="selectRegularEmployment">
 							<h:outputText value="#{regularEmployment.employee.lastName} #{regularEmployment.employee.firstName}" />
 						</s:link>
+						<h:outputText rendered="#{employmentUtil.hasSecondment(regularEmployment)}"  value="Απόσπαση !!!!!!!!" />
 					</rich:column>
 					
 					<rich:column>
@@ -45,6 +47,12 @@
 						<f:facet name="header">Ωράριο</f:facet>
 						<h:outputText value="#{regularEmployment.mandatoryWorkingHours} / #{regularEmployment.finalWorkingHours}" />
 					</rich:column>
+					<rich:subTable rendered="#{employmentUtil.hasSecondment(regularEmployment)}" var="secondment" value="#{regularEmployment.secondment}">
+						<rich:column>
+							<f:facet name="header">Μονάδα Απόσπασης</f:facet>
+							<h:outputText value="#{secondment.targetUnit}" />
+						</rich:column>
+					</rich:subTable>
 					<f:facet name="footer">
 						<rich:datascroller align="left" for="regularEmploymentsList"
 							maxPages="20" id="sc1" />

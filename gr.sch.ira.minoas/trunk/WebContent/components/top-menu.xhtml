@@ -16,8 +16,7 @@
 						<h:outputText value="Σχολική Μονάδα" />
 					</h:panelGroup>
 				</f:facet>
-				<rich:menuItem value="Προβολή Καρτέλας" submitMode="ajax" ajaxSingle="true"
-						action="#{employeeManagement.beginEmployeeNewSecondment}" />
+				<rich:menuItem value="Καρτέλα Μονάδας" action="#{schoolSearch.beginSchoolSearchConversation}" submitMode="ajax" ajaxSingle="true" />
 			</rich:dropDownMenu>
 			<rich:dropDownMenu>
 				<f:facet name="label">
@@ -25,11 +24,37 @@
 						<h:outputText value="Προσωπικό" />
 					</h:panelGroup>
 				</f:facet>
+				<rich:menuItem value="Καρτέλα Εκπαιδευτικού" action="#{employeeManagement.beginEmployeeManagementConversation}" ajaxSingle="true" submitMode="ajax"/>
 				<rich:menuGroup value="Αποσπάσεις">
 					<rich:menuItem value="Εισαγωγή" submitMode="ajax" ajaxSingle="true"
 						action="#{employeeManagement.beginEmployeeNewSecondment}" />
 				</rich:menuGroup>
 			</rich:dropDownMenu>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="Διαχείριση Μίνωα" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax">
+					<s:link value="Σχολικά Έτη" action="#{schoolYearAdmin.search()}"
+					view="/schoolYears.xhtml" />
+				</rich:menuItem>
+				<rich:menuGroup value="Ασφάλεια και Πρόσβαση">
+					<rich:menuItem submitMode="ajax">
+						<s:link value="Διαχείριση Χρηστών"
+							action="#{principalAdmin.search()}" view="/principals.xhtml" />
+					</rich:menuItem>
+					<rich:menuItem submitMode="ajax">
+						<s:link value="Διαχείριση Ρόλων" view="/roles.xhtml" />
+					</rich:menuItem>
+					<rich:menuItem submitMode="ajax">
+						<s:link value="Διαχείριση Ομάδων" view="/roleGroups.xhtml" />
+					</rich:menuItem>
+				</rich:menuGroup>
+			</rich:dropDownMenu>
+			<s:link value="Κεντρική Σελίδα" view="/home.xhtml" propagation="none"  styleClass="current_page_item"/>
+			<s:link value="Αποσύνδεση" action="#{identity.logout}" view="/home.xhtml" styleClass="current_page_item"/>
 		</rich:toolBar>
 	</a4j:form>
 </ui:component>
