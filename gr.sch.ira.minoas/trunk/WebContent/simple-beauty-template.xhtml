@@ -50,20 +50,17 @@
 		<s:div rendered="#{!identity.loggedIn}">
 		<ui:include src="/components/login.xhtml" />
 		</s:div>
-		<s:div rendered="#{identity.loggedIn}">
-			<s:link value="Κεντρική Σελίδα" view="/home.xhtml" propagation="none"  styleClass="current_page_item"/>
-			<s:link value="Αποσύνδεση" action="#{identity.logout}" view="/home.xhtml" styleClass="current_page_item"/>
-		</s:div>
 	</s:div>
 
 
 
 	<s:div id="main_content">
-
+	
+		<!-- 
 		<s:div styleClass="menu">
 			<ui:include src="/components/menu.xhtml" />
 		</s:div>
-
+		 -->
 		
 		<s:div styleClass="content">
 			<h:panelGrid columns="1" width="100%">

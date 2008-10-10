@@ -14,23 +14,6 @@
 			<f:facet name="header">
 				<h:outputText value="Καρτέλα Εκπαιδευτικού #{employeeUtil.prettyFormat(activeEmployee)}" />
 			</f:facet>
-			<h:form id="toolbarForm">
-			<rich:toolBar>
-				<rich:dropDownMenu>
-					<f:facet name="label">
-						<h:panelGroup>
-							<h:outputText value="Διαχείρηση Εκπαιδευτικού" />
-						</h:panelGroup>
-					</f:facet>
-					<rich:menuGroup value="Αποσπάσης">
-						<rich:menuItem submitMode="none">
-							<s:link value="Νέα Απόσπαση" action="new-secondment" />
-						</rich:menuItem>
-					</rich:menuGroup>
-
-				</rich:dropDownMenu>
-			</rich:toolBar>
-			</h:form>
 			<h:panelGrid columns="1">
 				<h:panelGroup>
 				<h:panelGrid columns="2">

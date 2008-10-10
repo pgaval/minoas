@@ -50,7 +50,7 @@
    </page> 
    
    <decision name="saveSecondment" expression="#{employeeManagement.saveSecondment}">
-   		<transition name="success" to="EmployeePage" />
+   		<transition name="success" to="home" />
 		<transition name="failure" to="newSecondmentPage" />
    </decision>
    
