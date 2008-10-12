@@ -11,8 +11,8 @@
 
 	<ui:define name="body">
 		<rich:panel headerClass="pagetitle" bodyClass="post">
-			<f:facet  name="header">
-			Αναζήτηση Σχολικής Μονάδας
+			<f:facet name="header">
+				<h:outputText value="Αναζήτηση Σχολικής Μονάδας" />
 			</f:facet>
 			<br />
 			<h:outputText
@@ -28,23 +28,26 @@
 				<h:panelGrid columns="1" width="100%">
 					<h:panelGroup>
 						<h:outputLabel value="Τίτλος Σχολείου : " />
-						<h:inputText value="#{schoolSearch.searchString}" id="searchString"
-							style="width: 165px;">
+						<h:inputText value="#{schoolSearch.searchString}"
+							id="searchString" style="width: 165px;">
 							<a4j:support event="onkeyup"
 								actionListener="#{schoolSearch.search}"
-								status="schoolSearchStatus" eventsQueue="foo" ignoreDupResponses="true" />
+								status="schoolSearchStatus" eventsQueue="foo"
+								ignoreDupResponses="true" reRender="schoolListOutputPanel"
+								limitToList="true" />
 						</h:inputText>
 
 						<a4j:commandButton value="Αναζήτηση"
 							actionListener="#{schoolSearch.search}"
-							status="schoolSearchStatus" />
+							status="schoolSearchStatus" reRender="schoolListOutputPanel"
+							limitToList="true" />
 						<a4j:status id="schoolSearchStatus">
 							<f:facet name="start">
 								<h:graphicImage value="/img/spinner.gif" />
 							</f:facet>
 						</a4j:status>
 					</h:panelGroup>
-					<a4j:outputPanel ajaxRendered="true">
+					<a4j:outputPanel id="schoolListOutputPanel" ajaxRendered="true">
 						<ui:include src="/components/school/schoolList.xhtml" />
 					</a4j:outputPanel>
 				</h:panelGrid>

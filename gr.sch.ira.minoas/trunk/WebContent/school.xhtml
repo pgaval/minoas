@@ -8,10 +8,7 @@
 
 <ui:composition template="#{theme.template}">
 	<ui:define name="body">
-		<rich:panel headerClass="pagetitle" bodyClass="post">
-			<f:facet name="header">
-				<h:outputText value="Διαχείριση Σχολικής Μονάδας" />
-			</f:facet>
+	
 
 			<rich:simpleTogglePanel switchType="Ajax">
 				<f:facet name="header">
@@ -41,7 +38,7 @@
 				</rich:tab>
 			</rich:tabPanel>
 
-		</rich:panel>
+		
 
 		<h:form>
 			<rich:modalPanel id="gmapPanel" moveable="true" autosized="true">
