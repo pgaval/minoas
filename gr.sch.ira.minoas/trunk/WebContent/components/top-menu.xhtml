@@ -10,15 +10,22 @@
 	<ui:component>
 	<a4j:form id="menuform">
 		<rich:toolBar>
-			<rich:dropDownMenu>
+			<rich:dropDownMenu disabled="#{!identity.loggedIn}">
 				<f:facet name="label">
 					<h:panelGroup>
 						<h:outputText value="Σχολική Μονάδα" />
 					</h:panelGroup>
 				</f:facet>
-				<rich:menuItem value="Καρτέλα Μονάδας" action="#{schoolSearch.beginSchoolSearchConversation}" submitMode="ajax" ajaxSingle="true" />
+				<rich:menuGroup value="Καρτέλα Μονάδας">
+					<rich:menuItem value="Προβολή Καρτέλας" action="#{schoolRecord.begin}" submitMode="ajax" ajaxSingle="true" />
+					<rich:menuItem value="Επιλογή άλλης Μονάδας" action="select-other-school" disabled="#{activeSchool eq null}" submitMode="ajax" ajaxSingle="true" />
+					<rich:menuSeparator />
+					<rich:menuItem value="Κλείσιμο Καρτέλας" action="close-school-record" disabled="#{activeSchool eq null}" submitMode="ajax" ajaxSingle="true" />
+				</rich:menuGroup>
+				
+				
 			</rich:dropDownMenu>
-			<rich:dropDownMenu>
+			<rich:dropDownMenu disabled="#{!identity.loggedIn}">
 				<f:facet name="label">
 					<h:panelGroup>
 						<h:outputText value="Προσωπικό" />
@@ -30,7 +37,7 @@
 						action="#{employeeManagement.beginEmployeeNewSecondment}" />
 				</rich:menuGroup>
 			</rich:dropDownMenu>
-			<rich:dropDownMenu>
+			<rich:dropDownMenu disabled="#{!identity.loggedIn}">
 				<f:facet name="label">
 					<h:panelGroup>
 						<h:outputText value="Διαχείριση Μίνωα" />
@@ -53,8 +60,9 @@
 					</rich:menuItem>
 				</rich:menuGroup>
 			</rich:dropDownMenu>
-			<s:link value="Κεντρική Σελίδα" view="/home.xhtml" propagation="none"  styleClass="current_page_item"/>
+			<s:link value="Κεντρική Σελίδα" view="/home.xhtml" propagation="none" disabled="#{!identity.loggedIn}" styleClass="current_page_item"/>
 			<s:link value="Αποσύνδεση" action="#{identity.logout}" view="/home.xhtml" styleClass="current_page_item"/>
+			
 		</rich:toolBar>
 	</a4j:form>
 </ui:component>

@@ -11,33 +11,28 @@
 		<h:panelGroup>
 			<h:panelGrid columns="2">
 				<h:outputLabel value="Κωδ. Υπουργείου" for="schoolCode" />
-				<h:outputText id="schoolCode" value="#{selectedSchool.ministryCode}"
+				<h:outputText id="schoolCode" value="#{activeSchool.ministryCode}"
 					styleClass="fieldValueText" />
 
 				<h:outputLabel value="Τίτλος" for="schoolTitle" />
-				<h:outputText id="schoolTitle" value="#{selectedSchool.title}"
+				<h:outputText id="schoolTitle" value="#{activeSchool.title}"
 					styleClass="fieldValueText" />
 
 				<h:outputLabel value="Περιοχή" for="schoolRegion" />
 				<h:outputText id="schoolRegion"
-					value="#{selectedSchool.regionCode}' ΗΡΑΚΛΕΙΟΥ" styleClass="fieldValueText" />
+					value="#{activeSchool.regionCode}' ΗΡΑΚΛΕΙΟΥ" styleClass="fieldValueText" />
 
 				<h:outputLabel value="Μόρια" for="schoolMoria" />
-				<h:outputText id="schoolMoria" value="#{selectedSchool.points}"
+				<h:outputText id="schoolMoria" value="#{activeSchool.points}"
 					styleClass="fieldValueText" />
 			</h:panelGrid>
 		</h:panelGroup>
 		<h:panelGroup>
 			<ui:include src="/components/general/address.xhtml">
-				<ui:param name="address" value="#{selectedSchool.address}"/>
+				<ui:param name="address" value="#{activeSchool.address}"/>
 			</ui:include>
 		</h:panelGroup>
-		<f:facet name="footer">
-			<h:panelGroup>
-				<s:button value="Τέλος Διαχείρισης" action="end" />
-				<s:button value="Επιλογή Άλλης Μονάδας" action="selectSchool" />
-			</h:panelGroup>
-		</f:facet>
+		
 	</h:panelGrid>
 </ui:component>
 

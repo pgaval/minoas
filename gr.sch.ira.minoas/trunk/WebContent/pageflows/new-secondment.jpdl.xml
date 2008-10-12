@@ -43,10 +43,9 @@
     	<transition to="saveSecondment" name="save-new-secondment" />
     		
     	
-   		<transition name="cancel" to="end">
+   		<transition name="cancel" to="home">
    			<action expression="#{employeeManagement.endEmployeeNewSecondment}" />
    		</transition>
-   		<transition name="back" to="employeeSearchPage" />
    </page> 
    
    <decision name="saveSecondment" expression="#{employeeManagement.saveSecondment}">
