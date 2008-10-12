@@ -23,10 +23,10 @@ public class UserDefaults {
 	
 	
 	@Out(scope=ScopeType.SESSION, required=false)
-	private SchoolYear defaultSchoolYear;
+	private SchoolYear activeSchoolYear;
 	
 	@Observer("org.jboss.seam.security.loginSuccessful")
 	public void loginSuccesful() {
-		this.defaultSchoolYear = coreSearching.getActiveSchoolYear();
+		this.activeSchoolYear = coreSearching.getActiveSchoolYear();
 	}
 }

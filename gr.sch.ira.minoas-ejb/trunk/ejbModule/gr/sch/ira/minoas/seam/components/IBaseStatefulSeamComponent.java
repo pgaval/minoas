@@ -36,6 +36,6 @@ public interface IBaseStatefulSeamComponent {
 
 	public void destroy();
 
-	public void end();
+	
 
 }

@@ -9,8 +9,19 @@ package gr.sch.ira.minoas.session.school;
  *
  */
 public interface ISchoolRecord {
-	public String searchRegularEmployments();
+	public void searchRegularEmployments();
 	
-	public String searchDeputyEmployments();
+	public void searchDeputyEmployments();
+	
+	public boolean hasActiveSchool();
+	
+	/**
+	 * Searches for secondments that are targeted to this very school unit.
+	 */
+	public void searchSchoolSecondments();
+	
+	public void begin();
+	
+	public void end();
 	
 }

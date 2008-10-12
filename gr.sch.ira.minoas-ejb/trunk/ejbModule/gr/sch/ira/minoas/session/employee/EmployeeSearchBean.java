@@ -55,9 +55,6 @@ public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 	@In(value = "coreSearching")
 	private CoreSearching coreSearching;
 
-	@In(required = false)
-	private SchoolYear defaultSchoolYear;
-
 	private String employeeFatherNameFilter;
 
 	private String employeeFirstNameFilter;

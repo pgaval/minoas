@@ -6,13 +6,12 @@ import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Begin;
@@ -34,27 +33,25 @@ import org.jboss.seam.annotations.security.Restrict;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements ISchoolSearch {
 
-	@In(value = "school", required=false)
-	@Out(value = "school", required = false, scope = ScopeType.CONVERSATION)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@In(value = "activeSchool", required=false)
+	@Out(value = "activeSchool", required = false, scope = ScopeType.CONVERSATION)
 	private Unit activeSchool;
 
-	
-	
 	@In(value="coreSearching")
-	CoreSearching coreSearching;
+	private CoreSearching coreSearching;
 	
-	@In
-	private EntityManager minoasDatabase;
-
-	
-	@DataModel(scope = ScopeType.PAGE, value = "availableSchools")
-	private List<School> schools;
+	@DataModel(value="schools", scope=ScopeType.PAGE)
+	private Collection<School> schools;
 
 	private String searchString;
 
 	@DataModelSelection
-	@Out(required = false, scope = ScopeType.CONVERSATION)
-	private Unit selectedSchool;
+	private School selectedSchool;
 
 	/**
 	 * @see gr.sch.ira.minoas.session.school.ISchoolSearch#beginSchoolSearchConversation()
@@ -83,7 +80,7 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements I
 	/**
 	 * @see gr.sch.ira.minoas.session.school.ISchoolSearch#search()
 	 */
-	@Factory(value="availableSchools")
+	@Factory(value="schools")
 	public String search() {
 		schools =  coreSearching.searchShools(getSearchString());
 		return SUCCESS_OUTCOME;
@@ -95,7 +92,6 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements I
 			setActiveSchool(selectedSchool);
 		}
 		return SCHOOL_SELECTED_OUTCOME;
-	
 	}
 
 	/**

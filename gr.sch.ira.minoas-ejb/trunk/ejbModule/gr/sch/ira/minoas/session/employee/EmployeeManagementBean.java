@@ -59,7 +59,6 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
 	@Out(required = false)
 	private Employee activeEmployee;
 
-	private SchoolYear activeSchoolYear;
 
 	@In(value = "coreSearching")
 	private CoreSearching coreSearching;
@@ -99,7 +98,6 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
 	@Create
 	public void create() {
 		super.create();
-		activeSchoolYear = coreSearching.getActiveSchoolYear();
 	}
 
 	public String prepareNewSecondmet() {
@@ -201,9 +199,7 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
 		return activeEmployee;
 	}
 
-	public SchoolYear getActiveSchoolYear() {
-		return activeSchoolYear;
-	}
+	
 
 	/**
 	 * @return the employeeActiveSecondment
@@ -252,9 +248,7 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
 		this.activeEmployee = activeEmployee;
 	}
 
-	public void setActiveSchoolYear(SchoolYear activeSchoolYear) {
-		this.activeSchoolYear = activeSchoolYear;
-	}
+	
 
 	/**
 	 * @param employeeActiveSecondment

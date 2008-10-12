@@ -26,11 +26,14 @@
 package gr.sch.ira.minoas.seam.components;
 
 
+import gr.sch.ira.minoas.model.core.SchoolYear;
+
 import javax.ejb.Remove;
 
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Destroy;
 import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Install;
 
 /**
@@ -39,6 +42,20 @@ import org.jboss.seam.annotations.Install;
  */
 
 public abstract class BaseStatefulSeamComponentImpl extends BaseDatabaseAwareSeamComponent implements IBaseStatefulSeamComponent {
+
+	/**
+	 * @return the activeSchoolYear
+	 */
+	public SchoolYear getActiveSchoolYear() {
+		return activeSchoolYear;
+	}
+
+	/**
+	 * @param activeSchoolYear the activeSchoolYear to set
+	 */
+	public void setActiveSchoolYear(SchoolYear activeSchoolYear) {
+		this.activeSchoolYear = activeSchoolYear;
+	}
 
 	public static final String SUCCESS_OUTCOME = "success";
 
@@ -53,6 +70,9 @@ public abstract class BaseStatefulSeamComponentImpl extends BaseDatabaseAwareSea
 	public static final String EMPLOYEE_SELECTED_OUTCOME ="employee-selected";
 	
 	public static final String EMPLOYMENT_SELECTED_OUTCOME ="employment-selected";
+	
+	@In(value="activeSchoolYear", required=false)
+	private SchoolYear activeSchoolYear;
 	
 	/**
 	 * @see gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent#create()
@@ -71,13 +91,6 @@ public abstract class BaseStatefulSeamComponentImpl extends BaseDatabaseAwareSea
 		info("stateful seam component destroyed.");
 	}
 
-	/**
-	 * @see gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent#end()
-	 */
-	@End
-	public void end() {
-		info("conversation has been ended");
-
-	}
+	
 
 }
