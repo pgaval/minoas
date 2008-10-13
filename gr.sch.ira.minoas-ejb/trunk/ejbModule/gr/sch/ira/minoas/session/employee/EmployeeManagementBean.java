@@ -75,7 +75,7 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#beginEmployeeAdminConversation()
 	 */
-	@Begin(nested = true, pageflow = "employee-management")
+	@Begin(flushMode = FlushModeType.MANUAL, nested = true, pageflow = "employee-management")
 	public String beginEmployeeManagementConversation() {
 		info("employee '#0' management conversation begun.",
 				getActiveEmployee());
@@ -148,9 +148,11 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
 			return FAILURE_OUTCOME;
 		}
 		Employment affected_employment = activeEmployments.iterator().next();
+		
 		newSecondment.setAffectedEmployment(affected_employment);
 		newSecondment
-				.setSourcePYSDE(affected_employment.getSchool().getPysde());
+				.setSourcePYSDE(getMinoasDatabase().merge(affected_employment.getSchool().getPysde()));
+		newSecondment.setSourceUnit(getMinoasDatabase().merge(affected_employment.getSchool()));
 
 		/*
 		 * adjust working hours by retrieving the mandatory working hours from

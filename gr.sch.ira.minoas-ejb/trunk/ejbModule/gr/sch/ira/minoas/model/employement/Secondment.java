@@ -9,7 +9,6 @@ import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Unit;
 import gr.sch.ira.minoas.model.employee.Employee;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -53,7 +52,7 @@ public class Secondment extends BaseModel {
 	@Column(name="IS_ACTIVE", nullable=true)
 	private Boolean active;
 
-	@OneToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY,optional=true)
 	@JoinColumn(name="PARENT_EMPLOYMENT_ID", nullable=true)
 	private Employment affectedEmployment;
 	
@@ -114,7 +113,7 @@ public class Secondment extends BaseModel {
 	@JoinColumn(name="SECONDMENT_TYPE_ID", nullable=false)
 	private SecondmentType secondmentType;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="SOURCE_PYSDE_ID", nullable=true)
 	private PYSDE sourcePYSDE;
 
@@ -125,7 +124,7 @@ public class Secondment extends BaseModel {
 	@JoinColumn(name="SUPERSEDED_BY_ID", nullable=true)
 	private Secondment supersededBy;  
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="TARGET_PYSDE_ID", nullable=true)
 	private PYSDE targetPYSDE;
 	
@@ -133,10 +132,13 @@ public class Secondment extends BaseModel {
 	@JoinColumn(name="TARGET_UNIT", nullable=false)
 	private Unit targetUnit;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="SOURCE_UNIT", nullable=false)
+	private Unit sourceUnit;
+	
 	
 	@SuppressWarnings("unused")
 	@Version
-	
 	private Long version;
 	
 	@Basic
@@ -364,6 +366,14 @@ public class Secondment extends BaseModel {
 
 	public void setWorkingHoursDecrementReason(String workingHoursDecrementReason) {
 		this.workingHoursDecrementReason = workingHoursDecrementReason;
+	}
+
+	public Unit getSourceUnit() {
+		return sourceUnit;
+	}
+
+	public void setSourceUnit(Unit sourceUnit) {
+		this.sourceUnit = sourceUnit;
 	}
 
 }

@@ -20,6 +20,14 @@ public interface ISchoolRecord {
 	 */
 	public void searchSchoolSecondments();
 	
+	public String selectRegularEmployment();
+	
+	public String selectDeputyEmployment();
+	
+	public String selectSecondment();
+	
+	public String reset();
+	
 	public void begin();
 	
 	public void end();

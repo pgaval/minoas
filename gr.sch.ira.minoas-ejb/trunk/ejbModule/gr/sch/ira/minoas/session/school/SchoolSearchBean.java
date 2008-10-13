@@ -50,7 +50,7 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements I
 
 	private String searchString;
 
-	@DataModelSelection
+	@DataModelSelection("schools")
 	private School selectedSchool;
 
 	/**
