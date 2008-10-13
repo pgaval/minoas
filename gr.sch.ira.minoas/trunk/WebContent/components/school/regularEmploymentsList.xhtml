@@ -4,7 +4,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:s="http://jboss.com/products/seam/taglib">
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:a4j="http://richfaces.org/a4j">
 
 <ui:component>
 
@@ -26,13 +27,13 @@
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">ΑΜ</f:facet>
-				<h:outputText value="#{regularEmployment.employee.registryID}" />
+				<h:outputText value="#{employeeUtil.getRegistryID(regularEmployment.employee)}" />
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">Επώνυμο</f:facet>
-				<s:link action="selectRegularEmployment">
+				<a4j:commandLink action="regular-employment-selected">
 					<h:outputText value="#{regularEmployment.employee.lastName}" />
-				</s:link>
+				</a4j:commandLink>
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">Όνομα</f:facet>

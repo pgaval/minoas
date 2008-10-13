@@ -4,7 +4,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:rich="http://richfaces.org/rich"
-      xmlns:s="http://jboss.com/products/seam/taglib">
+      xmlns:s="http://jboss.com/products/seam/taglib"
+      xmlns:a4j="http://richfaces.org/a4j">
 
 <ui:component>
 	<h:form>
@@ -25,9 +26,9 @@
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">Επώνυμο</f:facet>
-				<s:link action="selectDeputyEmployment">
-					<h:outputText value="#{secondment.employee.lastName}" />
-				</s:link>
+				<a4j:commandLink action="secondment-selected">
+				<h:outputText value="#{secondment.employee.lastName}" />
+				</a4j:commandLink>
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">Όνομα</f:facet>
@@ -47,15 +48,9 @@
 						value="#{secondment.affectedEmployment.specialization.title}" />
 				</h:outputText>
 			</rich:column>
-			<rich:column
-				sortyBy="#{secodment.affectedEmployment.mandatoryWorkingHours}">
-				<f:facet name="header">Υπ. Ωράριο</f:facet>
-				<h:outputText
-					value="#{secondment.affectedEmployment.mandatoryWorkingHours}" />
-			</rich:column>
 			<rich:column sortBy="#{secondment.finalWorkingHours}">
 				<f:facet name="header">Ωράριο</f:facet>
-				<h:outputText value="#{secondment.finalWorkingHours}" />
+				<h:outputText value="#{secondment.affectedEmployment.mandatoryWorkingHours} / #{secondment.finalWorkingHours}" />
 			</rich:column>
 			<rich:column>
 				<f:facet name="header">Τύπος</f:facet>
@@ -63,7 +58,10 @@
 					converter="employeeTypeConverter" />
 			</rich:column>
 			<rich:column>
-				<f:facet name="header">Μονάδα Προέλευσης</f:facet>
+				<f:facet name="header">
+					Μονάδα Προέλευσης
+				</f:facet>
+				<h:outputText value="#{secondment.sourceUnit.title}" />
 			</rich:column>
 			<f:facet name="footer">
 				<rich:datascroller align="left" for="secondmentList" maxPages="20"

@@ -14,13 +14,6 @@
 		<transition to="searchSchoolPage" name="false" />
 	</decision>
 	
-	<page name="schoolRecordPage" view-id="/school.xhtml">
-		<redirect />
-		<transition to="searchSchoolPage" name="select-other-school"/>
-		<transition to="home" name="close-school-record">
-			<action expression="#{schoolRecord.end}" />
-		</transition>
-	</page>
 	<page name="searchSchoolPage" view-id="/schools.xhtml">
 		<redirect />
 		<transition to="schoolRecordPage" name="school-selected">
@@ -28,8 +21,33 @@
 		</transition>
 	</page>
 	
+	<page name="schoolRecordPage" view-id="/school.xhtml">
+		<redirect />
+		<transition to="searchSchoolPage" name="select-other-school">
+			<action expression="#{schoolRecord.reset}" />
+		</transition>
+		<transition to="home" name="close-school-record">
+			<action expression="#{schoolRecord.end}" />
+		</transition>
+		<transition to="employeePage" name="regular-employment-selected">
+			<action expression="#{schoolRecord.selectRegularEmployment}" />
+		</transition>
+		<transition to="employeePage" name="deputy-employment-selected">
+			<action expression="#{schoolRecord.selectDeputyEmployment}" />
+		</transition>
+		<transition to="employeePage" name="secondment-selected">
+			<action expression="#{schoolRecord.selectSecondment}" />
+		</transition>
+		
+	</page>
+	
+	
+	<page name="employeePage" view-id="/employee.xhtml" back="enabled">
+		
+	</page>
 	<page name="home" view-id="/home.xhtml">
 		<end-conversation/>
 		<redirect />
 	</page>
+	
 </pageflow-definition>
