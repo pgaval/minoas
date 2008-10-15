@@ -41,6 +41,20 @@ import org.jboss.seam.annotations.Name;
 public class Secondment extends BaseModel {
 
 	/**
+	 * @return the mandatoryWorkingHours
+	 */
+	public Integer getMandatoryWorkingHours() {
+		return mandatoryWorkingHours;
+	}
+
+	/**
+	 * @param mandatoryWorkingHours the mandatoryWorkingHours to set
+	 */
+	public void setMandatoryWorkingHours(Integer mandatoryWorkingHours) {
+		this.mandatoryWorkingHours = mandatoryWorkingHours;
+	}
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -77,6 +91,10 @@ public class Secondment extends BaseModel {
 	@Basic
 	@Column(name= "FINAL_WORKING_HOURS",nullable = true)
 	private Integer finalWorkingHours;
+	
+	@Basic
+	@Column(name= "MANDATORY_WORKING_HOURS",nullable = true)
+	private Integer mandatoryWorkingHours;
 
 	@Basic
 	@Column(name="HEADMASTER_ORDER", nullable=true, length=25)
@@ -129,11 +147,11 @@ public class Secondment extends BaseModel {
 	private PYSDE targetPYSDE;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="TARGET_UNIT", nullable=false)
+	@JoinColumn(name="TARGET_UNIT_ID", nullable=false)
 	private Unit targetUnit;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="SOURCE_UNIT", nullable=false)
+	@JoinColumn(name="SOURCE_UNIT_ID", nullable=false)
 	private Unit sourceUnit;
 	
 	
