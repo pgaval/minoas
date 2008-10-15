@@ -31,7 +31,7 @@
 						<h:outputText value="Προσωπικό" />
 					</h:panelGroup>
 				</f:facet>
-				<rich:menuItem value="Καρτέλα Εκπαιδευτικού" action="#{employeeManagement.beginEmployeeManagementConversation}" ajaxSingle="true" submitMode="ajax"/>
+				<rich:menuItem value="Καρτέλα Εκπαιδευτικού" action="#{employeeRecord.beginViewEmployeeRecord}" ajaxSingle="true" submitMode="ajax"/>
 				<rich:menuGroup value="Αποσπάσεις">
 					<rich:menuItem value="Εισαγωγή" submitMode="ajax" ajaxSingle="true"
 						action="#{employeeManagement.beginEmployeeNewSecondment}" />
@@ -62,9 +62,12 @@
 			</rich:dropDownMenu>
 			<s:link value="Κεντρική Σελίδα" view="/home.xhtml" propagation="none" disabled="#{!identity.loggedIn}" styleClass="current_page_item"/>
 			<s:link value="Αποσύνδεση" action="#{identity.logout}" view="/home.xhtml" styleClass="current_page_item"/>
-			
-		</rich:toolBar>
-	</a4j:form>
+			<h:panelGroup>
+				<h:selectOneMenu value="#{switcher.conversationIdOrOutcome}">
+					<f:selectItems value="#{switcher.selectItems}" />
+				</h:selectOneMenu>
+				<h:commandButton action="#{switcher.select}" value="Switch" />
+			</h:panelGroup></rich:toolBar></a4j:form>
 </ui:component>
 
 </html>
