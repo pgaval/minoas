@@ -15,6 +15,7 @@
 	</decision>
 	
 	<page view-id="/employees.xhtml" name="employeeSearchPage">
+		<description>Νέα Απόσπαση - Αναζήτηση Εκπαιδευτικού</description>
 		<redirect />
 		<transition name="search" to="employeeSearchPage">
         		<action expression="#{employeeSearch.search}" />
@@ -39,6 +40,7 @@
 	</decision>
 	
 	<page view-id="/new-secondment.xhtml" name="newSecondmentPage">
+		<description>Νέα Απόσπαση Εκπαιδευτικού #{employeeUtil.prettyFormat(activeEmployee)}</description>
     	<redirect/>
     	<transition to="saveSecondment" name="save-new-secondment" />
     		

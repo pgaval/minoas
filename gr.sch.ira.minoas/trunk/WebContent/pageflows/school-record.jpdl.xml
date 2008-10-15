@@ -15,13 +15,15 @@
 	</decision>
 	
 	<page name="searchSchoolPage" view-id="/schools.xhtml">
+		<description>Καρτέλας Σχολικής Μονάδας - Αναζήτηση Σχολικής Μονάδας</description>
 		<redirect />
 		<transition to="schoolRecordPage" name="school-selected">
 			<action expression="#{schoolSearch.selectSchool}"></action>
 		</transition>
 	</page>
 	
-	<page name="schoolRecordPage" view-id="/school.xhtml">
+	<page name="schoolRecordPage" view-id="/school.xhtml" back="enabled">
+		<description>Καρτέλας Σχολικής Μονάδας - #{activeSchool.title}</description>
 		<redirect />
 		<transition to="searchSchoolPage" name="select-other-school">
 			<action expression="#{schoolRecord.reset}" />
@@ -43,8 +45,11 @@
 	
 	
 	<page name="employeePage" view-id="/employee.xhtml" back="enabled">
-		
+		<description>Καρτέλα Εκπαιδευτικού - #{employeeUtil.prettyFormat(activeEmployee)}</description>
+		<redirect />	
+		<transition to="schoolRecordPage" name="back" />
 	</page>
+	
 	<page name="home" view-id="/home.xhtml">
 		<end-conversation/>
 		<redirect />
