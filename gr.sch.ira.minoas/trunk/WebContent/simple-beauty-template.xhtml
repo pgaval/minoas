@@ -87,7 +87,12 @@
 	
 
 	<s:div id="main_content_bottom">
-
+		<h:panelGroup>
+			<h:selectOneMenu value="#{switcher.conversationIdOrOutcome}">
+				<f:selectItems value="#{switcher.selectItems}" />
+			</h:selectOneMenu>
+			<h:commandButton action="#{switcher.select}" value="Switch" />
+		</h:panelGroup>
 	</s:div>
 
 

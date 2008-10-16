@@ -30,11 +30,6 @@
 						<h:outputLabel value="Τίτλος Σχολείου : " />
 						<h:inputText value="#{schoolSearch.searchString}"
 							id="searchString" style="width: 165px;">
-							<a4j:support event="onkeyup"
-								actionListener="#{schoolSearch.search}"
-								status="schoolSearchStatus" eventsQueue="foo"
-								ignoreDupResponses="true" reRender="schoolListOutputPanel"
-								limitToList="true" />
 						</h:inputText>
 
 						<a4j:commandButton value="Αναζήτηση"
