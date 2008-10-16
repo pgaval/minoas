@@ -3,6 +3,7 @@
  */
 package gr.sch.ira.minoas.seam.components.suggesters;
 
+import gr.sch.ira.minoas.core.CoreUtils;
 import gr.sch.ira.minoas.model.core.Specialization;
 
 import java.util.Collection;
@@ -24,8 +25,8 @@ public class SpecializationSuggester extends BaseSuggester{
 	public Collection<Specialization> suggest(Object specialization_search_pattern) {
 		return getMinoasDatabase()
 				.createQuery(
-						"SELECT s from Specialization s WHERE lower(s.id) LIKE LOWER(:search_pattern + '%') OR LOWER(s.title) LIKE LOWER(:search_pattern + '%')")
-				.setParameter("search_pattern", specialization_search_pattern).getResultList();
+						"SELECT s from Specialization s WHERE lower(s.id) LIKE LOWER(:search_pattern) OR LOWER(s.title) LIKE LOWER(:search_pattern)")
+				.setParameter("search_pattern", CoreUtils.getSearchPattern(String.valueOf(specialization_search_pattern))).getResultList();
 	}
 
 }

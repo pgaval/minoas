@@ -46,19 +46,14 @@ import org.jboss.seam.annotations.security.Restrict;
 @Name("employeeManagement")
 @Stateful
 @Restrict("#{identity.loggedIn}")
-@Local( { IBaseStatefulSeamComponent.class, IEmployeeManagement.class })
-public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
+@Local( { IBaseStatefulSeamComponent.class, IEmployeeManagement.class, IEmployeeAware.class })
+public class EmployeeManagementBean extends EmployeeAwareSeamComponent
 		implements IEmployeeManagement {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@In(required = false)
-	@Out(required = false)
-	private Employee activeEmployee;
-
 
 	@In(value = "coreSearching")
 	private CoreSearching coreSearching;
@@ -87,9 +82,6 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
 		info("a new secondment, during school year #0,  conversation has begun.",getActiveSchoolYear());
 	}
 
-	public boolean hasActiveEmployee() {
-		return activeEmployee != null;
-	}
 
 	/**
 	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
@@ -194,12 +186,6 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
 		return END_OUTCOME;
 	}
 
-	/**
-	 * @return the activeEmployee
-	 */
-	public Employee getActiveEmployee() {
-		return activeEmployee;
-	}
 
 	
 
@@ -242,15 +228,6 @@ public class EmployeeManagementBean extends BaseStatefulSeamComponentImpl
 		return SUCCESS_OUTCOME;
 	}
 
-	/**
-	 * @param activeEmployee
-	 *            the activeEmployee to set
-	 */
-	public void setActiveEmployee(Employee activeEmployee) {
-		this.activeEmployee = activeEmployee;
-	}
-
-	
 
 	/**
 	 * @param employeeActiveSecondment

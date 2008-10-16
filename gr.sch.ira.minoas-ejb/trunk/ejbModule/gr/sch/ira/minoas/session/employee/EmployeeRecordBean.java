@@ -18,8 +18,11 @@ import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Conversational;
+import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
+import org.jboss.seam.annotations.FlushModeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.datamodel.DataModel;
@@ -33,9 +36,9 @@ import org.jboss.seam.annotations.security.Restrict;
 @Name("employeeRecord")
 @Stateful
 @Restrict("#{identity.loggedIn}")
-@Local( { IBaseStatefulSeamComponent.class, IEmployeeRecord.class })
+@Local( { IBaseStatefulSeamComponent.class, IEmployeeRecord.class, IEmployeeAware.class })
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
+public class EmployeeRecordBean extends EmployeeAwareSeamComponent implements
 		IEmployeeRecord {
 	
 	/**
@@ -68,9 +71,6 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 	@In
 	private CoreSearching coreSearching;
 	
-	@In(required=true)
-	private Employee activeEmployee;
-
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeRecord#search()
 	 */
@@ -107,15 +107,6 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 		info("searching secondments for employee '#0'", getActiveEmployee());
 		setSecondments(coreSearching.getEmployeeSecondments(getActiveEmployee()));
 		return SUCCESS_OUTCOME;
-	}
-
-
-	public Employee getActiveEmployee() {
-		return activeEmployee;
-	}
-
-	public void setActiveEmployee(Employee activeEmployee) {
-		this.activeEmployee = activeEmployee;
 	}
 
 
@@ -176,6 +167,17 @@ public class EmployeeRecordBean extends BaseStatefulSeamComponentImpl implements
 
 	public void setSelectedEmployeeSecondment(Secondment selectedSecondment) {
 		this.selectedEmployeeSecondment = selectedSecondment;
+	}
+
+
+	@Begin(nested=true, flushMode=FlushModeType.MANUAL, pageflow="employee-record")
+	public void beginViewEmployeeRecord() {
+		info("begun employee record conversation with active employee '#0'", getActiveEmployee());
+	}
+
+	@End
+	public void endViewEmployeeRecord() {
+		info("employee record '#0' conversation ended.", getActiveEmployee());
 	}
 	
 	

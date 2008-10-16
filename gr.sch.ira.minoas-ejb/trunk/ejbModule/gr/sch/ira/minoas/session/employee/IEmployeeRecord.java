@@ -22,5 +22,9 @@ public interface IEmployeeRecord {
 	
 	public void setSelectedEmployeeSecondment(Secondment selected_secondment);
 	
+	public void beginViewEmployeeRecord();
+	
+	public void endViewEmployeeRecord();
+	
 	public String select();
 }
