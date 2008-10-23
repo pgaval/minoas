@@ -157,6 +157,27 @@ public class EmployeeSearchBean extends EmployeeAwareSeamComponent implements
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeSearch#search()
 	 */
 	public String search() {
+		if(isNonEmpty(getEmployeeVATNumberFilter())) {
+			info("searching for employee with VAT Number '#0'.",
+					getEmployeeVATNumberFilter());
+			employees = minoasDatabase.createQuery(
+					"SELECT e FROM Employee e WHERE e.vatNumber=:vat_number")
+					.setParameter("vat_number", getEmployeeVATNumberFilter())
+					.getResultList();
+			info("found #0 employee(s)", employees.size());
+			return SUCCESS_OUTCOME;
+		}
+		
+		if(isNonEmpty(getEmployeeRegistryIDFilter())) {
+			info("searching for employee with registry ID '#0'.",
+					getEmployeeRegistryIDFilter());
+			employees = minoasDatabase.createQuery(
+					"SELECT e FROM Employee e WHERE e.registryID=:registry_id")
+					.setParameter("registry_id", getEmployeeRegistryIDFilter())
+					.getResultList();
+			info("found #0 employee(s)", employees.size());
+			return SUCCESS_OUTCOME;
+		}
 		info(
 				"searching for employees with matching '#0' last name, '#1' first name and '#2' father name with employment filter set to '#3'.",
 				getEmployeeLastNameFilter(), getEmployeeFirstNameFilter(),
@@ -194,32 +215,8 @@ public class EmployeeSearchBean extends EmployeeAwareSeamComponent implements
 		return SUCCESS_OUTCOME;
 	}
 
-	/**
-	 * @see gr.sch.ira.minoas.session.employee.IEmployeeSearch#searchByRegistryID()
-	 */
-	public String searchByRegistryID() {
-		info("searching for employee with registry ID '#0'.",
-				getEmployeeRegistryIDFilter());
-		employees = minoasDatabase.createQuery(
-				"SELECT e FROM Employee e WHERE e.registryID=:registry_id")
-				.setParameter("registry_id", getEmployeeRegistryIDFilter())
-				.getResultList();
-		return SUCCESS_OUTCOME;
-	}
 
-	/**
-	 * @see gr.sch.ira.minoas.session.employee.IEmployeeSearch#searchByVATNumber()
-	 */
-	public String searchByVATNumber() {
-		info("searching for employee with VAT Number '#0'.",
-				getEmployeeVATNumberFilter());
-		employees = minoasDatabase.createQuery(
-				"SELECT e FROM Employee e WHERE e.vatNumber=:vat_number")
-				.setParameter("vat_number", getEmployeeVATNumberFilter())
-				.getResultList();
-		return SUCCESS_OUTCOME;
-	}
-
+	
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeSearch#select()
 	 */

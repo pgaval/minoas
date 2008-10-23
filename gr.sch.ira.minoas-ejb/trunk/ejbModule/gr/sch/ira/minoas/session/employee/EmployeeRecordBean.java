@@ -11,6 +11,7 @@ import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
 
+import java.awt.ActiveEvent;
 import java.util.Collection;
 
 import javax.ejb.Local;
@@ -40,6 +41,9 @@ import org.jboss.seam.annotations.security.Restrict;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class EmployeeRecordBean extends EmployeeAwareSeamComponent implements
 		IEmployeeRecord {
+	
+	@In(required=false)
+	private Employee activeEmployee;
 	
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeRecord#select()

@@ -16,7 +16,7 @@ import org.jboss.seam.log.Log;
  * 
  */
 public abstract class BaseSeamComponent implements Serializable {
-	
+
 	/**
 	 * @return the facesMessages
 	 */
@@ -46,7 +46,7 @@ public abstract class BaseSeamComponent implements Serializable {
 	 * @param arg1
 	 * @param arg2
 	 * @see org.jboss.seam.log.Log#debug(java.lang.Object, java.lang.Throwable,
-	 * java.lang.Object[])
+	 *      java.lang.Object[])
 	 */
 	public void debug(Object arg0, Throwable arg1, Object... arg2) {
 		logger.debug(arg0, arg1, arg2);
@@ -66,7 +66,7 @@ public abstract class BaseSeamComponent implements Serializable {
 	 * @param arg1
 	 * @param arg2
 	 * @see org.jboss.seam.log.Log#error(java.lang.Object, java.lang.Throwable,
-	 * java.lang.Object[])
+	 *      java.lang.Object[])
 	 */
 	public void error(Object arg0, Throwable arg1, Object... arg2) {
 		logger.error(arg0, arg1, arg2);
@@ -86,7 +86,7 @@ public abstract class BaseSeamComponent implements Serializable {
 	 * @param arg1
 	 * @param arg2
 	 * @see org.jboss.seam.log.Log#fatal(java.lang.Object, java.lang.Throwable,
-	 * java.lang.Object[])
+	 *      java.lang.Object[])
 	 */
 	public void fatal(Object arg0, Throwable arg1, Object... arg2) {
 		logger.fatal(arg0, arg1, arg2);
@@ -106,7 +106,7 @@ public abstract class BaseSeamComponent implements Serializable {
 	 * @param arg1
 	 * @param arg2
 	 * @see org.jboss.seam.log.Log#info(java.lang.Object, java.lang.Throwable,
-	 * java.lang.Object[])
+	 *      java.lang.Object[])
 	 */
 	public void info(Object arg0, Throwable arg1, Object... arg2) {
 		logger.info(arg0, arg1, arg2);
@@ -126,10 +126,18 @@ public abstract class BaseSeamComponent implements Serializable {
 	 * @param arg1
 	 * @param arg2
 	 * @see org.jboss.seam.log.Log#warn(java.lang.Object, java.lang.Throwable,
-	 * java.lang.Object[])
+	 *      java.lang.Object[])
 	 */
 	public void warn(Object arg0, Throwable arg1, Object... arg2) {
 		logger.warn(arg0, arg1, arg2);
+	}
+
+	protected boolean isEmpty(Object object) {
+		return !isEmpty(object);
+	}
+
+	protected boolean isNonEmpty(Object object) {
+		return object != null && String.valueOf(object).trim().length() > 0;
 	}
 
 }

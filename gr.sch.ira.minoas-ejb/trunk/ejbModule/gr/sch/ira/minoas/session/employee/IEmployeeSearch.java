@@ -7,10 +7,6 @@ public interface IEmployeeSearch {
 	
 	public String search();
 	
-	public String searchByVATNumber();
-	
-	public String searchByRegistryID();
-	
 	public String select();
 	
 	public void setSpecializationFilter(Specialization specialization_filter);
