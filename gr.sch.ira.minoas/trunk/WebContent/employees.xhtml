@@ -13,10 +13,12 @@
 			<f:facet name="header">
 				<h:outputText value="Αναζήτηση Εκπαιδευτικού Προσωπικού" />
 			</f:facet>
+			<h:form>
 			<h:panelGrid columns="1">
 				<!--  section of normal search form -->
+				
 				<h:panelGroup>
-					<h:form>
+					
 					<h:panelGrid columns="5">
 						<s:decorate template="/layout/doubleLineEdit.xhtml">
 							<ui:define name="label">
@@ -77,16 +79,17 @@
 							</h:inputText>
 						</s:decorate>
 							<f:facet name="footer">
-								<h:commandButton id="searchButton" action="search"
-									value="Αναζήτηση">
-									<s:defaultAction />
-								</h:commandButton>
+								<h:panelGroup>
+									<h:commandButton id="searchButton" action="search"
+										value="Αναζήτηση">
+										<s:defaultAction />
+									</h:commandButton>
+								</h:panelGroup>
 							</f:facet>
 						</h:panelGrid>
-					</h:form>
 				</h:panelGroup>
 				<rich:separator></rich:separator>
-				<h:form>
+				
 					<h:panelGrid columns="2">
 						<h:panelGroup>
 							<h:outputLabel value="ΑΦΜ Εκπαιδευτικού : " for="afmFilter" />
@@ -99,19 +102,21 @@
 								styleClass="fieldValueText" />
 						</h:panelGroup>
 						<f:facet name="footer">
-							<h:commandButton id="searchButton" action="search"
-								value="Αναζήτηση">
-								<s:defaultAction />
-							</h:commandButton>
+							<h:panelGroup>
+								<h:commandButton  action="search"
+									value="Αναζήτηση">
+								</h:commandButton>
+							</h:panelGroup>
 						</f:facet>
 					</h:panelGrid>
-				</h:form>
+			
 
-
-				<h:panelGroup>
-					<ui:include src="/components/employee/employeeList.xhtml" />
-				</h:panelGroup>
+				<rich:separator></rich:separator>
 			</h:panelGrid>
+			</h:form>
+			<h:panelGroup>
+				<ui:include src="/components/employee/employeeList.xhtml" />
+			</h:panelGroup>
 		</rich:panel>
 	</ui:define>
 </ui:composition>
