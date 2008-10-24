@@ -31,7 +31,12 @@
 						<h:outputText value="Προσωπικό" />
 					</h:panelGroup>
 				</f:facet>
-				<rich:menuItem value="Καρτέλα Εκπαιδευτικού" action="#{employeeRecord.beginViewEmployeeRecord}" ajaxSingle="true" submitMode="ajax"/>
+				<rich:menuGroup value="Καρτέλα Εκπαιδευτικού">
+					<rich:menuItem value="Αναζήτηση ..." action="#{employeeRecord.beginViewEmployeeRecord}" ajaxSingle="true" submitMode="ajax"/>
+					<rich:menuItem value="Προβολή ..." disabled="#{activeEmployee eq null}" ajaxSingle="true" submitMode="ajax" />
+					<rich:menuSeparator />
+					<rich:menuItem value="Κλείσιμο Καρτέλας" action="close-employee-record" disabled="#{activeEmployee eq null}" submitMode="ajax" ajaxSingle="true" />
+				</rich:menuGroup>
 				<rich:menuGroup value="Αποσπάσεις">
 					<rich:menuItem value="Εισαγωγή" submitMode="ajax" ajaxSingle="true"
 						action="#{employeeManagement.beginEmployeeNewSecondment}" />

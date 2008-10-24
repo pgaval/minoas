@@ -69,7 +69,6 @@
 						<h:messages globalOnly="true" layout="table"
 								errorClass="error-message" infoClass="info-message" />
 					</rich:panel>
-					
 					<ui:insert name="body" />
 				</s:span>
 			</h:panelGrid>
@@ -87,7 +86,7 @@
 	
 
 	<s:div id="main_content_bottom">
-		<h:panelGroup>
+		<h:panelGroup rendered="false">
 			<h:selectOneMenu value="#{switcher.conversationIdOrOutcome}">
 				<f:selectItems value="#{switcher.selectItems}" />
 			</h:selectOneMenu>
