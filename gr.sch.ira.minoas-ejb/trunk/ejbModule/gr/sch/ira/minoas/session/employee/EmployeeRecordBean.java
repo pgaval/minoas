@@ -42,8 +42,7 @@ import org.jboss.seam.annotations.security.Restrict;
 public class EmployeeRecordBean extends EmployeeAwareSeamComponent implements
 		IEmployeeRecord {
 	
-	@In(required=false)
-	private Employee activeEmployee;
+
 	
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeRecord#select()
@@ -174,7 +173,7 @@ public class EmployeeRecordBean extends EmployeeAwareSeamComponent implements
 	}
 
 
-	@Begin(nested=true, flushMode=FlushModeType.MANUAL, pageflow="employee-record")
+	@Begin(join=true, flushMode=FlushModeType.MANUAL, pageflow="employee-record")
 	public void beginViewEmployeeRecord() {
 		info("begun employee record conversation with active employee '#0'", getActiveEmployee());
 	}

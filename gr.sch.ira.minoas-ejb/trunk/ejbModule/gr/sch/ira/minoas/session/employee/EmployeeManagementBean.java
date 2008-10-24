@@ -70,14 +70,14 @@ public class EmployeeManagementBean extends EmployeeAwareSeamComponent
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#beginEmployeeAdminConversation()
 	 */
-	@Begin(flushMode = FlushModeType.MANUAL, nested = true, pageflow = "employee-management")
+	@Begin(flushMode = FlushModeType.MANUAL, join=true, pageflow = "employee-management")
 	public String beginEmployeeManagementConversation() {
 		info("employee '#0' management conversation begun.",
 				getActiveEmployee());
 		return BEGIN_OUTCOME;
 	}
 
-	@Begin(flushMode = FlushModeType.MANUAL, nested = true, pageflow = "new-secondment")
+	@Begin(flushMode = FlushModeType.MANUAL, join = true, pageflow = "new-secondment")
 	public void beginEmployeeNewSecondment() {
 		info("a new secondment, during school year #0,  conversation has begun.",getActiveSchoolYear());
 	}

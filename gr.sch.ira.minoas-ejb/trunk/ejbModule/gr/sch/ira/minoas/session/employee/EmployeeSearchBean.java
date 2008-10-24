@@ -41,16 +41,9 @@ import org.jboss.seam.annotations.security.Restrict;
 public class EmployeeSearchBean extends EmployeeAwareSeamComponent implements
 		IEmployeeSearch {
 
-	@Out(value = "activeEmployee", required = false, scope = ScopeType.CONVERSATION)
-	private Employee activeEmployee;
+	
 
-	public Employee getActiveEmployee() {
-		return activeEmployee;
-	}
-
-	public void setActiveEmployee(Employee activeEmployee) {
-		this.activeEmployee = activeEmployee;
-	}
+	
 
 	@In(value = "coreSearching")
 	private CoreSearching coreSearching;
@@ -72,8 +65,6 @@ public class EmployeeSearchBean extends EmployeeAwareSeamComponent implements
 
 	private Specialization employeeSpecializationFilter;
 
-	@In
-	private EntityManager minoasDatabase;
 
 	private SchoolYear schoolYearFilter;
 
