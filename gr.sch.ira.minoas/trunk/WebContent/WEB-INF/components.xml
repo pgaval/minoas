@@ -54,7 +54,7 @@
        <action execute="#{redirect.returnToCapturedView}"/>
    </event>
    
-   <component name="org.jboss.seam.persistence.persistenceProvider"   class="org.jboss.seam.persistence.PersistenceProvider"/>
+   <component name="org.jboss.seam.persistence.persistenceProvider"   class="org.jboss.seam.persistence.HibernatePersistenceProvider"/>
     
    <mail:mail-session host="localhost" port="2525" username="test" password="test" />
         
