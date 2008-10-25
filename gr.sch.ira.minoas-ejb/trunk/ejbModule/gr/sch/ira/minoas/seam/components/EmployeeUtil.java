@@ -43,7 +43,8 @@ public class EmployeeUtil extends BaseSeamComponent {
 	public boolean isHourlyPaid(Employee employee) {
 		return employee instanceof HourlyPaidEmployee;
 	}
-
+	
+	
 	public String prettyFormat(Employee employee) {
 		if (employee != null) {
 			StringBuffer sb = new StringBuffer();

@@ -10,11 +10,9 @@ import gr.sch.ira.minoas.model.employement.Employment;
 import gr.sch.ira.minoas.model.employement.Secondment;
 import gr.sch.ira.minoas.model.employement.SecondmentType;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
-import gr.sch.ira.minoas.seam.components.EmployeeUtil;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
 
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.ejb.Local;

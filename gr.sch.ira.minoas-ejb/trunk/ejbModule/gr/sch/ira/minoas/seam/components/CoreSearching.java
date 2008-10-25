@@ -13,6 +13,7 @@ import gr.sch.ira.minoas.model.employement.Secondment;
 import gr.sch.ira.minoas.model.security.Principal;
 import gr.sch.ira.minoas.model.security.Role;
 import gr.sch.ira.minoas.model.security.RoleGroup;
+
 import java.util.Collection;
 import java.util.List;
 

@@ -3,7 +3,6 @@
  */
 package gr.sch.ira.minoas.session.employee;
 
-import gr.sch.ira.minoas.model.employement.SecondmentType;
 
 
 /**

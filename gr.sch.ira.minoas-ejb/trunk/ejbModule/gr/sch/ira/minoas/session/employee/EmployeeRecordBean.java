@@ -3,15 +3,12 @@
  */
 package gr.sch.ira.minoas.session.employee;
 
-import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.model.employement.Employment;
 import gr.sch.ira.minoas.model.employement.EmploymentType;
 import gr.sch.ira.minoas.model.employement.Secondment;
-import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
 
-import java.awt.ActiveEvent;
 import java.util.Collection;
 
 import javax.ejb.Local;
@@ -19,11 +16,8 @@ import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
-import org.jboss.seam.annotations.Begin;
-import org.jboss.seam.annotations.Conversational;
 import org.jboss.seam.annotations.End;
 import org.jboss.seam.annotations.Factory;
-import org.jboss.seam.annotations.FlushModeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.datamodel.DataModel;

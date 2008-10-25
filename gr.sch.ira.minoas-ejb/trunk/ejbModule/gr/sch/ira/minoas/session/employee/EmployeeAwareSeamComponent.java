@@ -39,4 +39,5 @@ public class EmployeeAwareSeamComponent extends BaseStatefulSeamComponentImpl im
 		return getActiveEmployee()!=null;
 	}
 	
+	
 }

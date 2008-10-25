@@ -3,8 +3,6 @@
  */
 package gr.sch.ira.minoas.seam.components.converters;
 
-import java.util.List;
-
 import gr.sch.ira.minoas.model.employement.SecondmentType;
 
 import javax.faces.component.UIComponent;
