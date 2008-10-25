@@ -9,8 +9,8 @@
 		<transition to="hasActiveEmployee"></transition>
 	</start-state>
 	
-	<decision name="hasActiveEmployee" expression="#{employeeManagement.hasActiveEmployee()}">
-		<transition name="true" to="newSecondmentPage" />
+	<decision name="hasActiveEmployee" expression="#{activeEmployee ne null}">
+		<transition name="true" to="secondmentPrepared" />
 		<transition name="false" to="employeeSearchPage" />
 	</decision>
 	
@@ -18,7 +18,7 @@
 		<description>Νέα Απόσπαση - Αναζήτηση Εκπαιδευτικού</description>
 		<redirect />
 		<transition name="search" to="employeeSearchPage">
-        		<action expression="#{employeeSearch.search}" />
+        	<action expression="#{employeeSearch.search}" />
         </transition>
         
     	<transition name="searchByVATNumber" to="employeeSearchPage">

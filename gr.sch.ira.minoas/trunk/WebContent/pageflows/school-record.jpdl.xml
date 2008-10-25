@@ -9,7 +9,7 @@
 		<transition to="isSchoolSelected" />
 	</start-state>
 	
-	<decision name="isSchoolSelected" expression="#{schoolRecord.hasActiveSchool}">
+	<decision name="isSchoolSelected" expression="#{activeSchool ne null}">
 		<transition to="schoolRecordPage" name="true" />
 		<transition to="searchSchoolPage" name="false" />
 	</decision>

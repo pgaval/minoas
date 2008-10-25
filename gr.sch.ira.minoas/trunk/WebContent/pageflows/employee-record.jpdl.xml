@@ -8,35 +8,31 @@
 		<transition to="hasActiveEmployee"></transition>
 	</start-state>
 	
-  	<decision name="hasActiveEmployee" expression="#{employeeRecord.hasActiveEmployee()}">
+  	<decision name="hasActiveEmployee" expression="#{activeEmployee ne null}">
 		<transition name="true" to="employeePage" />
 		<transition name="false" to="employeeSearchPage" />
 	</decision>
 	
   	<page view-id="/employees.xhtml" name="employeeSearchPage" >
-  		<description>Καρτέλα Εκπαιδευτικού - Αναζήτηση</description>
+  		<description>Καρτέλα Εκπαιδευτικού - Αναζήτηση Εκπαιδευτικού</description>
   		<redirect/>
     	<transition name="search" to="employeeSearchPage">
         	<action expression="#{employeeSearch.search}" />
     	</transition>
-    <transition to="employeePage" name="employee-selected">
-        <action expression="#{employeeSearch.select()}" />
-        <action expression="#{employeeRecord.search()}" />
-    </transition>
-    
-  </page>
+    	<transition to="employeePage" name="employee-selected">
+        	<action expression="#{employeeSearch.select()}" />
+        	<action expression="#{employeeRecord.search()}" />
+    	</transition>
+  	</page>
    
-   <page view-id="/employee.xhtml" name="employeePage">
+   	<page view-id="/employee.xhtml" name="employeePage" back="enabled">
    		<description>Καρτέλα Εκπαιδευτικού - #{employeeUtil.prettyFormat(activeEmployee)}</description>
-    	<redirect/>
-    	<transition to="employeeSearchPage" name="back" />
-   </page> 
+   		<redirect/>
+    	<transition to="employeeSearchPage" name="select-other-employee" />
+    	<transition to="home" name="close-employee-record" />
+   	</page> 
    
-  	
-  	
-    
-   
-  <page view-id="/home.xhtml" name="home">
+   <page view-id="/home.xhtml" name="home" back="disabled">
     <end-conversation/>
     <redirect />
   </page>
