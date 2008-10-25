@@ -10,6 +10,7 @@
 	<ui:component>
 	<a4j:form id="menuform">
 		<rich:toolBar>
+			
 			<rich:dropDownMenu disabled="#{!identity.loggedIn}">
 				<f:facet name="label">
 					<h:panelGroup>
@@ -17,7 +18,7 @@
 					</h:panelGroup>
 				</f:facet>
 				<rich:menuGroup value="Καρτέλα Μονάδας">
-					<rich:menuItem value="Προβολή Καρτέλας" action="#{schoolRecord.begin}" submitMode="ajax" ajaxSingle="true" />
+					<rich:menuItem value="Προβολή Καρτέλας" action="#{conversationHelper.beginSchoolRecordConversation}" submitMode="ajax" ajaxSingle="true" />
 					<rich:menuItem value="Επιλογή άλλης Μονάδας" action="select-other-school" disabled="#{activeSchool eq null}" submitMode="ajax" ajaxSingle="true" />
 					<rich:menuSeparator />
 					<rich:menuItem value="Κλείσιμο Καρτέλας" action="close-school-record" disabled="#{activeSchool eq null}" submitMode="ajax" ajaxSingle="true" />
@@ -32,14 +33,15 @@
 					</h:panelGroup>
 				</f:facet>
 				<rich:menuGroup value="Καρτέλα Εκπαιδευτικού">
-					<rich:menuItem value="Αναζήτηση ..." action="#{employeeRecord.beginViewEmployeeRecord}" ajaxSingle="true" submitMode="ajax"/>
-					<rich:menuItem value="Προβολή ..." disabled="#{activeEmployee eq null}" ajaxSingle="true" submitMode="ajax" />
+					<rich:menuItem value="Προβολή Καρτέλας ..." action="#{conversationHelper.beginEmployeeRecordConversation}" ajaxSingle="true" submitMode="ajax"/>
+					<rich:menuItem value="Επιλογή άλλου Εκπαιδευτικού ..."  action="select-other-employee" disabled="#{activeEmployee eq null}" ajaxSingle="true" submitMode="ajax" />
 					<rich:menuSeparator />
 					<rich:menuItem value="Κλείσιμο Καρτέλας" action="close-employee-record" disabled="#{activeEmployee eq null}" submitMode="ajax" ajaxSingle="true" />
 				</rich:menuGroup>
 				<rich:menuGroup value="Αποσπάσεις">
-					<rich:menuItem value="Εισαγωγή" submitMode="ajax" ajaxSingle="true"
-						action="#{employeeManagement.beginEmployeeNewSecondment}" />
+					
+					<rich:menuItem value="Εισαγωγή" submitMode="ajax" ajaxSingle="true" action="#{conversationHelper.beginNewSecondmentConversation}" />
+					
 				</rich:menuGroup>
 			</rich:dropDownMenu>
 			<rich:dropDownMenu disabled="#{!identity.loggedIn}">
@@ -65,8 +67,13 @@
 					</rich:menuItem>
 				</rich:menuGroup>
 			</rich:dropDownMenu>
-			<s:link value="Κεντρική Σελίδα" view="/home.xhtml" propagation="none" disabled="#{!identity.loggedIn}" styleClass="current_page_item"/>
-			<s:link value="Αποσύνδεση" action="#{identity.logout}" view="/home.xhtml" styleClass="current_page_item"/>
+			<rich:toolBarGroup location="right" itemSeparator="line">
+				<s:link value="Κεντρική Σελίδα" view="/home.xhtml"
+					propagation="none" disabled="#{!identity.loggedIn}"
+					styleClass="current_page_item" />
+				<s:link value="Αποσύνδεση" action="#{identity.logout}"
+					view="/home.xhtml" styleClass="current_page_item" />
+			</rich:toolBarGroup>
 		</rich:toolBar>
 	</a4j:form>
 </ui:component>
