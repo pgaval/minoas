@@ -86,6 +86,18 @@
 	
 
 	<s:div id="main_content_bottom">
+		<rich:toolBar>
+			<rich:toolBarGroup location="left" itemSeparator="line">
+				<h:panelGroup rendered="#{activeSchool ne null}">
+					<h:outputLabel value="Ενεργή Σχολική Μονάδα : " for="" />
+					<h:outputText value="#{activeSchool}" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{activeEmployee ne null}">
+					<h:outputLabel value="Ενεργός Εκπαιδευτικός : " for="" />
+					<h:outputText value="#{employeeUtil.prettyFormat(activeEmployee)}" />
+				</h:panelGroup>
+			</rich:toolBarGroup>
+		</rich:toolBar>
 		<h:panelGroup rendered="false">
 			<h:selectOneMenu value="#{switcher.conversationIdOrOutcome}">
 				<f:selectItems value="#{switcher.selectItems}" />
