@@ -16,7 +16,6 @@ public interface ISchoolSearch {
 	public String selectSchool();
 
 	public String search();
-	
-	public String beginSchoolSearchConversation();
+
 
 }

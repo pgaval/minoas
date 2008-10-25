@@ -68,22 +68,6 @@ public class EmployeeManagementBean extends EmployeeAwareSeamComponent
 	private SecondmentType selectedSecondmentType;
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#beginEmployeeAdminConversation()
-	 */
-	@Begin(flushMode = FlushModeType.MANUAL, join=true, pageflow = "employee-management")
-	public String beginEmployeeManagementConversation() {
-		info("employee '#0' management conversation begun.",
-				getActiveEmployee());
-		return BEGIN_OUTCOME;
-	}
-
-	@Begin(flushMode = FlushModeType.MANUAL, join = true, pageflow = "new-secondment")
-	public void beginEmployeeNewSecondment() {
-		info("a new secondment, during school year #0,  conversation has begun.",getActiveSchoolYear());
-	}
-
-
-	/**
 	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
 	 */
 	@Override
@@ -168,28 +152,6 @@ public class EmployeeManagementBean extends EmployeeAwareSeamComponent
 	}
 
 	/**
-	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#endEmployeeManagementConversation()
-	 */
-	@End(beforeRedirect = true)
-	public String endEmployeeManagementConversation() {
-		info("employee '#0' management conversation ended.",
-				getActiveEmployee());
-		return END_OUTCOME;
-	}
-
-	@End
-	public String endEmployeeNewSecondment() {
-		info(
-				"new secondment '#2'conversation ended for employee '#0' during school year '#1'.",
-				getActiveEmployee(), getActiveSchoolYear(), newSecondment);
-		newSecondment=null;
-		return END_OUTCOME;
-	}
-
-
-	
-
-	/**
 	 * @return the employeeActiveSecondment
 	 */
 	public Secondment getEmployeeActiveSecondment() {
@@ -199,6 +161,7 @@ public class EmployeeManagementBean extends EmployeeAwareSeamComponent
 	/**
 	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#saveSecondment()
 	 */
+	@End
 	public String saveSecondment() {
 		/* check */
 		info("trying to save secondment #0", this.newSecondment);

@@ -53,14 +53,7 @@ public class SchoolSearchBean extends BaseStatefulSeamComponentImpl implements I
 	@DataModelSelection("schools")
 	private School selectedSchool;
 
-	/**
-	 * @see gr.sch.ira.minoas.session.school.ISchoolSearch#beginSchoolSearchConversation()
-	 */
-	@Begin(join=true, pageflow="school-search", flushMode=FlushModeType.AUTO)
-	public String beginSchoolSearchConversation() {
-		info("school search conversation begun.");
-		return BEGIN_OUTCOME;
-	}
+	
 
 
 	/**

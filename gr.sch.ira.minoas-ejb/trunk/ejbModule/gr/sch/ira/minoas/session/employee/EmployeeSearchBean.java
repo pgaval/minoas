@@ -8,23 +8,18 @@ import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.employee.Employee;
 import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
-import gr.sch.ira.minoas.seam.components.CoreSearching;
 import gr.sch.ira.minoas.seam.components.IBaseStatefulSeamComponent;
 
 import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateful;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Conversational;
-import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Out;
+import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.datamodel.DataModel;
 import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.annotations.security.Restrict;
@@ -36,17 +31,15 @@ import org.jboss.seam.annotations.security.Restrict;
 @Name("employeeSearch")
 @Stateful
 @Restrict("#{identity.loggedIn}")
-@Local( { IBaseStatefulSeamComponent.class, IEmployeeSearch.class, IEmployeeAware.class })
-@TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class EmployeeSearchBean extends EmployeeAwareSeamComponent implements
+@Local( { IBaseStatefulSeamComponent.class, IEmployeeSearch.class })
+@Scope(ScopeType.CONVERSATION)
+public class EmployeeSearchBean extends BaseStatefulSeamComponentImpl implements
 		IEmployeeSearch {
 
-	
-
-	
-
-	@In(value = "coreSearching")
-	private CoreSearching coreSearching;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String employeeFatherNameFilter;
 
@@ -65,6 +58,8 @@ public class EmployeeSearchBean extends EmployeeAwareSeamComponent implements
 
 	private Specialization employeeSpecializationFilter;
 
+	@Out(value = "activeEmployee", required = false, scope = ScopeType.CONVERSATION)
+	private Employee activeEmployee;
 
 	private SchoolYear schoolYearFilter;
 
@@ -213,8 +208,8 @@ public class EmployeeSearchBean extends EmployeeAwareSeamComponent implements
 	 */
 	public String select() {
 		if (selectedEmployee != null) {
-			setActiveEmployee(selectedEmployee);
-			info("selected '#0' employee", getActiveEmployee());
+			this.activeEmployee = selectedEmployee;
+			info("selected '#0' employee", this.activeEmployee);
 			return EMPLOYEE_SELECTED_OUTCOME;
 		} else
 			return FAILURE_OUTCOME;

@@ -8,7 +8,6 @@ import gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Out;
 
 /**
  * @author slavikos
@@ -16,8 +15,7 @@ import org.jboss.seam.annotations.Out;
  */
 public class EmployeeAwareSeamComponent extends BaseStatefulSeamComponentImpl implements IEmployeeAware {
 	
-	@In(value="activeEmployee", required=false)
-	@Out(value = "activeEmployee", required = false, scope = ScopeType.CONVERSATION)
+	@In(value="activeEmployee", scope = ScopeType.CONVERSATION, required = true)
 	private Employee activeEmployee;
 
 	/**

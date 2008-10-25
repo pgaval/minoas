@@ -173,10 +173,7 @@ public class EmployeeRecordBean extends EmployeeAwareSeamComponent implements
 	}
 
 
-	@Begin(join=true, flushMode=FlushModeType.MANUAL, pageflow="employee-record")
-	public void beginViewEmployeeRecord() {
-		info("begun employee record conversation with active employee '#0'", getActiveEmployee());
-	}
+	
 
 	@End
 	public void endViewEmployeeRecord() {

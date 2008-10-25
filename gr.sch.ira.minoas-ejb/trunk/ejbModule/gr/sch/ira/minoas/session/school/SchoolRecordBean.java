@@ -92,14 +92,6 @@ public class SchoolRecordBean extends BaseStatefulSeamComponentImpl implements I
 	private Secondment selectedSchoolSecondment;
 
 	/**
-	 * @see gr.sch.ira.minoas.session.school.ISchoolRecord#begin()
-	 */
-	@Begin(flushMode = FlushModeType.AUTO, pageflow = "school-record", join = true)
-	public void begin() {
-		info("school record conversation begun, with '#0' active school unit.", getActiveSchool());
-	}
-
-	/**
 	 * @see gr.sch.ira.minoas.seam.components.BaseStatefulSeamComponentImpl#create()
 	 */
 	@Create

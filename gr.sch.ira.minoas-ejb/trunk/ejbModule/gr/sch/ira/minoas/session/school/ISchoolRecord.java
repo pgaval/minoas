@@ -28,8 +28,6 @@ public interface ISchoolRecord {
 	
 	public String reset();
 	
-	public void begin();
-	
 	public void end();
 	
 }
