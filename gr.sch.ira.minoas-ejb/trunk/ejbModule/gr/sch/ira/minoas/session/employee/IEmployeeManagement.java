@@ -17,6 +17,8 @@ public interface IEmployeeManagement {
 	
 	public String saveSecondment();
 	
+	public String cancelNewSecondment();
+	
 	public boolean hasActiveEmployee();
 	
 }

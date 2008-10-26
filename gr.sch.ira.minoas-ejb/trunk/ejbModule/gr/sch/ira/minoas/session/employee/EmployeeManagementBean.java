@@ -135,6 +135,13 @@ public class EmployeeManagementBean extends EmployeeAwareSeamComponent implement
 			 * decrement since, this can be done later on.
 			 */
 			newSecondment.setFinalWorkingHours(current_employment.getMandatoryWorkingHours());
+		} else {
+			/* the employee has no current employment registered. This means that we don't have 
+			 * a (school) unit to credit as the source unit, so we will use the PYSDE (each employee belongs to 
+			 * a concrete PYSDE) to extract the source unit (each PYSDE has unit accosiated with)
+			 */
+			newSecondment.setSourcePYSDE(employee.getCurrentPYSDE());
+			newSecondment.setSourceUnit(employee.getCurrentPYSDE().getRepresentedByUnit());
 		}
 		return SUCCESS_OUTCOME;
 	}
@@ -147,19 +154,31 @@ public class EmployeeManagementBean extends EmployeeAwareSeamComponent implement
 		Employee employee = getMinoasDatabase().merge(getActiveEmployee());
 		info("trying to save new seconment '#0' for employee '#1' during school year '#2'.", newSecondment, employee, getActiveSchoolYear());
 		
+		/* if the employee has already an secondment, then
+		 * update it by disabling it and registering the new
+		 * secondment as the successor of the old secondment.
+		 */
 		if (getEmployeeActiveSecondment() != null) {
 			Secondment activeSecondment = getMinoasDatabase().merge(getEmployeeActiveSecondment());
 			activeSecondment.setActive(Boolean.FALSE);
 			activeSecondment.setSupersededBy(newSecondment);
 		}
-		newSecondment.setInsertedOn(new Date(System.currentTimeMillis()));
+		/* update the target PYSDE */
 		if (newSecondment.getTargetUnit() != null) {
 			newSecondment.setTargetPYSDE(newSecondment.getTargetUnit().getPysde());
 		}
+		newSecondment.setInsertedOn(new Date(System.currentTimeMillis()));
 		setEmployeeActiveSecondment(newSecondment);
 		getMinoasDatabase().persist(newSecondment);
+		
+		/* if the secondment affects an employment (ie the employee had
+		 * a current employment when the secondment was created) then 
+		 * update the employment as well.
+		 */
 		Employment employment = newSecondment.getAffectedEmployment();
-		employment.setSecondment(newSecondment);
+		if(employment!=null) {
+			employment.setSecondment(newSecondment);
+		}
 		getMinoasDatabase().flush();
 		return SUCCESS_OUTCOME;
 	}
@@ -175,6 +194,15 @@ public class EmployeeManagementBean extends EmployeeAwareSeamComponent implement
 	 */
 	public void setEmployeeActiveSecondment(Secondment employeeActiveSecondment) {
 		this.employeeActiveSecondment = employeeActiveSecondment;
+	}
+
+	/**
+	 * @see gr.sch.ira.minoas.session.employee.IEmployeeManagement#cancelNewSecondment()
+	 */
+	@End
+	public String cancelNewSecondment() {
+		getMinoasDatabase().flush();
+		return SUCCESS_OUTCOME;
 	}
 
 }

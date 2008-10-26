@@ -2,6 +2,7 @@ package gr.sch.ira.minoas.model.employee;
 
 import gr.sch.ira.minoas.model.BaseModel;
 import gr.sch.ira.minoas.model.core.Address;
+import gr.sch.ira.minoas.model.core.PYSDE;
 import gr.sch.ira.minoas.model.core.Specialization;
 import gr.sch.ira.minoas.model.core.Telephone;
 import gr.sch.ira.minoas.model.employement.Employment;
@@ -124,6 +125,10 @@ public class Employee extends BaseModel {
 	@OneToOne
 	@JoinColumn(name="CURRENT_EMPLOYMENT_ID", nullable=true)
 	private Employment currentEmployment;
+	
+	@ManyToOne(fetch=FetchType.LAZY, optional=false)
+	@JoinColumn(name="PYSDE_ID", nullable=false, updatable=true)
+	private PYSDE currentPYSDE;
 	
 	/**
 	 * Each employee have a specialization, which is actually the last employment's 
@@ -370,6 +375,20 @@ public class Employee extends BaseModel {
 	 */
 	public void setCurrentEmployment(Employment currentEmployment) {
 		this.currentEmployment = currentEmployment;
+	}
+
+	/**
+	 * @return the currentPYSDE
+	 */
+	public PYSDE getCurrentPYSDE() {
+		return currentPYSDE;
+	}
+
+	/**
+	 * @param currentPYSDE the currentPYSDE to set
+	 */
+	public void setCurrentPYSDE(PYSDE currentPYSDE) {
+		this.currentPYSDE = currentPYSDE;
 	}
 
 	
