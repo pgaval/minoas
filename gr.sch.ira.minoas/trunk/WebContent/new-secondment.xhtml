@@ -54,10 +54,26 @@
 							<h:panelGrid columns="1">
 								<h:outputLabel value="Εκπαιδευτικός" for="" />
 								<h:outputText styleClass="fieldValueText"
-									value="   #{employeeUtil.prettyFormat(newSecondment.employee)}" />
+									value="#{employeeUtil.prettyFormat(newSecondment.employee)}" />
 							</h:panelGrid>
 						</h:panelGroup>
-
+						
+						<h:panelGroup>
+							<h:panelGrid columns="1">
+								<h:outputLabel value="Τρέχουσα Μονάδα" for="" />
+								<h:outputText styleClass="fieldValueText"
+									value="#{newSecondment.sourceUnit.title}" />
+							</h:panelGrid>
+						</h:panelGroup>
+						
+						<h:panelGroup>
+							<h:panelGrid columns="1">
+								<h:outputLabel value="Οικίο ΠΥΣΔΕ" for="" />
+								<h:outputText styleClass="fieldValueText"
+									value="#{newSecondment.sourceUnit.pysde.title}" />
+							</h:panelGrid>
+						</h:panelGroup>
+						
 						<s:decorate id="secondmentTypeDecoration"
 							template="/layout/doubleLineEdit.xhtml">
 							<ui:define name="label">
@@ -198,7 +214,6 @@
 									onclick="if(!confirm('Να καταχωρηθεί η απόσπαση ?')) {form.reset(); return false;}"
 									value=" Καταχώρηση Απόσπασης" />
 								<s:button action="cancel" value="Ακύρωση Καταχώρησης" />
-								<s:button action="end" value="Επιστροφή" />
 							</h:panelGroup>
 						</f:facet>
 					</h:panelGrid>

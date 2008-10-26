@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<root-container name="new-secondment" width="745" height="482">
+<root-container name="new-secondment" width="745" height="481">
   <node name="hasActiveEmployee" x="293" y="3" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>

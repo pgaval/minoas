@@ -46,7 +46,7 @@
     		
     	
    		<transition name="cancel" to="home">
-   			<action expression="#{employeeManagement.endEmployeeNewSecondment}" />
+   			<action expression="#{employeeManagement.cancelNewSecondment}" />
    		</transition>
    </page> 
    
