@@ -42,9 +42,9 @@ import org.jboss.seam.annotations.Name;
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Name("secondment")
 @NamedQueries( {
-		@NamedQuery(name = INamedQueryConstants.NAMED_QUERY_SECONDMENT_FIND_ALL_ACTIVE, query = "SELECT c FROM Secondment c WHERE c.active=TRUE AND c.supersededBy IS NULL AND c.schoolYear:="
+		@NamedQuery(name = INamedQueryConstants.NAMED_QUERY_SECONDMENT_FIND_ALL_ACTIVE, query = "SELECT c FROM Secondment c WHERE c.active=TRUE AND c.supersededBy IS NULL AND c.schoolYear=:"
 				+ INamedQueryConstants.QUERY_PARAMETER_SCHOOL_YEAR),
-		@NamedQuery(name = INamedQueryConstants.NAMED_QUERY_SECONDMENT_FIND_ALL_WITHIN_PYSDE, query = "SELECT c FROM Secondment c WHERE c.active=TRUE AND c.supersededBy IS NULL AND c.sourcePYSDE=c.targetPYSDE c.schoolYear:="
+		@NamedQuery(name = INamedQueryConstants.NAMED_QUERY_SECONDMENT_FIND_ALL_WITHIN_PYSDE, query = "SELECT c FROM Secondment c WHERE c.active=TRUE AND c.supersededBy IS NULL AND c.sourcePYSDE=c.targetPYSDE AND c.schoolYear=:"
 				+ INamedQueryConstants.QUERY_PARAMETER_SCHOOL_YEAR) })
 public class Secondment extends BaseModel {
 
@@ -136,7 +136,7 @@ public class Secondment extends BaseModel {
 
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "SECONDMENT_TYPE_ID", nullable = false)
-	private INamedQueryConstants secondmentType;
+	private SecondmentType secondmentType;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SOURCE_PYSDE_ID", nullable = true)
@@ -147,7 +147,7 @@ public class Secondment extends BaseModel {
 	 */
 	@OneToOne
 	@JoinColumn(name = "SUPERSEDED_BY_ID", nullable = true)
-	private INamedQueryConstants supersededBy;
+	private Secondment supersededBy;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "TARGET_PYSDE_ID", nullable = true)
@@ -250,7 +250,7 @@ public class Secondment extends BaseModel {
 		return schoolYear;
 	}
 
-	public INamedQueryConstants getSecondmentType() {
+	public SecondmentType getSecondmentType() {
 		return secondmentType;
 	}
 
@@ -261,7 +261,7 @@ public class Secondment extends BaseModel {
 	/**
 	 * @return the supersededBy
 	 */
-	public INamedQueryConstants getSupersededBy() {
+	public Secondment getSupersededBy() {
 		return supersededBy;
 	}
 
@@ -358,7 +358,7 @@ public class Secondment extends BaseModel {
 		this.schoolYear = schoolYear;
 	}
 
-	public void setSecondmentType(INamedQueryConstants secondmentType) {
+	public void setSecondmentType(SecondmentType secondmentType) {
 		this.secondmentType = secondmentType;
 	}
 
@@ -369,7 +369,7 @@ public class Secondment extends BaseModel {
 	/**
 	 * @param supersededBy the supersededBy to set
 	 */
-	public void setSupersededBy(INamedQueryConstants supersededBy) {
+	public void setSupersededBy(Secondment supersededBy) {
 		this.supersededBy = supersededBy;
 	}
 

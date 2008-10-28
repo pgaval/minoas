@@ -64,6 +64,20 @@ public class EmployeeUtil extends BaseSeamComponent {
 			return null;
 	}
 	
+	public String prettyFormatNoSpecialization(Employee employee) {
+		if (employee != null) {
+			StringBuffer sb = new StringBuffer();
+			sb.append(employee.getLastName());
+			sb.append(" ");
+			sb.append(employee.getFirstName());
+			sb.append(" του ");
+			sb.append(employee.getFatherName());
+			return sb.toString();
+		} else
+			return null;
+		
+	}
+	
 	public boolean hasSecondment(Employee employee) {
 		if(employee!=null && employee.getCurrentEmployment()!=null) {
 			return employee.getCurrentEmployment().getSecondment()!=null;
