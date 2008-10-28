@@ -4,6 +4,7 @@
 package gr.sch.ira.minoas.model.employement;
 
 import gr.sch.ira.minoas.model.BaseModel;
+import gr.sch.ira.minoas.model.INamedQueryConstants;
 import gr.sch.ira.minoas.model.core.PYSDE;
 import gr.sch.ira.minoas.model.core.SchoolYear;
 import gr.sch.ira.minoas.model.core.Unit;
@@ -20,6 +21,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -38,6 +41,11 @@ import org.jboss.seam.annotations.Name;
 @Table(name = "MINOAS_SECONDMENT")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Name("secondment")
+@NamedQueries( {
+		@NamedQuery(name = INamedQueryConstants.NAMED_QUERY_SECONDMENT_FIND_ALL_ACTIVE, query = "SELECT c FROM Secondment c WHERE c.active=TRUE AND c.supersededBy IS NULL AND c.schoolYear:="
+				+ INamedQueryConstants.QUERY_PARAMETER_SCHOOL_YEAR),
+		@NamedQuery(name = INamedQueryConstants.NAMED_QUERY_SECONDMENT_FIND_ALL_WITHIN_PYSDE, query = "SELECT c FROM Secondment c WHERE c.active=TRUE AND c.supersededBy IS NULL AND c.sourcePYSDE=c.targetPYSDE c.schoolYear:="
+				+ INamedQueryConstants.QUERY_PARAMETER_SCHOOL_YEAR) })
 public class Secondment extends BaseModel {
 
 	/**
@@ -58,29 +66,29 @@ public class Secondment extends BaseModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * A secondment may or may not be active.
 	 */
 	@Basic
-	@Column(name="IS_ACTIVE", nullable=true)
+	@Column(name = "IS_ACTIVE", nullable = true)
 	private Boolean active;
 
-	@ManyToOne(fetch=FetchType.LAZY,optional=true)
-	@JoinColumn(name="PARENT_EMPLOYMENT_ID", nullable=true)
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinColumn(name = "PARENT_EMPLOYMENT_ID", nullable = true)
 	private Employment affectedEmployment;
-	
+
 	@Basic
-	@Column(name = "DUE_TO", nullable=true)
+	@Column(name = "DUE_TO", nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date dueTo;
 
-	@ManyToOne(fetch=FetchType.LAZY, optional=false)
-	@JoinColumn(name="EMPLOYEE_ID", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "EMPLOYEE_ID", nullable = false)
 	private Employee employee;
 
 	@Basic
-	@Column(name="EMPLOYEE_REQUESTED", nullable=true)
+	@Column(name = "EMPLOYEE_REQUESTED", nullable = true)
 	private Boolean employeeRequested;
 
 	@Basic
@@ -89,76 +97,74 @@ public class Secondment extends BaseModel {
 	private Date established;
 
 	@Basic
-	@Column(name= "FINAL_WORKING_HOURS",nullable = true)
+	@Column(name = "FINAL_WORKING_HOURS", nullable = true)
 	private Integer finalWorkingHours;
-	
+
 	@Basic
-	@Column(name= "MANDATORY_WORKING_HOURS",nullable = true)
+	@Column(name = "MANDATORY_WORKING_HOURS", nullable = true)
 	private Integer mandatoryWorkingHours;
 
 	@Basic
-	@Column(name="HEADMASTER_ORDER", nullable=true, length=25)
+	@Column(name = "HEADMASTER_ORDER", nullable = true, length = 25)
 	private String headMasterOrder;
-	
+
 	@Id
-	@Column(name="ID")
+	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Basic(fetch=FetchType.LAZY)
-	@Column(name="INSERTED_ON")
+
+	@Basic(fetch = FetchType.LAZY)
+	@Column(name = "INSERTED_ON")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date insertedOn;
-	
+
 	@Basic
-	@Column(name="MINISTERIAL_ORDER", nullable=true, length=25)
+	@Column(name = "MINISTERIAL_ORDER", nullable = true, length = 25)
 	private String ministerialOrder;
 
 	@Basic
-	@Column(name="PYSDE_ORDER", nullable=true, length=25)
+	@Column(name = "PYSDE_ORDER", nullable = true, length = 25)
 	private String pysdeOrder;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="REPLACEMENT_EMPLOYMENT_ID", nullable=true)
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "REPLACEMENT_EMPLOYMENT_ID", nullable = true)
 	private Employment replacementFor;
 
-	
-	@ManyToOne(optional=false, fetch=FetchType.EAGER)
-	@JoinColumn(name = "SCHOOL_YEAR_ID", nullable=false)
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@JoinColumn(name = "SCHOOL_YEAR_ID", nullable = false)
 	private SchoolYear schoolYear;
-	
-	@ManyToOne(fetch=FetchType.EAGER, optional=false)
-	@JoinColumn(name="SECONDMENT_TYPE_ID", nullable=false)
-	private SecondmentType secondmentType;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="SOURCE_PYSDE_ID", nullable=true)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "SECONDMENT_TYPE_ID", nullable = false)
+	private INamedQueryConstants secondmentType;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "SOURCE_PYSDE_ID", nullable = true)
 	private PYSDE sourcePYSDE;
 
 	/**
 	 * A secondment may be superseded by another secondment
 	 */
 	@OneToOne
-	@JoinColumn(name="SUPERSEDED_BY_ID", nullable=true)
-	private Secondment supersededBy;  
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="TARGET_PYSDE_ID", nullable=true)
+	@JoinColumn(name = "SUPERSEDED_BY_ID", nullable = true)
+	private INamedQueryConstants supersededBy;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "TARGET_PYSDE_ID", nullable = true)
 	private PYSDE targetPYSDE;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="TARGET_UNIT_ID", nullable=false)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "TARGET_UNIT_ID", nullable = false)
 	private Unit targetUnit;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="SOURCE_UNIT_ID", nullable=false)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "SOURCE_UNIT_ID", nullable = false)
 	private Unit sourceUnit;
-	
-	
+
 	@SuppressWarnings("unused")
 	@Version
 	private Long version;
-	
+
 	@Basic
 	@Column(name = "WORK_HRS_DECR", nullable = true)
 	private Integer workingHoursDecrement;
@@ -191,7 +197,7 @@ public class Secondment extends BaseModel {
 	public Employee getEmployee() {
 		return employee;
 	}
-	
+
 	/**
 	 * @return the employeeRequested
 	 */
@@ -209,26 +215,26 @@ public class Secondment extends BaseModel {
 	public Integer getFinalWorkingHours() {
 		return finalWorkingHours;
 	}
-	
+
 	public String getHeadMasterOrder() {
 		return headMasterOrder;
 	}
-	
+
 	/**
 	 * @return the id
 	 */
 	public Long getId() {
 		return id;
-	} 
+	}
 
 	public Date getInsertedOn() {
 		return insertedOn;
 	}
-	
+
 	public String getMinisterialOrder() {
 		return ministerialOrder;
 	}
-	
+
 	public String getPysdeOrder() {
 		return pysdeOrder;
 	}
@@ -243,8 +249,8 @@ public class Secondment extends BaseModel {
 	public SchoolYear getSchoolYear() {
 		return schoolYear;
 	}
-	
-	public SecondmentType getSecondmentType() {
+
+	public INamedQueryConstants getSecondmentType() {
 		return secondmentType;
 	}
 
@@ -255,15 +261,13 @@ public class Secondment extends BaseModel {
 	/**
 	 * @return the supersededBy
 	 */
-	public Secondment getSupersededBy() {
+	public INamedQueryConstants getSupersededBy() {
 		return supersededBy;
 	}
 
 	public PYSDE getTargetPYSDE() {
 		return targetPYSDE;
 	}
-
-	
 
 	public Unit getTargetUnit() {
 		return targetUnit;
@@ -298,7 +302,6 @@ public class Secondment extends BaseModel {
 		this.dueTo = dueTo;
 	}
 
-	
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
@@ -355,7 +358,7 @@ public class Secondment extends BaseModel {
 		this.schoolYear = schoolYear;
 	}
 
-	public void setSecondmentType(SecondmentType secondmentType) {
+	public void setSecondmentType(INamedQueryConstants secondmentType) {
 		this.secondmentType = secondmentType;
 	}
 
@@ -366,7 +369,7 @@ public class Secondment extends BaseModel {
 	/**
 	 * @param supersededBy the supersededBy to set
 	 */
-	public void setSupersededBy(Secondment supersededBy) {
+	public void setSupersededBy(INamedQueryConstants supersededBy) {
 		this.supersededBy = supersededBy;
 	}
 

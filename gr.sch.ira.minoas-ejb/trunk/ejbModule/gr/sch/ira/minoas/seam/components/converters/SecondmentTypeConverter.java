@@ -3,6 +3,7 @@
  */
 package gr.sch.ira.minoas.seam.components.converters;
 
+import gr.sch.ira.minoas.model.INamedQueryConstants;
 import gr.sch.ira.minoas.model.employement.SecondmentType;
 
 import javax.faces.component.UIComponent;
@@ -45,9 +46,9 @@ public class SecondmentTypeConverter extends DatabaseAwareBaseConverter {
 			try {
 				return getMinoasDatabase()
 						.createNamedQuery(
-								SecondmentType.NAMED_QUERY_FIND_SECONDMENT_TYPE_BY_TITLE)
+								INamedQueryConstants.NAMED_QUERY_SECONDMENTTYPE_FIND_BY_TITLE)
 						.setParameter(
-								SecondmentType.QUERY_PARAMETER_SECONDMENT_TITLE,
+								INamedQueryConstants.QUERY_PARAMETER_SECONDMENT_TITLE,
 								value).getSingleResult();
 			} catch (NoResultException nres) {
 				return null;
