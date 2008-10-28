@@ -4,6 +4,7 @@
 package gr.sch.ira.minoas.model.employement;
 
 import gr.sch.ira.minoas.model.BaseModel;
+import gr.sch.ira.minoas.model.INamedQueryConstants;
 import gr.sch.ira.minoas.model.core.UnitCategory;
 
 import java.util.Collection;
@@ -32,13 +33,14 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "MINOAS_SECONDMENT_TYPE")
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-@NamedQuery(name = SecondmentType.NAMED_QUERY_FIND_SECONDMENT_TYPE_BY_TITLE, query = "SELECT c FROM SecondmentType c WHERE c.title=:"
-		+ SecondmentType.QUERY_PARAMETER_SECONDMENT_TITLE)
+@NamedQuery(name = INamedQueryConstants.NAMED_QUERY_SECONDMENTTYPE_FIND_BY_TITLE, query = "SELECT c FROM SecondmentType c WHERE c.title=:"
+		+ INamedQueryConstants.QUERY_PARAMETER_SECONDMENT_TITLE)
 public class SecondmentType extends BaseModel {
 
-	public static final String NAMED_QUERY_FIND_SECONDMENT_TYPE_BY_TITLE = "findSecondmentTypeByTitle";
-
-	public static final String QUERY_PARAMETER_SECONDMENT_TITLE = "title";
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "ID")
