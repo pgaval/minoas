@@ -51,18 +51,17 @@
    </page> 
    
    <decision name="saveSecondment" expression="#{employeeManagement.saveSecondment}">
-   		<transition name="success" to="home" />
+   		<transition name="success" to="successPage" />
 		<transition name="failure" to="newSecondmentPage" />
    </decision>
    
-   
-   <page view-id="/employee.xhtml" name="EmployeePage">
+   <page view-id="/new-secondment-success.xhtml" name="successPage">
    		<end-conversation/>
    		<redirect />
-   	</page>
-	
- 	
-  	<page view-id="/home.xhtml" name="home">
+   		<transition to="home" name="done" />
+   </page>
+   
+   <page view-id="/home.xhtml" name="home">
   		<end-conversation before-redirect="yes"/>
   		<redirect />
   		

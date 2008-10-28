@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:component>
+
+	<h:form>
+		<rich:dataTable id="secondmentList" var="secondment"
+			value="#{secondments}" rows="15" border="0"
+			onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+			width="100%" rendered="#{secondments.size gt 0}">
+			<f:facet name="header">
+				<h:outputText
+					value="Λίστα Εκπαιδευτικού Προσωπικού - Συνολικά #{employeesSearchResult.size} Άτομα" />
+			</f:facet>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Α.Μ." />
+				</f:facet>
+				<h:outputText value="#{secondment.employee}"
+					converter="employeeRegistryIDConverter" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Ονοματεπώνυμο" />
+				</f:facet>
+				<a4j:commandLink action="employee-selected">
+					<h:outputText value="#{employeeUtil.prettyFormatNoSpecialization(secondment.employee)}" />
+				</a4j:commandLink>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Ειδικότητα" />
+				</f:facet>
+				<h:outputText id="specializationText"
+					value="#{secondment.employee.lastSpecialization.title}">
+					<rich:toolTip for="specializationText"
+						value="#{secondment.employee.lastSpecialization.title}" />
+				</h:outputText>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Απο ΠΥΣΔΕ" />
+				</f:facet>
+				<h:outputText value="#{secondment.sourcePYSDE.title}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Απο Μονάδα" />
+				</f:facet>
+				<h:outputText value="#{secondment.sourceUnit.title}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="ΠΥΣΔΕ Απόσπασης" />
+				</f:facet>
+				<h:outputText value="#{secondment.targetPYSDE.title}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Μονάδα Απόσπασης" />
+				</f:facet>
+				<h:outputText value="#{secondment.targetUnit.title}" />
+			</rich:column>
+			
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Περίοδος Απόσπασης" />
+				</f:facet>
+				<h:outputText value="#{secondment.established}">
+					<s:convertDateTime type="date" pattern="dd-MM-yyyy" />
+				</h:outputText>
+				<h:outputText value=" - " />
+				<h:outputText value="#{secondment.dueTo}">
+					<s:convertDateTime type="date" pattern="dd-MM-yyyy" />
+				</h:outputText>
+			</rich:column>
+			
+			<f:facet name="footer">
+				<rich:datascroller align="left" for="secondmentList" maxPages="20"
+					id="sc1" renderIfSinglePage="false">
+					<f:facet name="first">
+						<h:outputText value="Πρώτη" />
+					</f:facet>
+					<f:facet name="last">
+						<h:outputText value="Τελευταία" />
+					</f:facet>
+					<f:facet name="pages">
+						<h:outputText value="#{pageIndex} απο #{pages}" />
+					</f:facet>
+				</rich:datascroller>
+			</f:facet>
+		</rich:dataTable>
+	</h:form>
+</ui:component>
+
+</html>
