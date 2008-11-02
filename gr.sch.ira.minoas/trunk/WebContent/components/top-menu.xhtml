@@ -47,6 +47,30 @@
 			<rich:dropDownMenu disabled="#{!identity.loggedIn}">
 				<f:facet name="label">
 					<h:panelGroup>
+						<h:outputText value="Αποσπάσεις" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuGroup value="Προβολές">
+					<rich:menuItem value="Ενεργές Αποσπάσεις" action="#{secondmentSearch.searchActiveSecondments}" submitMode="ajax" ajaxSingle="true">
+						<s:conversationPropagation type="begin" />
+					</rich:menuItem>
+					<rich:menuItem submitMode="none">
+						<s:link propagation="end" action="#{secondmentSearch.searchActiveSecondments}" view="/secondmentSearchResult.xhtml">
+							<h:outputText value="Ενεργές Αποσπάσεις" />
+						</s:link>
+					</rich:menuItem>
+					<rich:menuSeparator />
+					<rich:menuItem value="Αποσπάσεις Σε Σχολική Μονάδα"></rich:menuItem>
+		            <rich:menuItem value="Αποσπάσεις Απο Σχολική Μονάδα"></rich:menuItem>
+					<rich:menuSeparator />
+					<rich:menuItem value="Αποσπάσεις Εντός ΠΥΣΔΕ"></rich:menuItem>
+					<rich:menuItem value="Αποσπάσεις Εκτός ΠΥΣΔΕ"></rich:menuItem>
+					<rich:menuItem value="Αποσπάσεις Απο Άλλο ΠΥΣΔΕ"></rich:menuItem>
+				</rich:menuGroup>
+			</rich:dropDownMenu>
+			<rich:dropDownMenu disabled="#{!identity.loggedIn}">
+				<f:facet name="label">
+					<h:panelGroup>
 						<h:outputText value="Διαχείριση Μίνωα" />
 					</h:panelGroup>
 				</f:facet>
