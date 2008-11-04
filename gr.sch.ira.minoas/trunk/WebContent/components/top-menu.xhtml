@@ -55,7 +55,7 @@
 						<s:conversationPropagation type="begin" />
 					</rich:menuItem>
 					<rich:menuItem submitMode="none">
-						<s:link propagation="end" action="#{secondmentSearch.searchActiveSecondments}" view="/secondmentSearchResult.xhtml">
+						<s:link propagation="nest" action="#{secondmentSearch.searchActiveSecondments}" immediate="true" view="/secondmentSearchResult.xhtml">
 							<h:outputText value="Ενεργές Αποσπάσεις" />
 						</s:link>
 					</rich:menuItem>
