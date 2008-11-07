@@ -10,8 +10,6 @@
 
 <ui:define name="body">
     
-    <h:messages styleClass="message"/>
-    
     <h:form id="login">
     
         <rich:panel headerClass="pagetitle" bodyClass="post">
@@ -26,10 +24,12 @@
                     <h:outputLabel for="password">Κωδικός Χρήστη</h:outputLabel>
                     <h:inputSecret id="password" 
                                 value="#{identity.password}"/>
-                    <h:outputLabel for="rememberMe">Θυμήσου με</h:outputLabel>
-                    <h:selectBooleanCheckbox id="rememberMe" 
-                                          value="#{identity.rememberMe}"/>
-                </h:panelGrid>
+					<h:panelGroup>
+						<h:outputLabel for="rememberMe">Θυμήσου με</h:outputLabel>
+						<h:selectBooleanCheckbox id="rememberMe"
+							value="#{identity.rememberMe}" />
+					</h:panelGroup>
+				</h:panelGrid>
             
             <p class="meta">
               <i>Σημείωση - </i> Κατά την διάρκεια ανάπτυξης της εφαρμογής μπορείτε να χρησιμοποιήσετε οποιοδήποτε συνδυασμό ονόματος και κωδικού χρήστη. 

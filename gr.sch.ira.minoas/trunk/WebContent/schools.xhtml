@@ -35,7 +35,9 @@
 						<a4j:commandButton value="Αναζήτηση"
 							actionListener="#{schoolSearch.search}"
 							status="schoolSearchStatus" reRender="schoolListOutputPanel"
-							limitToList="true" />
+							limitToList="true">
+							<s:defaultAction/>
+						</a4j:commandButton>
 						<a4j:status id="schoolSearchStatus">
 							<f:facet name="start">
 								<h:graphicImage value="/img/spinner.gif" />

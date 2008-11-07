@@ -61,19 +61,11 @@
 		
 		<s:div styleClass="content">
 			<h:panelGrid columns="1" width="100%">
-				<s:span>
-					<rich:panel   headerClass="clean-gray" bodyClass="clean-gray">
-						<f:facet name="header">
-								<h:outputText value="Μύνημα απο τον Μίνωα ...." />
-						</f:facet>
-						<h:messages globalOnly="true" layout="table"
-								errorClass="error-message" infoClass="info-message" />
-					</rich:panel>
-					<ui:insert name="body" />
-				</s:span>
+				<rich:messages styleClass="clean-gray" globalOnly="true"
+					layout="table" errorClass="error-message" infoClass="info-message">
+				</rich:messages>
+				<ui:insert name="body" />
 			</h:panelGrid>
-
-
 		</s:div>
 
 
