@@ -45,6 +45,10 @@ import org.jboss.seam.annotations.Name;
 		@NamedQuery(name = INamedQueryConstants.NAMED_QUERY_SECONDMENT_FIND_ALL_ACTIVE, query = "SELECT c FROM Secondment c WHERE c.active=TRUE AND c.supersededBy IS NULL AND c.schoolYear=:"
 				+ INamedQueryConstants.QUERY_PARAMETER_SCHOOL_YEAR),
 		@NamedQuery(name = INamedQueryConstants.NAMED_QUERY_SECONDMENT_FIND_ALL_WITHIN_PYSDE, query = "SELECT c FROM Secondment c WHERE c.active=TRUE AND c.supersededBy IS NULL AND c.sourcePYSDE=c.targetPYSDE AND c.schoolYear=:"
+				+ INamedQueryConstants.QUERY_PARAMETER_SCHOOL_YEAR),
+		@NamedQuery(name = INamedQueryConstants.NAMED_QUERY_SECONDMENT_FIND_SCHOOL_INCOMING, query = "SELECT c FROM Secondment c WHERE c.active=TRUE AND c.supersededBy IS NULL AND c.targetUnit=:"
+				+ INamedQueryConstants.QUERY_PARAMETER_SCHOOL
+				+ " AND c.schoolYear=:"
 				+ INamedQueryConstants.QUERY_PARAMETER_SCHOOL_YEAR) })
 public class Secondment extends BaseModel {
 

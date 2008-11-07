@@ -43,8 +43,7 @@ public class EmployeeUtil extends BaseSeamComponent {
 	public boolean isHourlyPaid(Employee employee) {
 		return employee instanceof HourlyPaidEmployee;
 	}
-	
-	
+
 	public String prettyFormat(Employee employee) {
 		if (employee != null) {
 			StringBuffer sb = new StringBuffer();
@@ -55,15 +54,14 @@ public class EmployeeUtil extends BaseSeamComponent {
 			sb.append(employee.getFatherName());
 			if (employee.getCurrentEmployment() != null) {
 				sb.append(" (");
-				sb.append(employee.getCurrentEmployment().getSpecialization()
-						.getId());
+				sb.append(employee.getCurrentEmployment().getSpecialization().getId());
 				sb.append(" )");
 			}
 			return sb.toString();
 		} else
 			return null;
 	}
-	
+
 	public String prettyFormatNoSpecialization(Employee employee) {
 		if (employee != null) {
 			StringBuffer sb = new StringBuffer();
@@ -75,12 +73,13 @@ public class EmployeeUtil extends BaseSeamComponent {
 			return sb.toString();
 		} else
 			return null;
-		
+
 	}
-	
+
 	public boolean hasSecondment(Employee employee) {
-		if(employee!=null && employee.getCurrentEmployment()!=null) {
-			return employee.getCurrentEmployment().getSecondment()!=null;
-		} else return false;
+		if (employee != null && employee.getCurrentEmployment() != null) {
+			return employee.getCurrentEmployment().getSecondment() != null;
+		} else
+			return false;
 	}
 }
