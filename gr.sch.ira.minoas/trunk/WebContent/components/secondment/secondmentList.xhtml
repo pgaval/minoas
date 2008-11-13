@@ -10,6 +10,7 @@
 <ui:component>
 
 	<h:form>
+		<h:outputText value="#{secondments.size} : #{secondments}" />
 		<rich:dataTable id="secondmentList" var="secondment"
 			value="#{secondments}" rows="15" border="0"
 			onRowMouseOver="this.style.backgroundColor='#F8F8F8'"

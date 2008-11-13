@@ -31,7 +31,7 @@ public class SecondmentSearchBean extends BaseStatefulSeamComponentImpl implemen
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@DataModel(scope = ScopeType.PAGE, value = "secondments")
+	@DataModel(scope = ScopeType.UNSPECIFIED, value = "secondments")
 	private List<Secondment> secondments;
 
 	@DataModelSelection("secondments")

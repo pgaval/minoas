@@ -51,21 +51,19 @@
 					</h:panelGroup>
 				</f:facet>
 				<rich:menuGroup value="Προβολές">
-					<rich:menuItem submitMode="ajax">
-						<s:link propagation="nest" action="#{secondmentSearch.searchActiveSecondments}" immediate="true" view="/secondmentSearchResult.xhtml">
-							<h:outputText value="Ενεργές Αποσπάσεις" />
-						</s:link>
+					<rich:menuItem value="Ενεργές Αποσπάσεις" action="search-active-secondments">
+						<s:conversationPropagation t/>
+						<s:conversationPropagation type="begin" pageflow="secondments-search" />
 					</rich:menuItem>
-					
 					<rich:menuSeparator />
-
-					<rich:menuItem submitMode="ajax">
-						<a4j:commandLink immediate="true">
-							<h:outputText value="Αποσπάσεις Σε Σχολική Μονάδα" />
-							<s:conversationPropagation type="nest" pageflow="school-incoming-secondments" />
-						</a4j:commandLink>
+					<rich:menuItem value="Αποσπάσεις Σε Σχολική Μονάδα" action="search-school-incoming-secondments">
+						<s:conversationPropagation type="end"/>
+						<s:conversationPropagation type="begin"  pageflow="secondments-search" />
 					</rich:menuItem>
-					<rich:menuItem value="Αποσπάσεις Απο Σχολική Μονάδα"></rich:menuItem>
+					<rich:menuItem value="Αποσπάσεις Απο Σχολική Μονάδα">
+						<s:conversationPropagation type="end"/>
+						<s:conversationPropagation type="begin" pageflow="secondments-search" />
+					</rich:menuItem>
 					<rich:menuSeparator />
 					<rich:menuItem value="Αποσπάσεις Εντός ΠΥΣΔΕ" disabled="true" />
 					<rich:menuItem value="Αποσπάσεις Εκτός ΠΥΣΔΕ" disabled="true" />
