@@ -28,10 +28,10 @@
 							<h:outputText styleClass="fieldValueText"
 								value=" #{employeeUtil.prettyFormat(activeEmployee)} " />
 							<h:outputText
-								value="υπάρχει ήδει ενεργή απόσπαση για το τρέχων σχολικό έτος. Για περισσότερες πληροφορίες για την ενεργή απόσπαση " />
+								value="υπάρχει ήδει ενεργή απόσπαση για το τρέχον σχολικό έτος. Για περισσότερες πληροφορίες για την ενεργή απόσπαση " />
 							<a4j:commandLink reRender="secondmentInfoPanelOutputPanel"
 								oncomplete="javascript:Richfaces.showModalPanel('secondmentInfoPanel');">
-								<h:outputText value="πατήστε εδω." />
+								<h:outputText value="πατήστε εδώ." />
 							</a4j:commandLink>
 						</h:panelGroup>
 						<h:panelGroup>
@@ -203,7 +203,7 @@
 						</s:decorate>
 						<s:decorate template="/layout/doubleLineEdit.xhtml">
 							<ui:define name="label">
-								<h:outputText value="Με Αίτηση του ?" />
+								<h:outputText value="Με Αίτηση του ;" />
 							</ui:define>
 							<h:selectBooleanCheckbox
 								value="#{newSecondment.employeeRequested}" />

@@ -51,23 +51,20 @@
 					</h:panelGroup>
 				</f:facet>
 				<rich:menuGroup value="Προβολές">
-					<rich:menuItem value="Ενεργές Αποσπάσεις" action="search-active-secondments">
-						<s:conversationPropagation t/>
-						<s:conversationPropagation type="begin" pageflow="secondments-search" />
+					<rich:menuItem submitMode="ajax" value="Ενεργές Αποσπάσεις" action="#{conversationHelper.beginSecondmentSearchActiveConversation}" immediate="true" >
+						
+						 
+						<!-- <s:link value="Ενεργές Αποσπάσεις" action="search-active-secondments" propagation="nest" pageflow="secondments-search"></s:link>  -->
 					</rich:menuItem>
 					<rich:menuSeparator />
-					<rich:menuItem value="Αποσπάσεις Σε Σχολική Μονάδα" action="search-school-incoming-secondments">
-						<s:conversationPropagation type="end"/>
-						<s:conversationPropagation type="begin"  pageflow="secondments-search" />
+					<rich:menuItem submitMode="ajax" value="Αποσπάσεις Σε Σχολική Μονάδα" action="#{conversationHelper.beginSecondmentSearchSchoolIncomingConversation}" immediate="true">
 					</rich:menuItem>
-					<rich:menuItem value="Αποσπάσεις Απο Σχολική Μονάδα">
-						<s:conversationPropagation type="end"/>
-						<s:conversationPropagation type="begin" pageflow="secondments-search" />
+					<rich:menuItem submitMode="none" value="Αποσπάσεις Απο Σχολική Μονάδα">
 					</rich:menuItem>
 					<rich:menuSeparator />
 					<rich:menuItem value="Αποσπάσεις Εντός ΠΥΣΔΕ" disabled="true" />
-					<rich:menuItem value="Αποσπάσεις Εκτός ΠΥΣΔΕ" disabled="true" />
-					<rich:menuItem value="Αποσπάσεις Απο Άλλο ΠΥΣΔΕ" disabled="true" />
+					<rich:menuItem value="Αποσπάσεις σε άλλο ΠΥΣΔΕ" disabled="true" />
+					<rich:menuItem value="Αποσπάσεις στο Ηράκλειο" disabled="true" />
 				</rich:menuGroup>
 			</rich:dropDownMenu>
 			<rich:dropDownMenu disabled="#{!identity.loggedIn}">
