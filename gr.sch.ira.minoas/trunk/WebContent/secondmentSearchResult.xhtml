@@ -30,9 +30,10 @@
 					value="Η αναζήτηση με τα κριτήρια που θέσατε, εντόπισε συνολικά #{secondments.size} αποσπάσεις. Τα αποτέλεσματα της αναζήτησεις παρουσίαζονται στον παρακάτω πίνακα." />
 				<rich:spacer height="15"></rich:spacer>
 				<ui:include src="/components/secondment/secondmentList.xhtml" />
-
 			</h:panelGrid>
 		</rich:panel>
+		<s:link id="link" value="PDF κακαα" action="generatePDF" />
+		<s:button id="pdfButton" value="PDF" view="/components/secondment/secondmentListPDF.xhtml"></s:button>
 	</ui:define>
 </ui:composition>
 

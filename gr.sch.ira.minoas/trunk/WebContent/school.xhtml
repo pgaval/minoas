@@ -40,30 +40,7 @@
 
 		
 
-		<h:form>
-			<rich:modalPanel id="gmapPanel" moveable="true" autosized="true">
-				<f:facet name="header">
-					<h:outputText value="Χάρτης Σχολικής Μονάδας" />
-				</f:facet>
-				<f:facet name="controls">
-					<a href="javascript:Richfaces.hideModalPanel('gmapPanel')">[X]</a>
-				</f:facet>
-
-				<rich:panel>
-					<h:panelGrid columns="1">
-						<f:view contentType="text/html">
-							<rich:gmap lat="#{selectedSchool.address.latitude}"
-								style="width:400px;height:400px" id="gmap" zoom="13"
-								gmapKey="ABQIAAAALql6UJN11mvFyzTxY_36aRTwM0brOpm-All5BF6PoaKBxRWWERSrVezsRzlqyhSpCiLUC7cT0U_zDg"
-								lng="#{selectedSchool.address.longitude}" mapType="G_NORMAL_MAP">
-							</rich:gmap>
-						</f:view>
-						<h:commandButton value="Επιστροφή ...."
-							onclick="javascript:Richfaces.hideModalPanel('gmapPanel')" />
-					</h:panelGrid>
-				</rich:panel>
-			</rich:modalPanel>
-		</h:form>
+		
 	</ui:define>
 
 </ui:composition>

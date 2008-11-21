@@ -29,7 +29,7 @@ public abstract class BaseSeamComponent implements Serializable {
 	@Logger
 	private Log logger;
 
-	@In
+	@In(required=false)
 	protected FacesMessages facesMessages;
 
 	/**

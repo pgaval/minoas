@@ -5,6 +5,7 @@
     xsi:schemaLocation="http://jboss.com/products/seam/pageflow http://jboss.com/products/seam/pageflow-2.0.xsd"
     name="secondments-search">
   
+   
     <start-page name="start-page" view-id="/home.xhtml">
       <redirect />
       <transition to="secondmentSearchResultPage-active" name="search-active-secondments">
@@ -13,29 +14,33 @@
       <transition to="searchSchoolPage-incoming" name="search-school-incoming-secondments" />
     </start-page>
     
+    
     <page name="searchSchoolPage-incoming" view-id="/schools.xhtml">
-    <description>Αποσπάσης Σε Σχολική Μονάδα - Αναζήτηση Σχολικής Μονάδας</description>
-    <redirect />
-    <transition to="secondmentSearchResultPage" name="school-selected">
-      <action expression="#{schoolSearch.selectSchool}" />
-      <action expression="#{secondmentSearch.searchSchoolIncomingSecondments}" />
-    </transition>
+      <description>Αποσπάσης Σε Σχολική Μονάδα - Αναζήτηση Σχολικής Μονάδας</description>
+      <redirect />
+      <transition to="secondmentSearchResultPage-incoming" name="school-selected">
+        <action expression="#{schoolSearch.selectSchool}" />
+        <action expression="#{secondmentSearch.searchSchoolIncomingSecondments}" />
+      </transition>
     </page>
   
   
-    <page name="secondmentSearchResultPage" view-id="/secondmentSearchResult.xhtml" back="enabled">
-		<description>Αποσπάσης Σε Σχολική Μονάδα - #{activeSchool.title}</description>
-		<redirect />
-        <transition to="start-page"></transition>
-	</page>
+    <page name="secondmentSearchResultPage-incoming" view-id="/secondmentSearchResult.xhtml" back="enabled">
+      <description>Αποσπάσης Σε Σχολική Μονάδα - #{activeSchool.title}</description>
+      <redirect />
+      <transition to="secondmentListPDF" name="generatePDF" />
+    </page>
   
     <page name="secondmentSearchResultPage-active" view-id="/secondmentSearchResult.xhtml" back="enabled">
-    <description>Ενεργές Αποσπάσεις</description>
-    <redirect />
-        <transition to="start-page"></transition>
-  </page>
+      <description>Ενεργές Αποσπάσεις</description>
+      <redirect />
+      <transition to="secondmentListPDF" name="generatePDF" />
+    </page>
 	
-	
+	<page name="secondmentListPDF" view-id="/components/secondment/secondmentListPDF.xhtml" back="enabled">
+       <redirect />
+    </page>
+  
 	<page name="home" view-id="/home.xhtml">
 		<end-conversation/>
 		<redirect />

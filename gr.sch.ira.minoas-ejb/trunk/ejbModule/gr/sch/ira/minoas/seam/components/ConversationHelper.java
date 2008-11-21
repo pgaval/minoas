@@ -14,7 +14,7 @@ import org.jboss.seam.annotations.Scope;
  *
  */
 @Name("conversationHelper")
-@Scope(ScopeType.APPLICATION)
+@Scope(ScopeType.EVENT)
 public class ConversationHelper extends BaseSeamComponent {
 
 	/**
@@ -35,6 +35,16 @@ public class ConversationHelper extends BaseSeamComponent {
 	@Begin(flushMode = FlushModeType.MANUAL, nested = true, pageflow = "school-record")
 	public void beginSchoolRecordConversation() {
 		info("a new school record conversation has begun.");
+	}
+	
+	@Begin(flushMode = FlushModeType.MANUAL, nested = true, pageflow = "secondments-search" )
+	public String beginSecondmentSearchActiveConversation() {
+		return "search-active-secondments";
+	}
+	
+	@Begin(flushMode = FlushModeType.MANUAL, nested = true, pageflow = "secondments-search")
+	public String beginSecondmentSearchSchoolIncomingConversation() {
+		return "search-school-incoming-secondments";
 	}
 	
 

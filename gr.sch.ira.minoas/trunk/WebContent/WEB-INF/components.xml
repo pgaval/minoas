@@ -9,7 +9,8 @@
             xmlns:web="http://jboss.com/products/seam/web"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns:theme="http://jboss.com/products/seam/theme"
-            xmlns:transaction="http://jboss.com/products/seam/transaction" 
+            xmlns:transaction="http://jboss.com/products/seam/transaction"
+            xmlns:pdf="http://jboss.com/products/seam/pdf" 
             xsi:schemaLocation=
                 "http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.0.xsd 
                  http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.0.xsd 
@@ -20,7 +21,8 @@
                  http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.0.xsd
                  http://jboss.com/products/seam/theme http://jboss.com/products/seam/theme-2.0.xsd
                  http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.0.xsd
-                 http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.0.xsd">
+                 http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.0.xsd
+                 http://jboss.com/products/seam/pdf http://jboss.com/products/seam/pdf-2.0.xsd">
 
    <core:init debug="true" jndi-pattern="@jndiPattern@" transaction-management-enabled="true"/>
    
@@ -37,7 +39,8 @@
    <transaction:ejb-transaction/>
      
    <web:character-encoding-filter encoding="UTF-8"  override-client="true" url-pattern="*.seam" />
-                                              
+                       
+   <pdf:document-store use-extensions="true" />                       
 
    <drools:rule-base name="securityRules">
        <drools:rule-files>
