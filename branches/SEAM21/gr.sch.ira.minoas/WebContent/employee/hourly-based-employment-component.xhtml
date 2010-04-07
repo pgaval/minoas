@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!--  this should be refactored -->
+
+<ui:component>
+	<h:outputText styleClass="fieldValueText"
+		value="Δεν έχεται το δικαίωμα καταχώρησης αυτού του τύπου εκπαιδευτικού."
+		rendered="#{!(s:hasRole('ADMIN') or s:hasRole('ADD_EMPLOYEE_HOURLY_BASED'))}" />
+	<rich:panel rendered="false">
+		<f:facet name="header">
+			<h:outputText value="Στοιχεία Ωρομίσθιου Εκπαιδευτικού" />
+		</f:facet>
+
+		<h:panelGrid columns="4" width="100%">
+
+
+			<s:decorate template="/layout/doubleLineEdit.xhtml">
+				<ui:define name="label">
+					<h:outputText value="Απόφαση Διευθυντή: " />
+				</ui:define>
+				<h:inputText value="#{deputyEmploymentInfo.chiefVerdict}"
+					styleClass="fieldValueText" size="20" maxlength="64"
+					required="false" />
+			</s:decorate>
+
+		</h:panelGrid>
+
+
+
+	</rich:panel>
+
+	<rich:panel
+		rendered="#{(s:hasRole('ADMIN') or s:hasRole('ADD_EMPLOYEE_HOURLY_BASED'))}">
+		<f:facet name="header">
+			<h:outputText value="Τοποθετήσεις Ωρομίσθιου Εκπαιδευτικού" />
+		</f:facet>
+		<a4j:outputPanel id="hourlyBasedEmploymentItemsPanel">
+
+			<rich:dataGrid value="#{hourlyBasedEmployments}" width="100%"
+				var="_hourlyBasedEmploymentItem">
+				<f:facet name="header">
+					<h:outputText value="Τοποθετήσεις Ωρομίσθιου"></h:outputText>
+				</f:facet>
+				<h:panelGrid columns="2">
+					<ui:include
+						src="/employee/components/hourly-based-employment-component.xhtml">
+						<ui:param value="#{_hourlyBasedEmploymentItem}"
+							name="_hourlybasedEmployment" />
+					</ui:include>
+					<a4j:commandButton id="deleteEmployment" ajaxSingle="true"
+						action="#{employeeHome.removeNewHourlyBasedEmploymentItem(_hourlyBasedEmploymentItem)}"
+						reRender="hourlyBasedEmploymentItemsPanel" value="Διαγραφή">
+						<h:graphicImage value="/img/icons/delete.png" width="12"
+							height="12" style="border:0" />
+					</a4j:commandButton>
+				</h:panelGrid>
+
+			</rich:dataGrid>
+
+
+		</a4j:outputPanel>
+		<a4j:commandButton
+			action="#{employeeHome.addNewHourlyBasedEmploymentItem()}"
+			value="Προσθήκη Ωρών Και Σε Άλλη Μονάδα"
+			reRender="hourlyBasedEmploymentItemsPanel" ajaxSingle="true" />
+	</rich:panel>
+</ui:component>
+</html>

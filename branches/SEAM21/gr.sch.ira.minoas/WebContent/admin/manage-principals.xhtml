@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition template="/layout/simple-beauty-template.xhtml">
+	<ui:define name="body">
+
+		<h:form id="form1">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="Διαχείρηση Χρηστών" />
+				</f:facet>
+
+				<h:panelGrid columns="1" rowClasses="vertTop">
+					<ui:include src="/components/messages-component.xhtml" />
+					<h:outputText
+						value="Στον παρακάτω πίνακα εμφανίζονται οι καταχωρημένοι στο σύστημα χρήστες." />
+					<a4j:region>
+						<rich:dataTable id="principalsTable" var="_principal" rows="20"
+							value="#{principalsListQuery.resultList}"
+							rendered="#{principalsListQuery.resultCount>0}">
+
+
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Όνομα Χρήστη" />
+								</f:facet>
+								<h:outputText value="#{_principal.username}"
+									styleClass="fieldValueText" />
+							</rich:column>
+
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Πραγματικό Όνομα" />
+								</f:facet>
+								<h:outputText value="#{_principal.realName}" />
+							</rich:column>
+
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Γραφείο" />
+								</f:facet>
+								<h:outputText value="#{_principal.office.title}" />
+							</rich:column>
+
+							<rich:column>
+								<f:facet name="header">
+									<h:outputText value="Ηλεκτρονικό Ταχυδρομείο" />
+								</f:facet>
+								<h:outputText value="#{_principal.email}" />
+							</rich:column>
+
+
+							<rich:column>
+
+								<rich:toolTip for="deletelink" value="Απενεργοποίηση Χρήστη" />
+								<rich:toolTip for="enablelink" value="Ενεργοποίηση Χρήστη" />
+
+								<rich:toolTip for="updatelink" value="Τροποποίηση Χρήστη" />
+
+
+								<rich:toolBar itemSeparator="line">
+									<a4j:commandLink id="disablelink" reRender="principalsTable"
+										rendered="#{_principal.active}"
+										action="#{principalHome.disablePrincipal()}"
+										value="Απενεργοποίηση">
+
+										<f:setPropertyActionListener value="#{_principal.id}"
+											target="#{principalHome.id}" />
+									</a4j:commandLink>
+
+									<a4j:commandLink id="enablelink" reRender="principalsTable"
+										rendered="#{!_principal.active}" action="#{principalHome.enablePrincipal()}"
+										
+										value="Ενεργοποίηση">
+
+										<f:setPropertyActionListener value="#{_principal.id}"
+											target="#{principalHome.id}" />
+									</a4j:commandLink>
+
+
+									<a4j:commandLink ajaxSingle="true" id="updatelink"
+										oncomplete="#{rich:component('updatePanel')}.show()"
+										value="Τροποποίηση">
+										<h:graphicImage value="/img/icons/edit.png" style="border:0" height="12" width="12" />
+										<f:setPropertyActionListener value="#{_principal.id}"
+											target="#{principalHome.id}" />
+									</a4j:commandLink>
+								</rich:toolBar>
+							</rich:column>
+
+							<f:facet name="footer">
+								<rich:datascroller for="principalsTable">
+									<f:facet name="first">
+										<h:outputText value="Πρώτη" />
+									</f:facet>
+									<f:facet name="last">
+										<h:outputText value="Τελευταία" />
+									</f:facet>
+								</rich:datascroller>
+
+							</f:facet>
+						</rich:dataTable>
+					</a4j:region>
+					<s:div styleClass="actionButtons">
+						<rich:panel>
+							<h:panelGrid columns="2">
+								<s:button id="revertButton" value="Τέλος Εργασίας"
+									view="/home.xhtml" propagation="end" />
+
+
+								<a4j:commandButton ajaxSingle="true" id="updatelink"
+									action="#{principalHome.clearInstance()}"
+									oncomplete="#{rich:component('createPanel')}.show()"
+									value="Δημιουργία Νέου Χρήστη">
+									<h:graphicImage value="/img/icons/update.png" style="border:0" />
+
+								</a4j:commandButton>
+							</h:panelGrid>
+						</rich:panel>
+					</s:div>
+
+				</h:panelGrid>
+
+			</rich:panel>
+		</h:form>
+
+		<rich:modalPanel id="createPanel" autosized="true" width="450">
+			<f:facet name="header">
+				<h:outputText value="Εισαγωγή Νέου Χρήστη" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/modal/close.png" id="hidelink3"
+						styleClass="hidelink" width="18" height="18" />
+					<rich:componentControl for="createPanel" attachTo="hidelink3"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<h:form>
+
+				<h:panelGrid columns="1">
+
+					<a4j:outputPanel id="createPanelAjaxPanel" ajaxRendered="true">
+						<h:outputText
+							value="Συμπληρώστε τα παρακάτω πεδία για να εισάγετε έναν καινούργιο χρήστη στον Μίνωα." />
+						<rich:panel>
+							<ui:include src="/admin/principal-component.xhtml">
+								<ui:param name="principal" value="#{principalHome.instance}" />
+							</ui:include>
+						</rich:panel>
+					</a4j:outputPanel>
+					<h:panelGroup>
+						<a4j:commandButton value="Καταχώρηση"
+							action="#{principalHome.persist()}" reRender="principalsTable"
+							data="#{facesContext.maximumSeverity.ordinal ge 2}"
+							oncomplete="if(data == false) Richfaces.hideModalPanel('createPanel');" />
+						<a4j:commandButton value="Ακύρωση" ajaxSingle="true"
+							action="#{principalHome.clearInstance}"
+							oncomplete="#{rich:component('createPanel')}.hide();" />
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:form>
+		</rich:modalPanel>
+		<rich:modalPanel id="deletePanel" autosized="true" width="400">
+			<f:facet name="header">
+				<h:outputText value="Απενεργοποίηση Χρήστη ?"
+					style="padding-right:15px;" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/modal/close.png" width="18" height="18"
+						styleClass="hidelink" id="hidelink2" />
+					<rich:componentControl for="deletePanel" attachTo="hidelink2"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<h:form>
+				<a4j:outputPanel id="deletePanelContent" layout="inline">
+					<h:panelGroup>
+						<h:outputText value="Να απενεργοποιηθεί ο χρήστης του Μίνωα " />
+						<h:outputText
+							value="#{principalHome.instance.username} (#{principalHome.instance.realName})"
+							styleClass="fieldValueText" />
+						<h:outputText
+							value=". Ο χρήστης δεν θα διαγραφεί απο την βάση και μπορεί να ενεργοποιηθεί ξανά αν το επιθυμείτε." />
+					</h:panelGroup>
+				</a4j:outputPanel>
+				<h:panelGrid columns="2">
+					<a4j:commandButton value="Απενεργοποίηση Χρήστη" ajaxSingle="true"
+						action="#{specializationGroupHome.remove()}"
+						oncomplete="#{rich:component('deletePanel')}.hide();"
+						reRender="specializationGroupTable" />
+					<a4j:commandButton value="Επιστροφή"
+						onclick="#{rich:component('deletePanel')}.hide();return false;" />
+				</h:panelGrid>
+			</h:form>
+
+		</rich:modalPanel>
+
+		<rich:modalPanel id="updatePanel" autosized="true" width="450">
+			<f:facet name="header">
+				<h:outputText value="Τροποποίηση Ομάδας Ειδικοτήτων" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/modal/close.png" id="hidelink"
+						width="18" height="18" styleClass="hidelink" />
+					<rich:componentControl for="updatePanel" attachTo="hidelink"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<h:form>
+				<h:panelGrid columns="1">
+
+					<a4j:outputPanel id="editAjaxPanel" ajaxRendered="true">
+						<h:outputText
+							value="Με την παρακάτω φόρμα μπορείτε να τροποποίησετε χρήστη του Μίνωα που επιλέξατε." />
+						<rich:panel>
+							<ui:include src="/admin/principal-component.xhtml">
+								<ui:param name="principal" value="#{principalHome.instance}" />
+							</ui:include>
+						</rich:panel>
+					</a4j:outputPanel>
+					<h:panelGroup>
+						<a4j:commandButton value="Αποθήκευση Αλλαγών"
+							action="#{principalHome.update()}"
+							data="#{facesContext.maximumSeverity.ordinal ge 2}"
+							oncomplete="if(data == false) #{rich:component('updatePanel')}.hide();return true;" />
+						<a4j:commandButton value="Ακύρωση Αλλαγών"
+							action="#{principalHome.revert()}"
+							oncomplete="#{rich:component('updatePanel')}.hide();return false;" />
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:form>
+		</rich:modalPanel>
+		<ui:include src="/components/wait-modal-panel.xhtml" />
+	</ui:define>
+</ui:composition>
+</html>

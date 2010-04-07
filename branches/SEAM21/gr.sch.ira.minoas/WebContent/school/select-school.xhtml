@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<ui:composition template="/layout/simple-beauty-template.xhtml">
+	<ui:define name="body">
+
+		<rich:panel headerClass="pagetitle" bodyClass="post">
+			<f:facet name="header">
+				<h:outputText value="Αναζήτηση Σχολικής Μονάδας" />
+			</f:facet>
+			<br />
+			<h:outputText
+				value="Πριν συνεχίσετε, πρέπει να επιλέξετε σχολική μονάδα από
+				τον παρακάτω πίνακα. Για την διευκόλυνσή σας, μπορείτε να
+				φιλτράρετε την λίστα με τα διαθέσιμα φίλτρα." />
+			<br />
+			<br />
+
+
+			<h:form id="schoolSearchForm">
+				<h:panelGrid columns="1" width="100%">
+					<h:panelGroup>
+						<h:panelGrid columns="3">
+							<s:decorate template="/layout/doubleLineEdit.xhtml">
+								<ui:define name="label">
+									<h:outputText value="Τίτλος Σχολικής Μονάδας : " />
+								</ui:define>
+								<h:inputText value="#{exampleSchool.title}" size="12" />
+							</s:decorate>
+
+							<s:decorate template="/layout/doubleLineEdit.xhtml">
+								<ui:define name="label">
+									<h:outputText value="Περιοχή : " />
+								</ui:define>
+								<h:selectOneMenu value="#{exampleSchool.regionCode}"
+									required="false">
+									<f:selectItem itemLabel="Όλες οι Περιοχές" itemValue="" />
+									<f:selectItem itemLabel="'Α ΗΡΑΚΛΕΙΟΥ" itemValue="Α' ΗΡΑΚΛΕΙΟΥ" />
+									<f:selectItem itemLabel="'Β ΗΡΑΚΛΕΙΟΥ" itemValue="Β' ΗΡΑΚΛΕΙΟΥ" />
+								</h:selectOneMenu>
+							</s:decorate>
+
+							<s:decorate template="/layout/doubleLineEdit.xhtml">
+								<ui:define name="label">
+									<h:outputText value="Μόρια : " />
+								</ui:define>
+								<h:inputText value="#{exampleSchool.points}" size="2"
+									maxlength="2" />
+							</s:decorate>
+						</h:panelGrid>
+					</h:panelGroup>
+
+					<s:div styleClass="actionButtons">
+						<h:commandButton id="searchButton" value="Αναζήτηση"
+							actionListener="#{schoolList.first}">
+							<s:defaultAction />
+						</h:commandButton>
+						<s:button disabled="#{empty preparatoryOwnersListFrom}"
+							action="backButton" value="Επιστροφή" />
+						<rich:spacer width="20" />
+						<s:button action="endButton" value="Τέλος Ενέργειας" />
+					</s:div>
+					<h:panelGroup>
+						<rich:spacer height="5" />
+						<rich:separator height="2" lineType="dashed" />
+						<rich:spacer height="5" />
+					</h:panelGroup>
+					<rich:dataTable id="schoolList" value="#{schoolList.resultList}"
+						var="_school" rows="15" border="0"
+						onRowMouseOver="this.style.backgroundColor='#F8F8F8'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						width="100%">
+						<f:facet name="header">
+							<h:outputLabel value="Λίστα Σχολικών Μονάδων" />
+						</f:facet>
+
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Κωδ. Υπουργείου" />
+							</f:facet>
+							<h:outputText value="#{_school.ministryCode}" />
+						</rich:column>
+
+						<rich:column>
+							<f:facet name="header">Τίτλος Μονάδας</f:facet>
+							<h:outputText value="#{_school.title}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">Είδος</f:facet>
+							<h:outputText value="#{messages[_school.type.key]}" />
+						</rich:column>
+						
+						<rich:column>
+							<f:facet name="header">Μόρια</f:facet>
+							<h:outputText value="#{_school.points}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">Περιοχή</f:facet>
+							<h:outputText value="#{_school.regionCode}' ΗΡΑΚΛΕΙΟΥ" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">Διεύθυνση</f:facet>
+							<h:outputText
+								value="#{_school.address.address} #{_school.address.number} - #{_school.address.postCode} - #{_school.address.city}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Ενέργεια" />
+							</f:facet>
+							<rich:toolBar itemSeparator="line">
+								<s:link rendered="#{to!=null}" value="Επιλογή"
+									view="#{to}.xhtml">
+									<f:param name="schoolID" value="#{_school.id}" />
+									<f:param name="from" value="/school/select-school" />
+								</s:link>
+							</rich:toolBar>
+						</rich:column>
+
+
+						<f:facet name="footer">
+							<rich:datascroller align="left" for="schoolList" maxPages="20"
+								renderIfSinglePage="false" id="sc1" />
+						</f:facet>
+
+					</rich:dataTable>
+
+
+				</h:panelGrid>
+			</h:form>
+
+		</rich:panel>
+
+
+
+
+	</ui:define>
+</ui:composition>
+</html>

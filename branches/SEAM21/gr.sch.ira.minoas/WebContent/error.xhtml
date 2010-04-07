@@ -1,0 +1,27 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition template="/layout/simple-beauty-template.xhtml">
+	<ui:param name="showGlobalMessages" value="false" />
+	<ui:define name="body">
+
+		<h1>Σφάλμα!</h1>
+		<h:outputText
+			value="Ο Μίνωας δεν μπόρεσε να διαικπερεώση την λειτουργία που ζητήσατε." />
+		<h:messages id="errorMessages" styleClass="message" />
+	</ui:define>
+
+
+
+
+
+
+</ui:composition>
+</html>

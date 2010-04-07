@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<ui:composition template="/layout/simple-beauty-template.xhtml">
+	<ui:define name="body">
+
+		<h:form id="form1">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText
+						value="Ώρες Διδασκαλίας Σχολικής Μονάδας #{school.title}" />
+				</f:facet>
+
+				<h:panelGrid columns="1" rowClasses="vertTop" width="100%">
+
+					<h:panelGroup>
+						<rich:panel>
+							<f:facet name="header">
+								<h:outputText value="Βασικά Στοιχεία" />
+							</f:facet>
+
+							<ui:include src="/school/basicInfo.xhtml">
+								<ui:param name="activeSchool" value="#{school}" />
+							</ui:include>
+						</rich:panel>
+					</h:panelGroup>
+
+
+					<h:panelGroup>
+
+						<rich:panel>
+							<f:facet name="header">
+								<h:outputText value="Ώρες Διδασκαλίας" />
+							</f:facet>
+
+							<h:panelGrid columns="1">
+								<h:outputText
+									value="Στον παρακάτω πίνακα εμφανίζονται οι απαιτήσεις σε διδακτικές ώρες στην σχολική μονάδα που επιλέξατε, κατά την τρέχουσα σχολική χρονία. " />
+								<a4j:outputPanel id="teachingHoursPanel">
+									<rich:dataTable id="resourcesTable" var="requirement" rows="13"
+										value="#{schoolTeachingRequirement.resultList}">
+										<rich:column>
+											<f:facet name="header">
+												<h:outputText value="Ομάδα Ειδικότητας" />
+											</f:facet>
+											<h:outputText value="#{requirement.specialization.title}" />
+										</rich:column>
+										<rich:column>
+											<f:facet name="header">
+												<h:outputText value="Ώρες" />
+											</f:facet>
+											<h:outputText value="#{requirement.hours}" />
+										</rich:column>
+										<rich:column>
+											<f:facet name="header">
+												<h:outputText value="Προαιρετικά Σχόλια" />
+											</f:facet>
+											<h:outputText value="#{requirement.comment}" />
+										</rich:column>
+										<rich:column>
+											<f:facet name="header">
+												<h:outputText value="Ενέργεια" />
+											</f:facet>
+											<rich:toolTip for="deletelink"
+												value="Διαγραφή Διδακτικών Ωρών" />
+											<rich:toolTip for="updatelink"
+												value="Τροποποίηση Διδακτικών Ωρών" />
+
+											<rich:toolBar itemSeparator="line">
+												<a4j:commandLink id="deletelink"
+													reRender="deletePanelContent"
+													oncomplete="#{rich:component('deletePanel')}.show()"
+													value="Διαγραφή">
+													<h:graphicImage value="/img/icons/delete.png" width="12"
+														height="12" style="border:0" />
+													<f:setPropertyActionListener value="#{requirement.id}"
+														target="#{teachingRequirementHome.id}" />
+												</a4j:commandLink>
+
+												<a4j:commandLink ajaxSingle="true" id="updatelink"
+													oncomplete="#{rich:component('updatePanel')}.show()"
+													value="Τροποποίηση" reRender="updateModalPanelContent">
+													<h:graphicImage value="/img/icons/edit.png"
+														style="border:0" width="12" height="12" />
+													<f:setPropertyActionListener value="#{requirement.id}"
+														target="#{teachingRequirementHome.id}" />
+												</a4j:commandLink>
+											</rich:toolBar>
+										</rich:column>
+										<f:facet name="footer">
+											<rich:datascroller for="resourcesTable">
+												<f:facet name="first">
+													<h:outputText value="Πρώτη" />
+												</f:facet>
+												<f:facet name="last">
+													<h:outputText value="Τελευταία" />
+												</f:facet>
+											</rich:datascroller>
+
+										</f:facet>
+									</rich:dataTable>
+								</a4j:outputPanel>
+								<s:div styleClass="actionButtons">
+
+									<s:button id="revertButton" value="Τέλος Διαχείρησης"
+										view="/home.xhtml" propagation="end" />
+									<rich:spacer width="20" />
+									<s:button value="Προσθήκη Διδακτικών Ωρών"
+										action="#{teachingRequirementHome.clearInstance()}"
+										view="/teachingResources/add-teaching-resource.xhtml">
+										<f:param name="add_teaching_resource_from"
+	 										value="/teachingResources/school-teaching-resources" />
+									</s:button>
+
+								</s:div>
+
+							</h:panelGrid>
+
+						</rich:panel>
+					</h:panelGroup>
+
+				</h:panelGrid>
+
+			</rich:panel>
+		</h:form>
+
+		<rich:modalPanel id="updatePanel" autosized="true" width="450">
+			<f:facet name="header">
+				<h:outputText value="Τροποποίηση Ομάδας Ειδικοτήτων" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/modal/close.png" id="hidelink"
+						styleClass="hidelink" />
+					<rich:componentControl for="updatePanel" attachTo="hidelink"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<a4j:region>
+				<h:form>
+
+					<rich:messages style="color:red;"></rich:messages>
+					<h:panelGrid columns="1">
+						<h:outputText
+							value="Με την παρακάτω φόρμα μπορείτε να τροποποιήσετε την απαίτηση σε διδακτικές ώρες." />
+
+						<a4j:outputPanel id="updateModalPanelContent" layout="inline">
+							<ui:include
+								src="/teachingResources/teaching-resource-component.xhtml">
+								<ui:param name="teachingRequirement"
+									value="#{teachingRequirementHome.definedInstace}" />
+							</ui:include>
+						</a4j:outputPanel>
+						<h:panelGroup>
+							<a4j:commandButton value="Αποθήκευση Αλλαγών"
+								reRender="teachingHoursPanel"
+								action="#{teachingRequirementHome.update()}"
+								oncomplete="#{rich:component('updatePanel')}.hide();return true;" />
+							<a4j:commandButton value="Ακύρωση Αλλαγών"
+								action="#{teachingRequirementHome.revert()}"
+								oncomplete="#{rich:component('updatePanel')}.hide();return false;" />
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:form>
+			</a4j:region>
+		</rich:modalPanel>
+		<rich:modalPanel id="deletePanel" autosized="true" width="350">
+			<f:facet name="header">
+				<h:outputText value="Να γίνει διαγραφή ?"
+					style="padding-right:15px;" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/modal/close.png" styleClass="hidelink"
+						id="hidelink2" />
+					<rich:componentControl for="deletePanel" attachTo="hidelink2"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<h:form>
+				<rich:spacer height="20" />
+				<a4j:outputPanel id="deletePanelContent" layout="inline">
+					<h:panelGroup>
+						<h:outputText value="Να διαγραφούν οι  " />
+						<h:outputText
+							value="#{teachingRequirementHome.definedInstace.hours}"
+							styleClass="fieldValueText" />
+						<h:outputText value=" ώρες διδασκαλίας της ειδικότητας " />
+						<h:outputText
+							value="#{teachingRequirementHome.definedInstace.specialization.title}"
+							styleClass="fieldValueText" />
+						<h:outputText
+							value=" απο την σχολική μονάδα για το τρέχων σχολικό έτος ;" />
+
+					</h:panelGroup>
+				</a4j:outputPanel>
+				<rich:spacer height="20" />
+
+				<h:panelGrid columns="2">
+					<a4j:commandButton value="Ναι, διαγραφή !" ajaxSingle="true"
+						action="#{teachingRequirementHome.remove()}"
+						oncomplete="#{rich:component('deletePanel')}.hide();"
+						reRender="teachingHoursPanel" />
+					<a4j:commandButton value="Οχι !"
+						onclick="#{rich:component('deletePanel')}.hide();return false;" />
+				</h:panelGrid>
+			</h:form>
+		</rich:modalPanel>
+		<ui:include src="/components/wait-modal-panel.xhtml" />
+
+
+
+	</ui:define>
+</ui:composition>
+</html>

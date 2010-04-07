@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<a4j:loadStyle src="/stylesheet/simple-beauty-stylesheet.css" />
+
+<ui:insert name="head" />
+
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+
+
+
+<s:div id="container">
+
+
+
+	<s:div id="header">
+		<h:graphicImage value="/img/minoas-header.png" />
+	</s:div>
+
+
+
+	<s:div id="main_content_top">
+		<ui:include src="/components/top-menu.xhtml" />
+	</s:div>
+
+
+
+	<s:div id="main_content">
+
+
+
+		<s:div styleClass="content">
+			<h:panelGrid columns="1" width="100%">
+				<ui:insert name="body" />
+			</h:panelGrid>
+		</s:div>
+
+
+		<s:div id="clear">
+
+		</s:div>
+
+
+
+
+
+	</s:div>
+
+
+	<s:div id="main_content_bottom">
+		<rich:toolBar itemSeparator="line">
+
+			<rich:toolBarGroup location="right">
+				<h:form id="conveform">
+					<h:outputText value="Τρέχουσες Διαδικασίες : " />
+					<h:selectOneMenu value="#{switcher.conversationIdOrOutcome}">
+						<f:selectItems value="#{switcher.selectItems}" />
+					</h:selectOneMenu>
+					<h:commandButton action="#{switcher.select}" value="Αλλαγή" />
+				</h:form>
+			</rich:toolBarGroup>
+		</rich:toolBar>
+
+	</s:div>
+
+
+
+	<s:div id="footer">
+
+		<h:outputText value="Copyright &copy; 2008-2009 - " />
+		<h:outputLink value="http://www.slavik.gr" target="new"
+			title="Ο Ισότοπος του Σλαβίκου">
+			<h:outputText value="Φίλιππος Σλάβικ" />
+		</h:outputLink>
+
+	</s:div>
+
+
+
+</s:div>
+
+
+
+</body>
+
+
+
+</html>
